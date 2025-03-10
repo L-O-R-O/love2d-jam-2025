@@ -2,27 +2,33 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "[DEBUG] Love",
       "type": "lua-local",
       "request": "launch",
-      "name": "Debug",
       "program": {
         "command": "love"
       },
       "args": [
-        "game/",
+        "game",
         "debug"
       ],
+      "scriptRoots": [
+        "game"
+      ]
     },
     {
+      "name": "[RELEASE] Love",
       "type": "lua-local",
       "request": "launch",
-      "name": "Release",
       "program": {
         "command": "love"
       },
       "args": [
-        "game/",
+        "game"
       ],
-    },
+      "scriptRoots": [
+        "game"
+      ]
+    }
   ]
 }
