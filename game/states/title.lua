@@ -1,8 +1,9 @@
 local title = {}
 -- Importa la libreria del menu
-local Menu = require("lib.menu")
+local Menu        = require("lib.menu")
 local MenuManager = require("lib.menuManager")
-local world = require("states.world");
+local world       = require("states.world")
+local constants    = require("constants")
 
 currentVolume = 1
 menuManager = MenuManager:new()
@@ -10,7 +11,7 @@ menuManager = MenuManager:new()
 -- LOVE2D callbacks
 function title.load()
 
-    local myFont_1 = love.graphics.newFont("assets/font/Hello_Sweet_Rain.ttf", 30) -- Carica il font
+    local myFont_1 = constants.main_menu_font -- Carica il font
 
     -- Creazione di un menu principale
     mainMenu = Menu:new(myFont_1)
@@ -24,7 +25,7 @@ function title.load()
     mainMenu:addItem("Exit", function() love.event.quit() end)
 
     -- Creazione del sottomenù settings
-    local myFont_2 = love.graphics.newFont("assets/font/Hello_Sweet_Rain.ttf", 20) -- Carica il font
+    local myFont_2 = constants.sub_menu_font -- Carica il font
     settingsMenu = Menu:new(myFont_2)
 
     settingsMenu:addItem("Resolution: " .. menuManager:getResolution(), function() end)
