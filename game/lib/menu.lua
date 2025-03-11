@@ -72,7 +72,7 @@ function Menu:draw()
             local barX, barY = x + 150, y + 5
             local barWidth = 100
             local barHeight = self.font:getHeight() - 10
-            local fillWidth = gameManager:getVolume() * barWidth
+            local fillWidth = menuManager:getVolume() * barWidth
 
             -- Disegna il contorno della barra
             love.graphics.setColor(0.1, 0.1, 0.1)
@@ -108,7 +108,7 @@ function Menu:keyPressed(key)
         self.selectedIndex = math.min(self.selectedIndex + 1, #self.items)
     elseif key == "up" then
         self.selectedIndex = math.max(self.selectedIndex - 1, 1)
-    elseif self.items[self.selectedIndex].isSlider then 
+    elseif self.items[self.selectedIndex].isSlider then
         if key == "left" then
             self.items[self.selectedIndex].action()
         elseif key == "right" then
@@ -117,7 +117,7 @@ function Menu:keyPressed(key)
     elseif key == "return" then
         self.items[self.selectedIndex].action()
     elseif key == "escape" then
-        self.close()      
+        self.close()
     end
 end
 
@@ -127,7 +127,7 @@ function Menu:gamepadpressed(joystick, button)
         self.selectedIndex = math.min(self.selectedIndex + 1, #self.items)
     elseif button == "dpup" then
         self.selectedIndex = math.max(self.selectedIndex - 1, 1)
-    elseif self.items[self.selectedIndex].isSlider then 
+    elseif self.items[self.selectedIndex].isSlider then
         if button == "dpleft" then
             self.items[self.selectedIndex].action()
         elseif button == "dpright" then
@@ -138,9 +138,9 @@ function Menu:gamepadpressed(joystick, button)
     elseif button == "b" then
         if self == nil then
             os.exit()
-        else 
-            self.close()      
-        end 
+        else
+            self.close()
+        end
     end
 end
 
