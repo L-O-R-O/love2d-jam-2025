@@ -1,5 +1,5 @@
 -- require("lldebugger").start()
-local StatesManager = require("lib.statesManager")
+local StatesManager = require("lib.StatesManager")
 local title  = require("states.title")
 local world  = require("states.world")
 

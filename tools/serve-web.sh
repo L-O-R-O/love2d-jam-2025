@@ -22,10 +22,10 @@ if ! file -b "$ZIP_FILE" | grep -qi "zip"; then
 fi
 
 # Check for index.html in root of zip
-if ! unzip -l "$ZIP_FILE" | grep -q "^.*[[:space:]]index\.html$"; then
-  echo "Error: No index.html found in root of zip file"
-  exit 1
-fi
+# if ! unzip -l "$ZIP_FILE" | grep -q "^.*[[:space:]]LORO_game\index\.html$"; then
+#   echo "Error: No index.html found in root of zip file"
+#   exit 1
+# fi
 
 # Create temp directory (works on both macOS and Linux)
 TEMP_DIR=$(mktemp -d 2>/dev/null || mktemp -d -t 'tmpdir')
@@ -35,7 +35,7 @@ echo "Extracting to temporary directory..."
 unzip -q "$ZIP_FILE" -d "$TEMP_DIR"
 
 echo "Starting server on http://localhost:1337"
-cd "$TEMP_DIR"
+cd "$TEMP_DIR/LORO_game"
 miniserve \
   --header "Cross-Origin-Opener-Policy: same-origin" \
   --header "Cross-Origin-Embedder-Policy: require-corp" \

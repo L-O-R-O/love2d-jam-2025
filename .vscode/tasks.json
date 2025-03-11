@@ -2,13 +2,24 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build LÖVE",
-      "type": "process",
-      "command": "tools/build-love.sh",
+      "label": "Serve LÖVE",
+      "type": "shell",
+      "command": "./tools/serve-web.sh builds/lovejs/LORO_game-lovejs.zip",
       "group": {
         "kind": "build",
         "isDefault": true
+      },
+      "options": {
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["-c"]
+        }
       }
     },
+    {
+			"type": "shell",
+			"label": "[SHELL] Build Game",
+			"command": "cd game; makelove --config ../tools/makelove.toml",
+		}
   ]
 }

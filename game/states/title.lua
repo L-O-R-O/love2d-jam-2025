@@ -1,7 +1,7 @@
 local title = {}
 -- Importa la libreria del menu
 local Menu        = require("lib.menu")
-local MenuManager = require("lib.menuManager")
+local MenuManager = require("lib.MenuManager")
 local world       = require("states.world")
 local constants    = require("constants")
 
