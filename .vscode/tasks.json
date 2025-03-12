@@ -2,8 +2,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Serve LÖVE",
+      "label": "Serve GAME HTML!",
       "type": "shell",
+      "dependsOn": "Build GAME artifacts!",
       "command": "./tools/serve-web.sh builds/lovejs/LORO_game-lovejs.zip",
       "group": {
         "kind": "build",
@@ -12,14 +13,17 @@
       "options": {
         "shell": {
           "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
-          "args": ["-c"]
+          "args": [
+            "-c"
+          ]
         }
-      }
+      },
+      "problemMatcher": []
     },
     {
-			"type": "shell",
-			"label": "[SHELL] Build Game",
-			"command": "cd game; makelove --config ../tools/makelove.toml",
-		}
+      "type": "shell",
+      "label": "Build GAME artifacts!",
+      "command": "cd game; makelove --config ../tools/makelove.toml"
+    }
   ]
 }

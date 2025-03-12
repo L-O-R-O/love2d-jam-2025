@@ -15,20 +15,6 @@
       "scriptRoots": [
         "game"
       ]
-    },
-    {
-      "name": "[RELEASE] Love",
-      "type": "lua-local",
-      "request": "launch",
-      "program": {
-        "command": "love"
-      },
-      "args": [
-        "game"
-      ],
-      "scriptRoots": [
-        "game"
-      ]
     }
   ]
 }
