@@ -1,4 +1,9 @@
--- require("lldebugger").start()
+-- https://github.com/usysrc/LICK
+-- DECOMMENTARE PER USARE LICK
+-- lick = require "lib.lick"
+-- lick.reset = true -- ricarica love.load di main.lua ogni volta che si salva un file del progetto
+-- lick.updateAllFiles = true -- include tutti i file del progetto
+
 local StatesManager = require("lib.StatesManager")
 local title  = require("states.title")
 local world  = require("states.world")
@@ -12,6 +17,10 @@ function love.load()
 end
 
 function love.update(dt)
+    -- https://github.com/rxi/lurkerhttps://github.com/rxi/lurker
+    -- Libreria per fare hotswap del file salvato
+    -- Verranno ricaricate solo le draw ed update, NON LE LOAD
+    require("lib.lurker").update()
     if statesManager:getState() == "title" then
         title.update(dt)
     elseif statesManager:getState() == "world" then
