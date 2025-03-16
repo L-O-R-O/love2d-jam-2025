@@ -8,6 +8,7 @@ local constants   = require("constants")
 menuManager = MenuManager:new()
 
 function title.load()
+    mouse.registerHandler(title, constants.SCENES_TITLE)
     currentMenu = title.buildMenuElements()
     currentMenu:open()
 end
@@ -51,7 +52,6 @@ function title.buildMenuElements()
     if (scenesManager.fromScene == "") then
     	mainMenu:addItem("Start Game", function()
                                         scenesManager:setScene(constants.SCENES_DESKTOP)
-                                        desktop.load()
                                     end, nil, false, 50)
 	else
 		mainMenu:addItem("Continue", function() scenesManager:setScene(scenesManager.fromScene) end, nil, false, 50)
@@ -96,5 +96,13 @@ function title.buildMenuElements()
 end
 
 
+
+function title.mousePressed(x, y, button)
+  print('TITLE mousepressed')
+end
+
+function title.mouseHovered(x, y)
+ --  print('TITLE mousehovered')
+end
 
 return title

@@ -5,6 +5,7 @@
 -- lick.updateAllFiles = true -- include tutti i file del progetto
 
 local ScenesManager = require("lib.scenesManager")
+local Mouse = require("lib.mouse")
 local constants		  = require("constants")
 
 local title    		  = require("scenes.title")
@@ -13,10 +14,17 @@ local calendar 		  = require("scenes.calendar")
 local computer 		  = require("scenes.computer")
 local agenda   		  = require("scenes.agenda")
 
+mouse = Mouse
 scenesManager = ScenesManager:new()
 
 function love.load()
+    -- Carico tutte le scene (setup iniziale)
+    desktop.load()
+    calendar.load()
+    computer.load()
+    agenda.load()
     title.load()
+    mouse.loadCursor("assets/images/cursor.png", 64,64);
     love.graphics.setBlendMode("alpha")  -- Ensure transparency works
 end
 
@@ -25,6 +33,7 @@ function love.update(dt)
     -- Libreria per fare hotswap del file salvato
     -- Verranno ricaricate solo le draw ed update, NON LE LOAD
     require("lib.lurker").update()
+    onMouseHover()
     if scenesManager:getScene() == constants.SCENES_TITLE then
       title.update(dt)
     elseif scenesManager:getScene() == constants.SCENES_DESKTOP then
@@ -64,5 +73,14 @@ function love.keypressed(key)
     elseif scenesManager:getScene() == constants.SCENES_AGENDA then
         agenda.keypressed(key)
     end
+end
+
+function onMouseHover()
+  local x, y = love.mouse.getPosition()
+  mouse.mouseHovered(x, y)
+end
+
+function love.mousepressed(x, y, button, istouch, presses)
+  mouse.mousePressed(x, y)
 end
 

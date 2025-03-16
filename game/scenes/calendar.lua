@@ -1,16 +1,16 @@
 local constants = require("constants")
 
-desktop = {}
+calendar = {}
 
-function desktop.load()
+function calendar.load()
+  mouse.registerHandler(calendar, constants.SCENES_CALENDAR)
+end
+
+function calendar.update(dt)
 
 end
 
-function desktop.update(dt)
-
-end
-
-function desktop.draw()
+function calendar.draw()
   local stateName = "Calendario"
   local rectColor = {r = 0, g = 0, b = 1, a = 1}  -- Rosso
   local textColor = {r = 1, g = 1, b = 1, a = 1}  -- Bianco
@@ -19,7 +19,7 @@ function desktop.draw()
   drawDebugFrame(stateName, rectColor, textColor, padding)
 end
 
-function desktop.keypressed(key)
+function calendar.keypressed(key)
   if (key == constants.KEYS_ESCAPE_MENU) then
     scenesManager:setScene(constants.SCENES_DESKTOP)
   elseif (key == constants.KEYS_PAUSE_MENU) then
@@ -49,4 +49,12 @@ function drawDebugFrame(variable, colorRect, colorText, padding)
   love.graphics.setColor(1, 1, 1, 1)
 end
 
-return desktop
+function calendar.mousePressed(x, y, button)
+  print('CALENDAR mousepressed')
+end
+
+function calendar.mouseHovered(x, y)
+  -- print('CALENDAR mousehovered')
+end
+
+return calendar

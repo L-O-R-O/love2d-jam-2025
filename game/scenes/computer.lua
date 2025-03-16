@@ -1,16 +1,16 @@
 local constants = require("constants")
 
-desktop = {}
+computer = {}
 
-function desktop.load()
+function computer.load()
+  mouse.registerHandler(computer, constants.SCENES_COMPUTER)
+end
+
+function computer.update(dt)
 
 end
 
-function desktop.update(dt)
-
-end
-
-function desktop.draw()
+function computer.draw()
   local stateName = "Computer"
   local rectColor = {r = 1, g = 0, b = 0, a = 1}  -- Rosso
   local textColor = {r = 1, g = 1, b = 1, a = 1}  -- Bianco
@@ -19,7 +19,7 @@ function desktop.draw()
   drawDebugFrame(stateName, rectColor, textColor, padding)
 end
 
-function desktop.keypressed(key)
+function computer.keypressed(key)
   if (key == constants.KEYS_ESCAPE_MENU) then
     scenesManager:setScene(constants.SCENES_DESKTOP)
   elseif (key == constants.KEYS_PAUSE_MENU) then
@@ -49,4 +49,12 @@ function drawDebugFrame(variable, colorRect, colorText, padding)
   love.graphics.setColor(1, 1, 1, 1)
 end
 
-return desktop
+function computer.mousePressed(x, y, button)
+  print('COMPUTER mousepressed')
+end
+
+function computer.mouseHovered(x, y)
+  -- print('COMPUTER mousehovered')
+end
+
+return computer
