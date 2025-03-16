@@ -7,15 +7,15 @@ activitySchedule = {
     PartyHard =     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1}, -- Solo il 27° giorno
     swimming =      {1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, -- Solo il 4° giorno
     chess =         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1}, -- Solo il 21° giorno
-    
+
 -- Attività che si ripetono regolarmente
-    cooking =       {1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1}, 
-    rock_climbing = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1}, 
-    gaming_night =  {1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1}, 
-    gym =           {1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0}, 
-    jogging =       {0,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1}, 
-    go_kart =       {0,0,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1}    
-}                   
+    cooking =       {1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1},
+    rock_climbing = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1},
+    gaming_night =  {1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1},
+    gym =           {1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0},
+    jogging =       {0,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1},
+    go_kart =       {0,0,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1}
+}
 
 -- Tabella indicizzata per accedere con numeri
 activityIndex = {
@@ -24,13 +24,9 @@ activityIndex = {
     "go_kart"
 }
 
-local ActivityOnCalendar = {}       --Istanzio per poter definire funzioni locali  
-local calendar = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1} -- 1= giorni liberi 0 = giorni occupati
-local tmpActivity = {}              --variabile di appoggio per estrarre i giorni  occupati da un attività in  testo
-local addedActivities = {}          --tutte le attività aggiunte al calendario fino ad oggi
-local daysInMonth = {               --numero di giorni per ogni mese
+daysInMonth = {               --numero di giorni per ogni mese
     [1] = 31,  -- January
-    [2] = 28,  -- February 
+    [2] = 28,  -- February
     [3] = 31,  -- March
     [4] = 30,  -- April
     [5] = 31,  -- May
@@ -42,6 +38,12 @@ local daysInMonth = {               --numero di giorni per ogni mese
     [11] = 30, -- November
     [12] = 31  -- December
 }
+
+local ActivityOnCalendar = {}       --Istanzio per poter definire funzioni locali
+local calendar = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1} -- 1= giorni liberi 0 = giorni occupati
+local tmpActivity = {}              --variabile di appoggio per estrarre i giorni  occupati da un attività in  testo
+local addedActivities = {}          --tutte le attività aggiunte al calendario fino ad oggi
+
 -- Optional: Also keep month names as keys
 local monthNames = {
     "January", "February", "March", "April", "May", "June",
@@ -58,7 +60,7 @@ local monthWeekDays = {
 
 local function updateDayWeekOffset(month)   -- imposta un offset in base al mese per identificare che giorno  è il primo del mese
     local totalDays = 0
-    
+
     -- Calcola i giorni trascorsi fino al mese precedente
     for i = 1, month - 1 do
         totalDays = totalDays + daysInMonth[i]
@@ -75,18 +77,18 @@ local function updateDayWeekOffset(month)   -- imposta un offset in base al mese
         if e==  7 then
             e = 1
         else
-            e = e +1 
+            e = e +1
         end
     end
     monthWeekDays = updatedWeekDays
 end
 
 local function alignCalendar()      -- aggiorna il calendario con tutte le attività caricate fino ad oggi --
-    for i = 1, #addedActivities do 
+    for i = 1, #addedActivities do
         ActivityOnCalendar.addActivity(activitySchedule[addedActivities[i]])
     end
     return true
-end 
+end
 
 local function minFreeDays(calendar, nFreeDays)     -- controlla se il calendario passato ha almeno nFreeDays --
     local FreeCalendarDays = 0
@@ -96,12 +98,12 @@ local function minFreeDays(calendar, nFreeDays)     -- controlla se il calendari
     end
     if FreeCalendarDays >= nFreeDays then
         return true
-    else 
+    else
         return false
     end
-end 
+end
 
-local function checkRecurrentDaysOccupied(activity, month, targetDay) -- controlla se un giorno della settimana è sempre occupato da un attività 
+local function checkRecurrentDaysOccupied(activity, month, targetDay) -- controlla se un giorno della settimana è sempre occupato da un attività
 
     local r= ''
     local daysSelected = {}
@@ -113,15 +115,15 @@ local function checkRecurrentDaysOccupied(activity, month, targetDay) -- control
 
     -- Assumption: day 1 of the month is Monday (can be customized)
     local allOccupied = true
-    local weekDay 
+    local weekDay
 
-    for day = 1, totalDays do 
+    for day = 1, totalDays do
         weekDay = ((day - 1) % 7) + 1
-        if weekDay == targetDay then 
+        if weekDay == targetDay then
             if activity[day] == 1 then
                 allOccupied = false
-            else 
-                table.insert(daysSelected, day)             
+            else
+                table.insert(daysSelected, day)
             end
         end
     end
@@ -132,7 +134,7 @@ local function checkRecurrentDaysOccupied(activity, month, targetDay) -- control
             tmpActivity[daysSelected[e]] = 1
         end
         return true
-    else 
+    else
         tmpActivity = activity
         return false
     end
@@ -143,31 +145,31 @@ function ActivityOnCalendar.initCalendar(month)     -- inizializza il calendario
     local tmpCalendar = {}              -- temporaneo del calendario
 
     for i = 1, daysInMonth[month] do
-        tmpCalendar[i] = 1   
+        tmpCalendar[i] = 1
     end
-    
+
     calendar=tmpCalendar
 
     alignCalendar()
-end 
+end
 
-function ActivityOnCalendar.isFreeDay(month, day)          -- Ritorna True se il giorno è libero 
+function ActivityOnCalendar.isFreeDay(month, day)          -- Ritorna True se il giorno è libero
     if daysInMonth[month] < day then
         return false
     else
         if calendar[day]== 1 then
             return true
-        else 
+        else
             return false
         end
     end
-end 
+end
 
 function ActivityOnCalendar.printCalendar() -- Stampa l'attuale calendario --
     io.write("Calendario:  ")
     for giorno = 1, #calendar do
         io.write(calendar[giorno] .. " ")
-    end   
+    end
     print('')
 end
 
@@ -175,7 +177,7 @@ function ActivityOnCalendar.printActivity(activity) -- Stampa i giorni che un at
     io.write("Attivity:  ")
     for day = 1, #activity do
         io.write(activity[day] .. " ")
-    end   
+    end
     print('')
 end
 
@@ -197,12 +199,12 @@ function ActivityOnCalendar.addNewActivity(activity, activityIndex, nFreeDays)  
             added = true
             --print('aggiunto: ' .. activityIndex[index])
             table.insert(addedActivities, activityIndex[index])
-        else 
+        else
             if index==#activityIndex then
                 index = 0
             end
             index = index + 1
-        end 
+        end
     until added
 end
 
@@ -217,8 +219,8 @@ function ActivityOnCalendar.addActivity(activity, nFreeDays) -- aggiunge una spe
     if minFreeDays(tmpCalendar, nFreeDays) then
         calendar = tmpCalendar
         --print("aggiunta attività al calendario")
-    end 
-end 
+    end
+end
 
 function ActivityOnCalendar.checkAllDaysOccupied(activity, month)   -- Ritorna una stringa con i giorni occupati --
     local r, s, z
@@ -229,30 +231,30 @@ function ActivityOnCalendar.checkAllDaysOccupied(activity, month)   -- Ritorna u
     for i = 1,7 do
         r = checkRecurrentDaysOccupied(activity, month, i)
         --print(r)
-        if r then 
+        if r then
             --print(monthWeekDays[i])
             if s == nil then
                 s = 'Every ' .. monthWeekDays[i]
-            else 
+            else
                 s = s .. ' and ' .. monthWeekDays[i]
             end
         end
     end
-    
-    r = false 
 
-    if s == nil then 
+    r = false
+
+    if s == nil then
 
     else
         for i= 1, #activity do
             --print(tmpActivity[i])
         end
-    end 
+    end
 
-    if  s == nil then 
+    if  s == nil then
         for d = daysInMonth[month], 1, -1 do
             if tmpActivity[d] == 0 then
-                if  z == nil then 
+                if  z == nil then
                     z = d .. ' of the month is taken'
                 else
                     z = d .. ', ' .. z
@@ -262,26 +264,26 @@ function ActivityOnCalendar.checkAllDaysOccupied(activity, month)   -- Ritorna u
     else
         for d = 1, daysInMonth[month] do
             if tmpActivity[d] == 0 then
-                if  z == nil then 
+                if  z == nil then
                     z = 'plus ' .. d
                 else
                     z = d .. ', ' .. z
                 end
             end
         end
-    end  
+    end
 
-    if s ==nil then 
+    if s ==nil then
         if z == nil then
         else
-            s = z    
+            s = z
         end
-    else 
+    else
         if z == nil then
         else
-            s = s .. ' ' .. z  
-        end 
-    end 
+            s = s .. ' ' .. z
+        end
+    end
 
 
     return s
