@@ -66,6 +66,12 @@ function desktop.draw()
     -- Draw the image with scaling
     love.graphics.draw(img, 0, 0, 0, scaleX, scaleY)
 
+    -- Draw the overlay image on top of the base image
+    if isHovered then
+      local overlayImg = constants.IMAGES_DESKTOP_BG_HOVERED
+      love.graphics.draw(overlayImg, 0, 0, 0, scaleX, scaleY)
+    end
+
     -- ✅ Set color for the rectangle (red)
     love.graphics.setColor(1, 0, 0, 1)
     -- love.graphics.rectangle("line", agendaArea.x, agendaArea.y, agendaArea.width, agendaArea.height)
@@ -105,10 +111,13 @@ function desktop.mouseHovered(x, y)
   if (isClicked) then
     return
   end
+  love.graphics.clear()
   local clickableAreaName = screenManager:checkIfIsClickable(x, y)
   if (clickableAreaName) then
+    isHovered = true
     mouse.loadCursor(constants.HAND_CURSOR)
   else
+    isHovered = false
     mouse.loadCursor(constants.DEFAULT_CURSOR)
   end
 end

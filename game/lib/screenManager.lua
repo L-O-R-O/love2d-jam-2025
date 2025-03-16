@@ -18,7 +18,7 @@ function ScreenManager:setResolution(w,h)
 	self.screenWidth = w
 	self.screenHeight = h
   self.resizeAllAreas = true
-	love.window.setMode(w, h, {resizable = true})
+	love.window.setMode(w, h, {resizable = false})
 end
 
 function ScreenManager:setClickableArea(scene,area)
