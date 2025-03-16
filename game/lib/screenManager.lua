@@ -7,6 +7,7 @@ function ScreenManager:new()
      local properties = {
         screenWidth = love.graphics.getWidth(),
         screenHeight = love.graphics.getHeight(),
+        resizeAllAreas = false,
         areas = {}
     }
     setmetatable(properties, ScreenManager)
@@ -16,12 +17,8 @@ end
 function ScreenManager:setResolution(w,h)
 	self.screenWidth = w
 	self.screenHeight = h
+  self.resizeAllAreas = true
 	love.window.setMode(w, h, {resizable = true})
-end
-
-function ScreenManager:getClickableAreaSizes(area)
-
-    return area
 end
 
 function ScreenManager:setClickableArea(scene,area)
@@ -36,6 +33,7 @@ function ScreenManager:setClickableArea(scene,area)
     end
 
     table.insert(self.areas[scene], area)
+
     return area
 end
 
