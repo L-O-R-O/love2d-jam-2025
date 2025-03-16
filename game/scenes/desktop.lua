@@ -34,10 +34,8 @@ function desktop.draw()
 end
 
 function desktop.keypressed(key)
-  if (key == "escape") then
-    scenesManager.fromScene = constants.SCENES_DESKTOP
-    scenesManager.rebuildMenu = true
-    scenesManager:setScene("title")
+  if (key == constants.KEYS_ESCAPE_MENU) then
+    scenesManager:setScene(constants.SCENES_TITLE)
   elseif (key =='c') then
     scenesManager:setScene(constants.SCENES_CALENDAR)
   elseif (key =='f') then

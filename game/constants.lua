@@ -12,6 +12,10 @@ constants.SCENES_DESKTOP  = "desktop"
 constants.SCENES_CALENDAR = "calendar"
 constants.SCENES_COMPUTER = "computer"
 constants.SCENES_AGENDA   = "agenda"
+constants.SCENES_TITLE    = "title"
 
+-- keys
+constants.KEYS_PAUSE_MENU  = "p"
+constants.KEYS_ESCAPE_MENU = "escape"
 
 return constants

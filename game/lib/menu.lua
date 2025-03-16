@@ -1,3 +1,5 @@
+local constants = require("constants")
+
 Menu = {}
 Menu.__index = Menu
 
@@ -116,7 +118,7 @@ function Menu:keyPressed(key)
         end
     elseif key == "return" then
         self.items[self.selectedIndex].action()
-    elseif key == "escape" then
+    elseif key == constants.KEYS_ESCAPE_MENU then
         self.close()
     end
 end

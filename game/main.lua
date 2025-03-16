@@ -25,7 +25,7 @@ function love.update(dt)
     -- Libreria per fare hotswap del file salvato
     -- Verranno ricaricate solo le draw ed update, NON LE LOAD
     require("lib.lurker").update()
-    if scenesManager:getScene() == "title" then
+    if scenesManager:getScene() == constants.SCENES_TITLE then
       title.update(dt)
     elseif scenesManager:getScene() == constants.SCENES_DESKTOP then
       desktop.update(dt)
@@ -39,7 +39,7 @@ function love.update(dt)
 end
 
 function love.draw()
-    if scenesManager:getScene() == "title" then
+    if scenesManager:getScene() == constants.SCENES_TITLE then
 		title.draw()
 	elseif scenesManager:getScene() == constants.SCENES_DESKTOP then
 		desktop.draw()
@@ -53,7 +53,7 @@ function love.draw()
 end
 
 function love.keypressed(key)
-    if scenesManager:getScene() == "title" then
+    if scenesManager:getScene() == constants.SCENES_TITLE then
         title.keypressed(key)
     elseif scenesManager:getScene() == constants.SCENES_DESKTOP then
         desktop.keypressed(key)
