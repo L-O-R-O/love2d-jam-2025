@@ -1,6 +1,8 @@
 local constants = require("constants")
 desktop = {}
 
+local isClicked = false
+
 function desktop.load()
   mouse.registerHandler(desktop, constants.SCENES_DESKTOP)
 
@@ -45,8 +47,6 @@ end
 function desktop.update(dt)
     -- TODO: Solo se screeManager te lo comanda
     -- computerArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, computerArea)
-
-
 end
 
 function desktop.draw()
@@ -62,9 +62,10 @@ function desktop.draw()
     love.graphics.draw(img, 0, 0, 0, scaleX, scaleY)
 
     -- ✅ Set color for the rectangle (red)
-    --love.graphics.setColor(1, 0, 0, 1)
-    --love.graphics.rectangle("line", agendaArea.x, agendaArea.y, agendaArea.width, agendaArea.height)
-
+    love.graphics.setColor(1, 0, 0, 1)
+    -- love.graphics.rectangle("line", agendaArea.x, agendaArea.y, agendaArea.width, agendaArea.height)
+    -- love.graphics.rectangle("line", computerArea.x, computerArea.y, computerArea.width, computerArea.height)
+    -- love.graphics.rectangle("line", calendarArea.x, calendarArea.y, calendarArea.width, calendarArea.height)
     -- ✅ Reset color back to white (prevents affecting other drawings)
     love.graphics.setColor(1, 1, 1, 1)
 end
@@ -85,12 +86,26 @@ function desktop.mousePressed(x, y, button)
   print('DESKTOP clicked x:'.. x .. ' and y:'..y)
   local clickableAreaName = screenManager:checkIfIsClickable(x, y)
   if (clickableAreaName) then
-    scenesManager:setScene(clickableAreaName)
+    mouse.loadCursor(constants.HAND_CLICKED_CURSOR)
+    isClicked = true
+    timer.setTimeout(function()
+      isClicked = false
+      mouse.loadCursor(constants.DEFAULT_CURSOR)
+      scenesManager:setScene(clickableAreaName)
+    end, 0.5)
   end
 end
 
 function desktop.mouseHovered(x, y)
-  -- print('DESKTOP mousehovered')
+  if (isClicked) then
+    return
+  end
+  local clickableAreaName = screenManager:checkIfIsClickable(x, y)
+  if (clickableAreaName) then
+    mouse.loadCursor(constants.HAND_CURSOR)
+  else
+    mouse.loadCursor(constants.DEFAULT_CURSOR)
+  end
 end
 
 return desktop

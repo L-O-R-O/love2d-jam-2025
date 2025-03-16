@@ -1,9 +1,16 @@
 -- Libreria per gestire eventi del mouse
 local Mouse = {}
 Mouse.handlers = {}
-Mouse.debounceTime = 0.2 -- 200 milliseconds debounce time
+Mouse.debounceTime = 0.01 -- 200 milliseconds debounce time
 Mouse.lastMousePressed = 0
 Mouse.lastMouseHovered = 0
+-- Cursori
+Mouse.defaultCursorImage = nil
+Mouse.cursorHandImage = nil
+Mouse.cursorHandClickedImage = nil
+Mouse.defaultCursorKey = "default"
+Mouse.cursorHandKey = "hand"
+Mouse.cursorHandClickedKey = "handClicked"
 
 --- Funzione di debounce
 -- @param func (function) La funzione da debouncizzare
@@ -18,6 +25,12 @@ local function debounciPuzza(func, delay)
       func(...)
     end
   end
+end
+
+function Mouse.setDefaultCursorsKeys(keys)
+  Mouse.defaultCursorKey = keys.default or Mouse.defaultCursorKey
+  Mouse.cursorHandKey = keys.hand or Mouse.cursorHandKey
+  Mouse.cursorHandClickedKey = keys.handClicked or Mouse.cursorHandClickedKey
 end
 
 --- Registra un gestore di eventi del mouse per uno stato specifico
@@ -50,19 +63,19 @@ Mouse.mouseHovered = debounciPuzza(function(x, y)
   end
 end, Mouse.debounceTime)
 
---- Carica e imposta un cursore personalizzato con ridimensionamento
--- @param imagePath (string) Il percorso dell'immagine del cursore
--- @param width (number) La larghezza desiderata del cursore
--- @param height (number) L'altezza desiderata del cursore
-function Mouse.loadCursor(imagePath, width, height)
-  local image = love.graphics.newImage(imagePath)
-  local canvas = love.graphics.newCanvas(width, height)
-  love.graphics.setCanvas(canvas)
-  love.graphics.clear()
-  love.graphics.draw(image, 0, 0, 0, width / image:getWidth(), height / image:getHeight())
-  love.graphics.setCanvas()
-  local resizedImageData = canvas:newImageData()
-  Mouse.cursor = love.mouse.newCursor(resizedImageData, 0, 0)
+--- Carica e imposta un cursore personalizzato
+function Mouse.loadCursor(cursor)
+  cursor = cursor or mouse.defaultCursorImage
+  if (cursor == nil) then
+    return
+  end
+  if (cursor == Mouse.defaultCursorKey) then
+    Mouse.cursor = love.mouse.newCursor(Mouse.defaultCursorImage, 0, 0)
+  elseif (cursor == Mouse.cursorHandKey) then
+    Mouse.cursor = love.mouse.newCursor(Mouse.cursorHandImage, 0, 0)
+  elseif (cursor == Mouse.cursorHandClickedKey) then
+    Mouse.cursor = love.mouse.newCursor(Mouse.cursorHandClickedImage, 0, 0)
+  end
   love.mouse.setCursor(Mouse.cursor)
 end
 

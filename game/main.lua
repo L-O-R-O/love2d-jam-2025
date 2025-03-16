@@ -8,6 +8,7 @@ local ScenesManager = require("lib.scenesManager")
 local ScreenManager = require("lib.screenManager")
 local Mouse = require("lib.mouse")
 local constants		  = require("constants")
+local Timer = require("lib.time")
 
 local title    		  = require("scenes.title")
 local desktop    	  = require("scenes.desktop")
@@ -16,8 +17,19 @@ local computer 		  = require("scenes.computer")
 local agenda   		  = require("scenes.agenda")
 
 mouse = Mouse
+timer = Timer
 scenesManager = ScenesManager:new()
 screenManager = ScreenManager:new()
+
+function loadMousePng(image)
+  local canvas = love.graphics.newCanvas(constants.MOUSE_SIZE, constants.MOUSE_SIZE)
+  love.graphics.setCanvas(canvas)
+  love.graphics.clear()
+  love.graphics.draw(image, 0, 0, 0, constants.MOUSE_SIZE / image:getWidth(), constants.MOUSE_SIZE / image:getHeight())
+  love.graphics.setCanvas()
+  local resizedImageData = canvas:newImageData()
+  return resizedImageData
+end
 
 function love.load()
     -- Carico tutte le scene (setup iniziale)
@@ -26,7 +38,22 @@ function love.load()
     computer.load()
     agenda.load()
     title.load()
-    mouse.loadCursor("assets/images/cursor.png", 64,64);
+    -- Carico le chiavi per i cursori
+    mouse.setDefaultCursorsKeys({
+        default = constants.DEFAULT_CURSOR,
+        hand = constants.HAND_CURSOR,
+        handClicked = constants.HAND_CLICKED_CURSOR
+    })
+    -- Carico il cursore normale
+    mouse.defaultCursorImage = loadMousePng(constants.IMAGES_CURSOR)
+    -- Carico il cursore mano
+    mouse.cursorHandImage = loadMousePng(constants.IMAGES_CURSOR_HAND)
+    -- Carico il cursore mano cliccata
+    mouse.cursorHandClickedImage = loadMousePng(constants.IMAGES_CURSOR_HAND_CLICKED)
+    mouse.loadCursor(constants.DEFAULT_CURSOR);
+
+    -- Carico l'audio del click del mouse
+    sound = constants.SOUNDS_MOUSE_CLICK
     love.graphics.setBlendMode("alpha")  -- Ensure transparency works
 end
 
@@ -35,6 +62,7 @@ function love.update(dt)
     -- Libreria per fare hotswap del file salvato
     -- Verranno ricaricate solo le draw ed update, NON LE LOAD
     require("lib.lurker").update()
+    timer.update()
     onMouseHover()
     if scenesManager:getScene() == constants.SCENES_TITLE then
       title.update(dt)
@@ -83,6 +111,7 @@ function onMouseHover()
 end
 
 function love.mousepressed(x, y, button, istouch, presses)
+  sound:play()
   mouse.mousePressed(x, y)
 end
 
