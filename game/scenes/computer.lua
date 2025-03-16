@@ -54,7 +54,7 @@ function computer.mousePressed(x, y, button)
 end
 
 function computer.mouseHovered(x, y)
-  print('COMPUTER mousehovered')
+  -- print('COMPUTER mousehovered')
 end
 
 return computer

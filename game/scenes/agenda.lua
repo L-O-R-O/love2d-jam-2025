@@ -54,7 +54,7 @@ function agenda.mousePressed(x, y, button)
 end
 
 function agenda.mouseHovered(x, y)
-  print('AGENDA mousehovered')
+  -- print('AGENDA mousehovered')
 end
 
 return agenda

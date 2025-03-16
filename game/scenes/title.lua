@@ -114,7 +114,7 @@ function title.mousePressed(x, y, button)
 end
 
 function title.mouseHovered(x, y)
-  print('TITLE mousehovered')
+ --  print('TITLE mousehovered')
 end
 
 return title

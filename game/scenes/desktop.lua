@@ -71,7 +71,7 @@ function desktop.mousePressed(x, y, button)
 end
 
 function desktop.mouseHovered(x, y)
-  print('DESKTOP mousehovered')
+  -- print('DESKTOP mousehovered')
 end
 
 return desktop

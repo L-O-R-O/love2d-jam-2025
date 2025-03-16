@@ -54,7 +54,7 @@ function calendar.mousePressed(x, y, button)
 end
 
 function calendar.mouseHovered(x, y)
-  print('CALENDAR mousehovered')
+  -- print('CALENDAR mousehovered')
 end
 
 return calendar
