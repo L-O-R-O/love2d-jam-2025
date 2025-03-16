@@ -1,9 +1,8 @@
 local constants = require("constants")
-
 desktop = {}
 
 function desktop.load()
-
+  mouse.registerHandler(desktop, constants.SCENES_DESKTOP)
 end
 
 function desktop.update(dt)
@@ -65,6 +64,14 @@ function drawDebugFrame(variable, colorRect, colorText, padding)
 
   -- Reset del colore per evitare effetti indesiderati
   love.graphics.setColor(1, 1, 1, 1)
+end
+
+function desktop.mousePressed(x, y, button)
+  print('DESKTOP mousepressed')
+end
+
+function desktop.mouseHovered(x, y)
+  print('DESKTOP mousehovered')
 end
 
 return desktop

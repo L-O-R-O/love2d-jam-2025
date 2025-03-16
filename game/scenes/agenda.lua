@@ -3,7 +3,7 @@ local constants = require("constants")
 agenda = {}
 
 function agenda.load()
-
+  mouse.registerHandler(agenda, constants.SCENES_AGENDA)
 end
 
 function agenda.update(dt)
@@ -47,6 +47,14 @@ function drawDebugFrame(variable, colorRect, colorText, padding)
 
   -- Reset del colore per evitare effetti indesiderati
   love.graphics.setColor(1, 1, 1, 1)
+end
+
+function agenda.mousePressed(x, y, button)
+  print('AGENDA mousepressed')
+end
+
+function agenda.mouseHovered(x, y)
+  print('AGENDA mousehovered')
 end
 
 return agenda

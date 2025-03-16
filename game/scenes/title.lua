@@ -10,6 +10,7 @@ menuManager = MenuManager:new()
 
 -- LOVE2D callbacks
 function title.load()
+    mouse.registerHandler(title, constants.SCENES_TITLE)
     currentMenu = title.buildMenuElements()
     currentMenu:open()
 end
@@ -60,7 +61,6 @@ function title.buildMenuElements()
     if (scenesManager.fromScene == "") then
     	mainMenu:addItem("Start Game", function()
                                         scenesManager:setScene(constants.SCENES_DESKTOP)
-                                        desktop.load()
                                     end, nil, false, 50)
 	else
 		mainMenu:addItem("Continue", function() scenesManager:setScene(scenesManager.fromScene) end, nil, false, 50)
@@ -107,6 +107,14 @@ end
 -- Volume nel menu settings
 function updateVolumeText()
     settingsMenu.items[5].name = "Volume: " .. math.floor(menuManager:getVolume() * 100) .. "%"
+end
+
+function title.mousePressed(x, y, button)
+  print('TITLE mousepressed')
+end
+
+function title.mouseHovered(x, y)
+  print('TITLE mousehovered')
 end
 
 return title
