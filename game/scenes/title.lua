@@ -1,22 +1,20 @@
 local title = {}
--- Importa la libreria del menu
+
 local Menu        = require("lib.menu")
 local MenuManager = require("lib.menuManager")
 local desktop     = require("scenes.desktop")
 local constants   = require("constants")
 
-currentVolume = 1
 menuManager = MenuManager:new()
 
--- LOVE2D callbacks
 function title.load()
     currentMenu = title.buildMenuElements()
     currentMenu:open()
 end
 
-function updateResolutionText()
+function title.updateResolutionText()
     local width, height = menuManager:getResolution()
-    settingsMenu.items[1].name = "Resolution: " .. width .. "x" .. height
+    return "Resolution: " .. width .. "x" .. height
 end
 
 function title.update(dt)
@@ -37,19 +35,12 @@ function title.keypressed(key)
         if currentMenu then
             currentMenu:keyPressed(key)
         end
-    elseif scenesManager:getScene() == 'world' then
-        scenesManager:setScene('title')
     end
 end
 
-function title.gamepadpressed(joystick, button)
-    if scenesManager:getScene() == 'title' then
-        if currentMenu then
-            currentMenu:gamepadpressed(joystick, button)
-        end
-    elseif scenesManager:getScene() == 'world' then
-        scenesManager:setScene('title')
-    end
+-- Volume nel menu settings
+local function updateVolumeText()
+    return "Volume: " .. math.floor(menuManager:getVolume() * 100) .. "%"
 end
 
 function title.buildMenuElements()
@@ -76,25 +67,25 @@ function title.buildMenuElements()
     settingsMenu:addItem("Resolution: " .. menuManager:getResolution(), function() end)
     settingsMenu:addItem("      -- 800x600", function()
                                                 menuManager:setResolution(800, 600)
-                                                updateResolutionText()
+                                                settingsMenu.items[1].name = title.updateResolutionText()
                                             end)
     settingsMenu:addItem("      -- 1280x720", function()
                                                 menuManager:setResolution(1280, 720)
-                                                updateResolutionText()
+                                                settingsMenu.items[1].name = title.updateResolutionText()
                                             end)
     settingsMenu:addItem("      -- 1920x1080", function()
                                                     menuManager:setResolution(1920, 1080)
-                                                    updateResolutionText()
+                                                    settingsMenu.items[1].name = title.updateResolutionText()
                                                 end, nil, false, 50)
 
     settingsMenu:addItem("Volume: " .. math.floor(menuManager:getVolume() * 100) .. "%",
                         function()
                             menuManager:decreaseVolume()
-                            updateVolumeText()
+                            settingsMenu.items[5].name = updateVolumeText()
                         end,
                         function()
                             menuManager:increaseVolume()
-                            updateVolumeText()
+                            settingsMenu.items[5].name = updateVolumeText()
                         end, true, 60)
 
     settingsMenu:addItem("Back", function() settingsMenu:close() end)
@@ -104,9 +95,6 @@ function title.buildMenuElements()
     return mainMenu
 end
 
--- Volume nel menu settings
-function updateVolumeText()
-    settingsMenu.items[5].name = "Volume: " .. math.floor(menuManager:getVolume() * 100) .. "%"
-end
+
 
 return title

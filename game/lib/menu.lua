@@ -119,32 +119,12 @@ function Menu:keyPressed(key)
     elseif key == "return" then
         self.items[self.selectedIndex].action()
     elseif key == constants.KEYS_ESCAPE_MENU then
-        self.close()
-    end
-end
-
-
-function Menu:gamepadpressed(joystick, button)
-    if button == "dpdown" then
-        self.selectedIndex = math.min(self.selectedIndex + 1, #self.items)
-    elseif button == "dpup" then
-        self.selectedIndex = math.max(self.selectedIndex - 1, 1)
-    elseif self.items[self.selectedIndex].isSlider then
-        if button == "dpleft" then
-            self.items[self.selectedIndex].action()
-        elseif button == "dpright" then
-            self.items[self.selectedIndex].action2()
-        end
-    elseif button == "a" then
-        self.items[self.selectedIndex].action()
-    elseif button == "b" then
-        if self == nil then
-            os.exit()
-        else
-            self.close()
+        if (self.parentMenu) then
+          self:close()
         end
     end
 end
+
 
 function Menu:openSubMenu(name)
     if self.subMenus[name] then
