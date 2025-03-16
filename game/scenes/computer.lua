@@ -21,9 +21,11 @@ end
 
 function desktop.keypressed(key)
   if (key == "escape") then
-    scenesManager:setState(constants.SCENES_DESKTOP)
+    scenesManager:setScene(constants.SCENES_DESKTOP)
   elseif (key == "p") then
-    scenesManager:setState("title")
+    scenesManager.fromScene = constants.SCENES_COMPUTER
+    scenesManager.rebuildMenu = true
+    scenesManager:setScene("title")
   end
 end
 

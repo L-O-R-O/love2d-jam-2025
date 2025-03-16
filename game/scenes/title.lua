@@ -10,23 +10,68 @@ menuManager = MenuManager:new()
 
 -- LOVE2D callbacks
 function title.load()
+    currentMenu = title.buildMenuElements()
+    currentMenu:open()
+end
 
+function updateResolutionText()
+    local width, height = menuManager:getResolution()
+    settingsMenu.items[1].name = "Resolution: " .. width .. "x" .. height
+end
+
+function title.update(dt)
+    currentMenu:update(dt)
+    if (scenesManager.rebuildMenu) then
+        currentMenu = title.buildMenuElements()
+        scenesManager.rebuildMenu = false
+        currentMenu:open()
+    end
+end
+
+function title.draw()
+    currentMenu:draw()
+end
+
+function title.keypressed(key)
+    if scenesManager:getScene() == 'title' then
+        if currentMenu then
+            currentMenu:keyPressed(key)
+        end
+    elseif scenesManager:getScene() == 'world' then
+        scenesManager:setScene('title')
+    end
+end
+
+function title.gamepadpressed(joystick, button)
+    if scenesManager:getScene() == 'title' then
+        if currentMenu then
+            currentMenu:gamepadpressed(joystick, button)
+        end
+    elseif scenesManager:getScene() == 'world' then
+        scenesManager:setScene('title')
+    end
+end
+
+function title.buildMenuElements()
     local myFont_1 = constants.MAIN_MENU_FONT -- Carica il font
 
     -- Creazione di un menu principale
-    mainMenu = Menu:new(myFont_1)
-    mainMenu:addItem("Start Game", function()
-                                        scenesManager:setState(constants.SCENES_DESKTOP)
+    local mainMenu = Menu:new(myFont_1)
+    if (scenesManager.fromScene == "") then
+    	mainMenu:addItem("Start Game", function()
+                                        scenesManager:setScene(constants.SCENES_DESKTOP)
                                         desktop.load()
                                     end, nil, false, 50)
-    mainMenu:addItem("Settings", function()
-                                    mainMenu:openSubMenu("settings")
-                                end, nil, false, 50)
+	else
+		mainMenu:addItem("Continue", function() scenesManager:setScene(scenesManager.fromScene) end, nil, false, 50)
+	end
+
+    mainMenu:addItem("Settings", function() mainMenu:openSubMenu("settings") end, nil, false, 50)
     mainMenu:addItem("Exit", function() love.event.quit() end)
 
     -- Creazione del sottomenù settings
     local myFont_2 = constants.SUB_MENU_FONT -- Carica il font
-    settingsMenu = Menu:new(myFont_2)
+    local settingsMenu = Menu:new(myFont_2)
 
     settingsMenu:addItem("Resolution: " .. menuManager:getResolution(), function() end)
     settingsMenu:addItem("      -- 800x600", function()
@@ -42,11 +87,6 @@ function title.load()
                                                     updateResolutionText()
                                                 end, nil, false, 50)
 
-    -- Volume nel menu settings
-    local function updateVolumeText()
-        settingsMenu.items[5].name = "Volume: " .. math.floor(menuManager:getVolume() * 100) .. "%"
-    end
-
     settingsMenu:addItem("Volume: " .. math.floor(menuManager:getVolume() * 100) .. "%",
                         function()
                             menuManager:decreaseVolume()
@@ -61,54 +101,12 @@ function title.load()
 
     -- Collegare il sottomenù
     mainMenu:addSubMenu("settings", settingsMenu)
-
-    currentMenu = mainMenu
-
-
-    mainMenu:open()
+    return mainMenu
 end
 
-function updateResolutionText()
-    local width, height = menuManager:getResolution()
-    settingsMenu.items[1].name = "Resolution: " .. width .. "x" .. height
-end
-
-function title.update(dt)
-    --[[ if menuManager:getState() == 'menu' then
-        currentMenu:update(dt)
-    elseif menuManager:getState() == 'world' then
-        updateSquare(dt) -- Muove il quadrato solo se siamo nel gioco
-    end ]]
-    currentMenu:update(dt)
-end
-
-function title.draw()
-    --[[ if menuManager:getState() == 'menu' then
-        currentMenu:draw()
-    elseif menuManager:getState() == 'world' then
-        drawGame()
-    end ]]
-    currentMenu:draw()
-end
-
-function title.keypressed(key)
-    if scenesManager:getState() == 'title' then
-        if currentMenu then
-            currentMenu:keyPressed(key)
-        end
-    elseif scenesManager:getState() == 'world' then
-        scenesManager:setState('title')
-    end
-end
-
-function title.gamepadpressed(joystick, button)
-    if scenesManager:getState() == 'title' then
-        if currentMenu then
-            currentMenu:gamepadpressed(joystick, button)
-        end
-    elseif scenesManager:getState() == 'world' then
-        scenesManager:setState('title')
-    end
+-- Volume nel menu settings
+function updateVolumeText()
+    settingsMenu.items[5].name = "Volume: " .. math.floor(menuManager:getVolume() * 100) .. "%"
 end
 
 return title

@@ -11,23 +11,39 @@ function desktop.update(dt)
 end
 
 function desktop.draw()
-    local stateName = "Scrivania"
+    --[[ local stateName = "Scrivania"
     local rectColor = {r = 0, g = 1, b = 0, a = 1}  -- Rosso
     local textColor = {r = 1, g = 1, b = 1, a = 1}  -- Bianco
     local padding = 20
 
-    drawDebugFrame(stateName, rectColor, textColor, padding)
+    drawDebugFrame(stateName, rectColor, textColor, padding) ]]
+    -- Get screen width and height
+    local screenWidth = love.graphics.getWidth()
+    local screenHeight = love.graphics.getHeight()
+
+    -- Get image dimensions
+    local img = constants.IMAGES_DESKTOP_BG
+    local imgWidth, imgHeight = img:getWidth(), img:getHeight()
+
+    -- Calculate scaling factors for full screen
+    local scaleX = screenWidth / imgWidth
+    local scaleY = screenHeight / imgHeight
+
+    -- Draw the image with scaling
+    love.graphics.draw(img, 0, 0, 0, scaleX, scaleY)
 end
 
 function desktop.keypressed(key)
   if (key == "escape") then
-    scenesManager:setState("title")
+    scenesManager.fromScene = constants.SCENES_DESKTOP
+    scenesManager.rebuildMenu = true
+    scenesManager:setScene("title")
   elseif (key =='c') then
-    scenesManager:setState(constants.SCENES_CALENDAR)
+    scenesManager:setScene(constants.SCENES_CALENDAR)
   elseif (key =='f') then
-    scenesManager:setState(constants.SCENES_COMPUTER)
+    scenesManager:setScene(constants.SCENES_COMPUTER)
   elseif (key =='j') then
-    scenesManager:setState("agenda")
+    scenesManager:setScene(constants.SCENES_AGENDA)
   end
 end
 

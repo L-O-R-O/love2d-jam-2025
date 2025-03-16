@@ -14,7 +14,6 @@ local computer 		  = require("scenes.computer")
 local agenda   		  = require("scenes.agenda")
 
 scenesManager = ScenesManager:new()
-currentState = scenesManager:getState() -- Stato iniziale
 
 function love.load()
     title.load()
@@ -26,43 +25,43 @@ function love.update(dt)
     -- Libreria per fare hotswap del file salvato
     -- Verranno ricaricate solo le draw ed update, NON LE LOAD
     require("lib.lurker").update()
-    if scenesManager:getState() == "title" then
+    if scenesManager:getScene() == "title" then
       title.update(dt)
-    elseif scenesManager:getState() == constants.SCENES_DESKTOP then
+    elseif scenesManager:getScene() == constants.SCENES_DESKTOP then
       desktop.update(dt)
-    elseif scenesManager:getState() == constants.SCENES_CALENDAR then
+    elseif scenesManager:getScene() == constants.SCENES_CALENDAR then
         calendar.update(dt)
-    elseif scenesManager:getState() == constants.SCENES_COMPUTER then
+    elseif scenesManager:getScene() == constants.SCENES_COMPUTER then
         computer.update(dt)
-    elseif scenesManager:getState() == "agenda" then
+    elseif scenesManager:getScene() == constants.SCENES_AGENDA then
         agenda.update(dt)
     end
 end
 
 function love.draw()
-    if scenesManager:getState() == "title" then
+    if scenesManager:getScene() == "title" then
 		title.draw()
-	elseif scenesManager:getState() == constants.SCENES_DESKTOP then
+	elseif scenesManager:getScene() == constants.SCENES_DESKTOP then
 		desktop.draw()
-	elseif scenesManager:getState() == constants.SCENES_CALENDAR then
+	elseif scenesManager:getScene() == constants.SCENES_CALENDAR then
 		calendar.draw()
-	elseif scenesManager:getState() == constants.SCENES_COMPUTER then
+	elseif scenesManager:getScene() == constants.SCENES_COMPUTER then
 		computer.draw()
-	elseif scenesManager:getState() == "agenda" then
+	elseif scenesManager:getScene() == constants.SCENES_AGENDA then
 		agenda.draw()
 	end
 end
 
 function love.keypressed(key)
-    if scenesManager:getState() == "title" then
+    if scenesManager:getScene() == "title" then
         title.keypressed(key)
-    elseif scenesManager:getState() == constants.SCENES_DESKTOP then
+    elseif scenesManager:getScene() == constants.SCENES_DESKTOP then
         desktop.keypressed(key)
-    elseif scenesManager:getState() == constants.SCENES_CALENDAR then
+    elseif scenesManager:getScene() == constants.SCENES_CALENDAR then
         calendar.keypressed(key)
-    elseif scenesManager:getState() == constants.SCENES_COMPUTER then
+    elseif scenesManager:getScene() == constants.SCENES_COMPUTER then
         computer.keypressed(key)
-    elseif scenesManager:getState() == "agenda" then
+    elseif scenesManager:getScene() == constants.SCENES_AGENDA then
         agenda.keypressed(key)
     end
 end

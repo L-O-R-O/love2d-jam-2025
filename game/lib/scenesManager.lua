@@ -3,19 +3,21 @@ ScenesManager.__index = ScenesManager
 
 function ScenesManager:new()
     local properties = {
-        state = "title",  -- Stato iniziale
+        scene = "title",  -- Stato iniziale
+        fromScene = "",   -- Valorizzato se si richiama la scena "title" da un'altra scena
+        rebuildMenu = false
     }
     setmetatable(properties, ScenesManager)
     return properties
 end
 
 -- Cambiare stato del gioco
-function ScenesManager:getState()
-    return self.state
+function ScenesManager:getScene()
+    return self.scene
 end
 
-function ScenesManager:setState(newState)
-    self.state = newState
+function ScenesManager:setScene(newScene)
+    self.scene = newScene
 end
 
 return ScenesManager
