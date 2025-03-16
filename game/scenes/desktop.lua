@@ -37,16 +37,19 @@ function desktop.load()
     width       = 0,
     height      = 0,
   }
-  computerArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, computerArea)
+  computerArea = screenManager:setClickableArea(constants.SCENES_COMPUTER, computerArea)
   calendarArea = screenManager:setClickableArea(constants.SCENES_CALENDAR, calendarArea)
   agendaArea   = screenManager:setClickableArea(constants.SCENES_AGENDA, agendaArea)
 end
 
 function desktop.update(dt)
-    -- TODO: Solo se screeManager te lo comanda
-    -- computerArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, computerArea)
-
-
+    if (screenManager.resizeAllAreas) then
+        screenManager.areas[constants.SCENES_DESKTOP] = nil
+        computerArea = screenManager:setClickableArea(constants.SCENES_COMPUTER, computerArea)
+        calendarArea = screenManager:setClickableArea(constants.SCENES_CALENDAR, calendarArea)
+        agendaArea   = screenManager:setClickableArea(constants.SCENES_AGENDA, agendaArea)
+        screenManager.resizeAllAreas = false
+    end
 end
 
 function desktop.draw()
@@ -62,8 +65,10 @@ function desktop.draw()
     love.graphics.draw(img, 0, 0, 0, scaleX, scaleY)
 
     -- ✅ Set color for the rectangle (red)
-    --love.graphics.setColor(1, 0, 0, 1)
-    --love.graphics.rectangle("line", agendaArea.x, agendaArea.y, agendaArea.width, agendaArea.height)
+    love.graphics.setColor(1, 0, 0, 1)
+    love.graphics.rectangle("line", computerArea.x, computerArea.y, computerArea.width, computerArea.height)
+    love.graphics.rectangle("line", calendarArea.x, calendarArea.y, calendarArea.width, calendarArea.height)
+    love.graphics.rectangle("line", agendaArea.x, agendaArea.y, agendaArea.width, agendaArea.height)
 
     -- ✅ Reset color back to white (prevents affecting other drawings)
     love.graphics.setColor(1, 1, 1, 1)
