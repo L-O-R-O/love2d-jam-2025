@@ -5,6 +5,7 @@
 -- lick.updateAllFiles = true -- include tutti i file del progetto
 
 local ScenesManager = require("lib.scenesManager")
+local ScreenManager = require("lib.screenManager")
 local Mouse = require("lib.mouse")
 local constants		  = require("constants")
 
@@ -16,6 +17,7 @@ local agenda   		  = require("scenes.agenda")
 
 mouse = Mouse
 scenesManager = ScenesManager:new()
+screenManager = ScreenManager:new()
 
 function love.load()
     -- Carico tutte le scene (setup iniziale)
