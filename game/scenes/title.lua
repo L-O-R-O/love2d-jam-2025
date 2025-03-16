@@ -1,9 +1,9 @@
 local title = {}
 -- Importa la libreria del menu
 local Menu        = require("lib.menu")
-local MenuManager = require("lib.MenuManager")
-local world       = require("states.world")
-local constants    = require("constants")
+local MenuManager = require("lib.menuManager")
+local desktop     = require("scenes.desktop")
+local constants   = require("constants")
 
 currentVolume = 1
 menuManager = MenuManager:new()
@@ -11,13 +11,13 @@ menuManager = MenuManager:new()
 -- LOVE2D callbacks
 function title.load()
 
-    local myFont_1 = constants.main_menu_font -- Carica il font
+    local myFont_1 = constants.MAIN_MENU_FONT -- Carica il font
 
     -- Creazione di un menu principale
     mainMenu = Menu:new(myFont_1)
     mainMenu:addItem("Start Game", function()
-                                        statesManager:setState("world")
-                                        world.load()
+                                        scenesManager:setState(constants.SCENES_DESKTOP)
+                                        desktop.load()
                                     end, nil, false, 50)
     mainMenu:addItem("Settings", function()
                                     mainMenu:openSubMenu("settings")
@@ -25,7 +25,7 @@ function title.load()
     mainMenu:addItem("Exit", function() love.event.quit() end)
 
     -- Creazione del sottomenù settings
-    local myFont_2 = constants.sub_menu_font -- Carica il font
+    local myFont_2 = constants.SUB_MENU_FONT -- Carica il font
     settingsMenu = Menu:new(myFont_2)
 
     settingsMenu:addItem("Resolution: " .. menuManager:getResolution(), function() end)
@@ -92,22 +92,22 @@ function title.draw()
 end
 
 function title.keypressed(key)
-    if statesManager:getState() == 'title' then
+    if scenesManager:getState() == 'title' then
         if currentMenu then
             currentMenu:keyPressed(key)
         end
-    elseif statesManager:getState() == 'world' then
-        statesManager:setState('title')
+    elseif scenesManager:getState() == 'world' then
+        scenesManager:setState('title')
     end
 end
 
 function title.gamepadpressed(joystick, button)
-    if statesManager:getState() == 'title' then
+    if scenesManager:getState() == 'title' then
         if currentMenu then
             currentMenu:gamepadpressed(joystick, button)
         end
-    elseif statesManager:getState() == 'world' then
-        statesManager:setState('title')
+    elseif scenesManager:getState() == 'world' then
+        scenesManager:setState('title')
     end
 end
 

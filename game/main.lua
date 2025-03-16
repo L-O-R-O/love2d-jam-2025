@@ -4,12 +4,17 @@
 -- lick.reset = true -- ricarica love.load di main.lua ogni volta che si salva un file del progetto
 -- lick.updateAllFiles = true -- include tutti i file del progetto
 
-local StatesManager = require("lib.StatesManager")
-local title  = require("states.title")
-local world  = require("states.world")
+local ScenesManager = require("lib.scenesManager")
+local constants		  = require("constants")
 
-statesManager = StatesManager:new()
-currentState = statesManager:getState() -- Stato iniziale
+local title    		  = require("scenes.title")
+local desktop    	  = require("scenes.desktop")
+local calendar 		  = require("scenes.calendar")
+local computer 		  = require("scenes.computer")
+local agenda   		  = require("scenes.agenda")
+
+scenesManager = ScenesManager:new()
+currentState = scenesManager:getState() -- Stato iniziale
 
 function love.load()
     title.load()
@@ -21,34 +26,44 @@ function love.update(dt)
     -- Libreria per fare hotswap del file salvato
     -- Verranno ricaricate solo le draw ed update, NON LE LOAD
     require("lib.lurker").update()
-    if statesManager:getState() == "title" then
-        title.update(dt)
-    elseif statesManager:getState() == "world" then
-        world.update(dt)
+    if scenesManager:getState() == "title" then
+      title.update(dt)
+    elseif scenesManager:getState() == constants.SCENES_DESKTOP then
+      desktop.update(dt)
+    elseif scenesManager:getState() == constants.SCENES_CALENDAR then
+        calendar.update(dt)
+    elseif scenesManager:getState() == constants.SCENES_COMPUTER then
+        computer.update(dt)
+    elseif scenesManager:getState() == "agenda" then
+        agenda.update(dt)
     end
 end
 
 function love.draw()
-    if statesManager:getState() == "title" then
-        title.draw()
-    elseif statesManager:getState() == "world" then
-        world.draw()
-    end
+    if scenesManager:getState() == "title" then
+		title.draw()
+	elseif scenesManager:getState() == constants.SCENES_DESKTOP then
+		desktop.draw()
+	elseif scenesManager:getState() == constants.SCENES_CALENDAR then
+		calendar.draw()
+	elseif scenesManager:getState() == constants.SCENES_COMPUTER then
+		computer.draw()
+	elseif scenesManager:getState() == "agenda" then
+		agenda.draw()
+	end
 end
 
 function love.keypressed(key)
-    if statesManager:getState() == 'title' then
+    if scenesManager:getState() == "title" then
         title.keypressed(key)
-    elseif statesManager:getState() == 'world' then
-        world.keypressed(key)
-    end
-end
-
-function love.gamepadpressed(joystick, button)
-    if statesManager:getState() == 'title' then
-        title.gamepadpressed(joystick, button)
-    elseif statesManager:getState() == 'world' then
-        world.gamepadpressed(joystick, button)
+    elseif scenesManager:getState() == constants.SCENES_DESKTOP then
+        desktop.keypressed(key)
+    elseif scenesManager:getState() == constants.SCENES_CALENDAR then
+        calendar.keypressed(key)
+    elseif scenesManager:getState() == constants.SCENES_COMPUTER then
+        computer.keypressed(key)
+    elseif scenesManager:getState() == "agenda" then
+        agenda.keypressed(key)
     end
 end
 
