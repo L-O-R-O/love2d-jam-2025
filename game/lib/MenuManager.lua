@@ -33,7 +33,7 @@ end
 function MenuManager:setResolution(width, height)
     self.resolution.width = width
     self.resolution.height = height
-    love.window.setMode(width, height, {resizable = true})
+    screenManager:setResolution(width,height)
 end
 
 function love.joystickadded(joystick)
