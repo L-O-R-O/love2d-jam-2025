@@ -9,9 +9,11 @@ constants.IMAGES_DESKTOP_BG_HOVERED   = love.graphics.newImage("assets/images/de
 constants.IMAGES_DESKTOP_BG           = love.graphics.newImage("assets/images/desktop.png")
 constants.IMAGES_COMPUTER_BG          = love.graphics.newImage("assets/images/provazoom_pc.png")
 constants.IMAGES_CALENDAR_BG          = love.graphics.newImage("assets/images/prova_calendario.png")
+constants.IMAGES_AGENDA_BG            = love.graphics.newImage("assets/images/provazoom_calendario.png")
 constants.IMAGES_CURSOR               = love.graphics.newImage("assets/images/cursor.png")
 constants.IMAGES_CURSOR_HAND_CLICKED  = love.graphics.newImage("assets/images/cursor_hand_clicked.png")
 constants.IMAGES_CURSOR_HAND          = love.graphics.newImage("assets/images/cursor_hand.png")
+constants.IMAGES_SAMPLE_WINDOW        = love.graphics.newImage("assets/images/sample_window.png")
 
 -- sounds
 constants.SOUNDS_MOUSE_CLICK = love.audio.newSource("assets/sounds/click.mp3", "static")
