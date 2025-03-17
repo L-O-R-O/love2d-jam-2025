@@ -13,6 +13,7 @@ constants.IMAGES_CURSOR_HAND = love.graphics.newImage("assets/images/cursor_hand
 
 -- sounds
 constants.SOUNDS_MOUSE_CLICK = love.audio.newSource("assets/sounds/click.mp3", "static")
+constants.SOUNDS_PAGE_TURN = love.audio.newSource("assets/sounds/pages.mp3", "static")
 
 -- scenes
 constants.SCENES_DESKTOP  = "desktop"
@@ -30,5 +31,6 @@ constants.MOUSE_SIZE = 64
 constants.DEFAULT_CURSOR = "default"
 constants.HAND_CURSOR = "hand"
 constants.HAND_CLICKED_CURSOR = "hand_clicked"
+
 
 return constants
