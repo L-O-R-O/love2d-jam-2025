@@ -1,5 +1,5 @@
 -- ===GLOBAL=== --
--- Tabella con le attività schedulate
+-- Tabella con le attività schedulate di test, da dismettere.
 activitySchedule = {
     soccer =        {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, -- Solo il primo giorno occupato
     basket =        {1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, -- Secondo giorno occupato
@@ -24,21 +24,9 @@ activityIndex = {
     "go_kart"
 }
 
-daysInMonth = {               --numero di giorni per ogni mese
-    [1] = 31,  -- January
-    [2] = 28,  -- February
-    [3] = 31,  -- March
-    [4] = 30,  -- April
-    [5] = 31,  -- May
-    [6] = 30,  -- June
-    [7] = 31,  -- July
-    [8] = 31,  -- August
-    [9] = 30,  -- September
-    [10] = 31, -- October
-    [11] = 30, -- November
-    [12] = 31  -- December
-}
 
+
+local constants		  = require("constants")
 local ActivityOnCalendar = {}       --Istanzio per poter definire funzioni locali
 local calendar = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1} -- 1= giorni liberi 0 = giorni occupati
 local tmpActivity = {}              --variabile di appoggio per estrarre i giorni  occupati da un attività in  testo
@@ -63,7 +51,7 @@ local function updateDayWeekOffset(month)   -- imposta un offset in base al mese
 
     -- Calcola i giorni trascorsi fino al mese precedente
     for i = 1, month - 1 do
-        totalDays = totalDays + daysInMonth[i]
+        totalDays = totalDays + constants.DAYS_IN_MONTH[i]
     end
 
     -- Calcola il giorno della settimana (1 = Monday, 7 = Sunday)
@@ -107,7 +95,7 @@ local function checkRecurrentDaysOccupied(activity, month, targetDay) -- control
 
     local r= ''
     local daysSelected = {}
-    local totalDays = daysInMonth[month]
+    local totalDays = constants.DAYS_IN_MONTH[month]
     if totalDays == nil then
         print("Invalid month.")
         return
@@ -144,7 +132,7 @@ function ActivityOnCalendar.initCalendar(month)     -- inizializza il calendario
     math.randomseed(os.time())          -- Imposta il seed per rendere i numeri casuali più imprevedibili
     local tmpCalendar = {}              -- temporaneo del calendario
 
-    for i = 1, daysInMonth[month] do
+    for i = 1, constants.DAYS_IN_MONTH[month] do
         tmpCalendar[i] = 1
     end
 
@@ -154,7 +142,7 @@ function ActivityOnCalendar.initCalendar(month)     -- inizializza il calendario
 end
 
 function ActivityOnCalendar.isFreeDay(month, day)          -- Ritorna True se il giorno è libero
-    if daysInMonth[month] < day then
+    if constants.DAYS_IN_MONTH[month] < day then
         return false
     else
         if calendar[day]== 1 then
@@ -252,7 +240,7 @@ function ActivityOnCalendar.checkAllDaysOccupied(activity, month)   -- Ritorna u
     end
 
     if  s == nil then
-        for d = daysInMonth[month], 1, -1 do
+        for d = constants.DAYS_IN_MONTH[month], 1, -1 do
             if tmpActivity[d] == 0 then
                 if  z == nil then
                     z = d .. ' of the month is taken'
@@ -262,7 +250,7 @@ function ActivityOnCalendar.checkAllDaysOccupied(activity, month)   -- Ritorna u
             end
         end
     else
-        for d = 1, daysInMonth[month] do
+        for d = 1, constants.DAYS_IN_MONTH[month] do
             if tmpActivity[d] == 0 then
                 if  z == nil then
                     z = 'plus ' .. d
