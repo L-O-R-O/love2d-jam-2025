@@ -88,6 +88,18 @@ function ScreenManager:startTransition(newScene)
   self.fadeAlpha = 0 -- Start fade effect
 end
 
+function ScreenManager:drawSceneBackground(img)
+  -- Get image dimensions
+  local imgWidth, imgHeight = img:getWidth(), img:getHeight()
+
+  -- Calculate scaling factors for full screen
+  local scaleX = self.screenWidth / imgWidth
+  local scaleY = self.screenHeight / imgHeight
+
+  -- Draw the image with scaling
+  love.graphics.draw(img, 0, 0, 0, scaleX, scaleY)
+end
+
 -- Update transition effect
 function ScreenManager:update(dt, scenesManager)
   if self.isTransitioning then
