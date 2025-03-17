@@ -56,12 +56,7 @@ end
 
 function desktop.draw()
     -- Get image dimensions
-    screenManager:drawSceneBackground(constants.IMAGES_DESKTOP_BG)
-    -- Draw the overlay image on top of the base image
-   --[[  if isHovered then
-      local overlayImg = constants.IMAGES_DESKTOP_BG_HOVERED
-      love.graphics.draw(overlayImg, 0, 0, 0, scaleX, scaleY)
-    end ]]
+    screenManager:drawSceneBackground(constants.IMAGES_DESKTOP_BG,constants.IMAGES_DESKTOP_BG_HOVERED)
 
     -- ✅ DEBUG - Set color for the rectangle (red)
     --love.graphics.setColor(1, 0, 0, 1)

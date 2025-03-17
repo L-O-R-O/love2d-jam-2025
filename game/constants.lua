@@ -5,7 +5,7 @@ constants.MAIN_MENU_FONT = love.graphics.newFont("assets/font/Hello_Sweet_Rain.t
 constants.SUB_MENU_FONT  = love.graphics.newFont("assets/font/Hello_Sweet_Rain.ttf", 20)
 
 -- images
-constants.IMAGES_DESKTOP_BG_HOVERED   = love.graphics.newImage("assets/images/desktop_hovered.png")
+constants.IMAGES_DESKTOP_BG_HOVERED   = love.graphics.newImage("assets/images/hover_desktop_pc.png")
 constants.IMAGES_DESKTOP_BG           = love.graphics.newImage("assets/images/desktop.png")
 constants.IMAGES_COMPUTER_BG          = love.graphics.newImage("assets/images/provazoom_pc.png")
 constants.IMAGES_CALENDAR_BG          = love.graphics.newImage("assets/images/prova_calendario.png")

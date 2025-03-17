@@ -88,7 +88,7 @@ function ScreenManager:startTransition(newScene)
   self.fadeAlpha = 0 -- Start fade effect
 end
 
-function ScreenManager:drawSceneBackground(img)
+function ScreenManager:drawSceneBackground(img,imgHvr)
   -- Get image dimensions
   local imgWidth, imgHeight = img:getWidth(), img:getHeight()
 
@@ -98,6 +98,11 @@ function ScreenManager:drawSceneBackground(img)
 
   -- Draw the image with scaling
   love.graphics.draw(img, 0, 0, 0, scaleX, scaleY)
+  -- Draw the overlay image on top of the base image
+  if isHovered and imgHvr ~= nil then
+    local overlayImg = imgHvr
+    love.graphics.draw(overlayImg, 0, 0, 0, scaleX, scaleY)
+  end
 end
 
 -- Update transition effect
