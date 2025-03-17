@@ -6,6 +6,7 @@
 
 local ScenesManager = require("lib.scenesManager")
 local ScreenManager = require("lib.screenManager")
+local SoundsManager = require("lib.soundsManager")
 local Mouse = require("lib.mouse")
 local constants		  = require("constants")
 local Timer = require("lib.time")
@@ -20,6 +21,7 @@ mouse = Mouse
 timer = Timer
 scenesManager = ScenesManager:new()
 screenManager = ScreenManager:new()
+soundsManager = SoundsManager:new()
 
 function loadMousePng(image)
   local canvas = love.graphics.newCanvas(constants.MOUSE_SIZE, constants.MOUSE_SIZE)
@@ -52,8 +54,6 @@ function love.load()
     mouse.cursorHandClickedImage = loadMousePng(constants.IMAGES_CURSOR_HAND_CLICKED)
     mouse.loadCursor(constants.DEFAULT_CURSOR);
 
-    -- Carico l'audio del click del mouse
-    sound = constants.SOUNDS_MOUSE_CLICK
     love.graphics.setBlendMode("alpha")  -- Ensure transparency works
 end
 
@@ -117,7 +117,6 @@ function onMouseHover()
 end
 
 function love.mousepressed(x, y, button, istouch, presses)
-  sound:play()
   mouse.mousePressed(x, y)
 end
 

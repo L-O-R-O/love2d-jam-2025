@@ -56,29 +56,15 @@ end
 
 function desktop.draw()
     -- Get image dimensions
-    local img = constants.IMAGES_DESKTOP_BG
-    local imgWidth, imgHeight = img:getWidth(), img:getHeight()
+    screenManager:drawSceneBackground(constants.IMAGES_DESKTOP_BG,constants.IMAGES_DESKTOP_BG_HOVERED)
 
-    -- Calculate scaling factors for full screen
-    local scaleX = screenManager.screenWidth / imgWidth
-    local scaleY = screenManager.screenHeight / imgHeight
-
-    -- Draw the image with scaling
-    love.graphics.draw(img, 0, 0, 0, scaleX, scaleY)
-
-    -- Draw the overlay image on top of the base image
-    if isHovered then
-      local overlayImg = constants.IMAGES_DESKTOP_BG_HOVERED
-      love.graphics.draw(overlayImg, 0, 0, 0, scaleX, scaleY)
-    end
-
-    -- ✅ Set color for the rectangle (red)
-    love.graphics.setColor(1, 0, 0, 1)
+    -- ✅ DEBUG - Set color for the rectangle (red)
+    --love.graphics.setColor(1, 0, 0, 1)
     -- love.graphics.rectangle("line", agendaArea.x, agendaArea.y, agendaArea.width, agendaArea.height)
     -- love.graphics.rectangle("line", computerArea.x, computerArea.y, computerArea.width, computerArea.height)
     -- love.graphics.rectangle("line", calendarArea.x, calendarArea.y, calendarArea.width, calendarArea.height)
     -- ✅ Reset color back to white (prevents affecting other drawings)
-    love.graphics.setColor(1, 1, 1, 1)
+    --love.graphics.setColor(1, 1, 1, 1)
 end
 
 function desktop.keypressed(key)
@@ -97,6 +83,7 @@ function desktop.mousePressed(x, y, button)
   print('DESKTOP clicked x:'.. x .. ' and y:'..y)
   local clickableAreaName = screenManager:checkIfIsClickable(x, y)
   if (clickableAreaName) then
+    soundsManager:playSceneTransitionSound(constants.SCENES_DESKTOP,clickableAreaName)
     mouse.loadCursor(constants.HAND_CLICKED_CURSOR)
     isClicked = true
     timer.setTimeout(function()
