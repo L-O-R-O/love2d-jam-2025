@@ -11,7 +11,7 @@ function ScreenManager:new()
       areas = {},
       fadeAlpha = 0, -- Controls the transition effect
       isTransitioning = false,
-      transitionSpeed = 3, -- Adjust speed for faster/slower fade
+      transitionSpeed = 7, -- Adjust speed for faster/slower fade
       nextScene = nil
     }
     setmetatable(properties, ScreenManager)
