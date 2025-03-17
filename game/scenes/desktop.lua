@@ -88,6 +88,7 @@ function desktop.mousePressed(x, y, button)
   print('DESKTOP clicked x:'.. x .. ' and y:'..y)
   local clickableAreaName = screenManager:checkIfIsClickable(x, y)
   if (clickableAreaName) then
+    soundsManager:playSceneTransitionSound(constants.SCENES_DESKTOP,clickableAreaName)
     mouse.loadCursor(constants.HAND_CLICKED_CURSOR)
     isClicked = true
     timer.setTimeout(function()
