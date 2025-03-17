@@ -64,6 +64,10 @@ function love.update(dt)
     require("lib.lurker").update()
     timer.update()
     onMouseHover()
+
+    -- Update transition effect
+    screenManager:update(dt, scenesManager)
+
     if scenesManager:getScene() == constants.SCENES_TITLE then
       title.update(dt)
     elseif scenesManager:getScene() == constants.SCENES_DESKTOP then
@@ -89,6 +93,8 @@ function love.draw()
 	elseif scenesManager:getScene() == constants.SCENES_AGENDA then
 		agenda.draw()
 	end
+   -- Draw transition overlay
+   screenManager:draw()
 end
 
 function love.keypressed(key)

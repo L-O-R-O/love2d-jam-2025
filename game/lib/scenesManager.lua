@@ -5,9 +5,9 @@ ScenesManager.__index = ScenesManager
 
 function ScenesManager:new()
     local properties = {
-        scene = constants.SCENES_TITLE,  -- Stato iniziale
-        fromScene = "",   -- Valorizzato se si richiama la scena constants.SCENES_TITLE da un'altra scena
-        rebuildMenu = false
+      scene = constants.SCENES_TITLE,  -- Initial state
+      fromScene = "",                  -- Tracks previous scene
+      rebuildMenu = false
     }
     setmetatable(properties, ScenesManager)
     return properties
@@ -23,7 +23,7 @@ function ScenesManager:setScene(newScene)
     if (newScene == constants.SCENES_TITLE) then
       self.rebuildMenu = true
     end
-    self.scene = newScene
+    screenManager:startTransition(newScene)
 end
 
 return ScenesManager
