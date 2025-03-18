@@ -26,10 +26,7 @@ function ScreenManager:setResolution(w, h)
 end
 
 function ScreenManager:setClickableArea(scene, area)
-    area.x = self.screenWidth * area.xPerc
-    area.y = self.screenHeight * area.yPerc
-    area.width = self.screenWidth * area.widthPerc
-    area.height = self.screenHeight * area.heightPerc
+    area = self:setDrawableArea(area)
 
     if self.areas[scene] == nil then
         self.areas[scene] = {}
@@ -37,6 +34,14 @@ function ScreenManager:setClickableArea(scene, area)
 
     table.insert(self.areas[scene], area)
     return area
+end
+
+function ScreenManager:setDrawableArea(area)
+  area.x = self.screenWidth * area.xPerc
+  area.y = self.screenHeight * area.yPerc
+  area.width = self.screenWidth * area.widthPerc
+  area.height = self.screenHeight * area.heightPerc
+  return area
 end
 
 function ScreenManager:checkIfIsClickable(x, y)
@@ -88,7 +93,7 @@ function ScreenManager:startTransition(newScene)
   self.fadeAlpha = 0 -- Start fade effect
 end
 
-function ScreenManager:drawSceneBackground(img,imgHvr)
+function ScreenManager:drawSceneBackground(img,hoverImages)
   -- Get image dimensions
   local imgWidth, imgHeight = img:getWidth(), img:getHeight()
 
@@ -99,9 +104,11 @@ function ScreenManager:drawSceneBackground(img,imgHvr)
   -- Draw the image with scaling
   love.graphics.draw(img, 0, 0, 0, scaleX, scaleY)
   -- Draw the overlay image on top of the base image
-  if isHovered and imgHvr ~= nil then
-    local overlayImg = imgHvr
-    love.graphics.draw(overlayImg, 0, 0, 0, scaleX, scaleY)
+  if isHovered and hoverImages ~= nil and hoveredArea ~= nil  then
+    if hoverImages[hoveredArea] ~= nil then
+      local overlayImg = hoverImages[hoveredArea]
+      love.graphics.draw(overlayImg, 0, 0, 0, scaleX, scaleY)
+    end
   end
 end
 

@@ -5,7 +5,11 @@ local isClicked = false
 
 function desktop.load()
   mouse.registerHandler(desktop, constants.SCENES_DESKTOP)
-
+  desktopHoveredImages = {
+    computer = constants.IMAGES_HOVER_DESKTOP_COMPUTER,
+    calendar = constants.IMAGES_HOVER_DESKTOP_CALENDAR,
+    agenda = constants.IMAGES_HOVER_DESKTOP_AGENDA
+  }
   computerArea = {
     name        = constants.SCENES_COMPUTER,
     xPerc       = 0.27,
@@ -46,17 +50,16 @@ end
 
 function desktop.update(dt)
     if (screenManager.resizeAllAreas) then
-        screenManager.areas[constants.SCENES_DESKTOP] = nil
-        computerArea = screenManager:setClickableArea(constants.SCENES_COMPUTER, computerArea)
-        calendarArea = screenManager:setClickableArea(constants.SCENES_CALENDAR, calendarArea)
-        agendaArea   = screenManager:setClickableArea(constants.SCENES_AGENDA, agendaArea)
-        screenManager.resizeAllAreas = false
+      screenManager.areas[constants.SCENES_DESKTOP] = nil
+      computerArea = screenManager:setClickableArea(constants.SCENES_COMPUTER, computerArea)
+      calendarArea = screenManager:setClickableArea(constants.SCENES_CALENDAR, calendarArea)
+      agendaArea   = screenManager:setClickableArea(constants.SCENES_AGENDA, agendaArea)
     end
 end
 
 function desktop.draw()
     -- Get image dimensions
-    screenManager:drawSceneBackground(constants.IMAGES_DESKTOP_BG,constants.IMAGES_DESKTOP_BG_HOVERED)
+    screenManager:drawSceneBackground(constants.IMAGES_DESKTOP_BG,desktopHoveredImages)
 
     -- ✅ DEBUG - Set color for the rectangle (red)
     --love.graphics.setColor(1, 0, 0, 1)
@@ -102,9 +105,11 @@ function desktop.mouseHovered(x, y)
   local clickableAreaName = screenManager:checkIfIsClickable(x, y)
   if (clickableAreaName) then
     isHovered = true
+    hoveredArea = clickableAreaName
     mouse.loadCursor(constants.HAND_CURSOR)
   else
     isHovered = false
+    hoveredArea = nil
     mouse.loadCursor(constants.DEFAULT_CURSOR)
   end
 end

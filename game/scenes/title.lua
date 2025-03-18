@@ -45,7 +45,7 @@ local function updateVolumeText()
 end
 
 function title.buildMenuElements()
-    local myFont_1 = constants.MAIN_MENU_FONT -- Carica il font
+    local myFont_1 = constants.FONTS_MAIN_MENU -- Carica il font
 
     -- Creazione di un menu principale
     local mainMenu = Menu:new(myFont_1)
@@ -61,7 +61,7 @@ function title.buildMenuElements()
     mainMenu:addItem("Exit", function() love.event.quit() end)
 
     -- Creazione del sottomenù settings
-    local myFont_2 = constants.SUB_MENU_FONT -- Carica il font
+    local myFont_2 = constants.FONTS_SUB_MENU -- Carica il font
     local settingsMenu = Menu:new(myFont_2)
 
     settingsMenu:addItem("Resolution: " .. menuManager:getResolution(), function() end)
