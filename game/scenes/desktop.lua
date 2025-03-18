@@ -6,7 +6,7 @@ local isClicked = false
 function desktop.load()
   mouse.registerHandler(desktop, constants.SCENES_DESKTOP)
   desktopHoveredImages = {
-    yearbook = constants.IMAGES_HOVER_DESKTOP_COMPUTER,
+    yearBook = constants.IMAGES_HOVER_DESKTOP_COMPUTER,
     courses  = constants.IMAGES_HOVER_DESKTOP_COMPUTER,
     calendar = constants.IMAGES_HOVER_DESKTOP_CALENDAR,
     agenda   = constants.IMAGES_HOVER_DESKTOP_AGENDA
@@ -77,7 +77,7 @@ function desktop.keypressed(key)
   elseif (key =='c') then
     scenesManager:setScene(constants.SCENES_CALENDAR)
   elseif (key =='f') then
-    scenesManager:setScene(constants.SCENES_COMPUTER)
+    scenesManager:setScene(constants.SCENES_COURSES)
   elseif (key =='j') then
     scenesManager:setScene(constants.SCENES_AGENDA)
   end

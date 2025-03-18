@@ -16,7 +16,8 @@ local desktop    	  = require("scenes.desktop")
 local calendar 		  = require("scenes.calendar")
 local computer 		  = require("scenes.computer")
 local agenda   		  = require("scenes.agenda")
-local yearBook       = require("scenes.yearBook")
+local yearBook      = require("scenes.yearBook")
+local courses       = require("scenes.courses")
 
 mouse = Mouse
 timer = Timer
@@ -42,6 +43,7 @@ function love.load()
     agenda.load()
     title.load()
     yearBook.load()
+    courses.load()
     -- Carico le chiavi per i cursori
     mouse.setDefaultCursorsKeys({
         default = constants.DEFAULT_CURSOR,
@@ -76,8 +78,10 @@ function love.update(dt)
       desktop.update(dt)
     elseif scenesManager:getScene() == constants.SCENES_CALENDAR then
         calendar.update(dt)
-    elseif scenesManager:getScene() == constants.SCENES_COMPUTER then
-        computer.update(dt)
+    elseif scenesManager:getScene() == constants.SCENES_YEARBOOK then
+        yearBook.update(dt)
+    elseif scenesManager:getScene() == constants.SCENES_COURSES then
+        courses.update(dt)
     elseif scenesManager:getScene() == constants.SCENES_AGENDA then
         agenda.update(dt)
     end
@@ -92,6 +96,10 @@ function love.draw()
 		calendar.draw()
 	elseif scenesManager:getScene() == constants.SCENES_COMPUTER then
 		computer.draw()
+	elseif scenesManager:getScene() == constants.SCENES_YEARBOOK then
+		yearBook.draw()
+	elseif scenesManager:getScene() == constants.SCENES_COURSES then
+		courses.draw()
 	elseif scenesManager:getScene() == constants.SCENES_AGENDA then
 		agenda.draw()
 	end
@@ -101,15 +109,17 @@ end
 
 function love.keypressed(key)
     if scenesManager:getScene() == constants.SCENES_TITLE then
-        title.keypressed(key)
+      title.keypressed(key)
     elseif scenesManager:getScene() == constants.SCENES_DESKTOP then
-        desktop.keypressed(key)
+      desktop.keypressed(key)
     elseif scenesManager:getScene() == constants.SCENES_CALENDAR then
-        calendar.keypressed(key)
-    elseif scenesManager:getScene() == constants.SCENES_COMPUTER then
-        computer.keypressed(key)
+      calendar.keypressed(key)
+    elseif scenesManager:getScene() == constants.SCENES_YEARBOOK then
+      yearBook.keypressed(key)
+    elseif scenesManager:getScene() == constants.SCENES_COURSES then
+      courses.keypressed(key)
     elseif scenesManager:getScene() == constants.SCENES_AGENDA then
-        agenda.keypressed(key)
+      agenda.keypressed(key)
     end
 end
 

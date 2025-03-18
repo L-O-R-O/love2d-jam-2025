@@ -14,7 +14,7 @@ end
 function SoundsManager:playSceneTransitionSound(fromScene,toScene)
   local sound = nil
   if fromScene == constants.SCENES_DESKTOP then
-    if toScene == constants.SCENES_COMPUTER then
+    if toScene == constants.SCENES_YEARBOOK or toScene == constants.SCENES_COURSES then
       sound = constants.SOUNDS_MOUSE_CLICK
     elseif toScene == constants.SCENES_AGENDA or toScene == constants.SCENES_CALENDAR then
       sound = constants.SOUNDS_PAGE_TURN
