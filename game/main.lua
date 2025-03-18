@@ -16,7 +16,7 @@ local desktop    	  = require("scenes.desktop")
 local calendar 		  = require("scenes.calendar")
 local computer 		  = require("scenes.computer")
 local agenda   		  = require("scenes.agenda")
-local yearBook      = require("scenes.yearBook")
+local yearBook      = require("scenes.yearbook")
 local courses       = require("scenes.courses")
 
 mouse = Mouse

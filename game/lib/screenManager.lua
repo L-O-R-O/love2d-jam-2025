@@ -25,18 +25,23 @@ function ScreenManager:setResolution(w, h)
     love.window.setMode(w, h, {resizable = false})
 end
 
-function ScreenManager:setClickableArea(scene, area)
-    area = self:setDrawableArea(area)
+--- Aggiunge un'area cliccabile
+---@param from Scena di partenza
+---@param area Area cliccabile
+---@param to Scena di destinazione
+---@param handler Funzione da eseguire al click dell'area
+function ScreenManager:setClickableArea(from, area, to, handler)
+    area = self:calcAreaSizes(area)
 
-    if self.areas[scene] == nil then
-        self.areas[scene] = {}
+    if self.areas[from] == nil then
+        self.areas[from] = {}
     end
 
-    table.insert(self.areas[scene], area)
+    table.insert(self.areas[from], { area = area, to = to, handler = handler })
     return area
 end
 
-function ScreenManager:setDrawableArea(area)
+function ScreenManager:calcAreaSizes(area)
   area.x = self.screenWidth * area.xPerc
   area.y = self.screenHeight * area.yPerc
   area.width = self.screenWidth * area.widthPerc
@@ -44,14 +49,24 @@ function ScreenManager:setDrawableArea(area)
   return area
 end
 
+-- Controlla se un'area di una certa scena é cliccabile o meno
+-- Inoltre restituisce la landing zone (nome scena) del click (se presente)
 function ScreenManager:checkIfIsClickable(x, y)
-    for scene, areaList in pairs(self.areas) do
-        for _, area in ipairs(areaList) do
-            if x >= area.x and x <= area.x + area.width and y >= area.y and y <= area.y + area.height then
-                return area.name
+    local scene = scenesManager:getScene()
+    if self.areas == nil then
+        return nil
+    end
+    for _, areaOwner in ipairs(self.areas[scene]) do
+        local area = areaOwner.area
+        if x >= area.x and x <= area.x + area.width and y >= area.y and y <= area.y + area.height then
+            if (areaOwner.handler ~= nil) then
+                -- Se fornito in precedenza, viene eseguito un handler (in caso di bottone selezionato)
+                areaOwner.handler()
             end
+            return areaOwner.to
         end
     end
+    -- end
     return nil
 end
 

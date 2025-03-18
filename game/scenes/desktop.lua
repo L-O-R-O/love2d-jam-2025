@@ -44,17 +44,17 @@ function desktop.load()
     width       = 0,
     height      = 0,
   }
-  computerArea = screenManager:setClickableArea(constants.SCENES_COMPUTER, computerArea)
-  calendarArea = screenManager:setClickableArea(constants.SCENES_CALENDAR, calendarArea)
-  agendaArea   = screenManager:setClickableArea(constants.SCENES_AGENDA, agendaArea)
+  computerArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, computerArea, constants.SCENES_YEARBOOK)
+  calendarArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, calendarArea, constants.SCENES_CALENDAR)
+  agendaArea   = screenManager:setClickableArea(constants.SCENES_DESKTOP, agendaArea, constants.SCENES_AGENDA)
 end
 
 function desktop.update(dt)
     if (screenManager.resizeAllAreas) then
       screenManager.areas[constants.SCENES_DESKTOP] = nil
-      computerArea = screenManager:setClickableArea(constants.SCENES_COMPUTER, computerArea)
-      calendarArea = screenManager:setClickableArea(constants.SCENES_CALENDAR, calendarArea)
-      agendaArea   = screenManager:setClickableArea(constants.SCENES_AGENDA, agendaArea)
+      computerArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, computerArea, constants.SCENES_YEARBOOK)
+      calendarArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, calendarArea, constants.SCENES_CALENDAR)
+      agendaArea   = screenManager:setClickableArea(constants.SCENES_DESKTOP, agendaArea, constants.SCENES_AGENDA)
     end
 end
 

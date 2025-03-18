@@ -27,6 +27,8 @@ local groups = {
   {label = "T-Z", range = {"T", "Z"}}
 }
 
+local colorText   = {r = 0, g = 0, b = 0, a = 1}  -- Nero
+
 -- Variabili per la gestione dell'interfaccia
 local tabs = {}
 local selectedNames = {}
@@ -36,31 +38,91 @@ local maxPages = 1
 
 local arrowWidth = 120
 local arrowHeight = 60
+local clickables = {}
+local prevArrow = {}
+local nextArrow = {}
+
+
 
 function yearbook.load()
   mouse.registerHandler(yearbook, constants.SCENES_YEARBOOK)
 
-  -- Posizione delle linguette (sinistra e destra)
-  local leftX, rightX = 10, love.graphics.getWidth() - 60
+  -- Definizione frecce navigazione
+  prevArrow = {
+    name        = 'PREV_BUTTON',
+    xPerc       = 0.1,
+    yPerc       = 0.9,
+    widthPerc   = 0.1,
+    heightPerc  = 0.1,
+    x           = 0,
+    y           = 0,
+    width       = 0,
+    height      = 0,
+  }
+  nextArrow = {
+    name        = 'NEXT_BUTTON',
+    xPerc       = 0.9,
+    yPerc       = 0.9,
+    widthPerc   = 0.1,
+    heightPerc  = 0.1,
+    x           = 0,
+    y           = 0,
+    width       = 0,
+    height      = 0,
+  }
+  screenManager:setClickableArea(constants.SCENES_YEARBOOK, prevArrow, constants.SCENES_YEARBOOK, function()
+    if currentPage > 1 then
+      currentPage = currentPage - 1
+    end
+  end)
+  screenManager:setClickableArea(constants.SCENES_YEARBOOK, nextArrow, constants.SCENES_YEARBOOK, function()
+    if currentPage < maxPages then
+      currentPage = currentPage + 1
+    end
+  end
+  )
+
+  -- Lista delle aree cliccabili
+  local areas = {
+    {name = AC, xPerc = 0.74, yPerc = 0.67, widthPerc = 0.26, heightPerc = 0.26},
+  }
+
+  local leftX, rightX = 0.15, 0.75
   local screenHeight = love.graphics.getHeight()
   local tabHeight = screenHeight / 5
+  local heightIndex = 1
 
   for i, group in ipairs(groups) do
-    local x = (i <= #groups / 2 or group.label == "J-M") and leftX or rightX
-    local y = tabHeight * ((i - 1) % (#groups / 2))
-    table.insert(tabs, {
-      x = x,
-      y = y,
-      width = 50,
-      height = tabHeight,
-      label = group.label,
-      range = group.range
-    })
+    if i == 6 then
+      heightIndex = 1
+    end
+    local xPerc = (i < 6) and leftX or rightX
+    local yPerc = (0.15 * heightIndex)
+    heightIndex = heightIndex + 1
+
+    local widthPerc = 0.1
+    local heightPerc = 0.1
+    local clickableArea = {
+      name        = group.label,
+      xPerc       = xPerc,
+      yPerc       = yPerc,
+      widthPerc   = widthPerc,
+      heightPerc  = heightPerc,
+      x           = 0,
+      y           = 0,
+      width       = 0,
+      height      = 0,
+    }
+    table.insert(tabs, clickableArea)
+    screenManager:setClickableArea(constants.SCENES_YEARBOOK, clickableArea, constants.SCENES_YEARBOOK)
   end
 
   -- Selezione iniziale
   selectedNames = filterNames(groups[1].range)
   updateMaxPages()
+end
+
+function yearbook.update(dt)
 end
 
 -- Funzione per filtrare i nomi in base al gruppo selezionato
@@ -75,6 +137,21 @@ function filterNames(range)
   return filtered
 end
 
+function yearbook.keypressed(key)
+  if (key == constants.KEYS_ESCAPE_MENU) then
+    scenesManager:setScene(constants.SCENES_DESKTOP)
+  elseif (key =='c') then
+    scenesManager:setScene(constants.SCENES_CALENDAR)
+  elseif (key =='f') then
+    scenesManager:setScene(constants.SCENES_COURSES)
+  elseif (key =='j') then
+    scenesManager:setScene(constants.SCENES_AGENDA)
+  end
+  if (key == constants.KEYS_ESCAPE_MENU) then
+    scenesManager:setScene(constants.SCENES_DESKTOP)
+  end
+end
+
 -- Aggiorna il numero massimo di pagine disponibili
 function updateMaxPages()
   maxPages = math.max(1, math.ceil(#selectedNames / namesPerPage))
@@ -82,11 +159,19 @@ function updateMaxPages()
 end
 
 function yearbook.mousePressed(x, y, button)
-
-    -- Controlla se è stata cliccata una linguetta
+  -- Controlla se è stata cliccata una linguetta o una freccia di navigazione
+  local clickableAreaName = screenManager:checkIfIsClickable(x, y)
+  if (clickableAreaName) then
     for _, tab in ipairs(tabs) do
       if x >= tab.x and x <= tab.x + tab.width and y >= tab.y and y <= tab.y + tab.height then
-        selectedNames = filterNames(tab.range)
+        local range = ''
+        for _, group in ipairs(groups) do
+          if group.label == tab.name then
+            range = group.range
+            break
+          end
+        end
+        selectedNames = filterNames(range)
         updateMaxPages()
         return
       end
@@ -112,48 +197,46 @@ function yearbook.mousePressed(x, y, button)
       end
       return
     end
-
+  end
 end
 
 function yearbook.draw()
+  screenManager:drawSceneBackground(constants.IMAGES_COMPUTER_BG)
+  love.graphics.setColor(colorText.r, colorText.g, colorText.b, colorText.a)
+  love.graphics.setFont(constants.FONTS_ROBOTO)
+
   local centerX = love.graphics.getWidth() / 2
   local screenHeight = love.graphics.getHeight()
 
   -- Disegna le linguette
   for _, tab in ipairs(tabs) do
     love.graphics.rectangle("line", tab.x, tab.y, tab.width, tab.height)
-    love.graphics.printf(tab.label, tab.x, tab.y + tab.height / 2 - 10, tab.width, "center")
+    love.graphics.printf(tab.name, tab.x, tab.y + tab.height / 2 - 10, tab.width, "center")
   end
 
-  -- Disegna la "pagina centrale" dell'agenda
-  love.graphics.line(centerX, 0, centerX, screenHeight)
+    -- Calcola le posizioni centrate per i nomi
+    local yOffset = 100
+    local startIdx = (currentPage - 1) * namesPerPage + 1
+    local endIdx = math.min(startIdx + namesPerPage - 1, #selectedNames)
 
-  -- Calcola le posizioni centrate per i nomi
-  local yOffset = 100
-  local startIdx = (currentPage - 1) * namesPerPage + 1
-  local endIdx = math.min(startIdx + namesPerPage - 1, #selectedNames)
-
-  for i = startIdx, endIdx do
-    local name = selectedNames[i]
-    local y = yOffset + (((i - startIdx) % 4) * 50)
-    local x = (i - startIdx) < 4 and (centerX - 150) or (centerX + 50)
-    love.graphics.print(name, x, y)
-  end
+    for i = startIdx, endIdx do
+      local name = selectedNames[i]
+      local y = yOffset + (((i - startIdx) % 4) * 50)
+      local x = (i - startIdx) < 4 and (centerX - 150) or (centerX + 50)
+      love.graphics.print(name, x, y)
+    end
 
   -- Disegna le frecce di navigazione
   if maxPages > 1 then
-    local arrowY = screenHeight - 100
-    -- love.graphics.rectangle("line", centerX - 160, arrowY, arrowWidth, arrowHeight)
     if currentPage ~= 1 then
-      love.graphics.printf("Prev.", centerX - 160, arrowY + arrowHeight / 4, arrowWidth, "center")
+      love.graphics.printf("Prev", prevArrow.x, prevArrow.y, arrowWidth/2)
     end
     if currentPage < maxPages then
-    -- love.graphics.rectangle("line", centerX + 40, arrowY, arrowWidth, arrowHeight)
-    love.graphics.printf("Next", centerX + 40, arrowY + arrowHeight / 4, arrowWidth, "center")
+        love.graphics.printf("Next", nextArrow.x, nextArrow.y, arrowWidth/2)
     end
   end
-
-  love.graphics.printf("Pagina " .. currentPage .. " di " .. maxPages, centerX - 50, screenHeight - 100, 100, "center")
+  -- Reset del colore per evitare effetti indesiderati
+  love.graphics.setColor(1, 1, 1, 1)
 end
 
 return yearbook
