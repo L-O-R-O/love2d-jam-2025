@@ -28,6 +28,8 @@ constants.SCENES_CALENDAR = "calendar"
 constants.SCENES_COMPUTER = "computer"
 constants.SCENES_AGENDA   = "agenda"
 constants.SCENES_TITLE    = "title"
+constants.SCENES_YEARBOOK = "yearBook"
+
 
 -- keys
 constants.KEYS_PAUSE_MENU  = "p"
