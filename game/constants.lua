@@ -26,6 +26,8 @@ constants.SOUNDS_PAGE_TURN = love.audio.newSource("assets/sounds/pages.mp3", "st
 constants.SCENES_DESKTOP  = "desktop"
 constants.SCENES_CALENDAR = "calendar"
 constants.SCENES_COMPUTER = "computer"
+constants.SCENES_YEARBOOK = "yearbook"
+constants.SCENES_COURSES  = "courses"
 constants.SCENES_AGENDA   = "agenda"
 constants.SCENES_TITLE    = "title"
 

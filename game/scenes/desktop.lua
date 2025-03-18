@@ -6,12 +6,13 @@ local isClicked = false
 function desktop.load()
   mouse.registerHandler(desktop, constants.SCENES_DESKTOP)
   desktopHoveredImages = {
-    computer = constants.IMAGES_HOVER_DESKTOP_COMPUTER,
+    yearbook = constants.IMAGES_HOVER_DESKTOP_COMPUTER,
+    courses  = constants.IMAGES_HOVER_DESKTOP_COMPUTER,
     calendar = constants.IMAGES_HOVER_DESKTOP_CALENDAR,
-    agenda = constants.IMAGES_HOVER_DESKTOP_AGENDA
+    agenda   = constants.IMAGES_HOVER_DESKTOP_AGENDA
   }
   computerArea = {
-    name        = constants.SCENES_COMPUTER,
+    name        = constants.SCENES_COURSES,
     xPerc       = 0.27,
     yPerc       = 0.30,
     widthPerc   = 0.385,
