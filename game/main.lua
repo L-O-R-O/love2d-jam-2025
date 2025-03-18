@@ -16,6 +16,7 @@ local desktop    	  = require("scenes.desktop")
 local calendar 		  = require("scenes.calendar")
 local computer 		  = require("scenes.computer")
 local agenda   		  = require("scenes.agenda")
+local yearBook       = require("scenes.yearBook")
 
 mouse = Mouse
 timer = Timer
@@ -40,6 +41,7 @@ function love.load()
     computer.load()
     agenda.load()
     title.load()
+    yearBook.load()
     -- Carico le chiavi per i cursori
     mouse.setDefaultCursorsKeys({
         default = constants.DEFAULT_CURSOR,

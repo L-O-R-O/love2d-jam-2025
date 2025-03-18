@@ -30,6 +30,8 @@ constants.SCENES_YEARBOOK = "yearbook"
 constants.SCENES_COURSES  = "courses"
 constants.SCENES_AGENDA   = "agenda"
 constants.SCENES_TITLE    = "title"
+constants.SCENES_YEARBOOK = "yearBook"
+
 
 -- keys
 constants.KEYS_PAUSE_MENU  = "p"
