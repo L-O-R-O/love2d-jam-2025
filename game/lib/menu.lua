@@ -48,9 +48,21 @@ function Menu:draw()
 
     love.graphics.setFont(self.font) -- Imposta il font scelto
 
-    local y = 100 -- Posizione iniziale Y
+    local screenWidth = love.graphics.getWidth()
+    local screenHeight = love.graphics.getHeight()
     for i, item in ipairs(self.items) do
-        local x = 100
+        local y = (screenHeight / 2 - (#self.items * self.font:getHeight() / 2) + (i - 1) * self.font:getHeight())
+        local x = screenWidth / 2 - self.font:getWidth(item.name) / 2
+        local itemWidth = self.font:getWidth(item.name)
+        local itemHeight = self.font:getHeight()
+
+        -- Store item bounds for hit detection
+        item.bounds = {
+            x = x,
+            y = y,
+            width = itemWidth,
+            height = itemHeight
+        }
 
         -- Effetto glow verde attorno alla voce selezionata
         if i == self.selectedIndex then
@@ -71,10 +83,19 @@ function Menu:draw()
 
         -- Se è uno slider, disegna anche una barra
         if item.isSlider then
-            local barX, barY = x + 150, y + 5
-            local barWidth = 100
+            local barWidth = 200
             local barHeight = self.font:getHeight() - 10
+            local barOffset = 20
+            local barX, barY = x + itemWidth + barOffset, y + 5
             local fillWidth = menuManager:getVolume() * barWidth
+
+            -- Store slider bar bounds
+            item.sliderBounds = {
+                x = barX,
+                y = barY,
+                width = barWidth,
+                height = barHeight
+            }
 
             -- Disegna il contorno della barra
             love.graphics.setColor(0.1, 0.1, 0.1)
@@ -164,6 +185,60 @@ end
 
 function Menu:startTransition()
     self.transitionAlpha = 1  -- Opacità piena (nero)
+end
+
+function Menu:mousePressed(x, y)
+    if not self.isOpen then return end
+
+    for i, item in ipairs(self.items) do
+        if item.isSlider and item.sliderBounds then
+            -- Check if clicked on slider bar
+            if x >= item.sliderBounds.x and
+               x <= item.sliderBounds.x + item.sliderBounds.width and
+               y >= item.sliderBounds.y and
+               y <= item.sliderBounds.y + item.sliderBounds.height then
+
+                self.selectedIndex = i
+                -- Calculate relative position in slider (0 to 1)
+                local relativePos = (x - item.sliderBounds.x) / item.sliderBounds.width
+
+                -- Split bar into two halves
+                if relativePos <= 0.5 then
+                    item.action()  -- Decrease (left half)
+                else
+                    item.action2() -- Increase (right half)
+                end
+                return
+            end
+        elseif item.bounds and
+               x >= item.bounds.x and
+               x <= item.bounds.x + item.bounds.width and
+               y >= item.bounds.y and
+               y <= item.bounds.y + item.bounds.height then
+
+            self.selectedIndex = i
+            if item.action then
+                item.action()
+            end
+            return
+        end
+    end
+end
+
+function Menu:mouseHovered(x, y)
+    if not self.isOpen then return end
+
+    -- Check if mouse is over any menu item
+    for i, item in ipairs(self.items) do
+        if item.bounds and
+           x >= item.bounds.x and
+           x <= item.bounds.x + item.bounds.width and
+           y >= item.bounds.y and
+           y <= item.bounds.y + item.bounds.height then
+            self.selectedIndex = i
+            break
+        end
+    end
 end
 
 return Menu

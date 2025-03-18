@@ -53,9 +53,9 @@ function title.buildMenuElements()
     	mainMenu:addItem("Start Game", function()
                                         scenesManager:setScene(constants.SCENES_DESKTOP)
                                     end, nil, false, 50)
-	else
-		mainMenu:addItem("Continue", function() scenesManager:setScene(scenesManager.fromScene) end, nil, false, 50)
-	end
+	  else
+		  mainMenu:addItem("Continue", function() scenesManager:setScene(scenesManager.fromScene) end, nil, false, 50)
+	  end
 
     mainMenu:addItem("Settings", function() mainMenu:openSubMenu("settings") end, nil, false, 50)
     mainMenu:addItem("Exit", function() love.event.quit() end)
@@ -95,14 +95,16 @@ function title.buildMenuElements()
     return mainMenu
 end
 
-
-
 function title.mousePressed(x, y, button)
-  print('TITLE mousepressed')
+    if currentMenu then
+        currentMenu:mousePressed(x, y)
+    end
 end
 
 function title.mouseHovered(x, y)
- --  print('TITLE mousehovered')
+    if currentMenu then
+        currentMenu:mouseHovered(x, y)
+    end
 end
 
 return title
