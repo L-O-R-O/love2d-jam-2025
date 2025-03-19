@@ -25,4 +25,9 @@ function SoundsManager:playSceneTransitionSound(fromScene,toScene)
   end
 end
 
+function SoundsManager:playClickOnComputerScreen()
+  local sound = constants.SOUNDS_MOUSE_CLICK
+  sound:play()
+end
+
 return SoundsManager
