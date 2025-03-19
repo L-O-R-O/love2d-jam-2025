@@ -85,15 +85,15 @@ end
 
 function desktop.mousePressed(x, y, button)
   print('DESKTOP clicked x:'.. x .. ' and y:'..y)
-  local clickableAreaName = screenManager:checkIfIsClickable(x, y)
-  if (clickableAreaName) then
-    soundsManager:playSceneTransitionSound(constants.SCENES_DESKTOP,clickableAreaName)
+  local clickableArea = screenManager:checkIfIsClickable(x, y)
+  if (clickableArea) then
+    soundsManager:playSceneTransitionSound(constants.SCENES_DESKTOP,clickableArea.to)
     mouse.loadCursor(constants.HAND_CLICKED_CURSOR)
     isClicked = true
     timer.setTimeout(function()
       isClicked = false
       mouse.loadCursor(constants.DEFAULT_CURSOR)
-      scenesManager:setScene(clickableAreaName)
+      scenesManager:setScene(clickableArea.to)
     end, 0.5)
   end
 end
@@ -103,10 +103,10 @@ function desktop.mouseHovered(x, y)
     return
   end
   love.graphics.clear()
-  local clickableAreaName = screenManager:checkIfIsClickable(x, y)
-  if (clickableAreaName) then
+  local clickableArea = screenManager:checkIfIsClickable(x, y)
+  if (clickableArea) then
     isHovered = true
-    hoveredArea = clickableAreaName
+    hoveredArea = clickableArea.to
     mouse.loadCursor(constants.HAND_CURSOR)
   else
     isHovered = false

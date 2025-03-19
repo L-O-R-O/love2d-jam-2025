@@ -30,14 +30,14 @@ end
 ---@param area Area cliccabile
 ---@param to Scena di destinazione
 ---@param handler Funzione da eseguire al click dell'area
-function ScreenManager:setClickableArea(from, area, to, handler)
+function ScreenManager:setClickableArea(from, area, to, handler, data)
     area = self:calcAreaSizes(area)
 
     if self.areas[from] == nil then
         self.areas[from] = {}
     end
 
-    table.insert(self.areas[from], { area = area, to = to, handler = handler })
+    table.insert(self.areas[from], { area = area, to = to, handler = handler, data = data })
     return area
 end
 
@@ -63,7 +63,7 @@ function ScreenManager:checkIfIsClickable(x, y, mode)
                 -- Se fornito in precedenza, viene eseguito un handler (in caso di bottone selezionato)
                 areaOwner.handler()
             end
-            return areaOwner.to
+            return areaOwner
         end
     end
     -- end
