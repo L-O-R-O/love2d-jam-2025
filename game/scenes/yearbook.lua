@@ -35,18 +35,31 @@ local selectedNames = {}
 local namesPerPage = 8  -- 4 nomi per colonna a sinistra, 4 a destra
 local currentPage = 1
 local maxPages = 1
-
 local arrowWidth = 120
 local arrowHeight = 60
 local clickables = {}
 local prevArrow = {}
 local nextArrow = {}
+local leftX, rightX = 0.15, 0.75
+local heightIndex = 1
+
+
+local function PREV_PAGE()
+  if currentPage > 1 then
+    currentPage = currentPage - 1
+  end
+end
+
+local function NEXT_PAGE()
+  if currentPage < maxPages then
+    currentPage = currentPage + 1
+  end
+end
 
 
 
 function yearbook.load()
   mouse.registerHandler(yearbook, constants.SCENES_YEARBOOK)
-
   -- Definizione frecce navigazione
   prevArrow = {
     name        = 'PREV_BUTTON',
@@ -70,32 +83,19 @@ function yearbook.load()
     width       = 0,
     height      = 0,
   }
-  screenManager:setClickableArea(constants.SCENES_YEARBOOK, prevArrow, constants.SCENES_YEARBOOK, function()
-    if currentPage > 1 then
-      currentPage = currentPage - 1
-    end
-  end)
-  screenManager:setClickableArea(constants.SCENES_YEARBOOK, nextArrow, constants.SCENES_YEARBOOK, function()
-    if currentPage < maxPages then
-      currentPage = currentPage + 1
-    end
-  end
-  )
+  screenManager:setClickableArea(constants.SCENES_YEARBOOK, prevArrow, constants.SCENES_YEARBOOK, PREV_PAGE)
+  screenManager:setClickableArea(constants.SCENES_YEARBOOK, nextArrow, constants.SCENES_YEARBOOK, NEXT_PAGE)
 
-  -- Lista delle aree cliccabili
-  local areas = {
-    {name = AC, xPerc = 0.74, yPerc = 0.67, widthPerc = 0.26, heightPerc = 0.26},
-  }
-
-  local leftX, rightX = 0.15, 0.75
   local screenHeight = love.graphics.getHeight()
   local tabHeight = screenHeight / 5
-  local heightIndex = 1
-
   for i, group in ipairs(groups) do
     if i == 6 then
+      -- Resetto l'indice per disegnare le linguette
+      -- Cinque linguette a sx, tre a dx
+      -- In questo modo la sesta linguetta verrá disegnata a dx
       heightIndex = 1
     end
+    -- Calcolo la posizione delle linguette
     local xPerc = (i < 6) and leftX or rightX
     local yPerc = (0.15 * heightIndex)
     heightIndex = heightIndex + 1
@@ -175,27 +175,6 @@ function yearbook.mousePressed(x, y, button)
         updateMaxPages()
         return
       end
-    end
-
-    -- Controlla se è stata cliccata una freccia di navigazione
-    local centerX = love.graphics.getWidth() / 2
-    local screenHeight = love.graphics.getHeight()
-    local arrowY = screenHeight - 100
-
-    -- Freccia sinistra
-    if x >= centerX - 120 and x <= centerX - 120 + arrowWidth and y >= arrowY and y <= arrowY + arrowHeight then
-      if currentPage > 1 then
-        currentPage = currentPage - 1
-      end
-      return
-    end
-
-    -- Freccia destra
-    if x >= centerX + 40 and x <= centerX + 40 + arrowWidth and y >= arrowY and y <= arrowY + arrowHeight then
-      if currentPage < maxPages then
-        currentPage = currentPage + 1
-      end
-      return
     end
   end
 end
