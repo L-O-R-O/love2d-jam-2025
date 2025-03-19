@@ -3,13 +3,18 @@
 -- lick = require "lib.lick"
 -- lick.reset = true -- ricarica love.load di main.lua ogni volta che si salva un file del progetto
 -- lick.updateAllFiles = true -- include tutti i file del progetto
-
+local constants		  = require("constants")
 local ScenesManager = require("lib.scenesManager")
 local ScreenManager = require("lib.screenManager")
 local SoundsManager = require("lib.soundsManager")
 local Mouse = require("lib.mouse")
-local constants		  = require("constants")
 local Timer = require("lib.time")
+
+mouse = Mouse
+timer = Timer
+scenesManager = ScenesManager:new()
+screenManager = ScreenManager:new()
+soundsManager = SoundsManager:new()
 
 local title    		  = require("scenes.title")
 local desktop    	  = require("scenes.desktop")
@@ -18,12 +23,9 @@ local computer 		  = require("scenes.computer")
 local agenda   		  = require("scenes.agenda")
 local yearBook      = require("scenes.yearbook")
 local courses       = require("scenes.courses")
+local yearBookStudentCard = require("scenes.yearbookStudentCard")
 
-mouse = Mouse
-timer = Timer
-scenesManager = ScenesManager:new()
-screenManager = ScreenManager:new()
-soundsManager = SoundsManager:new()
+
 
 function loadMousePng(image)
   local canvas = love.graphics.newCanvas(constants.MOUSE_SIZE, constants.MOUSE_SIZE)
@@ -44,6 +46,7 @@ function love.load()
     title.load()
     yearBook.load()
     courses.load()
+    yearBookStudentCard.load()
     -- Carico le chiavi per i cursori
     mouse.setDefaultCursorsKeys({
         default = constants.DEFAULT_CURSOR,
@@ -84,6 +87,8 @@ function love.update(dt)
         courses.update(dt)
     elseif scenesManager:getScene() == constants.SCENES_AGENDA then
         agenda.update(dt)
+      elseif scenesManager:getScene() == constants.SCENES_YEARBOOK_STUDENT_CARD then
+        yearBookStudentCard.update(dt)
     end
 end
 
@@ -102,6 +107,8 @@ function love.draw()
 		courses.draw()
 	elseif scenesManager:getScene() == constants.SCENES_AGENDA then
 		agenda.draw()
+  elseif scenesManager:getScene() == constants.SCENES_YEARBOOK_STUDENT_CARD then
+		yearBookStudentCard.draw()
 	end
    -- Draw transition overlay
    screenManager:draw()
@@ -120,6 +127,8 @@ function love.keypressed(key)
       courses.keypressed(key)
     elseif scenesManager:getScene() == constants.SCENES_AGENDA then
       agenda.keypressed(key)
+    elseif scenesManager:getScene() == constants.SCENES_YEARBOOK_STUDENT_CARD then
+      yearBookStudentCard.keypressed(key)
     end
 end
 
