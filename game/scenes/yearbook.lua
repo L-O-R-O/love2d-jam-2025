@@ -30,18 +30,18 @@ local groups = {
 local colorText   = {r = 0, g = 0, b = 0, a = 1}  -- Nero
 
 -- Variabili per la gestione dell'interfaccia
-local tabs = {}
+local tabs          = {}
 local selectedNames = {}
-local namesPerPage = 8  -- 4 nomi per colonna a sinistra, 4 a destra
-local currentPage = 1
-local maxPages = 1
-local arrowWidth = 120
-local arrowHeight = 60
-local clickables = {}
-local prevArrow = {}
-local nextArrow = {}
+local namesPerPage  = 10  -- 5 nomi per colonna a sinistra, 5 a destra
+local currentPage   = 1
+local maxPages      = 1
+local arrowWidth    = screenManager.screenWidth * 0.06
+local arrowHeight   = screenManager.screenHeight * 0.06
+local clickables    = {}
+local prevArrow     = {}
+local nextArrow     = {}
 local leftX, rightX = 0.15, 0.75
-local heightIndex = 1
+local heightIndex   = 1
 
 
 local function PREV_PAGE()
@@ -55,8 +55,6 @@ local function NEXT_PAGE()
     currentPage = currentPage + 1
   end
 end
-
-
 
 function yearbook.load()
   mouse.registerHandler(yearbook, constants.SCENES_YEARBOOK)
@@ -180,7 +178,7 @@ function yearbook.mousePressed(x, y, button)
 end
 
 function yearbook.draw()
-  screenManager:drawSceneBackground(constants.IMAGES_COMPUTER_BG)
+  screenManager:drawSceneBackground(constants.IMAGES_)
   love.graphics.setColor(colorText.r, colorText.g, colorText.b, colorText.a)
   love.graphics.setFont(constants.FONTS_NICE_CHALK)
 
