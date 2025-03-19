@@ -23,13 +23,17 @@ constants.IMAGES_CALENDAR_RED_CIRCLE      = love.graphics.newImage("assets/image
 
 
 -- yearbook images
-constants.IMAGES_YB_AC = love.graphics.newImage("assets/images/yearbook/yearbook_ac.png")
-constants.IMAGES_YB_DF = love.graphics.newImage("assets/images/yearbook/yearbook_df.png")
-constants.IMAGES_YB_GI = love.graphics.newImage("assets/images/yearbook/yearbook_gi.png")
-constants.IMAGES_YB_JM = love.graphics.newImage("assets/images/yearbook/yearbook_jm.png")
-constants.IMAGES_YB_QS = love.graphics.newImage("assets/images/yearbook/yearbook_qs.png")
-constants.IMAGES_YB_TV = love.graphics.newImage("assets/images/yearbook/yearbook_tv.png")
-constants.IMAGES_YB_WZ = love.graphics.newImage("assets/images/yearbook/yearbook_wz.png")
+constants.IMAGES_YB_AC               = love.graphics.newImage("assets/images/yearbook/yearbook_ac.png")
+constants.IMAGES_YB_DF               = love.graphics.newImage("assets/images/yearbook/yearbook_df.png")
+constants.IMAGES_YB_GI               = love.graphics.newImage("assets/images/yearbook/yearbook_gi.png")
+constants.IMAGES_YB_JM               = love.graphics.newImage("assets/images/yearbook/yearbook_jm.png")
+constants.IMAGES_YB_NP               = love.graphics.newImage("assets/images/yearbook/yearbook_np.png")
+constants.IMAGES_YB_QS               = love.graphics.newImage("assets/images/yearbook/yearbook_qs.png")
+constants.IMAGES_YB_TV               = love.graphics.newImage("assets/images/yearbook/yearbook_tv.png")
+constants.IMAGES_YB_WZ               = love.graphics.newImage("assets/images/yearbook/yearbook_wz.png")
+constants.IMAGES_YB_ARROWS_NONE      = love.graphics.newImage("assets/images/yearbook/yearbook_arrow_none.png")
+constants.IMAGES_YB_ARROWS_LEFT      = love.graphics.newImage("assets/images/yearbook/yearbook_arrow_left.png")
+constants.IMAGES_YB_ARROWS_RIGHT     = love.graphics.newImage("assets/images/yearbook/yearbook_arrow_right.png")
 constants.IMAGES_YB_STUDENT_CARD_BG  = love.graphics.newImage("assets/images/yearbook/yearbook_studentcard.png")
 
 -- sounds

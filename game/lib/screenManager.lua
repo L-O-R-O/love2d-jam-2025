@@ -51,7 +51,7 @@ end
 
 -- Controlla se un'area di una certa scena é cliccabile o meno
 -- Inoltre restituisce la landing zone (nome scena) del click (se presente)
-function ScreenManager:checkIfIsClickable(x, y)
+function ScreenManager:checkIfIsClickable(x, y, mode)
     local scene = scenesManager:getScene()
     if self.areas == nil then
         return nil
@@ -59,7 +59,7 @@ function ScreenManager:checkIfIsClickable(x, y)
     for _, areaOwner in ipairs(self.areas[scene]) do
         local area = areaOwner.area
         if x >= area.x and x <= area.x + area.width and y >= area.y and y <= area.y + area.height then
-            if (areaOwner.handler ~= nil) then
+            if (areaOwner.handler ~= nil and mode ~= "hover") then
                 -- Se fornito in precedenza, viene eseguito un handler (in caso di bottone selezionato)
                 areaOwner.handler()
             end
@@ -100,14 +100,6 @@ function ScreenManager:draw()
     end
 end
 
--- Start the transition effect
-function ScreenManager:startTransition(newScene)
-  if self.isTransitioning then return end
-  self.nextScene = newScene
-  self.isTransitioning = true
-  self.fadeAlpha = 0 -- Start fade effect
-end
-
 function ScreenManager:drawSceneBackground(img,hoverImages)
   -- Get image dimensions
   local imgWidth, imgHeight = img:getWidth(), img:getHeight()
@@ -119,12 +111,23 @@ function ScreenManager:drawSceneBackground(img,hoverImages)
   -- Draw the image with scaling
   love.graphics.draw(img, 0, 0, 0, scaleX, scaleY)
   -- Draw the overlay image on top of the base image
+  if hoveredArea == "RIGHT_BUTTON" then
+    local stop = 1
+  end
   if isHovered and hoverImages ~= nil and hoveredArea ~= nil  then
     if hoverImages[hoveredArea] ~= nil then
       local overlayImg = hoverImages[hoveredArea]
       love.graphics.draw(overlayImg, 0, 0, 0, scaleX, scaleY)
     end
   end
+end
+
+-- Start the transition effect
+function ScreenManager:startTransition(newScene)
+  if self.isTransitioning then return end
+  self.nextScene = newScene
+  self.isTransitioning = true
+  self.fadeAlpha = 0 -- Start fade effect
 end
 
 -- Update transition effect
