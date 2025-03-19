@@ -19,6 +19,7 @@ constants.IMAGES_CURSOR_HAND_CLICKED       = love.graphics.newImage("assets/imag
 constants.IMAGES_CURSOR_HAND               = love.graphics.newImage("assets/images/cursor_hand.png")
 constants.IMAGES_SAMPLE_WINDOW             = love.graphics.newImage("assets/images/sample_window.png")
 
+
 -- yearbook images
 constants.IMAGES_YB_AC = love.graphics.newImage("assets/images/yearbook/yearbook_ac.png")
 constants.IMAGES_YB_DF = love.graphics.newImage("assets/images/yearbook/yearbook_df.png")
@@ -27,6 +28,7 @@ constants.IMAGES_YB_JM = love.graphics.newImage("assets/images/yearbook/yearbook
 constants.IMAGES_YB_QS = love.graphics.newImage("assets/images/yearbook/yearbook_qs.png")
 constants.IMAGES_YB_TV = love.graphics.newImage("assets/images/yearbook/yearbook_tv.png")
 constants.IMAGES_YB_WZ = love.graphics.newImage("assets/images/yearbook/yearbook_wz.png")
+constants.IMAGES_YB_STUDENT_CARD_BG  = love.graphics.newImage("assets/images/yearbook/yearbook_studentcard.png")
 
 -- sounds
 constants.SOUNDS_MOUSE_CLICK = love.audio.newSource("assets/sounds/click.mp3", "static")
@@ -41,7 +43,7 @@ constants.SCENES_COURSES  = "courses"
 constants.SCENES_AGENDA   = "agenda"
 constants.SCENES_TITLE    = "title"
 constants.SCENES_YEARBOOK = "yearBook"
-constants.SCENES_YEARBOOK_DETAIL = "yearBookDetail"
+constants.SCENES_YEARBOOK_STUDENT_CARD = "yearBookStudentCard"
 
 -- keys
 constants.KEYS_PAUSE_MENU  = "p"
