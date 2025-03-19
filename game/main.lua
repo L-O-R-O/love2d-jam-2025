@@ -3,13 +3,18 @@
 -- lick = require "lib.lick"
 -- lick.reset = true -- ricarica love.load di main.lua ogni volta che si salva un file del progetto
 -- lick.updateAllFiles = true -- include tutti i file del progetto
-
+local constants		  = require("constants")
 local ScenesManager = require("lib.scenesManager")
 local ScreenManager = require("lib.screenManager")
 local SoundsManager = require("lib.soundsManager")
 local Mouse = require("lib.mouse")
-local constants		  = require("constants")
 local Timer = require("lib.time")
+
+mouse = Mouse
+timer = Timer
+scenesManager = ScenesManager:new()
+screenManager = ScreenManager:new()
+soundsManager = SoundsManager:new()
 
 local title    		  = require("scenes.title")
 local desktop    	  = require("scenes.desktop")
@@ -20,11 +25,7 @@ local yearBook      = require("scenes.yearbook")
 local courses       = require("scenes.courses")
 local yearBookDetail = require("scenes.yearbookDetail")
 
-mouse = Mouse
-timer = Timer
-scenesManager = ScenesManager:new()
-screenManager = ScreenManager:new()
-soundsManager = SoundsManager:new()
+
 
 function loadMousePng(image)
   local canvas = love.graphics.newCanvas(constants.MOUSE_SIZE, constants.MOUSE_SIZE)
