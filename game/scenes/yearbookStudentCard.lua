@@ -2,7 +2,7 @@ local constants = require("constants")
 
 yearbookStudentCard = {}
 
-local player = yearbook.getCurrentStudent()
+--local player = yearbook.getCurrentStudent()
 
 function yearbookStudentCard.load()
   mouse.registerHandler(yearbookStudentCard, constants.SCENES_YEARBOOK_STUDENT_CARD)
