@@ -70,7 +70,7 @@ function drawDebugFrame(stateName,area)
   love.graphics.setColor(colorText.r, colorText.g, colorText.b, colorText.a)
 
   -- Scrive la variabile nell'angolo in alto a sinistra
-  love.graphics.setFont(constants.FONTS_ROBOTO)
+  love.graphics.setFont(constants.FONTS_NICE_CHALK)
   love.graphics.print("Debug: " .. tostring(stateName), area.x + 10, area.y + 10)
 
   -- Reset del colore per evitare effetti indesiderati

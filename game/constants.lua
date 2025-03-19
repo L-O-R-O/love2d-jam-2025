@@ -1,9 +1,10 @@
 local constants = {}
 
 -- fonts
-constants.FONTS_MAIN_MENU = love.graphics.newFont("assets/font/Hello_Sweet_Rain.ttf", 50)
-constants.FONTS_SUB_MENU  = love.graphics.newFont("assets/font/Hello_Sweet_Rain.ttf", 40)
+constants.FONTS_MAIN_MENU = love.graphics.newFont("assets/font/NiceChalk.ttf", 50)
+constants.FONTS_SUB_MENU  = love.graphics.newFont("assets/font/NiceChalk.ttf", 40)
 constants.FONTS_ROBOTO    = love.graphics.newFont("assets/font/Roboto-Black.ttf", 20)
+constants.FONTS_NICE_CHALK = love.graphics.newFont("assets/font/NiceChalk.ttf", 20)
 
 -- images
 constants.IMAGES_HOVER_DESKTOP_COMPUTER    = love.graphics.newImage("assets/images/hover_desktop_pc.png")

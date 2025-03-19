@@ -203,7 +203,7 @@ end
 function yearbook.draw()
   screenManager:drawSceneBackground(constants.IMAGES_COMPUTER_BG)
   love.graphics.setColor(colorText.r, colorText.g, colorText.b, colorText.a)
-  love.graphics.setFont(constants.FONTS_ROBOTO)
+  love.graphics.setFont(constants.FONTS_NICE_CHALK)
 
   local centerX = love.graphics.getWidth() / 2
   local screenHeight = love.graphics.getHeight()
