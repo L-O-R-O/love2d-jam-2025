@@ -64,6 +64,11 @@ function love.load()
     mouse.loadCursor(constants.DEFAULT_CURSOR);
 
     love.graphics.setBlendMode("alpha")  -- Ensure transparency works
+
+    -- Load the sound file
+    backgroundMusic = love.audio.newSource("assets/sounds/theme.mp3", "stream")
+    backgroundMusic:setLooping(true)
+    backgroundMusic:play()
 end
 
 function love.update(dt)

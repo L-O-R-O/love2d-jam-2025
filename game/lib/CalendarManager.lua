@@ -35,24 +35,25 @@ local tmpActivity = {}                                                          
 local addedActivities = {}                                                        --tutte le attività aggiunte al calendario fino ad oggi
 local month = 1
 
-local function alignCalendar()      -- aggiorna il calendario con tutte le attività caricate fino ad oggi --
-    for i = 1, #addedActivities do
-        ActivityOnCalendar.addActivity(activitySchedule[addedActivities[i]])
-    end
-    return true
+local function minFreeDays(calendar, nFreeDays)     -- controlla se il calendario passato ha almeno nFreeDays --
+  local FreeCalendarDays = 0
+
+  for i = 1, #calendar do
+      FreeCalendarDays = FreeCalendarDays + calendar[i]
+  end
+  if FreeCalendarDays >= nFreeDays then
+      return true
+  else
+      return false
+  end
 end
 
-local function minFreeDays(calendar, nFreeDays)     -- controlla se il calendario passato ha almeno nFreeDays --
-    local FreeCalendarDays = 0
 
-    for i = 1, #calendar do
-        FreeCalendarDays = FreeCalendarDays + calendar[i]
+function CalendarManager:alignCalendar()      -- aggiorna il calendario con tutte le attività caricate fino ad oggi --
+    for i = 1, #self.addedActivities do
+        CalendarManager:addActivity(activitySchedule[addedActivities[i]])
     end
-    if FreeCalendarDays >= nFreeDays then
-        return true
-    else
-        return false
-    end
+    return true
 end
 
 
@@ -71,7 +72,7 @@ function CalendarManager:new(month)        -- inizializza il calendario al mese 
     self.month = month
 
     calendar=tmpCalendar
-    alignCalendar()
+    CalendarManager:alignCalendar()
 
     return self
 end
@@ -136,13 +137,18 @@ function CalendarManager:addActivity(activity, nFreeDays) -- aggiunge una specif
     local tmpCalendar = {}
 
     for i = 1, #calendar do
-        tmpCalendar[i] = calendar[i] * activity.calendar[i]
+        tmpCalendar[i] = self.calendar[i] * activity.calendar[i]
     end
 
     if minFreeDays(tmpCalendar, nFreeDays) then
-        calendar = tmpCalendar
-        --print("aggiunta attività al calendario")
+        self.calendar = tmpCalendar
+        table.insert(addedActivities, activity.calendar)
     end
+end
+
+function CalendarManager:reset()
+  self.calendar = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+  self.addedActivities = {}
 end
 
 -- creazione immediata dell'istanza globale
