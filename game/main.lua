@@ -18,6 +18,7 @@ local computer 		  = require("scenes.computer")
 local agenda   		  = require("scenes.agenda")
 local yearBook      = require("scenes.yearbook")
 local courses       = require("scenes.courses")
+local yearBookDetail = require("scenes.yearbookDetail")
 
 mouse = Mouse
 timer = Timer
@@ -44,6 +45,7 @@ function love.load()
     title.load()
     yearBook.load()
     courses.load()
+    yearBookDetail.load()
     -- Carico le chiavi per i cursori
     mouse.setDefaultCursorsKeys({
         default = constants.DEFAULT_CURSOR,
@@ -84,6 +86,8 @@ function love.update(dt)
         courses.update(dt)
     elseif scenesManager:getScene() == constants.SCENES_AGENDA then
         agenda.update(dt)
+      elseif scenesManager:getScene() == constants.SCENES_YEARBOOK_DETAIL then
+        yearBookDetail.update(dt)
     end
 end
 
@@ -102,6 +106,8 @@ function love.draw()
 		courses.draw()
 	elseif scenesManager:getScene() == constants.SCENES_AGENDA then
 		agenda.draw()
+  elseif scenesManager:getScene() == constants.SCENES_YEARBOOK_DETAIL then
+		yearBookDetail.draw()
 	end
    -- Draw transition overlay
    screenManager:draw()
@@ -120,6 +126,8 @@ function love.keypressed(key)
       courses.keypressed(key)
     elseif scenesManager:getScene() == constants.SCENES_AGENDA then
       agenda.keypressed(key)
+    elseif scenesManager:getScene() == constants.SCENES_YEARBOOK_DETAIL then
+      yearBookDetail.keypressed(key)
     end
 end
 
