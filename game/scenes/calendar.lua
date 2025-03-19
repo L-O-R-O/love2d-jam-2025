@@ -18,6 +18,10 @@ local redCircle = {
   day = ''
 }
 
+local function dateClicked(day)
+  print("Day clicked: " .. day)
+end
+
 function calendar.draw()
 
   screenManager:drawSceneBackground(constants.IMAGES_CALENDAR_BG)
@@ -70,11 +74,10 @@ function calendar.draw()
     end
 
     screenManager:setClickableArea(constants.SCENES_CALENDAR, nameArea, constants.SCENES_CALENDAR, function()
-      redCircle = {
-        draw = true,
-        day = day
-      }
-    end)
+      dateClicked(day)
+    end, {
+      day = day
+    })
     colIndex = (colIndex % 5) + 1
     previousGroup = group
   end
@@ -89,17 +92,21 @@ function calendar.keypressed(key)
 end
 
 function calendar.mousePressed(x, y, button)
-  local clickableAreaName = screenManager:checkIfIsClickable(x, y)
+  local clickableArea = screenManager:checkIfIsClickable(x, y)
 end
 
 function calendar.mouseHovered(x, y)
-  local clickableAreaName = screenManager:checkIfIsClickable(x, y)
-  if (clickableAreaName) then
+  local clickableArea = screenManager:checkIfIsClickable(x, y, "hover")
+  if (clickableArea) then
     mouse.loadCursor(constants.HAND_CURSOR)
+    redCircle = {
+      draw = true,
+      day = clickableArea.data.day
+    }
   else
     redCircle = {
       draw = false,
-      day = ''
+      day = nil
     }
     mouse.loadCursor(constants.DEFAULT_CURSOR)
   end

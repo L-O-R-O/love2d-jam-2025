@@ -131,6 +131,9 @@ local leftX, rightX  = 0.20, 0.753
 local heightIndex    = 1
 local background     = constants.IMAGES_YB_AC
 
+-- variabile per lo studente della student card
+currentStudent = nil
+
 local function PREV_PAGE()
   if currentPage > 1 then
     currentPage = currentPage - 1
@@ -140,6 +143,13 @@ end
 local function NEXT_PAGE()
   if currentPage < maxPages then
     currentPage = currentPage + 1
+  end
+end
+
+local function HANDLE_LABEL_CLICK(labelArea)
+  if (labelArea.student ~= nil) then
+    currentStudent = labelArea.student
+    scenesManager:setScene(constants.SCENES_YEARBOOK_STUDENT_CARD)
   end
 end
 
@@ -266,7 +276,11 @@ function yearbook.drawPage()
           height = 0,
       }
       table.insert(yearbookLabels, clickableLabel)
-      screenManager:setClickableArea(constants.SCENES_YEARBOOK, clickableLabel, constants.SCENES_YEARBOOK)
+      screenManager:setClickableArea(constants.SCENES_YEARBOOK, clickableLabel, constants.SCENES_YEARBOOK, function()
+        HANDLE_LABEL_CLICK(clickableLabel)
+      end, {
+        clickableLabel = clickableLabel
+      })
   end
 end
 
@@ -299,7 +313,8 @@ function yearbook.drawRedBoxes()
   love.graphics.setColor(1, 0, 0) -- Red color
   for _, box in ipairs(yearbookLabels) do
       love.graphics.rectangle("line", box.x, box.y, box.width, box.height)
-      love.graphics.printf(box.student.name, box.x, box.y, 350)
+      local studentName = box.student ~= nil and box.student.name or "404 Student Not Found"
+      love.graphics.printf(studentName, box.x, box.y, 350)
   end
   love.graphics.setColor(0, 0, 0) -- Reset color to black
 end
@@ -328,12 +343,26 @@ function yearbook.draw()
   local startIdx = (currentPage - 1) * namesPerPage + 1
   local endIdx = math.min(startIdx + namesPerPage - 1, #selectedNames)
 
+  local numberOfLabels = 0
   for i = startIdx, endIdx do
     local name = selectedNames[i].name
     local y = namesYOffset + (((i - startIdx) % (namesPerPage/2)) * namesYSpacing)
     local x = (i - startIdx) < namesPerPage/2 and (centerX - namesXLeftStart) or (centerX + namesXRightStart)
     love.graphics.print(name, x, y)
-    yearbookLabels[i].student = selectedNames[i]
+    if (selectedNames[i] ~= nil) then
+      if (yearbookLabels[i] ~= nil) then
+        yearbookLabels[i].student = selectedNames[i]
+      else
+        local newIndex = i % 10
+        yearbookLabels[newIndex].student = selectedNames[i]
+      end
+    end
+    numberOfLabels = numberOfLabels + 1
+  end
+  for j = 1, 10 do
+    if (j > numberOfLabels) then
+      yearbookLabels[j].student = nil
+    end
   end
 
   --yearbook.drawRedBoxes()
@@ -392,6 +421,10 @@ function yearbook.mouseHovered(x, y)
     hoveredArea = nil
     mouse.loadCursor(constants.DEFAULT_CURSOR)
   end
+end
+
+function yearbook.getCurrentStudent()
+  return currentStudent
 end
 
 return yearbook
