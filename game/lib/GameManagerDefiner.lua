@@ -1,7 +1,7 @@
 GameManagerDefiner = {}
 GameManagerDefiner.__index = GameManagerDefiner
 
-require("Player")
+require("lib.Player")
 constants = require("constants")
 
 function GameManagerDefiner:new(strikes)

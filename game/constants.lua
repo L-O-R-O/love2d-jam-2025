@@ -5,6 +5,7 @@ constants.FONTS_MAIN_MENU = love.graphics.newFont("assets/font/NiceChalk.ttf", 5
 constants.FONTS_SUB_MENU  = love.graphics.newFont("assets/font/NiceChalk.ttf", 40)
 constants.FONTS_ROBOTO    = love.graphics.newFont("assets/font/Roboto-Black.ttf", 20)
 constants.FONTS_NICE_CHALK = love.graphics.newFont("assets/font/NiceChalk.ttf", 20)
+constants.FONTS_CALENDAR_MONTH = love.graphics.newFont("assets/font/NiceChalk.ttf", 70)
 
 -- images
 constants.IMAGES_HOVER_DESKTOP_COMPUTER    = love.graphics.newImage("assets/images/hover_desktop_pc.png")
@@ -18,6 +19,7 @@ constants.IMAGES_CURSOR                    = love.graphics.newImage("assets/imag
 constants.IMAGES_CURSOR_HAND_CLICKED       = love.graphics.newImage("assets/images/cursor_hand_clicked.png")
 constants.IMAGES_CURSOR_HAND               = love.graphics.newImage("assets/images/cursor_hand.png")
 constants.IMAGES_SAMPLE_WINDOW             = love.graphics.newImage("assets/images/sample_window.png")
+constants.IMAGES_CALENDAR_RED_CIRCLE      = love.graphics.newImage("assets/images/red_circle.png")
 
 
 -- yearbook images
@@ -93,5 +95,9 @@ constants.scheduledActivity = {
   swimming =      {1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, -- Solo il 4° giorno
   chess =         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1} -- Solo il 21° giorno
 }
+
+function constants.setFont(font, size)
+  return love.graphics.setFont(love.graphics.newFont("assets/font/"..font..".ttf", size))
+end
 
 return constants
