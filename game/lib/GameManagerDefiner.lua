@@ -1,9 +1,8 @@
 GameManagerDefiner = {}
 GameManagerDefiner.__index = GameManagerDefiner
 
-require("Player")
-constants = require("constants")
-players=require("playersGeneration")
+require("lib.Player")
+constants = require("../constants")
 
 function GameManagerDefiner:new(strikes)
     local obj = {

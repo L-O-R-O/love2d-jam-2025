@@ -2,7 +2,7 @@ Player = {}
 Player.__index = Player
 
 constants = require("constants")
-Activity = require("Activity")
+Activity = require("lib.Activity")
 
 function Player:new(name, description, hobby, sport, playable, inGuild)
     -- Controlla se il calendario esiste, altrimenti imposta una tabella vuota
