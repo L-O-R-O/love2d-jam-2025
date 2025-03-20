@@ -1,12 +1,27 @@
 local constants = require("constants")
 calendar = {}
-local currentMonth = 1
+
 local currentMonthLabel = "MARCH"
 local monthFont = love.graphics.newFont("assets/font/NiceChalk.ttf", 70)
 local dayFont = love.graphics.newFont("assets/font/NiceChalk.ttf", 45)
 local dayNameFont = love.graphics.newFont("assets/font/NiceChalk.ttf", 15)
 
-local daysOfWeek = { "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN" }
+-- Calcolo mese corrente
+local currentMonth = GameManager:getMonth()
+local currentMonthLabel = constants.MONTH_NAMES[currentMonth]
+local firstDayOfTheMonth = CalendarManager:getFirstDayOfMonth(currentMonth)
+
+local previousGroup = nil
+local redCircle = {
+  toDraw = false,
+  day = ''
+}
+
+-- Lista dei giorni della settimana, abbreviati ed in uppercase
+local daysOfWeek = {}
+for _, day in ipairs(constants.WEEK_DAYS) do
+  table.insert(daysOfWeek, day:sub(1, 3):upper())
+end
 
 function calendar.load()
   mouse.registerHandler(calendar, constants.SCENES_CALENDAR)
@@ -15,18 +30,11 @@ end
 function calendar.update(dt)
 end
 
-local previousGroup = nil
-local redCircle = {
-  draw = false,
-  day = ''
-}
-
 local function dateClicked(day)
   print("Day clicked: " .. day)
 end
 
 function calendar.draw()
-
   screenManager:drawSceneBackground(constants.IMAGES_CALENDAR_BG)
   love.graphics.setFont(monthFont)
   local monthArea = screenManager:calcAreaSizes({
@@ -39,7 +47,6 @@ function calendar.draw()
   love.graphics.printf(currentMonthLabel, monthArea.x, monthArea.y, monthArea.width, "center")
   love.graphics.setColor(1, 1, 1)
 
-
   local daysInMonth = constants.DAYS_IN_MONTH[currentMonth]
   local colIndex = 1
   local xOffset, yOffset = 0.309, 0.22
@@ -50,8 +57,6 @@ function calendar.draw()
     if group ~= previousGroup then
       yDiagonalOffset = 0
     end
-
-
 
     local xPerc = xOffset + (colIndex * 0.055)
     local yPerc = yOffset + (group * 0.08) + yDiagonalOffset
@@ -65,17 +70,23 @@ function calendar.draw()
     })
 
     love.graphics.setFont(dayNameFont)
-    local dayOfWeek = daysOfWeek[((day - 1) % #daysOfWeek) + 1]
+    -- Seleziono il giorno della settimana
+    local dayOfWeekIndex = ((firstDayOfTheMonth + day - 2) % #daysOfWeek) + 1
+    local dayOfWeek = daysOfWeek[dayOfWeekIndex]
+
+    -- Stampo nome giorno
     love.graphics.setColor(0, 0, 0)
     love.graphics.printf(dayOfWeek, nameArea.x - 0.01, nameArea.y -20, nameArea.width, "center")
     love.graphics.setColor(1, 1, 1)
 
+    -- Stampo numero giorno
     love.graphics.setFont(dayFont)
     love.graphics.setColor(0, 0, 0)
     love.graphics.printf(day, nameArea.x, nameArea.y, nameArea.width, "center")
     love.graphics.setColor(1, 1, 1)
 
-    if (redCircle.draw == true and redCircle.day == day) then
+    -- Controllo se disegnare il cerchio rosso
+    if (redCircle.toDraw == true and redCircle.day == day) then
       local image = constants.IMAGES_CALENDAR_RED_CIRCLE
       local sx = nameArea.width / image:getWidth() + 0.1
       local sy = nameArea.height / image:getHeight() + 0.1
@@ -85,6 +96,7 @@ function calendar.draw()
       love.graphics.draw(image, x, y, 0, sx, sy)
     end
 
+    -- Assegno un'area cliccabile al giorno
     screenManager:setClickableArea(constants.SCENES_CALENDAR, nameArea, constants.SCENES_CALENDAR, function()
       dateClicked(day)
     end, {
@@ -109,12 +121,15 @@ end
 
 function calendar.mouseHovered(x, y)
   local clickableArea = screenManager:checkIfIsClickable(x, y, "hover")
+  -- Se GIORNO é in hover, disegno il cerchio rosso
+  -- e cambio il cursore
   if (clickableArea) then
     mouse.loadCursor(constants.HAND_CURSOR)
     redCircle = {
       draw = true,
       day = clickableArea.data.day
     }
+  -- Altrimenti resetto il cursore a quello di default
   else
     redCircle = {
       draw = false,
