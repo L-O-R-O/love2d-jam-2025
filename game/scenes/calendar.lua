@@ -125,16 +125,12 @@ function calendar.mouseHovered(x, y)
   -- e cambio il cursore
   if (clickableArea) then
     mouse.loadCursor(constants.HAND_CURSOR)
-    redCircle = {
-      draw = true,
-      day = clickableArea.data.day
-    }
+    redCircle.day = clickableArea.data.day
+    redCircle.toDraw = true
   -- Altrimenti resetto il cursore a quello di default
   else
-    redCircle = {
-      draw = false,
-      day = nil
-    }
+    redCircle.day = nil
+    redCircle.toDraw = false
     mouse.loadCursor(constants.DEFAULT_CURSOR)
   end
 end
