@@ -1,6 +1,7 @@
 local constants = {}
 
 -- fonts
+constants.FONTS_NICE_CHALK_ONLY_FONT = love.graphics.newFont("assets/font/NiceChalk.ttf")
 constants.FONTS_MAIN_MENU = love.graphics.newFont("assets/font/NiceChalk.ttf", 50)
 constants.FONTS_SUB_MENU = love.graphics.newFont("assets/font/NiceChalk.ttf", 40)
 constants.FONTS_ROBOTO = love.graphics.newFont("assets/font/Roboto-Black.ttf", 20)
