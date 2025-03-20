@@ -127,6 +127,8 @@ local maxPages       = 1
 local clickables     = {}
 local prevArrow      = {}
 local nextArrow      = {}
+local browserTabYB   = {}
+local browserTabCS   = {}
 local leftX, rightX  = 0.20, 0.753
 local heightIndex    = 1
 local background     = constants.IMAGES_YB_AC
@@ -149,7 +151,7 @@ end
 local function HANDLE_LABEL_CLICK(labelArea)
   if (labelArea.student ~= nil) then
     currentStudent = labelArea.student
-    scenesManager:setScene(constants.SCENES_YEARBOOK_STUDENT_CARD)
+    scenesManager:setScene(constants.SCENES_YEARBOOK_STUDENT_CARD,false)
   end
 end
 
@@ -198,6 +200,31 @@ function yearbook.drawPage()
   }
   screenManager:setClickableArea(constants.SCENES_YEARBOOK, prevArrow, prevArrow.name, PREV_PAGE)
   screenManager:setClickableArea(constants.SCENES_YEARBOOK, nextArrow, nextArrow.name, NEXT_PAGE)
+  -- Definizione tab orizzontali del browser
+  browserTabYB = {
+    name        = 'TAB_YB',
+    xPerc       = 0.12,
+    yPerc       = 0.1,
+    widthPerc   = 0.20,
+    heightPerc  = 0.1,
+    x           = 0,
+    y           = 0,
+    width       = 0,
+    height      = 0,
+  }
+  browserTabCS = {
+    name        = 'TAB_CS',
+    xPerc       = 0.32,
+    yPerc       = 0.1,
+    widthPerc   = 0.20,
+    heightPerc  = 0.1,
+    x           = 0,
+    y           = 0,
+    width       = 0,
+    height      = 0,
+  }
+  screenManager:setClickableArea(constants.SCENES_YEARBOOK, browserTabYB, browserTabYB.name, PREV_PAGE)
+  screenManager:setClickableArea(constants.SCENES_YEARBOOK, browserTabCS, browserTabCS.name, NEXT_PAGE)
   heightIndex = 1
   local tabsYOffset = 0.28
   local screenHeight = screenManager.screenWidth
@@ -316,6 +343,9 @@ function yearbook.drawRedBoxes()
       local studentName = box.student ~= nil and box.student.name or "404 Student Not Found"
       love.graphics.printf(studentName, box.x, box.y, 350)
   end
+  love.graphics.rectangle("line", browserTabYB.x, browserTabYB.y, browserTabYB.width, browserTabYB.height)
+  love.graphics.rectangle("line", browserTabCS.x, browserTabCS.y, browserTabCS.width, browserTabCS.height)
+
   love.graphics.setColor(0, 0, 0) -- Reset color to black
 end
 
@@ -335,6 +365,7 @@ function yearbook.draw()
     love.graphics.rectangle("line", tab.x, tab.y, tab.width, tab.height)
     love.graphics.printf(tab.name, tab.x, tab.y + tab.height / 2 - 10, tab.width, "center")
   end ]]
+
   -- Calcola le posizioni centrate per i nomi
   local namesYOffset     = screenManager.screenHeight * 0.38
   local namesYSpacing    = screenManager.screenHeight * 0.094
@@ -365,7 +396,7 @@ function yearbook.draw()
     end
   end
 
-  --yearbook.drawRedBoxes()
+  yearbook.drawRedBoxes()
 
   -- DEBUG: disegna le aree PREV e NEXT
   if maxPages > 1 then
@@ -414,7 +445,7 @@ function yearbook.mouseHovered(x, y)
   local clickableAreaName = screenManager:checkIfIsClickable(x, y, "hover")
   if (clickableAreaName) then
     isHovered = true
-    hoveredArea = clickableAreaName
+    hoveredArea = clickableAreaName.to
     mouse.loadCursor(constants.HAND_CURSOR)
   else
     isHovered = false

@@ -27,19 +27,19 @@ function calendar.draw()
   screenManager:drawSceneBackground(constants.IMAGES_CALENDAR_BG)
   love.graphics.setFont(monthFont)
   local monthArea = screenManager:calcAreaSizes({
-    xPerc = 0.63,
-    yPerc = 0.22,
+    xPerc = 0.38,
+    yPerc = 0.17,
     widthPerc = 0.2,
     heightPerc = 0.1
   })
-  love.graphics.setColor(0, 0, 0)
+  love.graphics.setColor(0.9, 0.9, 0.9)
   love.graphics.printf(currentMonthLabel, monthArea.x, monthArea.y, monthArea.width, "center")
   love.graphics.setColor(1, 1, 1)
 
   love.graphics.setFont(dayFont)
   local daysInMonth = constants.DAYS_IN_MONTH[currentMonth]
   local colIndex = 1
-  local xOffset, yOffset = 0.55, 0.25
+  local xOffset, yOffset = 0.31, 0.22
   local yDiagonalOffset = 0
   local previousGroup = 1
   for day = 1, daysInMonth do

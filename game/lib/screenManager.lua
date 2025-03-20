@@ -71,11 +71,11 @@ function ScreenManager:checkIfIsClickable(x, y, mode)
 end
 
 function ScreenManager:setScene(scene)
-    if self.isTransitioning then return end
+  if self.isTransitioning then return end
 
-    self.nextScene = scene
-    self.isTransitioning = true
-    self.fadeAlpha = 0 -- Start fade-in
+  self.nextScene = scene
+  self.isTransitioning = true
+  self.fadeAlpha = 0 -- Start fade-in
 end
 
 function ScreenManager:update(dt)
@@ -101,22 +101,18 @@ function ScreenManager:draw()
 end
 
 function ScreenManager:drawSceneBackground(img,hoverImages)
-  -- Get image dimensions
+  -- Background
   local imgWidth, imgHeight = img:getWidth(), img:getHeight()
-
-  -- Calculate scaling factors for full screen
   local scaleX = self.screenWidth / imgWidth
   local scaleY = self.screenHeight / imgHeight
-
-  -- Draw the image with scaling
   love.graphics.draw(img, 0, 0, 0, scaleX, scaleY)
-  -- Draw the overlay image on top of the base image
-  if hoveredArea == "RIGHT_BUTTON" then
-    local stop = 1
-  end
+  -- Hovers
   if isHovered and hoverImages ~= nil and hoveredArea ~= nil  then
     if hoverImages[hoveredArea] ~= nil then
       local overlayImg = hoverImages[hoveredArea]
+      local hoveredImgWidth, hoveredImgHeight = overlayImg:getWidth(), overlayImg:getHeight()
+      local scaleX = self.screenWidth / hoveredImgWidth
+      local scaleY = self.screenHeight / hoveredImgHeight
       love.graphics.draw(overlayImg, 0, 0, 0, scaleX, scaleY)
     end
   end

@@ -13,16 +13,13 @@ end
 
 function yearbookStudentCard.keypressed(key)
   if (key == constants.KEYS_ESCAPE_MENU) then
-    scenesManager:setScene(constants.SCENES_YEARBOOK)
+    scenesManager:setScene(constants.SCENES_YEARBOOK, false)
   elseif (key =='c') then
     scenesManager:setScene(constants.SCENES_CALENDAR)
   elseif (key =='f') then
     scenesManager:setScene(constants.SCENES_COURSES)
   elseif (key =='j') then
     scenesManager:setScene(constants.SCENES_AGENDA)
-  end
-  if (key == constants.KEYS_ESCAPE_MENU) then
-    scenesManager:setScene(constants.SCENES_DESKTOP)
   end
 end
 

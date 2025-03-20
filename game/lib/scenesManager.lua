@@ -18,12 +18,16 @@ function ScenesManager:getScene()
     return self.scene
 end
 
-function ScenesManager:setScene(newScene)
+function ScenesManager:setScene(newScene, transition)
+  if transition ~= false then
     self.fromScene = self.scene
     if (newScene == constants.SCENES_TITLE) then
       self.rebuildMenu = true
     end
     screenManager:startTransition(newScene)
+  else
+    self.scene = newScene
+  end
 end
 
 return ScenesManager
