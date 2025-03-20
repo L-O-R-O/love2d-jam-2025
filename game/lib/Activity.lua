@@ -47,7 +47,6 @@ local function checkRecurrentDaysOccupied(obj, month, targetDay) -- controlla se
       end
       return true
   else
-      tmpCalendar = obj.calendar
       return false
   end
 end
@@ -83,7 +82,7 @@ end
 
 local function checkAllDaysOccupied(obj, month)   -- Ritorna una stringa con i giorni occupati --
   local r, s, z
-  tmpCalendar = obj.calendar
+  table.move(obj.calendar, 1, #obj.calendar, 1, tmpCalendar)
 
   updateDayWeekOffset(month)
   -- Check for every day of the week
@@ -101,14 +100,6 @@ local function checkAllDaysOccupied(obj, month)   -- Ritorna una stringa con i g
   end
 
   r = false
-
-  if s == nil then
-
-  else
-      for i= 1, #obj.calendar do
-          --print(tmpActivity[i])
-      end
-  end
 
   if  s == nil then
       for d = constants.DAYS_IN_MONTH[month], 1, -1 do

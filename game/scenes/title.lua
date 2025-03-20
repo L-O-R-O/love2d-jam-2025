@@ -1,7 +1,7 @@
 local title = {}
 
 local Menu        = require("lib.menu")
-local MenuManager = require("lib.menuManager")
+local MenuManager = require("lib.MenuManager")
 local desktop     = require("scenes.desktop")
 local constants   = require("constants")
 
@@ -63,29 +63,25 @@ function title.buildMenuElements()
     -- Creazione del sottomenù settings
     local myFont_2 = constants.FONTS_SUB_MENU -- Carica il font
     local settingsMenu = Menu:new(myFont_2)
-
-    settingsMenu:addItem("Resolution: " .. menuManager:getResolution(), function() end)
-    settingsMenu:addItem("      -- 800x600", function()
-                                                menuManager:setResolution(800, 600)
-                                                settingsMenu.items[1].name = title.updateResolutionText()
-                                            end)
-    settingsMenu:addItem("      -- 1280x720", function()
-                                                menuManager:setResolution(1280, 720)
-                                                settingsMenu.items[1].name = title.updateResolutionText()
-                                            end)
-    settingsMenu:addItem("      -- 1920x1080", function()
-                                                    menuManager:setResolution(1920, 1080)
-                                                    settingsMenu.items[1].name = title.updateResolutionText()
-                                                end, nil, false, 50)
+    -- local width, height = menuManager:getResolution()
+    -- settingsMenu:addItem("Resolution: " .. width .. height, function() end)
+    -- settingsMenu:addItem("      -- 1280x720", function()
+    --                                             menuManager:setResolution(1280, 720)
+    --                                             settingsMenu.items[1].name = title.updateResolutionText()
+    --                                         end)
+    -- settingsMenu:addItem("      -- 1920x1080", function()
+    --                                                 menuManager:setResolution(1920, 1080)
+    --                                                 settingsMenu.items[1].name = title.updateResolutionText()
+    --                                             end, nil, false, 50)
 
     settingsMenu:addItem("Volume: " .. math.floor(menuManager:getVolume() * 100) .. "%",
                         function()
                             menuManager:decreaseVolume()
-                            settingsMenu.items[5].name = updateVolumeText()
+                            settingsMenu.items[1].name = updateVolumeText()
                         end,
                         function()
                             menuManager:increaseVolume()
-                            settingsMenu.items[5].name = updateVolumeText()
+                            settingsMenu.items[1].name = updateVolumeText()
                         end, true, 60)
 
     settingsMenu:addItem("Back", function() settingsMenu:close() end)
