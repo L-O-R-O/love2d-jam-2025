@@ -20,6 +20,10 @@ function yearbookStudentCard.keypressed(key)
     scenesManager:setScene(constants.SCENES_COURSES)
   elseif (key =='j') then
     scenesManager:setScene(constants.SCENES_AGENDA)
+  elseif (key =='d') then
+    scenesManager:setScene(constants.SCENES_DESKTOP)
+  elseif (key == 'p') then
+    scenesManager:setScene(constants.SCENES_TITLE)
   end
 end
 
@@ -32,7 +36,7 @@ function yearbookStudentCard.draw()
   -- NOME
   local nameArea = screenManager:calcAreaSizes({ xPerc = 0.5, yPerc = 0.44, widthPerc = 0.8, heightPerc = 0.1 })
   love.graphics.setColor(0, 0, 0)
-  love.graphics.printf(currentStudent.name, nameArea.x, nameArea.y, nameArea.width)
+  love.graphics.printf(currentStudent.name, nameArea.x, nameArea.y, nameArea.width, "left")
   love.graphics.setColor(1, 1, 1)
   -- COGNOME
   --[[ local surnameArea = screenManager:calcAreaSizes({ xPerc = 0.55, yPerc =  0.44, widthPerc = 0.8, heightPerc = 0.1 })
@@ -40,9 +44,18 @@ function yearbookStudentCard.draw()
   love.graphics.printf(currentStudent.surname, surnameArea.x, surnameArea.y, surnameArea.width)
   love.graphics.setColor(1, 1, 1) ]]
   -- DESCRIZIONE
-  local descriptionArea = screenManager:calcAreaSizes({ xPerc = 0.55, yPerc = 0.6, widthPerc = 0.8, heightPerc = 0.1 })
+  local descriptionArea = screenManager:calcAreaSizes({ 
+    xPerc = 0.5,
+    yPerc = 0.54, 
+    widthPerc = 0.15, 
+    heightPerc = 0.2 
+  })
+  -- Draw green border for testing
+  love.graphics.setColor(0, 1, 0) -- RGB for green
+  love.graphics.rectangle("line", descriptionArea.x, descriptionArea.y, descriptionArea.width, descriptionArea.height)
+  -- Draw text
   love.graphics.setColor(0, 0, 0)
-  love.graphics.printf(currentStudent.description, descriptionArea.x, descriptionArea.y, descriptionArea.width)
+  love.graphics.printf(currentStudent.bestMemory, descriptionArea.x, descriptionArea.y, descriptionArea.width, "left")
   love.graphics.setColor(1, 1, 1)
   -- LISTA ATTIVITA'
 --[[   for index, activity in ipairs(currentStudent.activities) do
