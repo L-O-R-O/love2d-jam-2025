@@ -1,5 +1,7 @@
 -- Libreria per gestire eventi del mouse
 local Mouse = {}
+local currentMouse = nil
+
 Mouse.handlers = {}
 Mouse.debounceTime = 0.01 -- 200 milliseconds debounce time
 Mouse.lastMousePressed = 0
@@ -11,6 +13,8 @@ Mouse.cursorHandClickedImage = nil
 Mouse.defaultCursorKey = "default"
 Mouse.cursorHandKey = "hand"
 Mouse.cursorHandClickedKey = "handClicked"
+
+
 
 --- Funzione di debounce
 -- @param func (function) La funzione da debouncizzare
@@ -66,9 +70,10 @@ end, Mouse.debounceTime)
 --- Carica e imposta un cursore personalizzato
 function Mouse.loadCursor(cursor)
   cursor = cursor or mouse.defaultCursorImage
-  if (cursor == nil) then
+  if (cursor == nil or currentMouse == cursor) then
     return
   end
+  currentMouse = cursor
   if (cursor == Mouse.defaultCursorKey) then
     Mouse.cursor = love.mouse.newCursor(Mouse.defaultCursorImage, 0, 0)
   elseif (cursor == Mouse.cursorHandKey) then

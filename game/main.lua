@@ -71,7 +71,7 @@ function love.load()
     -- Load the sound file
     backgroundMusic = love.audio.newSource("assets/sounds/theme.mp3", "stream")
     backgroundMusic:setLooping(true)
-    backgroundMusic:play()
+    --backgroundMusic:play()
 end
 
 function love.update(dt)
