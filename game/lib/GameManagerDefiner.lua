@@ -109,6 +109,6 @@ function GameManagerDefiner:tryDate(proposedDate)
     end
 end
 
-GameManager = GameManagerDefiner:new(2)
+GameManager = GameManagerDefiner:new(0)
 
 return GameManager
