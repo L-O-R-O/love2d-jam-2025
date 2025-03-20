@@ -18,6 +18,7 @@ end
 function SoundsManager:startMusic()
   local music = constants.SOUNDS_BACKGROUND_MUSIC
   music:play()
+  music:setLooping(true)
 end
 
 function SoundsManager:mute(audio)
