@@ -84,6 +84,11 @@ constants.MONTH_NAMES = {
   "July", "August", "September", "October", "November", "December"
 }
 
+constants.WEEK_DAYS = {
+  [1] = "Monday", [2] = "Tuesday", [3] = "Wednesday",
+  [4] = "Thursday", [5] = "Friday", [6] = "Saturday", [7] = "Sunday"
+}
+
 
 -- Tabella con le attività schedulate
 constants.repeatedActivity={
