@@ -5,10 +5,27 @@ SoundsManager.__index = SoundsManager
 
 function SoundsManager:new()
   local properties = {
-
   }
   setmetatable(properties, SoundsManager)
   return properties
+end
+
+function SoundsManager:stopMusic()
+  local music = constants.SOUNDS_BACKGROUND_MUSIC
+  music:stop()
+end
+
+function SoundsManager:startMusic()
+  local music = constants.SOUNDS_BACKGROUND_MUSIC
+  music:play()
+end
+
+function SoundsManager:mute(audio)
+  audio:setVolume(0)
+end
+
+function SoundsManager:unmute(audio)
+  audio:setVolume(1)
 end
 
 function SoundsManager:playSceneTransitionSound(fromScene,toScene)

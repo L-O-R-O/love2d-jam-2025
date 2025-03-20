@@ -68,10 +68,8 @@ function love.load()
 
     love.graphics.setBlendMode("alpha")  -- Ensure transparency works
 
-    -- Load the sound file
-    backgroundMusic = love.audio.newSource("assets/sounds/theme.mp3", "stream")
-    backgroundMusic:setLooping(true)
-    --backgroundMusic:play()
+    -- Play main theme
+    SoundsManager.startMusic()
 end
 
 function love.update(dt)
