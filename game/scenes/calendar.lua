@@ -4,6 +4,9 @@ local currentMonth = 1
 local currentMonthLabel = "MARCH"
 local monthFont = love.graphics.newFont("assets/font/NiceChalk.ttf", 70)
 local dayFont = love.graphics.newFont("assets/font/NiceChalk.ttf", 45)
+local dayNameFont = love.graphics.newFont("assets/font/NiceChalk.ttf", 15)
+
+local daysOfWeek = { "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN" }
 
 function calendar.load()
   mouse.registerHandler(calendar, constants.SCENES_CALENDAR)
@@ -27,7 +30,7 @@ function calendar.draw()
   screenManager:drawSceneBackground(constants.IMAGES_CALENDAR_BG)
   love.graphics.setFont(monthFont)
   local monthArea = screenManager:calcAreaSizes({
-    xPerc = 0.38,
+    xPerc = 0.4,
     yPerc = 0.17,
     widthPerc = 0.2,
     heightPerc = 0.1
@@ -36,10 +39,10 @@ function calendar.draw()
   love.graphics.printf(currentMonthLabel, monthArea.x, monthArea.y, monthArea.width, "center")
   love.graphics.setColor(1, 1, 1)
 
-  love.graphics.setFont(dayFont)
+
   local daysInMonth = constants.DAYS_IN_MONTH[currentMonth]
   local colIndex = 1
-  local xOffset, yOffset = 0.31, 0.22
+  local xOffset, yOffset = 0.309, 0.22
   local yDiagonalOffset = 0
   local previousGroup = 1
   for day = 1, daysInMonth do
@@ -48,9 +51,11 @@ function calendar.draw()
       yDiagonalOffset = 0
     end
 
+
+
     local xPerc = xOffset + (colIndex * 0.055)
     local yPerc = yOffset + (group * 0.08) + yDiagonalOffset
-    yDiagonalOffset = yDiagonalOffset - 0.006
+    yDiagonalOffset = yDiagonalOffset - 0.002
 
     local nameArea = screenManager:calcAreaSizes({
       xPerc = xPerc,
@@ -59,6 +64,13 @@ function calendar.draw()
       heightPerc = 0.06
     })
 
+    love.graphics.setFont(dayNameFont)
+    local dayOfWeek = daysOfWeek[((day - 1) % #daysOfWeek) + 1]
+    love.graphics.setColor(0, 0, 0)
+    love.graphics.printf(dayOfWeek, nameArea.x - 0.01, nameArea.y -20, nameArea.width, "center")
+    love.graphics.setColor(1, 1, 1)
+
+    love.graphics.setFont(dayFont)
     love.graphics.setColor(0, 0, 0)
     love.graphics.printf(day, nameArea.x, nameArea.y, nameArea.width, "center")
     love.graphics.setColor(1, 1, 1)
@@ -68,7 +80,7 @@ function calendar.draw()
       local sx = nameArea.width / image:getWidth() + 0.1
       local sy = nameArea.height / image:getHeight() + 0.1
       local x = nameArea.x + (nameArea.width - image:getWidth() * sx) / 2
-      local y = nameArea.y + (nameArea.height - image:getHeight() * sy) / 2
+      local y = nameArea.y + (nameArea.height - image:getHeight() * sy) / 2 - 10
       love.graphics.setColor(1, 1, 1, 1)
       love.graphics.draw(image, x, y, 0, sx, sy)
     end
