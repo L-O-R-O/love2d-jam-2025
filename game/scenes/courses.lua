@@ -42,11 +42,14 @@ local allCourses = {
   { name = "Linguistics Club", description = "A club for students interested in learning and discussing languages.", calendar = {}, dayOfTheWeek = "3", strSchedule = {} }
 }
 
-local browserTabYB = {}
-local browserTabCS = {}
-local prevArrow    = {}
-local nextArrow    = {}
-local coursesLabel = {}
+local browserTabYB   = {}
+local browserTabCS   = {}
+local prevArrow      = {}
+local nextArrow      = {}
+local coursesLabel   = {}
+local currentPage    = 1
+local maxViewCourses = 13
+local maxPages       = #allCourses / maxViewCourses
 
 -- Hover dei bottoni prevArrow e nextArrow
 local arrowsHoverImgs = {
@@ -72,6 +75,13 @@ end
 local function NEXT_PAGE()
   if currentPage < maxPages then
     currentPage = currentPage + 1
+  end
+end
+
+local function HANDLE_LABEL_CLICK(labelArea)
+  if (labelArea.course ~= nil) then
+    currentCourse = labelArea.course
+    scenesManager:setScene(constants.SCENES_YEARBOOK_STUDENT_CARD,false)
   end
 end
 
@@ -146,24 +156,50 @@ function courses.drawPage()
 end
 
 function courses.draw()
+  love.graphics.setFont(constants.FONTS_NICE_CHALK)
   screenManager:drawSceneBackground(constants.IMAGES_CS_BG)
   screenManager:drawSceneBackground(constants.IMAGES_CS_ARROWS_NONE,arrowsHoverImgs)
 
-  coursesLabel = {
-    name        = 'Label 1',
-    xPerc       = 0.18,
-    yPerc       = 0.46,
-    widthPerc   = 0.18,
-    heightPerc  = 0.05,
-    x           = 0,
-    y           = 0,
-    width       = 0,
-    height      = 0,
-  }
-  screenManager:setClickableArea(constants.SCENES_COURSES, coursesLabel, coursesLabel.name, PREV_PAGE)
-  love.graphics.setColor(1, 0, 0, 1)
-  love.graphics.rectangle("line", coursesLabel.x, coursesLabel.y, coursesLabel.width, coursesLabel.height)
-  love.graphics.setColor(1, 1, 1, 1)
+  local labelOffsetX = 0 --screenManager.screenWidth  * 0.036
+  local labelOffsetY = screenManager.screenHeight * 0.0115
+  -- calcola i valori delle etichette
+  local startIdx = (currentPage - 1) * maxViewCourses + 1
+  local endIdx = math.min(startIdx + maxViewCourses - 1, #allCourses)
+  local currentCourses = {}
+  local j = 1
+  for i = startIdx, endIdx do
+    currentCourses[j] = allCourses[i]
+    j = j + 1
+  end
+  if (currentPage == 3 or currentPage == 2) then
+    local stayHere = 1
+  end
+  -- disegna le etichette
+  for i = 1, maxViewCourses, 1 do
+    if currentCourses[i] ~= nil then
+      coursesLabel = {
+        name        = 'A very long label name '..i,
+        course      = currentCourses[i],
+        xPerc       = i <= 6 and 0.193 or 0.435,
+        yPerc       = i <= 6 and ((i * 0.062) + 0.40) or (((i-6) * 0.052) + 0.3),
+        widthPerc   = i<=6 and 0.165 or 0.165,
+        heightPerc  = i<=6 and 0.05 or 0.04,
+        x           = 0,
+        y           = 0,
+        width       = 0,
+        height      = 0,
+      }
+      screenManager:setClickableArea(constants.SCENES_COURSES, coursesLabel, coursesLabel.name, PREV_PAGE)
+      if isHovered and hoveredArea == coursesLabel.name then
+        love.graphics.setColor(0.687, 0.477, 0.461, 1)
+      else
+        love.graphics.setColor(0.409, 0.225, 0.214, 1)
+      end
+      --love.graphics.rectangle("line", coursesLabel.x, coursesLabel.y, coursesLabel.width, coursesLabel.height)
+      love.graphics.printf(coursesLabel.course.name, coursesLabel.x , coursesLabel.y + labelOffsetY, coursesLabel.width, "center",-0.001)
+      love.graphics.setColor(1, 1, 1, 1)
+    end
+  end
 end
 
 function courses.keypressed(key)
@@ -181,21 +217,7 @@ function courses.mousePressed(x, y, button)
   local clickableAreaName = screenManager:checkIfIsClickable(x, y)
   if (clickableAreaName) then
     soundsManager:playClickOnComputerScreen()
-    --[[ for _, tab in ipairs(tabs) do
-      if x >= tab.x and x <= tab.x + tab.width and y >= tab.y and y <= tab.y + tab.height then
-        local range = ''
-        for _, group in ipairs(groups) do
-          if group.label == tab.name then
-            range = group.range
-            background = group.background
-            break
-          end
-        end
-        selectedNames = filterNames(range)
-        updateMaxPages()
-        return
-      end
-    end ]]
+
   end
 end
 
