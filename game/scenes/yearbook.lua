@@ -133,9 +133,10 @@ local leftX, rightX  = 0.20, 0.753
 local heightIndex    = 1
 local background     = constants.IMAGES_YB_AC
 
--- variabile per lo studente della student card
+-- Variabile per lo studente della student card
 currentStudent = nil
 
+-- Handlers degli elementi yearbook
 local function PREV_PAGE()
   if currentPage > 1 then
     currentPage = currentPage - 1
@@ -152,6 +153,14 @@ local function HANDLE_LABEL_CLICK(labelArea)
   if (labelArea.student ~= nil) then
     currentStudent = labelArea.student
     scenesManager:setScene(constants.SCENES_YEARBOOK_STUDENT_CARD,false)
+  end
+end
+
+local function HANDLE_BROWSER_TAB_CLICK(browserTabArea)
+  if browserTabArea.name == "TAB_YB" then
+    -- does nothing!!
+  elseif browserTabArea.name == "TAB_CS" then
+    scenesManager:setScene(constants.SCENES_COURSES,false)
   end
 end
 
@@ -200,6 +209,7 @@ function yearbook.drawPage()
   }
   screenManager:setClickableArea(constants.SCENES_YEARBOOK, prevArrow, prevArrow.name, PREV_PAGE)
   screenManager:setClickableArea(constants.SCENES_YEARBOOK, nextArrow, nextArrow.name, NEXT_PAGE)
+
   -- Definizione tab orizzontali del browser
   browserTabYB = {
     name        = 'TAB_YB',
@@ -223,8 +233,16 @@ function yearbook.drawPage()
     width       = 0,
     height      = 0,
   }
-  screenManager:setClickableArea(constants.SCENES_YEARBOOK, browserTabYB, browserTabYB.name, PREV_PAGE)
-  screenManager:setClickableArea(constants.SCENES_YEARBOOK, browserTabCS, browserTabCS.name, NEXT_PAGE)
+  screenManager:setClickableArea(constants.SCENES_YEARBOOK, browserTabYB, browserTabYB.name, function()
+    HANDLE_BROWSER_TAB_CLICK(browserTabYB)
+  end, {
+    browserTab = browserTabYB
+  })
+  screenManager:setClickableArea(constants.SCENES_YEARBOOK, browserTabCS, browserTabCS.name, function()
+    HANDLE_BROWSER_TAB_CLICK(browserTabCS)
+  end, {
+    browserTab = browserTabCS
+  })
   heightIndex = 1
   local tabsYOffset = 0.28
   local screenHeight = screenManager.screenWidth
@@ -396,7 +414,7 @@ function yearbook.draw()
     end
   end
 
-  yearbook.drawRedBoxes()
+  --yearbook.drawRedBoxes()
 
   -- DEBUG: disegna le aree PREV e NEXT
   if maxPages > 1 then

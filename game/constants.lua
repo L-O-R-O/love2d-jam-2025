@@ -35,6 +35,12 @@ constants.IMAGES_YB_ARROWS_LEFT      = love.graphics.newImage("assets/images/yea
 constants.IMAGES_YB_ARROWS_RIGHT     = love.graphics.newImage("assets/images/yearbook/yearbook_arrow_right.png")
 constants.IMAGES_YB_STUDENT_CARD_BG  = love.graphics.newImage("assets/images/yearbook/yearbook_studentcard.png")
 
+-- courses/activities images
+constants.IMAGES_CS_BG = love.graphics.newImage("assets/images/activities/activities.png")
+constants.IMAGES_CS_ARROWS_NONE      = love.graphics.newImage("assets/images/activities/activities_arrow_none.png")
+constants.IMAGES_CS_ARROWS_LEFT      = love.graphics.newImage("assets/images/activities/activities_arrow_left.png")
+constants.IMAGES_CS_ARROWS_RIGHT     = love.graphics.newImage("assets/images/activities/activities_arrow_right.png")
+
 -- sounds
 constants.SOUNDS_MOUSE_CLICK = love.audio.newSource("assets/sounds/click.mp3", "static")
 constants.SOUNDS_PAGE_TURN = love.audio.newSource("assets/sounds/pages.mp3", "static")
