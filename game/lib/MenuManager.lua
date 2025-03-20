@@ -4,7 +4,7 @@ MenuManager.__index = MenuManager
 function MenuManager:new()
     local instance = {
         volume     = 1,                           -- Volume iniziale al massimo
-        resolution = {width = 800, height = 600}  -- Risoluzione predefinita
+        resolution = {width = 1920, height = 1080}  -- Risoluzione predefinita
     }
     setmetatable(instance, MenuManager)
     return instance
