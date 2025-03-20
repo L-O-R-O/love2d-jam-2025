@@ -50,12 +50,14 @@ end
 
 
 function CalendarManager:alignCalendar()      -- aggiorna il calendario con tutte le attività caricate fino ad oggi --
-    for i = 1, #self.addedActivities do
+    if not addedActivities then
+      return
+    end
+    for i = 1, #addedActivities do
         CalendarManager:addActivity(activitySchedule[addedActivities[i]])
     end
-    return true
+    return
 end
-
 
 function CalendarManager:new(month)        -- inizializza il calendario al mese indicato
     if (month < 1 or month > 12) then
@@ -72,7 +74,10 @@ function CalendarManager:new(month)        -- inizializza il calendario al mese 
     self.month = month
 
     calendar=tmpCalendar
-    CalendarManager:alignCalendar()
+
+    if month ~= 1 then
+      CalendarManager:alignCalendar()
+    end
 
     return self
 end
@@ -137,20 +142,38 @@ function CalendarManager:addActivity(activity, nFreeDays) -- aggiunge una specif
     local tmpCalendar = {}
 
     for i = 1, #calendar do
-        tmpCalendar[i] = self.calendar[i] * activity.calendar[i]
+        tmpCalendar[i] = calendar[i] * activity.calendar[i]
     end
 
     if minFreeDays(tmpCalendar, nFreeDays) then
-        self.calendar = tmpCalendar
+        calendar = tmpCalendar
         table.insert(addedActivities, activity.calendar)
     end
 end
 
 function CalendarManager:reset()
-  self.calendar = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-  self.addedActivities = {}
+  calendar = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+  addedActivities = {}
 end
 
+function CalendarManager:getFirstDayOfMonth(month)  -- ritorna il primo giorno della settimana del mese indicato
+
+  if  month == 1 then
+    return 1
+  end
+
+  local totalDays = 0
+
+  -- Calcola i giorni trascorsi fino al mese precedente
+  for i = 1, month - 1 do
+      totalDays = totalDays + constants.DAYS_IN_MONTH[i]
+  end
+
+   -- Calcola il giorno della settimana (1 = Monday, 7 = Sunday)
+  local firstDay = ((totalDays) % 7) + 1
+
+  return firstDay
+end
 -- creazione immediata dell'istanza globale
 CalendarManager = CalendarManager:new(1)
 
