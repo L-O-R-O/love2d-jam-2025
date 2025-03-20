@@ -61,6 +61,10 @@ local players = {
   }
 }
 
+local function getStrikes()
+  return GameManager:getStrikes()
+end
+
 function agenda.load()
   mouse.registerHandler(agenda, constants.SCENES_AGENDA)
 end
@@ -70,7 +74,14 @@ function agenda.update(dt)
 end
 
 function agenda.draw()
-  screenManager:drawSceneBackground(constants.IMAGES_AGENDA_BG)
+  local strikes = getStrikes()
+  if (strikes == 0) then
+    screenManager:drawSceneBackground(constants.IMAGES_AGENDA_BG_FULL)
+  elseif (strikes == 1) then
+    screenManager:drawSceneBackground(constants.IMAGES_AGENDA_BG_STRIKE_1)
+  elseif (strikes == 2) then
+    screenManager:drawSceneBackground(constants.IMAGES_AGENDA_BG_STRIKE_2)
+  end
 
   for i, player in ipairs(players) do
     local column = (i - 1) % 2

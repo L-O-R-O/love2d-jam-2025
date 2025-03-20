@@ -25,6 +25,10 @@ function GameManagerDefiner:new(strikes)
     return obj
 end
 
+function GameManagerDefiner:getStrikes()
+    return self.strikes
+end
+
 function GameManagerDefiner:getMonth()
     return self.month
 end
@@ -105,6 +109,6 @@ function GameManagerDefiner:tryDate(proposedDate)
     end
 end
 
-GameManager = GameManagerDefiner:new(0)
+GameManager = GameManagerDefiner:new(2)
 
 return GameManager

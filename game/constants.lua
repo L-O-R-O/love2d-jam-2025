@@ -13,13 +13,14 @@ constants.IMAGES_HOVER_DESKTOP_CALENDAR    = love.graphics.newImage("assets/imag
 constants.IMAGES_HOVER_DESKTOP_AGENDA      = love.graphics.newImage("assets/images/hover_desktop_agenda.png")
 constants.IMAGES_DESKTOP_BG                = love.graphics.newImage("assets/images/desktop.png")
 constants.IMAGES_CALENDAR_BG               = love.graphics.newImage("assets/images/zoom/zoom_calendar.png")
-constants.IMAGES_AGENDA_BG                 = love.graphics.newImage("assets/images/zoom/zoom_journal1.png")
 constants.IMAGES_CURSOR                    = love.graphics.newImage("assets/images/cursor.png")
 constants.IMAGES_CURSOR_HAND_CLICKED       = love.graphics.newImage("assets/images/cursor_hand_clicked.png")
 constants.IMAGES_CURSOR_HAND               = love.graphics.newImage("assets/images/cursor_hand.png")
 constants.IMAGES_SAMPLE_WINDOW             = love.graphics.newImage("assets/images/sample_window.png")
 constants.IMAGES_CALENDAR_RED_CIRCLE      = love.graphics.newImage("assets/images/red_circle.png")
-
+constants.IMAGES_AGENDA_BG_FULL                 = love.graphics.newImage("assets/images/zoom/zoom_journal1.png")
+constants.IMAGES_AGENDA_BG_STRIKE_1                 = love.graphics.newImage("assets/images/zoom/zoom_journal2.png")
+constants.IMAGES_AGENDA_BG_STRIKE_2                 = love.graphics.newImage("assets/images/zoom/zoom_journal3.png")
 
 -- yearbook images
 constants.IMAGES_YB_AC               = love.graphics.newImage("assets/images/yearbook/yearbook_ac.png")
