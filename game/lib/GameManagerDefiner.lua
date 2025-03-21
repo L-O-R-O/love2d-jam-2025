@@ -29,6 +29,10 @@ function GameManagerDefiner:new(strikes)
     return obj
 end
 
+function GameManagerDefiner:getStrikes()
+  return self.strikes
+end
+
 function GameManagerDefiner:getGuild()
     return self.guild
 end
