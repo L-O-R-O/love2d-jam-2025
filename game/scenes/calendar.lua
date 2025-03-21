@@ -1,6 +1,6 @@
 local constants = require("constants")
 calendar = {}
-
+local calendarArea = {}
 local currentMonthLabel = "MARCH"
 local monthFont = love.graphics.newFont("assets/font/NiceChalk.ttf", 70)
 local dayFont = love.graphics.newFont("assets/font/NiceChalk.ttf", 45)
@@ -25,6 +25,12 @@ end
 
 function calendar.load()
   mouse.registerHandler(calendar, constants.SCENES_CALENDAR)
+  calendarArea = screenManager:calcAreaSizes({
+    xPerc = 0.27,
+    yPerc = 0.05,
+    widthPerc = 0.42,
+    heightPerc = 0.90
+  })
 end
 
 function calendar.update(dt)
@@ -36,6 +42,9 @@ end
 
 function calendar.draw()
   screenManager:drawSceneBackground(constants.IMAGES_CALENDAR_BG)
+  love.graphics.setColor(0, 0, 1)
+  --love.graphics.rectangle("line",calendarArea.x,calendarArea.y,calendarArea.width,calendarArea.height)
+  love.graphics.setColor(1, 1, 1)
   love.graphics.setFont(monthFont)
   local monthArea = screenManager:calcAreaSizes({
     xPerc = 0.4,
@@ -117,6 +126,9 @@ end
 
 function calendar.mousePressed(x, y, button)
   local clickableArea = screenManager:checkIfIsClickable(x, y)
+  if screenManager:checkIfClickingOutside(x,y,calendarArea) then
+    scenesManager:setScene(constants.SCENES_DESKTOP)
+  end
 end
 
 function calendar.mouseHovered(x, y)
