@@ -31,6 +31,7 @@ local courses = require("scenes.courses")
 local yearBookStudentCard = require("scenes.yearbookStudentCard")
 local coursesActivityCard = require("scenes.coursesActivityCard")
 local outcome = require("scenes.outcome")
+local confirm      = require("scenes.confirm")
 local unitTest = require("lib.unitTest")
 local gameOver = require("scenes.gameOver")
 
@@ -59,6 +60,7 @@ function love.load()
   yearBookStudentCard.load()
   coursesActivityCard.load()
   outcome.load()
+    confirm.load()
   gameOver.load()
 
   -- Carico le chiavi per i cursori
@@ -115,6 +117,8 @@ function love.update(dt)
     coursesActivityCard.update(dt)
   elseif scenesManager:getScene() == constants.SCENES_OUTCOME then
     outcome.update(dt)
+  elseif scenesManager:getScene() == constants.SCENES_CONFIRM then
+    confirm.update(dt)
   elseif scenesManager:getScene() == constants.SCENES_GAME_OVER then
     gameOver.update(dt)
   end
@@ -141,6 +145,8 @@ function love.draw()
     coursesActivityCard.draw()
   elseif scenesManager:getScene() == constants.SCENES_OUTCOME then
     outcome.draw()
+  elseif scenesManager:getScene() == constants.SCENES_CONFIRM then
+    confirm.draw()
   elseif scenesManager:getScene() == constants.SCENES_GAME_OVER then
     gameOver.draw()
   end
@@ -184,6 +190,8 @@ function love.keypressed(key)
     outcome.keypressed(key)
   elseif scenesManager:getScene() == constants.SCENES_GAME_OVER then
     gameOver.keypressed(key)
+  elseif scenesManager:getScene() == constants.SCENES_CONFIRM then
+    confirm.keypressed(key)
   end
 end
 
