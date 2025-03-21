@@ -63,7 +63,7 @@ constants.SCENES_YEARBOOK = "yearBook"
 constants.SCENES_YEARBOOK_STUDENT_CARD  = "yearBookStudentCard"
 constants.SCENES_COURSES_ACTIVITY_CARD  = "coursesActivityCard"
 constants.SCENES_CONFIRM = "confirm"
-
+constants.SCENES_OUTCOME = "outcome"
 -- keys
 constants.KEYS_PAUSE_MENU = "p"
 constants.KEYS_ESCAPE_MENU = "escape"
