@@ -64,7 +64,6 @@ function CalendarManager:new(month)        -- inizializza il calendario al mese 
     return nil
   end
 
-  math.randomseed(os.time())      -- Imposta il seed per rendere i numeri casuali più imprevedibili
   local tmpCalendar = {}          -- temporaneo del calendario
 
   for i = 1, constants.DAYS_IN_MONTH[month] do
@@ -102,13 +101,7 @@ function CalendarManager:printCalendar() -- Stampa l'attuale calendario --
   print('')
 end
 
-function CalendarManager:printActivity(activity) -- Stampa i giorni che un attività occupa --
-  io.write("Attivity:  ")
-  for day = 1, #activity do
-      io.write(activity[day] .. " ")
-  end
-  print('')
-end
+
 
 function CalendarManager:addNewActivity(activity, activityIndex, nFreeDays)   --cerca e aggiunge una nuova attività al calendario conservando almeno: nFreeDays --
   local tmpCalendar = {}
