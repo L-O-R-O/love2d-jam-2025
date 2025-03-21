@@ -90,6 +90,7 @@ function title.buildMenuElements()
     controlsMenu:addItem("J - Agenda", function() end)
     controlsMenu:addItem("C - Calendar", function() end)
     controlsMenu:addItem("F - YearBook/Courses", function() end)
+    controlsMenu:addItem("P - Pause", function() end)
     controlsMenu:addItem("Back", function() controlsMenu:close() end)
 
     -- Collegare i subMenu
