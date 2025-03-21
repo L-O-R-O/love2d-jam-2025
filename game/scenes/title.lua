@@ -55,7 +55,6 @@ function title.buildMenuElements()
 		  mainMenu:addItem("Continue", function() scenesManager:setScene(scenesManager.fromScene) end, nil, false, 50)
 	  end
 
-    mainMenu:addItem("Controls", function() mainMenu:openSubMenu("controls") end, nil, false, 50)
     mainMenu:addItem("Settings", function() mainMenu:openSubMenu("settings") end, nil, false, 50)
     mainMenu:addItem("Exit", function() love.event.quit() end)
 
@@ -73,28 +72,27 @@ function title.buildMenuElements()
     --                                             end, nil, false, 50)
 
     settingsMenu:addItem("Volume: " .. math.floor(menuManager:getVolume() * 100) .. "%",
-                        function()
-                            menuManager:decreaseVolume()
-                            settingsMenu.items[1].name = updateVolumeText()
-                        end,
-                        function()
-                            menuManager:increaseVolume()
-                            settingsMenu.items[1].name = updateVolumeText()
-                        end, true, 60)
-
-    settingsMenu:addItem("Back", function() settingsMenu:close() end)
+    function()
+      menuManager:decreaseVolume()
+      settingsMenu.items[1].name = updateVolumeText()
+    end,
+    function()
+      menuManager:increaseVolume()
+      settingsMenu.items[1].name = updateVolumeText()
+    end, true, 60)
 
     -- Creazione del subMenu CONTROLLI
     local controlsMenu = Menu:new(constants.FONTS_SUB_MENU)
-
+    settingsMenu:addItem("Controls", function() settingsMenu:openSubMenu("controls") end, nil, false, 50)
     controlsMenu:addItem("J - Agenda", function() end)
     controlsMenu:addItem("C - Calendar", function() end)
     controlsMenu:addItem("F - YearBook/Courses", function() end)
     controlsMenu:addItem("P - Pause", function() end)
     controlsMenu:addItem("Back", function() controlsMenu:close() end)
+    settingsMenu:addItem("Back", function() settingsMenu:close() end)
 
     -- Collegare i subMenu
-    mainMenu:addSubMenu("controls", controlsMenu)
+    settingsMenu:addSubMenu("controls", controlsMenu)
     mainMenu:addSubMenu("settings", settingsMenu)
     return mainMenu
 end
