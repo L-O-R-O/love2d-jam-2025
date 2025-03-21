@@ -5,6 +5,12 @@ CalendarManager     = require("lib.CalendarManager")
 require("lib.Player")
 constants = require("constants")
 
+local function getMonthFromOS()
+  local monthString = os.date("%m")
+  local monthNumber = tonumber(monthString)
+  return monthNumber
+end
+
 function GameManagerDefiner:new(strikes)
     local obj = {
         strikes = strikes,
@@ -13,7 +19,7 @@ function GameManagerDefiner:new(strikes)
         prob = 0, --OPT
         suddenOn = 0, --variabile per capire se mostrare o meno la pagina degli orari
         gameOver = 0,
-        month = 1,
+        month = getMonthFromOS(),
         consecutiveWins=0,
         activities={
           { name = "Synchronized Swimming Practice", description = "Even in a bathtub, coordination is key!", associatedPlayer="a"},
@@ -27,6 +33,10 @@ function GameManagerDefiner:new(strikes)
     }
     setmetatable(obj, GameManagerDefiner)
     return obj
+end
+
+function GameManagerDefiner:getMonth()
+  return self.month
 end
 
 function GameManagerDefiner:getStrikes()
