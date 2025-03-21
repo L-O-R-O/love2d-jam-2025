@@ -159,22 +159,21 @@ addedActivities = {}
 end
 
 function CalendarManager:getFirstDayOfMonth(month)  -- ritorna il primo giorno della settimana del mese indicato
+  if  month == 1 then
+    return 1
+  end
 
-if  month == 1 then
-  return 1
-end
+  local totalDays = 0
 
-local totalDays = 0
+  -- Calcola i giorni trascorsi fino al mese precedente
+  for i = 1, month - 1 do
+      totalDays = totalDays + constants.DAYS_IN_MONTH[i]
+  end
 
--- Calcola i giorni trascorsi fino al mese precedente
-for i = 1, month - 1 do
-    totalDays = totalDays + constants.DAYS_IN_MONTH[i]
-end
+  -- Calcola il giorno della settimana (1 = Monday, 7 = Sunday)
+  local firstDay = ((totalDays) % 7) + 1
 
- -- Calcola il giorno della settimana (1 = Monday, 7 = Sunday)
-local firstDay = ((totalDays) % 7) + 1
-
-return firstDay
+  return firstDay
 end
 
 return CalendarManager

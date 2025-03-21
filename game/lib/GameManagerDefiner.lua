@@ -1,6 +1,7 @@
 GameManagerDefiner = {}
 GameManagerDefiner.__index = GameManagerDefiner
 
+CalendarManager     = require("lib.CalendarManager")
 require("lib.Player")
 constants = require("constants")
 
@@ -30,6 +31,10 @@ end
 
 function GameManagerDefiner:getGuild()
     return self.guild
+end
+
+function GameManagerDefiner:getMonth()
+  return self.month
 end
 
 function GameManagerDefiner:addInGuild(player)
@@ -109,10 +114,10 @@ end
 function GameManagerDefiner:generateFittableActivities(endIndex)
   local randActivity = self.activities[endIndex]
   local trueIndex = endIndex+1
-  CalendarManager = CalendarManager:new(self.month)
-  local firstVal= {math.random(1,31)}
+  local firstVal= math.random(1,7)
+  local secondVal
   repeat
-    secondVal = math.random(1,31)
+    secondVal = math.random(1,7)
   until  secondVal ~= firstVal
 
   firstActivity = Activity:new(randActivity.name,randActivity.description,{},{firstVal,secondVal})
@@ -139,6 +144,7 @@ end
 local index = math.random(1, 7)  -- Numero tra 1 e 7
 
 GameManager = GameManagerDefiner:new(0)
+CalendarManager = CalendarManager:new(GameManager.month)
 GameManager:generateFittableActivities(index)
 
 return GameManager
