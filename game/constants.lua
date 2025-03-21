@@ -1,29 +1,29 @@
 local constants = {}
 
 -- fonts
-constants.FONTS_NICE_CHALK_TITLE = love.graphics.newFont("assets/font/NiceChalk.ttf", 32)
-constants.FONTS_NICE_CHALK_BODY = love.graphics.newFont("assets/font/NiceChalk.ttf", 18)
-constants.FONTS_MAIN_MENU = love.graphics.newFont("assets/font/NiceChalk.ttf", 50)
-constants.FONTS_SUB_MENU = love.graphics.newFont("assets/font/NiceChalk.ttf", 40)
-constants.FONTS_ROBOTO = love.graphics.newFont("assets/font/Roboto-Black.ttf", 20)
-constants.FONTS_NICE_CHALK = love.graphics.newFont("assets/font/NiceChalk.ttf", 20)
-constants.FONTS_CALENDAR_MONTH = love.graphics.newFont("assets/font/NiceChalk.ttf", 70)
+constants.FONTS_NICE_CHALK_TITLE = love.graphics.newFont("assets/font/NiceChalk.ttf",32)
+constants.FONTS_NICE_CHALK_BODY  = love.graphics.newFont("assets/font/NiceChalk.ttf",18)
+constants.FONTS_MAIN_MENU        = love.graphics.newFont("assets/font/NiceChalk.ttf", 50)
+constants.FONTS_SUB_MENU         = love.graphics.newFont("assets/font/NiceChalk.ttf", 40)
+constants.FONTS_ROBOTO           = love.graphics.newFont("assets/font/Roboto-Black.ttf", 20)
+constants.FONTS_NICE_CHALK       = love.graphics.newFont("assets/font/NiceChalk.ttf", 20)
+constants.FONTS_CALENDAR_MONTH   = love.graphics.newFont("assets/font/NiceChalk.ttf", 70)
 
 -- images
-constants.IMAGES_HOVER_DESKTOP_COMPUTER = love.graphics.newImage("assets/images/hover_desktop_pc.png")
-constants.IMAGES_HOVER_DESKTOP_CALENDAR = love.graphics.newImage("assets/images/hover_desktop_calendario.png")
-constants.IMAGES_HOVER_DESKTOP_AGENDA = love.graphics.newImage("assets/images/hover_desktop_agenda.png")
-constants.IMAGES_DESKTOP_BG = love.graphics.newImage("assets/images/desktop.png")
-constants.IMAGES_CALENDAR_BG = love.graphics.newImage("assets/images/zoom/zoom_calendar.png")
-constants.IMAGES_CURSOR = love.graphics.newImage("assets/images/cursor.png")
-constants.IMAGES_CURSOR_HAND_CLICKED = love.graphics.newImage("assets/images/cursor_hand_clicked.png")
-constants.IMAGES_CURSOR_HAND = love.graphics.newImage("assets/images/cursor_hand.png")
-constants.IMAGES_SAMPLE_WINDOW = love.graphics.newImage("assets/images/sample_window.png")
-constants.IMAGES_CALENDAR_RED_CIRCLE = love.graphics.newImage("assets/images/red_circle.png")
-constants.IMAGES_AGENDA_BG_FULL = love.graphics.newImage("assets/images/zoom/zoom_journal1.png")
-constants.IMAGES_AGENDA_BG_STRIKE_1 = love.graphics.newImage("assets/images/zoom/zoom_journal2.png")
-constants.IMAGES_AGENDA_BG_STRIKE_2 = love.graphics.newImage("assets/images/zoom/zoom_journal3.png")
-constants.IMAGES_HEART = love.graphics.newImage("assets/images/heart_placeholder.png")
+constants.IMAGES_HOVER_DESKTOP_COMPUTER    = love.graphics.newImage("assets/images/hover_desktop_pc.png")
+constants.IMAGES_HOVER_DESKTOP_CALENDAR    = love.graphics.newImage("assets/images/hover_desktop_calendario.png")
+constants.IMAGES_HOVER_DESKTOP_AGENDA      = love.graphics.newImage("assets/images/hover_desktop_agenda.png")
+constants.IMAGES_DESKTOP_BG                = love.graphics.newImage("assets/images/desktop.png")
+constants.IMAGES_CALENDAR_BG               = love.graphics.newImage("assets/images/zoom/zoom_calendar.png")
+constants.IMAGES_CURSOR                    = love.graphics.newImage("assets/images/cursor.png")
+constants.IMAGES_CURSOR_HAND_CLICKED       = love.graphics.newImage("assets/images/cursor_hand_clicked.png")
+constants.IMAGES_CURSOR_HAND               = love.graphics.newImage("assets/images/cursor_hand.png")
+constants.IMAGES_SAMPLE_WINDOW             = love.graphics.newImage("assets/images/sample_window.png")
+constants.IMAGES_CALENDAR_RED_CIRCLE       = love.graphics.newImage("assets/images/red_circle.png")
+constants.IMAGES_AGENDA_BG_FULL            = love.graphics.newImage("assets/images/zoom/zoom_journal1.png")
+constants.IMAGES_AGENDA_BG_STRIKE_1        = love.graphics.newImage("assets/images/zoom/zoom_journal2.png")
+constants.IMAGES_AGENDA_BG_STRIKE_2        = love.graphics.newImage("assets/images/zoom/zoom_journal3.png")
+constants.IMAGES_HEART                     = love.graphics.newImage("assets/images/heart_placeholder.png")
 
 -- yearbook images
 constants.IMAGES_YB_AC = love.graphics.newImage("assets/images/yearbook/yearbook_ac.png")
@@ -40,15 +40,15 @@ constants.IMAGES_YB_ARROWS_RIGHT = love.graphics.newImage("assets/images/yearboo
 constants.IMAGES_YB_STUDENT_CARD_BG = love.graphics.newImage("assets/images/yearbook/yearbook_studentcard.png")
 
 -- courses/activities images
-constants.IMAGES_CS_BG = love.graphics.newImage("assets/images/activities/activities.png")
-constants.IMAGES_CS_ARROWS_NONE = love.graphics.newImage("assets/images/activities/activities_arrow_none.png")
-constants.IMAGES_CS_ARROWS_LEFT = love.graphics.newImage("assets/images/activities/activities_arrow_left.png")
-constants.IMAGES_CS_ARROWS_RIGHT = love.graphics.newImage("assets/images/activities/activities_arrow_right.png")
+constants.IMAGES_CS_BG               = love.graphics.newImage("assets/images/activities/activities.png")
+constants.IMAGES_CS_ARROWS_NONE      = love.graphics.newImage("assets/images/activities/activities_arrow_none.png")
+constants.IMAGES_CS_ARROWS_LEFT      = love.graphics.newImage("assets/images/activities/activities_arrow_left.png")
+constants.IMAGES_CS_ARROWS_RIGHT     = love.graphics.newImage("assets/images/activities/activities_arrow_right.png")
 constants.IMAGES_CS_ACTIVITY_CARD_BG = love.graphics.newImage("assets/images/activities/activities_info.png")
 
 -- sounds
-constants.SOUNDS_MOUSE_CLICK = love.audio.newSource("assets/sounds/click.mp3", "static")
-constants.SOUNDS_PAGE_TURN = love.audio.newSource("assets/sounds/pages.mp3", "static")
+constants.SOUNDS_MOUSE_CLICK      = love.audio.newSource("assets/sounds/click.mp3", "static")
+constants.SOUNDS_PAGE_TURN        = love.audio.newSource("assets/sounds/pages.mp3", "static")
 constants.SOUNDS_BACKGROUND_MUSIC = love.audio.newSource("assets/sounds/theme.mp3", "stream")
 
 -- scenes
@@ -60,11 +60,10 @@ constants.SCENES_COURSES = "courses"
 constants.SCENES_AGENDA = "agenda"
 constants.SCENES_TITLE = "title"
 constants.SCENES_YEARBOOK = "yearBook"
-constants.SCENES_YEARBOOK_STUDENT_CARD = "yearBookStudentCard"
-constants.SCENES_COURSES_ACTIVITY_CARD = "coursesActivityCard"
+constants.SCENES_YEARBOOK_STUDENT_CARD  = "yearBookStudentCard"
+constants.SCENES_COURSES_ACTIVITY_CARD  = "coursesActivityCard"
+constants.SCENES_CONFIRM = "confirm"
 constants.SCENES_OUTCOME = "outcome"
-constants.SCENES_GAME_OVER = "gameOver"
-
 -- keys
 constants.KEYS_PAUSE_MENU = "p"
 constants.KEYS_ESCAPE_MENU = "escape"
@@ -134,10 +133,18 @@ constants.scheduledActivity = {
   chess = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 }
 
+constants.OUTCAMESTATE = {
+  'Session Win',
+  'Session KO',
+  'Game Win',
+  'Game KO'
+}
+
 -- Studenti
 constants.STUDENTS = {
   {
-    name = 'Taylor "The Human Bulldozer" Johnson',
+    nickname = "The Human Bulldozer",
+    name = "Taylor  Johnson",
     image = "assets/images/students/taylor_johnson.png",
     quote = "You can be a warrior and a cinnamon roll too.",
     futurePlans = "Professional wrestler or preschool teacher — honestly, whichever hires first.",
@@ -146,7 +153,8 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = 'Ava "The Wildfire" Hayes',
+    nickname = "The Wildfire",
+    name = "Ava Hayes",
     image = "assets/images/students/ava_hayes.png",
     quote = "Normal is an illusion. What is normal for the spider is chaos for the fly.",
     futurePlans = 'Still deciding between "becoming a celebrity" or "accidentally becoming a celebrity."',
@@ -155,7 +163,8 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = 'Beatrice "Green Thumb" Blossom',
+    nickname = "Green Thumb",
+    name = "Beatrice Blossom",
     image = "assets/images/students/beatrice_blossom.png",
     quote = "Sing like no one is listening, love like you've never been hurt, dance like no one is watching, and live like it is heaven on earth.",
     futurePlans = "Become an environmental lawyer to take down evil corporations one lawsuit at a time — all while wearing ethically sourced cardigans.",
@@ -164,7 +173,8 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = 'Charlie "The Healer" Brooks',
+    nickname = "The Healer",
+    name = "Charlie Brooks",
     image = "assets/images/students/charlie_brooks.png",
     quote = "Be kind whenever possible. It is always possible.",
     futurePlans = "Become a nurse or a therapist.",
@@ -173,7 +183,8 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = 'Edward "Edgelord" Thompson',
+    nickname = "Edgelord",
+    name = "Edward Thompson",
     image = "assets/images/students/edward_thompson.png",
     quote = "I am so clever that sometimes I don't understand a single word of what I am saying.",
     futurePlans = "Becoming a famous indie filmmaker (but only for the kind of films where the main character stares into the rain dramatically).",
@@ -182,7 +193,8 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = 'Florence "Shield Maiden" Hale',
+    nickname = "Shield Maiden",
+    name = "Florence Hale",
     image = "assets/images/students/florence_hale.png",
     quote = "No one can make you feel inferior without your consent.",
     futurePlans = "Join the military, become a firefighter, or maybe run a charity.",
@@ -191,7 +203,8 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = 'Ginevra "The Metal Queen" Arenton',
+    nickname = "The Metal Queen",
+    name = "Ginevra Arenton",
     image = "assets/images/students/ginevra_arenton.png",
     quote = "Without music, life would be a mistake.",
     futurePlans = "Becoming the next rock sensation, ideally headlining a festival where people throw underwear on stage.",
@@ -200,7 +213,8 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = 'Jessica "World Domination" Newton',
+    nickname = "World Domination",
+    name = "Jessica Newton",
     image = "assets/images/students/jessica_newton.png",
     quote = "It is better to be hated for what you are than to be loved for what you are not.",
     futurePlans = "First female President of the United States.",
@@ -209,7 +223,8 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = 'Logan "Trailblazer" Rivera',
+    nickname = "Trailblazer",
+    name = "Logan Rivera",
     image = "assets/images/students/logan_rivera.png",
     quote = "Not all those who wander are lost.",
     futurePlans = "Hiking the Appalachian Trail, then maybe figuring out what to do with life.",
@@ -218,7 +233,8 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = 'Marcus "Iron Fist" Lee',
+    nickname = "Iron Fist",
+    name = "Marcus Lee",
     image = "assets/images/students/marcus_lee.png",
     quote = "Pain is weakness leaving the body.",
     futurePlans = "Become a personal trainer, then maybe a superhero if that's still an option.",
@@ -227,7 +243,8 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = 'Max "Turbo" Reynolds',
+    nickname = "Turbo",
+    name = "Max Reynolds",
     image = "assets/images/students/max_reynolds.png",
     quote = "If you're not first, you're last.",
     futurePlans = "Becoming a professional skateboarder, or maybe just a guy who skates a lot.",
@@ -236,7 +253,8 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = 'Olivia "The Brain" Park',
+    nickname = "The Brain",
+    name = "Olivia Park",
     image = "assets/images/students/olivia_park.png",
     quote = "I have not failed. I've just found 10,000 ways that won't work.",
     futurePlans = "Become a scientist, discover something cool, and get a building named after her.",
@@ -245,7 +263,8 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = 'Riley "Gearhead" Thompson',
+    nickname = "Gearhead",
+    name = "Riley Thompson",
     image = "assets/images/students/riley_thompson.png",
     quote = "The best way to predict the future is to invent it.",
     futurePlans = "Build a robot butler and retire early.",
@@ -254,7 +273,8 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = 'Zoe "Living Dead Girl" Barry',
+    nickname = "Living Dead Girl",
+    name = "Zoe Barry",
     image = "assets/images/students/zoe_barry.png",
     quote = "Always forgive your enemies; nothing annoys them so much.",
     futurePlans = "Open her own tattoo parlor — a cool one, where the playlist is nothing but industrial metal and sad boy punk.",
@@ -804,12 +824,6 @@ constants.STUDENTS = {
   },
 }
 
-constants.OUTCOMESTATE = {
-  "Session Win",
-  "Session KO",
-  "Game Win",
-  "Game KO",
-}
 
 function constants.setFont(font, size)
   return love.graphics.setFont(love.graphics.newFont("assets/font/" .. font .. ".ttf", size))
