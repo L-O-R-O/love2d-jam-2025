@@ -22,6 +22,8 @@ function coursesActivityCard.keypressed(key)
     scenesManager:setScene(constants.SCENES_COURSES)
   elseif (key =='j') then
     scenesManager:setScene(constants.SCENES_AGENDA)
+  elseif (key == constants.KEYS_PAUSE_MENU) then
+    scenesManager:setScene(constants.SCENES_TITLE)
   end
 end
 
