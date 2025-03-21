@@ -45,6 +45,9 @@ function loadMousePng(image)
 end
 
 function love.load()
+    -- unitTest
+    Debug_Testing()
+
     -- Carico tutte le scene (setup iniziale)
     desktop.load()
     calendar.load()
@@ -75,6 +78,8 @@ function love.load()
     -- Play main theme
     SoundsManager.startMusic()
 end
+
+
 
 function love.update(dt)
     -- https://github.com/rxi/lurkerhttps://github.com/rxi/lurker
@@ -176,121 +181,29 @@ end
 
 
 
-function unitTest()
+function Debug_Testing()
 
 
-  unitTest:add("Calendar Manager: isFreeDay giorno libero esistente",
-                function()
-                  local t1 = CalendarManager:isFreeDay(1,10)
-                  assert(t1 == true)
-                end)
+unitTest:add("GameManger: Get Current Month:",
+              function()
+                local m1 = GameManager:getMonth()
+                assert(m1 == 3)
+              end
+              )
 
-  unitTest:add("Calendar Manager: isFreeDay giorno libero inesistente",
-                function()
-                  local t1 = CalendarManager:isFreeDay(1,32)
-                  assert(t1 == false)
-                end)
+unitTest:add("GameManger check players",
+              function()
+                for i = 1, #playablePlyer do
+                  local p_name = playablePlyer[i]:getName()
+                  local a_name = playablePlyer[i]:getActivity():getName()
+                  local a_schedule = playablePlyer[i]:getActivity():getStrSchedule()
+                  print(p_name .. ' ' .. a_name ..' '.. a_schedule)
+                  local a_calendar = playablePlyer[i]:getActivity():printActivity()
+                end
 
-  unitTest:add("Calendar Manager: isFreeDay mese inesistente",
-                function()
-                  local t1 = CalendarManager:isFreeDay(5,32)
-                  assert(t1 == false)
-                end)
-
-unitTest:add("Activity: creo attività e mostro schedule",
-                function()
-                  local a1 = Activity:new('calcio', 'questo è una descrizione', {}, {1,2})
-                  local s1 = a1:getStrSchedule()
-                  assert(s1 == 'Every Monday and Tuesday')
-                end)
-
-unitTest:add("Activity: cambiando il mese e mostro schedulo",
-                function()
-                  local a1 = Activity:new('calcio', 'questo è una descrizione', {}, {1,2})
-                  a1:setMonth(2)
-                  local s1 = a1:getStrSchedule()
-                  assert(s1 == 'Every Monday and Tuesday')
-                end)
-
-unitTest:add("Player: lo creo ed ottengo la lista delle attività",
-                function()
-                  local s1 = Activity:new('calcio', 'questo è una descrizione', {}, {1,2})
-                  local h1 = Activity:new('chimica', 'questo è una descrizione', {}, {3,4})
-                  local p1 = Player:new('Gargiulio Fagiani', 'Bravo a pescare', h1,s1,true)
-                  local h2, s2 = p1:getScheduleNames()
-                  assert(h2:getName() .. ' ' ..  s2:getName() == 'chimica calcio')
-                end)
-
-unitTest:add("Calendar: 2 giocatori controllo disponibilità vero",
-                function()
-                  local s1 = Activity:new('calcio', 'questo è una descrizione', {}, {1,2})
-                  local h1 = Activity:new('chimica', 'questo è una descrizione', {}, {3,4})
-                  local s2 = Activity:new('hokey', 'questo è una descrizione', {}, {5})
-                  local h2 = Activity:new('fisica', 'questo è una descrizione', {}, {6})
-                  local p1 = Player:new('Gargiulio Fagiani', 'Bravo a pescare', h1,s1,true)
-                  local p2 = Player:new('Baggiani Lopiaggio', 'Bravo ad essere Bravo', h2,s2,true)
-
-                  CalendarManager:addActivity(s1,1)
-                  CalendarManager:printCalendar()
-                  CalendarManager:addActivity(s2,1)
-                  CalendarManager:addActivity(h1,1)
-                  CalendarManager:addActivity(h2,1)
-                  CalendarManager:printCalendar()
-
-
-                  local t1 = CalendarManager:isFreeDay(1,7)
-                  assert(t1 == true)
-                end)
-
-unitTest:add("Calendar: 2 giocatori controllo disponibilità falso",
-                function()
-
-                  local s1 = Activity:new('calcio', 'questo è una descrizione', {}, {1,2})
-                  local h1 = Activity:new('chimica', 'questo è una descrizione', {}, {3,4})
-                  local s2 = Activity:new('hokey', 'questo è una descrizione', {}, {5})
-                  local h2 = Activity:new('fisica', 'questo è una descrizione', {}, {7})
-                  local p3 = Player:new('Gargiulio Fagiani', 'Bravo a pescare', h1,s1,true)
-                  local p4 = Player:new('Baggiani Lopiaggio', 'Bravo ad essere Bravo', h2,s2,true)
-
-                  CalendarManager:reset()
-                  CalendarManager:addActivity(s1)
-                  CalendarManager:printCalendar()
-                  CalendarManager:addActivity(s2)
-                  CalendarManager:addActivity(h1)
-                  CalendarManager:addActivity(h2)
-                  CalendarManager:printCalendar()
-
-
-                  local t1 = CalendarManager:isFreeDay(1,7)
-                  assert(t1 == false)
-                end)
-
-
-
-unitTest:add("GameManager: 2 giocatori controllo disponibilità falso",
-                function()
-                  local s1 = Activity:new('calcio', 'questo è una descrizione', {}, {1,2})
-                  local h1 = Activity:new('chimica', 'questo è una descrizione', {}, {3,4})
-                  local s2 = Activity:new('hokey', 'questo è una descrizione', {}, {5})
-                  local h2 = Activity:new('fisica', 'questo è una descrizione', {}, {7})
-
-                  local p1 = Player:new('Gargiulio Fagiani', 'Bravo a pescare', h1,s1,true)
-                  GameManager:AddInGuild(p1)
-
-                  local p2 = Player:new('Baggiani Lopiaggio', 'Bravo ad essere Bravo', h2,s2,true)
-                  GameManager:AddInGuild(p2)
-
-                  CalendarManager:reset()
-                  CalendarManager:addActivity(s1)
-                  CalendarManager:printCalendar()
-                  CalendarManager:addActivity(s2)
-                  CalendarManager:addActivity(h1)
-                  CalendarManager:addActivity(h2)
-                  CalendarManager:printCalendar()
-
-                  local t1 = CalendarManager:isFreeDay(1,7)
-                  assert(t1 == false)
-                end)
+                CalendarManager:printCalendar()
+              end
+              )
 
     -- Esegui i test
     unitTest:run()

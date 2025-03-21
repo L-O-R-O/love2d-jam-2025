@@ -269,4 +269,12 @@ function Activity:getStrSchedule()
   return self.strSchedule
 end
 
+function Activity:printActivity() -- Stampa i giorni che un attività occupa --
+  io.write("Attivity:  ")
+  for day = 1, #self.calendar do
+      io.write(self.calendar[day] .. " ")
+  end
+  print('')
+end
+
 return Activity

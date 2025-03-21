@@ -1,40 +1,57 @@
 Player = {}
 Player.__index = Player
 
-constants = require("constants")
 Activity = require("lib.Activity")
 
-function Player:new(name, description, hobby, sport, playable, inGuild)
+function Player:new(name, description, activityName, activity, playable, inGuild, favouriteClass)
     -- Controlla se il calendario esiste, altrimenti imposta una tabella vuota
-    local hobbyCalendar = constants.repeatedActivity[hobby] or {}
-    local sportCalendar = constants.scheduledActivity[sport] or {}
 
     local obj = {
         name = name,
         description = description,
         strikes = 0,
-        hobby = Activity:new(hobby, "", hobbyCalendar), -- Crea attività hobby
-        sport = Activity:new(sport, "", sportCalendar, {2}), -- Crea attività sportiva (Martedì)
-        playable = playable,
+        activityName = activityName,
+        activity = {},
+        playable = playable or false,
         inGuild = (playable == 1) and inGuild or 0, -- Se non è giocabile, non può essere in una gilda
-        favouriteClass
+        favouriteClass = favouriteClass or ''
     }
 
     setmetatable(obj, Player)
     return obj
 end
 
-function Player:getScheduleNames()
-    return self.hobby:getName(), self.sport:getName()
+function Player:getName()
+    return self.name
 end
 
-function Player:getSchedules()
-    return self.hobby:getCalendar(), self.sport:getCalendar()
+function Player:getDescription()
+  return self.description
 end
 
-function Player:checkAvailability(proposedDate)
-    local hobby, sport = self:getSchedules()
-    return (hobby[proposedDate] == 0) and (sport[proposedDate] == 0)
+function Player:getActivity()
+  return self.activity
 end
+
+function Player:setActivity(par_activity)
+  self.activity = par_activity
+end
+
+function Player:getActivityName()
+  return self.activityName
+end
+
+function Player:getPlayable()
+  return self.playable
+end
+
+function Player:getInGuild()
+  return self.inGuild
+end
+
+function Player:getFavouriteClass()
+  return self.favouriteClass
+end
+
 
 return Player
