@@ -1,180 +1,146 @@
--- ===GLOBAL=== --
--- Tabella con le attività schedulate di test, da dismettere.
-activitySchedule = {
-  soccer =        {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, -- Solo il primo giorno occupato
-  basket =        {1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, -- Secondo giorno occupato
-  golf =          {1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-  PartyHard =     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1}, -- Solo il 27° giorno
-  swimming =      {1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, -- Solo il 4° giorno
-  chess =         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1}, -- Solo il 21° giorno
+GameManagerDefiner = {}
+GameManagerDefiner.__index = GameManagerDefiner
 
--- Attività che si ripetono regolarmente
-  cooking =       {1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1},
-  rock_climbing = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1},
-  gaming_night =  {1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1},
-  gym =           {1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0},
-  jogging =       {0,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1},
-  go_kart =       {0,0,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1}
-}
+require("lib.Player")
+constants = require("constants")
 
--- Tabella indicizzata per accedere con numeri
-activityIndex = {
-  "soccer", "basket", "golf", "PartyHard", "swimming", "chess",
-  "cooking", "rock_climbing", "gaming_night", "gym", "jogging",
-  "go_kart"
-}
-
-CalendarManager = {}
-CalendarManager.__index = CalendarManager
-
-local constants		  = require("constants")
-
-local ActivityOnCalendar = {}                                                     --Istanzio per poter definire funzioni locali
-local calendar = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}  -- 1= giorni liberi 0 = giorni occupati
-local tmpActivity = {}                                                            --variabile di appoggio per estrarre i giorni  occupati da un attività in  testo
-local addedActivities = {}                                                        --tutte le attività aggiunte al calendario fino ad oggi
-local month = 1
-
-local function minFreeDays(calendar, nFreeDays)     -- controlla se il calendario passato ha almeno nFreeDays --
-local FreeCalendarDays = 0
-
-for i = 1, #calendar do
-    FreeCalendarDays = FreeCalendarDays + calendar[i]
-end
-if FreeCalendarDays >= nFreeDays then
-    return true
-else
-    return false
-end
+function GameManagerDefiner:new(strikes)
+    local obj = {
+        strikes = strikes,
+        guild = {},
+        actualCycle = 10, --0 se non in partita, poi da 1 a 10
+        prob = 0, --OPT
+        suddenOn = 0, --variabile per capire se mostrare o meno la pagina degli orari
+        gameOver = 0,
+        month = 1,
+        consecutiveWins=0,
+        activities={
+          { name = "Synchronized Swimming Practice", description = "Even in a bathtub, coordination is key!", associatedPlayer="a"},
+          { name = "Marathon Movie Night", description = "Watch an entire trilogy in one sitting!",associatedPlayer="b"},
+          { name = "Parkour Training", description = "Climb walls, jump over obstacles, be a ninja!",associatedPlayer="c"},
+          { name = "Balloon Animal Sculpting", description = "Master the art of making inflatable pets!",associatedPlayer="d"},
+          { name = "Ultimate Frisbee Showdown", description = "Throw, run, and jump like a pro!",associatedPlayer="e"},
+          { name = "Glow-in-the-Dark Bowling", description = "Turn off the lights and let the fun begin!",associatedPlayer="f"},
+          { name = "Water Balloon Dodgeball", description = "Dodge, throw, and get soaked!", associatedPlayer="g"},
+        }
+    }
+    setmetatable(obj, GameManagerDefiner)
+    return obj
 end
 
-
-function CalendarManager:alignCalendar()      -- aggiorna il calendario con tutte le attività caricate fino ad oggi --
-  if not addedActivities then
-    return
-  end
-  for i = 1, #addedActivities do
-      CalendarManager:addActivity(activitySchedule[addedActivities[i]])
-  end
-  return
+function GameManagerDefiner:getGuild()
+    return self.guild
 end
 
-function CalendarManager:new(month)        -- inizializza il calendario al mese indicato
-  if (month < 1 or month > 12) then
-    return nil
-  end
-
-  math.randomseed(os.time())      -- Imposta il seed per rendere i numeri casuali più imprevedibili
-  local tmpCalendar = {}          -- temporaneo del calendario
-
-  for i = 1, constants.DAYS_IN_MONTH[month] do
-      tmpCalendar[i] = 1
-  end
-
-  self.month = month
-
-  calendar=tmpCalendar
-
-  if month ~= 1 then
-    CalendarManager:alignCalendar()
-  end
-
-  return self
+function GameManagerDefiner:addInGuild(player)
+    for i, iPlayer in ipairs(self.guild) do
+        if(player.name==iPlayer.name)then
+            return 0
+        end
+    end
+    self.guild[#self.guild + 1] = player
 end
 
-function CalendarManager:isFreeDay(month, day)          -- Ritorna True se il giorno è libero
-  if constants.DAYS_IN_MONTH[month] < day then
-      return false
-  else
-      if calendar[day]== 1 then
-          return true
-      else
-          return false
-      end
-  end
+function GameManagerDefiner:removeFromGuild(player)
+    for i, iPlayer in ipairs(self.guild) do
+        if player.name == iPlayer.name then
+            table.remove(self.guild, i) -- Rimuove il player correttamente
+            return 0
+        end
+    end
+    return 0
 end
 
-function CalendarManager:printCalendar() -- Stampa l'attuale calendario --
-  io.write("Calendario:  ")
-  for giorno = 1, #calendar do
-      io.write(calendar[giorno] .. " ")
-  end
-  print('')
+function GameManagerDefiner:updateProb() --OPT
+    local strikes = self.strikes
+    local guildSize = #self.guild
+    local actualCycle = self.actualCycle
+
+    --self.prob = ((guildSize/(strikes+1))*(dt/60)*actualCycle)/100 Qua intendo dt come secondi passati
+    self.prob = ((guildSize/(strikes+1))*(120/60)*actualCycle)/100 --QUESTA RIGA PER TEST
 end
 
-function CalendarManager:printActivity(activity) -- Stampa i giorni che un attività occupa --
-  io.write("Attivity:  ")
-  for day = 1, #activity do
-      io.write(activity[day] .. " ")
-  end
-  print('')
+function GameManagerDefiner:suddenGenerate() --OPT funzione che ogni tot tempo passato nel ciclo tenta di generare un numero per stabilire se far verificare l'imprevisto
+    rand=math.random()
+
+    if rand  < self.prob then
+        --logica per imprevisto
+        self.prob=0
+    else
+    end
 end
 
-function CalendarManager:addNewActivity(activity, activityIndex, nFreeDays)   --cerca e aggiunge una nuova attività al calendario conservando almeno: nFreeDays --
-  local tmpCalendar = {}
-  local added = false
-  local selectedActivity = {}
+function GameManagerDefiner:findSuitablePlayer()
+    local candidatePlayers={}
+    local suitablePlayer
 
-  local index = math.random(1, #activityIndex)  -- Numero tra 10 e 50
+    for i,iPlayer in players do
+        if(iPlayer.playable==1 and iPlayer.inGuild==0)then
+            candidatePlayers[#candidatePlayers+1] = iPlayer
+        end
+    end
 
+    return suitablePlayer
+end
+
+function GameManagerDefiner:tryDate(proposedDate)
+    for i = #self.guild, 1, -1 do
+        local player = self.guild[i]
+        if not player:checkAvailability(proposedDate) then
+            player.strikes = player.strikes + 1
+            if player.strikes >= 2 then
+                self:removeFromGuild(player)
+                self.strikes = self.strikes + 1
+                self.consecutiveWins = self.consecutiveWins+1
+            end
+        end
+    end
+    if self.strikes >= 4 then
+        self.gameOver = 1
+    else
+      self.month=self.month+1
+    end
+    if(self.consecutiveWins==2)then
+        self:addInGuild(self:findSuitablePlayer())
+        self.consecutiveWins = 0
+    end
+end
+
+function GameManagerDefiner:generateFittableActivities(endIndex)
+  local randActivity = self.activities[endIndex]
+  local trueIndex = endIndex+1
+  CalendarManager = CalendarManager:new(self.month)
+  local firstVal= {math.random(1,31)}
   repeat
-      selectedActivity = activity[activityIndex[index]]
-      for i = 1, #calendar do
-          tmpCalendar[i] = calendar[i] * selectedActivity[i]
+    secondVal = math.random(1,31)
+  until  secondVal ~= firstVal
+
+  firstActivity = Activity:new(randActivity.name,randActivity.description,{},{firstVal,secondVal})
+  CalendarManager:addActivity(firstActivity)
+
+  for i = 0,6 do
+    trueIndex = i+endIndex
+    if(trueIndex>7)then
+      trueIndex = trueIndex-7
+    end
+    repeat
+      local tmpCalendar={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+      for j=0,i+2 do
+        local r = math.random(1,31)
+        tmpCalendar[r] = 0
       end
 
-      if minFreeDays(tmpCalendar, nFreeDays) then
-          calendar = tmpCalendar
-          added = true
-          --print('aggiunto: ' .. activityIndex[index])
-          table.insert(addedActivities, activityIndex[index])
-      else
-          if index==#activityIndex then
-              index = 0
-          end
-          index = index + 1
-      end
-  until added
-end
+      local newActivity=Activity:new(self.activities[trueIndex].name,self.activities[trueIndex].description,tmpCalendar,{})
+    until CalendarManager:addActivity(newActivity,7-i)
 
-function CalendarManager:addActivity(activity, nFreeDays) -- aggiunge una specifica attività al calendario a patto che questa abbia almeno nFreeDays --
-  nFreeDays = nFreeDays or 1
-  local tmpCalendar = {}
-
-  for i = 1, #calendar do
-      tmpCalendar[i] = calendar[i] * activity.calendar[i]
   end
-
-  if minFreeDays(tmpCalendar, nFreeDays) then
-      calendar = tmpCalendar
-      table.insert(addedActivities, activity.calendar)
-      return true
-  end
-  return false
 end
 
-function CalendarManager:reset()
-calendar = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-addedActivities = {}
-end
+local index = math.random(1, 7)  -- Numero tra 1 e 7
 
-function CalendarManager:getFirstDayOfMonth(month)  -- ritorna il primo giorno della settimana del mese indicato
+GameManager = GameManagerDefiner:new(0)
+GameManager:generateFittableActivities(index)
 
-if  month == 1 then
-  return 1
-end
+return GameManager
 
-local totalDays = 0
 
--- Calcola i giorni trascorsi fino al mese precedente
-for i = 1, month - 1 do
-    totalDays = totalDays + constants.DAYS_IN_MONTH[i]
-end
-
- -- Calcola il giorno della settimana (1 = Monday, 7 = Sunday)
-local firstDay = ((totalDays) % 7) + 1
-
-return firstDay
-end
-
-return CalendarManager
