@@ -131,19 +131,19 @@ function GameManagerDefiner:tryDate(proposedDate)
             if player.strikes >= 2 then
                 self.strikes = self.strikes + 1
                 self.consecutiveWins = self.consecutiveWins+1
-                self.outcomeState = constants.OUTCAMESTATE[2]
+                self.outcomeState = constants.OUTCOMESTATE[2]
             end
         end
     end
     if self.strikes >= 4 then
       self.gameOver = 1
-      self.outcomeState = constants.OUTCAMESTATE[4]
+      self.outcomeState = constants.OUTCOMESTATE[4]
     else
       if self.actualCycle == 10 then
-        self.outcomeState = constants.OUTCAMESTATE[3]
+        self.outcomeState = constants.OUTCOMESTATE[3]
       else
         self.month=self.month+1
-        self.outcomeState = constants.OUTCAMESTATE[1]
+        self.outcomeState = constants.OUTCOMESTATE[1]
       end
     end
     if(self.consecutiveWins==2)then
