@@ -1,29 +1,29 @@
 local constants = {}
 
 -- fonts
-constants.FONTS_NICE_CHALK_TITLE = love.graphics.newFont("assets/font/NiceChalk.ttf",32)
-constants.FONTS_NICE_CHALK_BODY  = love.graphics.newFont("assets/font/NiceChalk.ttf",18)
-constants.FONTS_MAIN_MENU        = love.graphics.newFont("assets/font/NiceChalk.ttf", 50)
-constants.FONTS_SUB_MENU         = love.graphics.newFont("assets/font/NiceChalk.ttf", 40)
-constants.FONTS_ROBOTO           = love.graphics.newFont("assets/font/Roboto-Black.ttf", 20)
-constants.FONTS_NICE_CHALK       = love.graphics.newFont("assets/font/NiceChalk.ttf", 20)
-constants.FONTS_CALENDAR_MONTH   = love.graphics.newFont("assets/font/NiceChalk.ttf", 70)
+constants.FONTS_NICE_CHALK_TITLE = love.graphics.newFont("assets/font/NiceChalk.ttf", 32)
+constants.FONTS_NICE_CHALK_BODY = love.graphics.newFont("assets/font/NiceChalk.ttf", 18)
+constants.FONTS_MAIN_MENU = love.graphics.newFont("assets/font/NiceChalk.ttf", 50)
+constants.FONTS_SUB_MENU = love.graphics.newFont("assets/font/NiceChalk.ttf", 40)
+constants.FONTS_ROBOTO = love.graphics.newFont("assets/font/Roboto-Black.ttf", 20)
+constants.FONTS_NICE_CHALK = love.graphics.newFont("assets/font/NiceChalk.ttf", 20)
+constants.FONTS_CALENDAR_MONTH = love.graphics.newFont("assets/font/NiceChalk.ttf", 70)
 
 -- images
-constants.IMAGES_HOVER_DESKTOP_COMPUTER    = love.graphics.newImage("assets/images/hover_desktop_pc.png")
-constants.IMAGES_HOVER_DESKTOP_CALENDAR    = love.graphics.newImage("assets/images/hover_desktop_calendario.png")
-constants.IMAGES_HOVER_DESKTOP_AGENDA      = love.graphics.newImage("assets/images/hover_desktop_agenda.png")
-constants.IMAGES_DESKTOP_BG                = love.graphics.newImage("assets/images/desktop.png")
-constants.IMAGES_CALENDAR_BG               = love.graphics.newImage("assets/images/zoom/zoom_calendar.png")
-constants.IMAGES_CURSOR                    = love.graphics.newImage("assets/images/cursor.png")
-constants.IMAGES_CURSOR_HAND_CLICKED       = love.graphics.newImage("assets/images/cursor_hand_clicked.png")
-constants.IMAGES_CURSOR_HAND               = love.graphics.newImage("assets/images/cursor_hand.png")
-constants.IMAGES_SAMPLE_WINDOW             = love.graphics.newImage("assets/images/sample_window.png")
-constants.IMAGES_CALENDAR_RED_CIRCLE       = love.graphics.newImage("assets/images/red_circle.png")
-constants.IMAGES_AGENDA_BG_FULL            = love.graphics.newImage("assets/images/zoom/zoom_journal1.png")
-constants.IMAGES_AGENDA_BG_STRIKE_1        = love.graphics.newImage("assets/images/zoom/zoom_journal2.png")
-constants.IMAGES_AGENDA_BG_STRIKE_2        = love.graphics.newImage("assets/images/zoom/zoom_journal3.png")
-constants.IMAGES_HEART                     = love.graphics.newImage("assets/images/heart_placeholder.png")
+constants.IMAGES_HOVER_DESKTOP_COMPUTER = love.graphics.newImage("assets/images/hover_desktop_pc.png")
+constants.IMAGES_HOVER_DESKTOP_CALENDAR = love.graphics.newImage("assets/images/hover_desktop_calendario.png")
+constants.IMAGES_HOVER_DESKTOP_AGENDA = love.graphics.newImage("assets/images/hover_desktop_agenda.png")
+constants.IMAGES_DESKTOP_BG = love.graphics.newImage("assets/images/desktop.png")
+constants.IMAGES_CALENDAR_BG = love.graphics.newImage("assets/images/zoom/zoom_calendar.png")
+constants.IMAGES_CURSOR = love.graphics.newImage("assets/images/cursor.png")
+constants.IMAGES_CURSOR_HAND_CLICKED = love.graphics.newImage("assets/images/cursor_hand_clicked.png")
+constants.IMAGES_CURSOR_HAND = love.graphics.newImage("assets/images/cursor_hand.png")
+constants.IMAGES_SAMPLE_WINDOW = love.graphics.newImage("assets/images/sample_window.png")
+constants.IMAGES_CALENDAR_RED_CIRCLE = love.graphics.newImage("assets/images/red_circle.png")
+constants.IMAGES_AGENDA_BG_FULL = love.graphics.newImage("assets/images/zoom/zoom_journal1.png")
+constants.IMAGES_AGENDA_BG_STRIKE_1 = love.graphics.newImage("assets/images/zoom/zoom_journal2.png")
+constants.IMAGES_AGENDA_BG_STRIKE_2 = love.graphics.newImage("assets/images/zoom/zoom_journal3.png")
+constants.IMAGES_HEART = love.graphics.newImage("assets/images/heart_placeholder.png")
 
 -- yearbook images
 constants.IMAGES_YB_AC = love.graphics.newImage("assets/images/yearbook/yearbook_ac.png")
@@ -40,15 +40,15 @@ constants.IMAGES_YB_ARROWS_RIGHT = love.graphics.newImage("assets/images/yearboo
 constants.IMAGES_YB_STUDENT_CARD_BG = love.graphics.newImage("assets/images/yearbook/yearbook_studentcard.png")
 
 -- courses/activities images
-constants.IMAGES_CS_BG               = love.graphics.newImage("assets/images/activities/activities.png")
-constants.IMAGES_CS_ARROWS_NONE      = love.graphics.newImage("assets/images/activities/activities_arrow_none.png")
-constants.IMAGES_CS_ARROWS_LEFT      = love.graphics.newImage("assets/images/activities/activities_arrow_left.png")
-constants.IMAGES_CS_ARROWS_RIGHT     = love.graphics.newImage("assets/images/activities/activities_arrow_right.png")
+constants.IMAGES_CS_BG = love.graphics.newImage("assets/images/activities/activities.png")
+constants.IMAGES_CS_ARROWS_NONE = love.graphics.newImage("assets/images/activities/activities_arrow_none.png")
+constants.IMAGES_CS_ARROWS_LEFT = love.graphics.newImage("assets/images/activities/activities_arrow_left.png")
+constants.IMAGES_CS_ARROWS_RIGHT = love.graphics.newImage("assets/images/activities/activities_arrow_right.png")
 constants.IMAGES_CS_ACTIVITY_CARD_BG = love.graphics.newImage("assets/images/activities/activities_info.png")
 
 -- sounds
-constants.SOUNDS_MOUSE_CLICK      = love.audio.newSource("assets/sounds/click.mp3", "static")
-constants.SOUNDS_PAGE_TURN        = love.audio.newSource("assets/sounds/pages.mp3", "static")
+constants.SOUNDS_MOUSE_CLICK = love.audio.newSource("assets/sounds/click.mp3", "static")
+constants.SOUNDS_PAGE_TURN = love.audio.newSource("assets/sounds/pages.mp3", "static")
 constants.SOUNDS_BACKGROUND_MUSIC = love.audio.newSource("assets/sounds/theme.mp3", "stream")
 
 -- scenes
@@ -60,9 +60,10 @@ constants.SCENES_COURSES = "courses"
 constants.SCENES_AGENDA = "agenda"
 constants.SCENES_TITLE = "title"
 constants.SCENES_YEARBOOK = "yearBook"
-constants.SCENES_YEARBOOK_STUDENT_CARD  = "yearBookStudentCard"
-constants.SCENES_COURSES_ACTIVITY_CARD  = "coursesActivityCard"
+constants.SCENES_YEARBOOK_STUDENT_CARD = "yearBookStudentCard"
+constants.SCENES_COURSES_ACTIVITY_CARD = "coursesActivityCard"
 constants.SCENES_OUTCOME = "outcome"
+constants.SCENES_GAME_OVER = "gameOver"
 
 -- keys
 constants.KEYS_PAUSE_MENU = "p"
@@ -804,10 +805,10 @@ constants.STUDENTS = {
 }
 
 constants.OUTCOMESTATE = {
-  'Session Win',
-  'Session KO',
-  'Game Win',
-  'Game KO'
+  "Session Win",
+  "Session KO",
+  "Game Win",
+  "Game KO",
 }
 
 function constants.setFont(font, size)
