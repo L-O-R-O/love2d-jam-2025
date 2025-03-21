@@ -802,7 +802,7 @@ constants.STUDENTS = {
   },
 }
 
-constants.OUTCAMESTATE{
+constants.OUTCAMESTATE = {
   'Session Win',
   'Session KO',
   'Game Win',
