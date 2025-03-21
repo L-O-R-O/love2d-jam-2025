@@ -75,6 +75,9 @@ end
 
 function yearbookStudentCard.mousePressed(x, y, button)
   print("yearbookStudentCard clicked x:" .. x .. " and y:" .. y)
+  if screenManager:checkIfClickingOutside(x,y,studentCardArea) then
+    scenesManager:setScene(constants.SCENES_YEARBOOK, false)
+  end
 end
 
 function yearbookStudentCard.draw()
@@ -85,20 +88,20 @@ function yearbookStudentCard.draw()
 
   -- Draw card boundaries
   love.graphics.setColor(debugColor)
-  love.graphics.rectangle("line", studentCardArea.x, studentCardArea.y, studentCardArea.width, studentCardArea.height)
+  --love.graphics.rectangle("line", studentCardArea.x, studentCardArea.y, studentCardArea.width, studentCardArea.height)
 
   -- Draw image area
-  love.graphics.rectangle("line", imageArea.x, imageArea.y, imageArea.width, imageArea.height)
+  --love.graphics.rectangle("line", imageArea.x, imageArea.y, imageArea.width, imageArea.height)
 
   -- Draw name area
-  love.graphics.rectangle("line", nameArea.x, nameArea.y, nameArea.width, nameArea.height)
+  --love.graphics.rectangle("line", nameArea.x, nameArea.y, nameArea.width, nameArea.height)
   love.graphics.setColor(0, 0, 0)
   love.graphics.setFont(constants.FONTS_NICE_CHALK_TITLE)
   love.graphics.printf(currentStudent.name, nameArea.x, nameArea.y, nameArea.width, "left", -0.03)
 
   -- Draw description area
   love.graphics.setColor(debugColor)
-  love.graphics.rectangle("line", descriptionArea.x, descriptionArea.y, descriptionArea.width, descriptionArea.height)
+  --love.graphics.rectangle("line", descriptionArea.x, descriptionArea.y, descriptionArea.width, descriptionArea.height)
   love.graphics.setColor(0, 0, 0)
   love.graphics.setFont(constants.FONTS_NICE_CHALK_BODY)
   love.graphics.printf(currentStudent.bestMemory, descriptionArea.x, descriptionArea.y, descriptionArea.width, "left")
@@ -106,7 +109,7 @@ function yearbookStudentCard.draw()
 
   -- Draw activities area
   love.graphics.setColor(debugColor)
-  love.graphics.rectangle("line", activitiesArea.x, activitiesArea.y, activitiesArea.width, activitiesArea.height)
+  --love.graphics.rectangle("line", activitiesArea.x, activitiesArea.y, activitiesArea.width, activitiesArea.height)
   love.graphics.setColor(0, 0, 0)
   love.graphics.setColor(1, 1, 1)
   --[[   for index, activity in ipairs(currentStudent.activities) do

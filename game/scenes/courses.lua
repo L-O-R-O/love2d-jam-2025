@@ -208,7 +208,6 @@ function courses.draw()
     reDrawAreas = false
   end
   love.graphics.setColor(0, 0, 0, 1)
-  love.graphics.printf("STO STAMPANDO", 20 , 20, 250, "center",-0.001)
   love.graphics.setColor(1, 1, 1, 1)
   for i, coursesLabel in ipairs(coursesLabels) do
     if isHovered and hoveredArea == coursesLabel.name then

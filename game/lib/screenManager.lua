@@ -90,6 +90,14 @@ function ScreenManager:checkIfIsClickable(x, y, mode)
   return nil
 end
 
+function ScreenManager:checkIfClickingOutside(x,y,insideArea)
+  local clickedOutside = false
+  if (x < insideArea.x or x > (insideArea.x + insideArea.width) or y < insideArea.y or y > (insideArea.y + insideArea.height)) then
+    clickedOutside = true
+  end
+  return clickedOutside
+end
+
 function ScreenManager:setScene(scene)
   if self.isTransitioning then
     return
@@ -100,27 +108,25 @@ function ScreenManager:setScene(scene)
   self.fadeAlpha = 0 -- Start fade-in
 end
 
-function ScreenManager:update(dt)
+-- Update transition effect
+function ScreenManager:update(dt, scenesManager)
   if self.isTransitioning then
     self.fadeAlpha = self.fadeAlpha + self.transitionSpeed * dt
-    if self.fadeAlpha >= 1 then
-      self.currentScene = self.nextScene
+
+    if self.fadeAlpha >= 1 and self.nextScene then
+      -- Switch to the new scene at full black
+      scenesManager.scene = self.nextScene
       self.nextScene = nil
-      self.fadeAlpha = 1 -- Hold full black briefly before fading out
-    elseif self.fadeAlpha >= 2 then
+    end
+
+    if self.fadeAlpha >= 2 then
+      -- Fade-in completed, reset transition
       self.isTransitioning = false
       self.fadeAlpha = 0
     end
   end
 end
 
-function ScreenManager:draw()
-  if self.isTransitioning then
-    love.graphics.setColor(0, 0, 0, math.min(self.fadeAlpha, 1))
-    love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
-    love.graphics.setColor(1, 1, 1, 1) -- Reset color
-  end
-end
 
 function ScreenManager:drawSceneBackground(img, hoverImages)
   -- Background
@@ -148,25 +154,6 @@ function ScreenManager:startTransition(newScene)
   self.nextScene = newScene
   self.isTransitioning = true
   self.fadeAlpha = 0 -- Start fade effect
-end
-
--- Update transition effect
-function ScreenManager:update(dt, scenesManager)
-  if self.isTransitioning then
-    self.fadeAlpha = self.fadeAlpha + self.transitionSpeed * dt
-
-    if self.fadeAlpha >= 1 and self.nextScene then
-      -- Switch to the new scene at full black
-      scenesManager.scene = self.nextScene
-      self.nextScene = nil
-    end
-
-    if self.fadeAlpha >= 2 then
-      -- Fade-in completed, reset transition
-      self.isTransitioning = false
-      self.fadeAlpha = 0
-    end
-  end
 end
 
 -- Draw the transition overlay
