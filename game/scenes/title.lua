@@ -32,10 +32,8 @@ function title.draw()
 end
 
 function title.keypressed(key)
-  if scenesManager:getScene() == "title" then
-    if currentMenu then
-      currentMenu:keyPressed(key)
-    end
+  if scenesManager:getScene() == "title" and currentMenu then
+    currentMenu:keyPressed(key)
   end
 end
 

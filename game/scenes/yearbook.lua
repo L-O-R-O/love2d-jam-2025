@@ -257,9 +257,8 @@ function yearbook.keypressed(key)
     scenesManager:setScene(constants.SCENES_AGENDA)
   elseif (key =='l') then
     --yearbook.drawPage() --!!!DEBUG!!!
-  end
-  if (key == constants.KEYS_ESCAPE_MENU) then
-    scenesManager:setScene(constants.SCENES_DESKTOP)
+  elseif (key == constants.KEYS_PAUSE_MENU) then
+    scenesManager:setScene(constants.SCENES_TITLE)
   end
 end
 
