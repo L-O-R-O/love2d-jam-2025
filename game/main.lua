@@ -28,7 +28,8 @@ local computer 		  = require("scenes.computer")
 local agenda   		  = require("scenes.agenda")
 local yearBook      = require("scenes.yearbook")
 local courses       = require("scenes.courses")
-local yearBookStudentCard = require("scenes.yearbookStudentCard")
+local yearBookStudentCard  = require("scenes.yearbookStudentCard")
+local coursesActivityCard  = require("scenes.coursesActivityCard")
 local unitTest      = require("lib.unitTest")
 
 
@@ -52,6 +53,7 @@ function love.load()
     yearBook.load()
     courses.load()
     yearBookStudentCard.load()
+    coursesActivityCard.load()
     -- Carico le chiavi per i cursori
     mouse.setDefaultCursorsKeys({
         default = constants.DEFAULT_CURSOR,
@@ -97,8 +99,10 @@ function love.update(dt)
         courses.update(dt)
     elseif scenesManager:getScene() == constants.SCENES_AGENDA then
         agenda.update(dt)
-      elseif scenesManager:getScene() == constants.SCENES_YEARBOOK_STUDENT_CARD then
+    elseif scenesManager:getScene() == constants.SCENES_YEARBOOK_STUDENT_CARD then
         yearBookStudentCard.update(dt)
+    elseif scenesManager:getScene() == constants.SCENES_COURSES_ACTIVITY_CARD then
+        coursesActivityCard.update(dt)
     end
 end
 
@@ -119,6 +123,8 @@ function love.draw()
 		agenda.draw()
   elseif scenesManager:getScene() == constants.SCENES_YEARBOOK_STUDENT_CARD then
 		yearBookStudentCard.draw()
+  elseif scenesManager:getScene() == constants.SCENES_COURSES_ACTIVITY_CARD then
+		coursesActivityCard.draw()
 	end
    -- Draw transition overlay
    screenManager:draw()
@@ -139,6 +145,8 @@ function love.keypressed(key)
       agenda.keypressed(key)
     elseif scenesManager:getScene() == constants.SCENES_YEARBOOK_STUDENT_CARD then
       yearBookStudentCard.keypressed(key)
+    elseif scenesManager:getScene() == constants.SCENES_COURSES_ACTIVITY_CARD then
+      coursesActivityCard.keypressed(key)
     end
 end
 

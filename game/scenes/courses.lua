@@ -46,10 +46,11 @@ local browserTabYB   = {}
 local browserTabCS   = {}
 local prevArrow      = {}
 local nextArrow      = {}
-local coursesLabel   = {}
+local coursesLabels  = {}
 local currentPage    = 1
 local maxViewCourses = 13
 local maxPages       = #allCourses / maxViewCourses
+local reDrawAreas   = false
 
 -- Hover dei bottoni prevArrow e nextArrow
 local arrowsHoverImgs = {
@@ -69,19 +70,21 @@ end
 local function PREV_PAGE()
   if currentPage > 1 then
     currentPage = currentPage - 1
+    reDrawAreas = true
   end
 end
 
 local function NEXT_PAGE()
   if currentPage < maxPages then
     currentPage = currentPage + 1
+    reDrawAreas = true
   end
 end
 
 local function HANDLE_LABEL_CLICK(labelArea)
   if (labelArea.course ~= nil) then
     currentCourse = labelArea.course
-    scenesManager:setScene(constants.SCENES_YEARBOOK_STUDENT_CARD,false)
+    scenesManager:setScene(constants.SCENES_COURSES_ACTIVITY_CARD,false)
   end
 end
 
@@ -96,7 +99,8 @@ function courses.update(dt)
 end
 
 function courses.drawPage()
-  -- Definizione tab orizzontali del browser
+  screenManager.areas[constants.SCENES_COURSES] = {}
+  -- Definizione aree cliccabili fisse
   browserTabYB = {
     name        = 'TAB_YB',
     xPerc       = 0.12,
@@ -153,32 +157,25 @@ function courses.drawPage()
   end, {
     browserTab = browserTabCS
   })
-end
 
-function courses.draw()
-  love.graphics.setFont(constants.FONTS_NICE_CHALK)
-  screenManager:drawSceneBackground(constants.IMAGES_CS_BG)
-  screenManager:drawSceneBackground(constants.IMAGES_CS_ARROWS_NONE,arrowsHoverImgs)
-
-  local labelOffsetX = 0 --screenManager.screenWidth  * 0.036
-  local labelOffsetY = screenManager.screenHeight * 0.0115
-  -- calcola i valori delle etichette
-  local startIdx = (currentPage - 1) * maxViewCourses + 1
-  local endIdx = math.min(startIdx + maxViewCourses - 1, #allCourses)
+  -- Aree cliccabili con oggetti (Labels/Etichette attività)
+  coursesLabels        = {} -- Svuota
+  local labelOffsetX   = 0  --screenManager.screenWidth  * 0.036
+  local labelOffsetY   = screenManager.screenHeight * 0.0115
+  local startIdx       = (currentPage - 1) * maxViewCourses + 1
+  local endIdx         = math.min(startIdx + maxViewCourses - 1, #allCourses)
   local currentCourses = {}
   local j = 1
+
   for i = startIdx, endIdx do
     currentCourses[j] = allCourses[i]
     j = j + 1
   end
-  if (currentPage == 3 or currentPage == 2) then
-    local stayHere = 1
-  end
   -- disegna le etichette
   for i = 1, maxViewCourses, 1 do
     if currentCourses[i] ~= nil then
-      coursesLabel = {
-        name        = 'A very long label name '..i,
+      local coursesLabel = {
+        name        = 'Course Label '..i,
         course      = currentCourses[i],
         xPerc       = i <= 6 and 0.193 or 0.435,
         yPerc       = i <= 6 and ((i * 0.062) + 0.40) or (((i-6) * 0.052) + 0.3),
@@ -188,18 +185,43 @@ function courses.draw()
         y           = 0,
         width       = 0,
         height      = 0,
+        offsetX     = labelOffsetX,
+        offsetY     = labelOffsetY
       }
-      screenManager:setClickableArea(constants.SCENES_COURSES, coursesLabel, coursesLabel.name, PREV_PAGE)
-      if isHovered and hoveredArea == coursesLabel.name then
-        love.graphics.setColor(0.687, 0.477, 0.461, 1)
-      else
-        love.graphics.setColor(0.409, 0.225, 0.214, 1)
-      end
-      --love.graphics.rectangle("line", coursesLabel.x, coursesLabel.y, coursesLabel.width, coursesLabel.height)
-      love.graphics.printf(coursesLabel.course.name, coursesLabel.x , coursesLabel.y + labelOffsetY, coursesLabel.width, "center",-0.001)
-      love.graphics.setColor(1, 1, 1, 1)
+      screenManager:setClickableArea(constants.SCENES_COURSES, coursesLabel, coursesLabel.name, function()
+        HANDLE_LABEL_CLICK(coursesLabel)
+      end, {
+        coursesLabel = coursesLabel
+      })
+      table.insert(coursesLabels, coursesLabel)
     end
   end
+  reDrawAreas = true
+end
+
+function courses.draw()
+  love.graphics.setFont(constants.FONTS_NICE_CHALK)
+  screenManager:drawSceneBackground(constants.IMAGES_CS_BG)
+  screenManager:drawSceneBackground(constants.IMAGES_CS_ARROWS_NONE,arrowsHoverImgs)
+  if reDrawAreas then
+    courses.drawPage()
+    reDrawAreas = false
+  end
+  love.graphics.setColor(0, 0, 0, 1)
+  love.graphics.printf("STO STAMPANDO", 20 , 20, 250, "center",-0.001)
+  love.graphics.setColor(1, 1, 1, 1)
+  for i, coursesLabel in ipairs(coursesLabels) do
+    if isHovered and hoveredArea == coursesLabel.name then
+      love.graphics.setColor(0.687, 0.477, 0.461, 1)
+    else
+      love.graphics.setColor(0.409, 0.225, 0.214, 1)
+    end
+    --love.graphics.rectangle("line", coursesLabel.x, coursesLabel.y, coursesLabel.width, coursesLabel.height)
+    --print("Course Label:", coursesLabel.course and coursesLabel.course.name or "MISSING NAME")
+    --print("X:", coursesLabel.x, "Y:", coursesLabel.y, "Width:", coursesLabel.width)
+    love.graphics.printf(coursesLabel.course.name, coursesLabel.x , coursesLabel.y + coursesLabel.offsetY, coursesLabel.width, "center",-0.001)
+  end
+  love.graphics.setColor(1, 1, 1, 1)
 end
 
 function courses.keypressed(key)

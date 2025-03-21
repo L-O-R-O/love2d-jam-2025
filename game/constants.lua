@@ -17,10 +17,10 @@ constants.IMAGES_CURSOR                    = love.graphics.newImage("assets/imag
 constants.IMAGES_CURSOR_HAND_CLICKED       = love.graphics.newImage("assets/images/cursor_hand_clicked.png")
 constants.IMAGES_CURSOR_HAND               = love.graphics.newImage("assets/images/cursor_hand.png")
 constants.IMAGES_SAMPLE_WINDOW             = love.graphics.newImage("assets/images/sample_window.png")
-constants.IMAGES_CALENDAR_RED_CIRCLE      = love.graphics.newImage("assets/images/red_circle.png")
-constants.IMAGES_AGENDA_BG_FULL                 = love.graphics.newImage("assets/images/zoom/zoom_journal1.png")
-constants.IMAGES_AGENDA_BG_STRIKE_1                 = love.graphics.newImage("assets/images/zoom/zoom_journal2.png")
-constants.IMAGES_AGENDA_BG_STRIKE_2                 = love.graphics.newImage("assets/images/zoom/zoom_journal3.png")
+constants.IMAGES_CALENDAR_RED_CIRCLE       = love.graphics.newImage("assets/images/red_circle.png")
+constants.IMAGES_AGENDA_BG_FULL            = love.graphics.newImage("assets/images/zoom/zoom_journal1.png")
+constants.IMAGES_AGENDA_BG_STRIKE_1        = love.graphics.newImage("assets/images/zoom/zoom_journal2.png")
+constants.IMAGES_AGENDA_BG_STRIKE_2        = love.graphics.newImage("assets/images/zoom/zoom_journal3.png")
 
 -- yearbook images
 constants.IMAGES_YB_AC               = love.graphics.newImage("assets/images/yearbook/yearbook_ac.png")
@@ -37,14 +37,15 @@ constants.IMAGES_YB_ARROWS_RIGHT     = love.graphics.newImage("assets/images/yea
 constants.IMAGES_YB_STUDENT_CARD_BG  = love.graphics.newImage("assets/images/yearbook/yearbook_studentcard.png")
 
 -- courses/activities images
-constants.IMAGES_CS_BG = love.graphics.newImage("assets/images/activities/activities.png")
+constants.IMAGES_CS_BG               = love.graphics.newImage("assets/images/activities/activities.png")
 constants.IMAGES_CS_ARROWS_NONE      = love.graphics.newImage("assets/images/activities/activities_arrow_none.png")
 constants.IMAGES_CS_ARROWS_LEFT      = love.graphics.newImage("assets/images/activities/activities_arrow_left.png")
 constants.IMAGES_CS_ARROWS_RIGHT     = love.graphics.newImage("assets/images/activities/activities_arrow_right.png")
+constants.IMAGES_CS_ACTIVITY_CARD_BG = love.graphics.newImage("assets/images/activities/activities_info.png")
 
 -- sounds
 constants.SOUNDS_MOUSE_CLICK = love.audio.newSource("assets/sounds/click.mp3", "static")
-constants.SOUNDS_PAGE_TURN = love.audio.newSource("assets/sounds/pages.mp3", "static")
+constants.SOUNDS_PAGE_TURN   = love.audio.newSource("assets/sounds/pages.mp3", "static")
 
 -- scenes
 constants.SCENES_DESKTOP  = "desktop"
@@ -55,7 +56,8 @@ constants.SCENES_COURSES  = "courses"
 constants.SCENES_AGENDA   = "agenda"
 constants.SCENES_TITLE    = "title"
 constants.SCENES_YEARBOOK = "yearBook"
-constants.SCENES_YEARBOOK_STUDENT_CARD = "yearBookStudentCard"
+constants.SCENES_YEARBOOK_STUDENT_CARD  = "yearBookStudentCard"
+constants.SCENES_COURSES_ACTIVITY_CARD  = "coursesActivityCard"
 
 -- keys
 constants.KEYS_PAUSE_MENU  = "p"
