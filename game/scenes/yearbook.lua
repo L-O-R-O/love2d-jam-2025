@@ -312,8 +312,7 @@ function yearbook.draw()
     local name = selectedNames[i].name
     local y = namesYOffset + (((i - startIdx) % (namesPerPage/2)) * namesYSpacing)
     local x = (i - startIdx) < namesPerPage/2 and (centerX - xLeftStart) or (centerX + xRightStart)
-
-    love.graphics.print(name, x, y)
+    love.graphics.print(name, x, y, -0.01)
     if (selectedNames[i] ~= nil) then
       if (yearbookLabels[i] ~= nil) then
         yearbookLabels[i].student = selectedNames[i]
