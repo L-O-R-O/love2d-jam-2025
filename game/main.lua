@@ -126,6 +126,14 @@ function love.draw()
 	end
    -- Draw transition overlay
    screenManager:draw()
+
+  if scenesManager:getScene() == constants.SCENES_TITLE then
+    return
+  end
+
+  -- Draw hearts
+  local numHearts = constants.MAX_STRIKES - GameManager:getStrikes()
+  screenManager:drawHearts(numHearts)
 end
 
 function love.keypressed(key)

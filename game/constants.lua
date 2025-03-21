@@ -22,6 +22,7 @@ constants.IMAGES_CALENDAR_RED_CIRCLE       = love.graphics.newImage("assets/imag
 constants.IMAGES_AGENDA_BG_FULL            = love.graphics.newImage("assets/images/zoom/zoom_journal1.png")
 constants.IMAGES_AGENDA_BG_STRIKE_1        = love.graphics.newImage("assets/images/zoom/zoom_journal2.png")
 constants.IMAGES_AGENDA_BG_STRIKE_2        = love.graphics.newImage("assets/images/zoom/zoom_journal3.png")
+constants.IMAGES_HEART                     = love.graphics.newImage("assets/images/heart_placeholder.png")
 
 -- yearbook images
 constants.IMAGES_YB_AC = love.graphics.newImage("assets/images/yearbook/yearbook_ac.png")
@@ -66,6 +67,7 @@ constants.KEYS_PAUSE_MENU = "p"
 constants.KEYS_ESCAPE_MENU = "escape"
 
 -- various
+constants.MAX_STRIKES = 3
 constants.MOUSE_SIZE = 64
 constants.DEFAULT_CURSOR = "default"
 constants.HAND_CURSOR = "hand"

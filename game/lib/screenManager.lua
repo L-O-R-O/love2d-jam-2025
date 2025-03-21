@@ -41,6 +41,17 @@ function ScreenManager:setClickableArea(from, area, to, handler, data)
   return area
 end
 
+function ScreenManager:drawHearts(hearts)
+  local imageWidth, imageHeight = 60, 60 -- Dimensions of each image
+  local padding = 20 -- Padding between images and from the left side
+
+  for i = 1, hearts do
+    local x = padding + (i - 1) * (imageWidth + padding)
+    local y = padding
+    love.graphics.draw(constants.IMAGES_HEART, x, y, 0, imageWidth / constants.IMAGES_HEART:getWidth(), imageHeight / constants.IMAGES_HEART:getHeight())
+  end
+end
+
 function ScreenManager:calcAreaSizes(area)
   area.x = self.screenWidth * area.xPerc
   area.y = self.screenHeight * area.yPerc
