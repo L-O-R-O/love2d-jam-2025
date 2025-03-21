@@ -1,4 +1,4 @@
-name = "LORO_game"
+name = "weHaveToReschedule"
 default_targets = ["win64", "lovejs"]
 build_directory = "../builds"
 love_files = [
@@ -6,3 +6,6 @@ love_files = [
     "-*/.*"
 ]
 love_version = "11.5"
+[lovejs]
+title = "We have to reschedule!"  # used on the resulting web page
+memory = "80000000"  # starting memory of the webpage (default is 20 MB)

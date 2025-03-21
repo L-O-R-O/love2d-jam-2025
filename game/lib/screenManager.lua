@@ -4,25 +4,25 @@ ScreenManager = {}
 ScreenManager.__index = ScreenManager
 
 function ScreenManager:new()
-    local properties = {
-      screenWidth = love.graphics.getWidth(),
-      screenHeight = love.graphics.getHeight(),
-      resizeAllAreas = false,
-      areas = {},
-      fadeAlpha = 0, -- Controls the transition effect
-      isTransitioning = false,
-      transitionSpeed = 7, -- Adjust speed for faster/slower fade
-      nextScene = nil
-    }
-    setmetatable(properties, ScreenManager)
-    return properties
+  local properties = {
+    screenWidth = love.graphics.getWidth(),
+    screenHeight = love.graphics.getHeight(),
+    resizeAllAreas = false,
+    areas = {},
+    fadeAlpha = 0, -- Controls the transition effect
+    isTransitioning = false,
+    transitionSpeed = 7, -- Adjust speed for faster/slower fade
+    nextScene = nil,
+  }
+  setmetatable(properties, ScreenManager)
+  return properties
 end
 
 function ScreenManager:setResolution(w, h)
-    self.screenWidth = w
-    self.screenHeight = h
-    self.resizeAllAreas = true
-    love.window.setMode(w, h, {resizable = false})
+  self.screenWidth = w
+  self.screenHeight = h
+  self.resizeAllAreas = true
+  love.window.setMode(w, h, { resizable = false })
 end
 
 --- Aggiunge un'area cliccabile
@@ -31,14 +31,14 @@ end
 ---@param to Scena di destinazione
 ---@param handler Funzione da eseguire al click dell'area
 function ScreenManager:setClickableArea(from, area, to, handler, data)
-    area = self:calcAreaSizes(area)
+  area = self:calcAreaSizes(area)
 
-    if self.areas[from] == nil then
-        self.areas[from] = {}
-    end
+  if self.areas[from] == nil then
+    self.areas[from] = {}
+  end
 
-    table.insert(self.areas[from], { area = area, to = to, handler = handler, data = data })
-    return area
+  table.insert(self.areas[from], { area = area, to = to, handler = handler, data = data })
+  return area
 end
 
 function ScreenManager:calcAreaSizes(area)
@@ -49,29 +49,40 @@ function ScreenManager:calcAreaSizes(area)
   return area
 end
 
+function ScreenManager:calcRelativeArea(parentArea, relativeArea)
+  local area = {}
+  area.x = parentArea.x + (parentArea.width * relativeArea.xPerc)
+  area.y = parentArea.y + (parentArea.height * relativeArea.yPerc)
+  area.width = parentArea.width * relativeArea.widthPerc
+  area.height = parentArea.height * relativeArea.heightPerc
+  return area
+end
+
 -- Controlla se un'area di una certa scena é cliccabile o meno
 -- Inoltre restituisce la landing zone (nome scena) del click (se presente)
 function ScreenManager:checkIfIsClickable(x, y, mode)
-    local scene = scenesManager:getScene()
-    if self.areas == nil then
-        return nil
-    end
-    for _, areaOwner in ipairs(self.areas[scene]) do
-        local area = areaOwner.area
-        if x >= area.x and x <= area.x + area.width and y >= area.y and y <= area.y + area.height then
-            if (areaOwner.handler ~= nil and mode ~= "hover") then
-                -- Se fornito in precedenza, viene eseguito un handler (in caso di bottone selezionato)
-                areaOwner.handler()
-            end
-            return areaOwner
-        end
-    end
-    -- end
+  local scene = scenesManager:getScene()
+  if self.areas == nil then
     return nil
+  end
+  for _, areaOwner in ipairs(self.areas[scene]) do
+    local area = areaOwner.area
+    if x >= area.x and x <= area.x + area.width and y >= area.y and y <= area.y + area.height then
+      if areaOwner.handler ~= nil and mode ~= "hover" then
+        -- Se fornito in precedenza, viene eseguito un handler (in caso di bottone selezionato)
+        areaOwner.handler()
+      end
+      return areaOwner
+    end
+  end
+  -- end
+  return nil
 end
 
 function ScreenManager:setScene(scene)
-  if self.isTransitioning then return end
+  if self.isTransitioning then
+    return
+  end
 
   self.nextScene = scene
   self.isTransitioning = true
@@ -79,35 +90,35 @@ function ScreenManager:setScene(scene)
 end
 
 function ScreenManager:update(dt)
-    if self.isTransitioning then
-        self.fadeAlpha = self.fadeAlpha + self.transitionSpeed * dt
-        if self.fadeAlpha >= 1 then
-            self.currentScene = self.nextScene
-            self.nextScene = nil
-            self.fadeAlpha = 1 -- Hold full black briefly before fading out
-        elseif self.fadeAlpha >= 2 then
-            self.isTransitioning = false
-            self.fadeAlpha = 0
-        end
+  if self.isTransitioning then
+    self.fadeAlpha = self.fadeAlpha + self.transitionSpeed * dt
+    if self.fadeAlpha >= 1 then
+      self.currentScene = self.nextScene
+      self.nextScene = nil
+      self.fadeAlpha = 1 -- Hold full black briefly before fading out
+    elseif self.fadeAlpha >= 2 then
+      self.isTransitioning = false
+      self.fadeAlpha = 0
     end
+  end
 end
 
 function ScreenManager:draw()
-    if self.isTransitioning then
-        love.graphics.setColor(0, 0, 0, math.min(self.fadeAlpha, 1))
-        love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
-        love.graphics.setColor(1, 1, 1, 1) -- Reset color
-    end
+  if self.isTransitioning then
+    love.graphics.setColor(0, 0, 0, math.min(self.fadeAlpha, 1))
+    love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+    love.graphics.setColor(1, 1, 1, 1) -- Reset color
+  end
 end
 
-function ScreenManager:drawSceneBackground(img,hoverImages)
+function ScreenManager:drawSceneBackground(img, hoverImages)
   -- Background
   local imgWidth, imgHeight = img:getWidth(), img:getHeight()
   local scaleX = self.screenWidth / imgWidth
   local scaleY = self.screenHeight / imgHeight
   love.graphics.draw(img, 0, 0, 0, scaleX, scaleY)
   -- Hovers
-  if isHovered and hoverImages ~= nil and hoveredArea ~= nil  then
+  if isHovered and hoverImages ~= nil and hoveredArea ~= nil then
     if hoverImages[hoveredArea] ~= nil then
       local overlayImg = hoverImages[hoveredArea]
       local hoveredImgWidth, hoveredImgHeight = overlayImg:getWidth(), overlayImg:getHeight()
@@ -120,7 +131,9 @@ end
 
 -- Start the transition effect
 function ScreenManager:startTransition(newScene)
-  if self.isTransitioning then return end
+  if self.isTransitioning then
+    return
+  end
   self.nextScene = newScene
   self.isTransitioning = true
   self.fadeAlpha = 0 -- Start fade effect
@@ -129,28 +142,28 @@ end
 -- Update transition effect
 function ScreenManager:update(dt, scenesManager)
   if self.isTransitioning then
-      self.fadeAlpha = self.fadeAlpha + self.transitionSpeed * dt
+    self.fadeAlpha = self.fadeAlpha + self.transitionSpeed * dt
 
-      if self.fadeAlpha >= 1 and self.nextScene then
-          -- Switch to the new scene at full black
-          scenesManager.scene = self.nextScene
-          self.nextScene = nil
-      end
+    if self.fadeAlpha >= 1 and self.nextScene then
+      -- Switch to the new scene at full black
+      scenesManager.scene = self.nextScene
+      self.nextScene = nil
+    end
 
-      if self.fadeAlpha >= 2 then
-          -- Fade-in completed, reset transition
-          self.isTransitioning = false
-          self.fadeAlpha = 0
-      end
+    if self.fadeAlpha >= 2 then
+      -- Fade-in completed, reset transition
+      self.isTransitioning = false
+      self.fadeAlpha = 0
+    end
   end
 end
 
 -- Draw the transition overlay
 function ScreenManager:draw()
   if self.isTransitioning then
-      love.graphics.setColor(0, 0, 0, math.min(self.fadeAlpha, 1))
-      love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
-      love.graphics.setColor(1, 1, 1, 1) -- Reset color
+    love.graphics.setColor(0, 0, 0, math.min(self.fadeAlpha, 1))
+    love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+    love.graphics.setColor(1, 1, 1, 1) -- Reset color
   end
 end
 

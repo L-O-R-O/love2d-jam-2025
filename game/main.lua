@@ -6,7 +6,7 @@
 
 local constants		  = require("constants")
 GameManager         = require("lib.GameManagerDefiner")
-CalendarManager     = require("lib.CalendarManager")
+--CalendarManager     = require("lib.CalendarManager")
 local ScenesManager = require("lib.scenesManager")
 local ScreenManager = require("lib.screenManager")
 local SoundsManager = require("lib.soundsManager")
@@ -70,10 +70,8 @@ function love.load()
 
     love.graphics.setBlendMode("alpha")  -- Ensure transparency works
 
-    -- Load the sound file
-    backgroundMusic = love.audio.newSource("assets/sounds/theme.mp3", "stream")
-    backgroundMusic:setLooping(true)
-    --backgroundMusic:play()
+    -- Play main theme
+    SoundsManager.startMusic()
 end
 
 function love.update(dt)
@@ -161,13 +159,7 @@ end
 
 
 
-
-
-
-
-
---[[
-function love.load()
+function unitTest()
 
 
   unitTest:add("Calendar Manager: isFreeDay giorno libero esistente",
@@ -212,7 +204,7 @@ unitTest:add("Player: lo creo ed ottengo la lista delle attività",
                   assert(h2:getName() .. ' ' ..  s2:getName() == 'chimica calcio')
                 end)
 
-unitTest:add("Calendar: 2 giocatori controllo disponibilità",
+unitTest:add("Calendar: 2 giocatori controllo disponibilità vero",
                 function()
                   local s1 = Activity:new('calcio', 'questo è una descrizione', {}, {1,2})
                   local h1 = Activity:new('chimica', 'questo è una descrizione', {}, {3,4})
@@ -233,7 +225,57 @@ unitTest:add("Calendar: 2 giocatori controllo disponibilità",
                   assert(t1 == true)
                 end)
 
+unitTest:add("Calendar: 2 giocatori controllo disponibilità falso",
+                function()
+
+                  local s1 = Activity:new('calcio', 'questo è una descrizione', {}, {1,2})
+                  local h1 = Activity:new('chimica', 'questo è una descrizione', {}, {3,4})
+                  local s2 = Activity:new('hokey', 'questo è una descrizione', {}, {5})
+                  local h2 = Activity:new('fisica', 'questo è una descrizione', {}, {7})
+                  local p3 = Player:new('Gargiulio Fagiani', 'Bravo a pescare', h1,s1,true)
+                  local p4 = Player:new('Baggiani Lopiaggio', 'Bravo ad essere Bravo', h2,s2,true)
+
+                  CalendarManager:reset()
+                  CalendarManager:addActivity(s1)
+                  CalendarManager:printCalendar()
+                  CalendarManager:addActivity(s2)
+                  CalendarManager:addActivity(h1)
+                  CalendarManager:addActivity(h2)
+                  CalendarManager:printCalendar()
+
+
+                  local t1 = CalendarManager:isFreeDay(1,7)
+                  assert(t1 == false)
+                end)
+
+
+
+unitTest:add("GameManager: 2 giocatori controllo disponibilità falso",
+                function()
+                  local s1 = Activity:new('calcio', 'questo è una descrizione', {}, {1,2})
+                  local h1 = Activity:new('chimica', 'questo è una descrizione', {}, {3,4})
+                  local s2 = Activity:new('hokey', 'questo è una descrizione', {}, {5})
+                  local h2 = Activity:new('fisica', 'questo è una descrizione', {}, {7})
+
+                  local p1 = Player:new('Gargiulio Fagiani', 'Bravo a pescare', h1,s1,true)
+                  GameManager:AddInGuild(p1)
+
+                  local p2 = Player:new('Baggiani Lopiaggio', 'Bravo ad essere Bravo', h2,s2,true)
+                  GameManager:AddInGuild(p2)
+
+                  CalendarManager:reset()
+                  CalendarManager:addActivity(s1)
+                  CalendarManager:printCalendar()
+                  CalendarManager:addActivity(s2)
+                  CalendarManager:addActivity(h1)
+                  CalendarManager:addActivity(h2)
+                  CalendarManager:printCalendar()
+
+                  local t1 = CalendarManager:isFreeDay(1,7)
+                  assert(t1 == false)
+                end)
+
     -- Esegui i test
     unitTest:run()
 end
-]]
+

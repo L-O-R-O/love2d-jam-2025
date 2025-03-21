@@ -5,7 +5,7 @@
       "label": "Serve GAME HTML!",
       "type": "shell",
       "dependsOn": "Build GAME artifacts!",
-      "command": "./tools/serve-web.sh builds/lovejs/LORO_game-lovejs.zip",
+      "command": "./tools/serve-web.sh builds/lovejs/weHaveToReschedule-lovejs.zip",
       "group": {
         "kind": "build",
         "isDefault": true

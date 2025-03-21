@@ -16,7 +16,8 @@ function Player:new(name, description, hobby, sport, playable, inGuild)
         hobby = Activity:new(hobby, "", hobbyCalendar), -- Crea attività hobby
         sport = Activity:new(sport, "", sportCalendar, {2}), -- Crea attività sportiva (Martedì)
         playable = playable,
-        inGuild = (playable == 1) and inGuild or 0 -- Se non è giocabile, non può essere in una gilda
+        inGuild = (playable == 1) and inGuild or 0, -- Se non è giocabile, non può essere in una gilda
+        favouriteClass
     }
 
     setmetatable(obj, Player)
