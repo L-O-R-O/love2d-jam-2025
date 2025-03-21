@@ -256,7 +256,7 @@ function yearbook.keypressed(key)
   elseif (key =='j') then
     scenesManager:setScene(constants.SCENES_AGENDA)
   elseif (key =='l') then
-    yearbook.drawPage() --!!!DEBUG!!!
+    --yearbook.drawPage() --!!!DEBUG!!!
   end
   if (key == constants.KEYS_ESCAPE_MENU) then
     scenesManager:setScene(constants.SCENES_DESKTOP)
@@ -293,19 +293,26 @@ function yearbook.draw()
     love.graphics.printf(tab.name, tab.x, tab.y + tab.height / 2 - 10, tab.width, "center")
   end ]]
 
-  -- Calcola le posizioni centrate per i nomi
+  -- Calcola le posizioni per i nomi
   local namesYOffset     = screenManager.screenHeight * 0.38
   local namesYSpacing    = screenManager.screenHeight * 0.094
   local namesXLeftStart  = screenManager.screenHeight * 0.31
-  local namesXRightStart = screenManager.screenHeight * 0.16
+  local namesXRightStart = screenManager.screenHeight * 0.11
   local startIdx = (currentPage - 1) * namesPerPage + 1
   local endIdx = math.min(startIdx + namesPerPage - 1, #selectedNames)
-
   local numberOfLabels = 0
+
   for i = startIdx, endIdx do
+    local xLeftStart  = namesXLeftStart
+    local xRightStart = namesXRightStart
+    if i % 2 == 0 then
+      xLeftStart = namesXLeftStart + screenManager.screenWidth * 0.03
+      xRightStart = namesXRightStart + screenManager.screenWidth * 0.03
+    end
     local name = selectedNames[i].name
     local y = namesYOffset + (((i - startIdx) % (namesPerPage/2)) * namesYSpacing)
-    local x = (i - startIdx) < namesPerPage/2 and (centerX - namesXLeftStart) or (centerX + namesXRightStart)
+    local x = (i - startIdx) < namesPerPage/2 and (centerX - xLeftStart) or (centerX + xRightStart)
+
     love.graphics.print(name, x, y)
     if (selectedNames[i] ~= nil) then
       if (yearbookLabels[i] ~= nil) then
@@ -343,6 +350,9 @@ end
 
 function yearbook.mousePressed(x, y, button)
   -- Controlla se è stata cliccata una linguetta o una freccia di navigazione
+  if button == 2 then
+    scenesManager:setScene(constants.SCENES_DESKTOP) --right click
+  end
   local clickableAreaName = screenManager:checkIfIsClickable(x, y)
   if (clickableAreaName) then
     soundsManager:playClickOnComputerScreen()
