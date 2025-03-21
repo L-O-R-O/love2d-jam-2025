@@ -27,16 +27,16 @@ function yearbookStudentCard.setAreas()
   }
   -- Calculate image area
   imageArea = screenManager:calcRelativeArea(studentCardArea, {
-    xPerc = 0.10, -- 10% from card's left edge
-    yPerc = 0.10, -- 10% from card's top
-    widthPerc = 0.35, -- 30% of card's width
-    heightPerc = 0.5, -- 80% of card's height
+    xPerc = 0.10,
+    yPerc = 0.10,
+    widthPerc = 0.35,
+    heightPerc = 0.5,
   })
   nameArea = screenManager:calcRelativeArea(studentCardArea, {
-    xPerc = 0.5, -- 10% from card's left edge
-    yPerc = 0.1, -- 10% from card's top
-    widthPerc = 0.45, -- 80% of card's width
-    heightPerc = 0.1, -- 10% of card's height
+    xPerc = 0.5,
+    yPerc = 0.1,
+    widthPerc = 0.45,
+    heightPerc = 0.1,
   })
   -- Calculate description area relative to the card
   descriptionArea = screenManager:calcRelativeArea(studentCardArea, {
