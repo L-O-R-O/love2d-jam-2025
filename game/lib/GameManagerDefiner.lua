@@ -11,6 +11,19 @@ local function getMonthFromOS()
   return monthNumber
 end
 
+playablePlyer =  {
+  Player:new('a', 'descrizione a', 'a1',{},true,false),
+  Player:new('b', 'descrizione b', 'b1',{},true,false),
+  Player:new('c', 'descrizione b', 'c1',{},true,false),
+  Player:new('d', 'descrizione b', 'd1',{},true,false),
+  Player:new('e', 'descrizione b', 'e1',{},true,false),
+  Player:new('f', 'descrizione b', 'f1',{},true,false),
+  Player:new('g', 'descrizione b', 'g1',{},true,false),
+  Player:new('h', 'descrizione b', 'h1',{},true,false),
+  Player:new('i', 'descrizione b', 'i1',{},true,false),
+  Player:new('l', 'descrizione b', 'l1',{},true,false)
+}
+
 function GameManagerDefiner:new(strikes)
     local obj = {
         strikes = strikes,
@@ -29,7 +42,11 @@ function GameManagerDefiner:new(strikes)
           { name = "Ultimate Frisbee Showdown", description = "Throw, run, and jump like a pro!",associatedPlayer="e"},
           { name = "Glow-in-the-Dark Bowling", description = "Turn off the lights and let the fun begin!",associatedPlayer="f"},
           { name = "Water Balloon Dodgeball", description = "Dodge, throw, and get soaked!", associatedPlayer="g"},
-        }
+          { name = "t1", description = "Throw, run, and jump like a pro!",associatedPlayer="h"},
+          { name = "t2", description = "Turn off the lights and let the fun begin!",associatedPlayer="i"},
+          { name = "t3", description = "Dodge, throw, and get soaked!", associatedPlayer="i"},
+        },
+        outcomeState = 0
     }
     setmetatable(obj, GameManagerDefiner)
     return obj
@@ -49,6 +66,10 @@ end
 
 function GameManagerDefiner:getMonth()
   return self.month
+end
+
+function GameManagerDefiner:getOutcomeState()
+  return self.outcomeState
 end
 
 function GameManagerDefiner:addInGuild(player)
@@ -105,19 +126,25 @@ end
 function GameManagerDefiner:tryDate(proposedDate)
     for i = #self.guild, 1, -1 do
         local player = self.guild[i]
-        if not player:checkAvailability(proposedDate) then
+        if not CalendarManager:isFreeDay(proposedDate) then
             player.strikes = player.strikes + 1
             if player.strikes >= 2 then
-                self:removeFromGuild(player)
                 self.strikes = self.strikes + 1
                 self.consecutiveWins = self.consecutiveWins+1
+                self.outcomeState = constants.OUTCAMESTATE[2]
             end
         end
     end
     if self.strikes >= 4 then
-        self.gameOver = 1
+      self.gameOver = 1
+      self.outcomeState = constants.OUTCAMESTATE[4]
     else
-      self.month=self.month+1
+      if self.actualCycle == 10 then
+        self.outcomeState = constants.OUTCAMESTATE[3]
+      else
+        self.month=self.month+1
+        self.outcomeState = constants.OUTCAMESTATE[1]
+      end
     end
     if(self.consecutiveWins==2)then
         self:addInGuild(self:findSuitablePlayer())
@@ -127,7 +154,7 @@ end
 
 function GameManagerDefiner:generateFittableActivities(endIndex)
   local randActivity = self.activities[endIndex]
-  local trueIndex = endIndex+1
+  local trueIndex = endIndex
   local firstVal= math.random(1,7)
   local secondVal
   repeat
@@ -136,12 +163,16 @@ function GameManagerDefiner:generateFittableActivities(endIndex)
 
   firstActivity = Activity:new(randActivity.name,randActivity.description,{},{firstVal,secondVal})
   CalendarManager:addActivity(firstActivity)
+  playablePlyer[trueIndex]:setActivity(firstActivity)
 
-  for i = 0,6 do
+
+  for i = 1,(#self.activities-1) do
     trueIndex = i+endIndex
-    if(trueIndex>7)then
-      trueIndex = trueIndex-7
+    if(trueIndex>#self.activities)then
+      trueIndex = trueIndex-#self.activities
     end
+
+    local newActivity
     repeat
       local tmpCalendar={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
       for j=0,i+2 do
@@ -149,13 +180,15 @@ function GameManagerDefiner:generateFittableActivities(endIndex)
         tmpCalendar[r] = 0
       end
 
-      local newActivity=Activity:new(self.activities[trueIndex].name,self.activities[trueIndex].description,tmpCalendar,{})
-    until CalendarManager:addActivity(newActivity,7-i)
-
+      newActivity =Activity:new(self.activities[trueIndex].name,self.activities[trueIndex].description,tmpCalendar,{})
+    until CalendarManager:addActivity(newActivity,#self.activities-i)
+    playablePlyer[trueIndex]:setActivity(newActivity)
   end
 end
 
-local index = math.random(1, 7)  -- Numero tra 1 e 7
+
+math.randomseed(os.time())      -- Imposta il seed per rendere i numeri casuali più imprevedibili
+local index = math.random(1, #playablePlyer)  -- Numero tra 1 e 7
 
 GameManager = GameManagerDefiner:new(0)
 CalendarManager = CalendarManager:new(GameManager.month)
