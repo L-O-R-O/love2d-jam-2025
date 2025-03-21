@@ -45,10 +45,8 @@ local function updateVolumeText()
 end
 
 function title.buildMenuElements()
-    local myFont_1 = constants.FONTS_MAIN_MENU -- Carica il font
-
     -- Creazione di un menu principale
-    local mainMenu = Menu:new(myFont_1)
+    local mainMenu = Menu:new(constants.FONTS_MAIN_MENU)
     if (scenesManager.fromScene == "") then
     	mainMenu:addItem("Start Game", function()
                                         scenesManager:setScene(constants.SCENES_DESKTOP)
@@ -57,12 +55,12 @@ function title.buildMenuElements()
 		  mainMenu:addItem("Continue", function() scenesManager:setScene(scenesManager.fromScene) end, nil, false, 50)
 	  end
 
+    mainMenu:addItem("Controls", function() mainMenu:openSubMenu("controls") end, nil, false, 50)
     mainMenu:addItem("Settings", function() mainMenu:openSubMenu("settings") end, nil, false, 50)
     mainMenu:addItem("Exit", function() love.event.quit() end)
 
-    -- Creazione del sottomenù settings
-    local myFont_2 = constants.FONTS_SUB_MENU -- Carica il font
-    local settingsMenu = Menu:new(myFont_2)
+    -- Creazione del subMenu settings
+    local settingsMenu = Menu:new(constants.FONTS_SUB_MENU)
     -- local width, height = menuManager:getResolution()
     -- settingsMenu:addItem("Resolution: " .. width .. height, function() end)
     -- settingsMenu:addItem("      -- 1280x720", function()
@@ -86,7 +84,16 @@ function title.buildMenuElements()
 
     settingsMenu:addItem("Back", function() settingsMenu:close() end)
 
-    -- Collegare il sottomenù
+    -- Creazione del subMenu CONTROLLI
+    local controlsMenu = Menu:new(constants.FONTS_SUB_MENU)
+
+    controlsMenu:addItem("J - Agenda", function() end)
+    controlsMenu:addItem("C - Calendar", function() end)
+    controlsMenu:addItem("F - YearBook/Courses", function() end)
+    controlsMenu:addItem("Back", function() controlsMenu:close() end)
+
+    -- Collegare i subMenu
+    mainMenu:addSubMenu("controls", controlsMenu)
     mainMenu:addSubMenu("settings", settingsMenu)
     return mainMenu
 end
