@@ -6,8 +6,12 @@ local okButtonArea = {}
 -- Il click su OK ci porterá su una scena diversa, in base all'esito della giocata
 
 local function okButtonHandler()
-  -- Navigo su title se GAME WIN - GAME OVER
-  -- Navigo su DESKTOP se SESSIONE WIN -- SESSION OVER
+  local outcome = GameManager:getOutcomeState()
+  if outcome == constants.OUTCOMESTATE[1] or outcome == constants.OUTCOMESTATE[2] then
+    scenesManager:setScene(constants.SCENES_DESKTOP)
+  elseif outcome == constants.OUTCOMESTATE[3] or outcome == constants.OUTCOMESTATE[4] then
+    scenesManager:setScene(constants.SCENES_TITLE)
+  end
 end
 
 function outcome.load()
@@ -28,26 +32,32 @@ function outcome.update(dt)
 end
 
 function outcome.draw()
-  love.graphics.rectangle("line",okButtonArea.x,okButtonArea.y,okButtonArea.width,okButtonArea.height)
+  -- love.graphics.rectangle("line",okButtonArea.x,okButtonArea.y,okButtonArea.width,okButtonArea.height)
 
   -- Disegnare sfondo in base ad esito giocata
   local outcome = GameManager:getOutcomeState()
 
-  print("Outcome: " .. outcome)
-
   if outcome == constants.OUTCOMESTATE[1] then
     -- -- Session WIN
-    -- screenManager:drawSceneBackground(constants.IMAGES_OUTCOME_WIN_SESSION)
+    screenManager:drawSceneBackground(constants.IMAGES_SESSION_OK)
   elseif outcome == constants.OUTCOMESTATE[2] then
     -- Session KO
-    -- screenManager:drawSceneBackground(constants.IMAGES_OUTCOME_LOSE_SESSION)
+    screenManager:drawSceneBackground(constants.IMAGES_SESSION_KO)
   elseif outcome == constants.OUTCOMESTATE[3] then
     -- Game WIN
-    -- screenManager:drawSceneBackground(constants.IMAGES_OUTCOME_LOSE_GAME)
+    screenManager:drawSceneBackground(constants.IMAGES_GAME_OK)
   elseif outcome == constants.OUTCOMESTATE[4] then
     -- Game KO
-    -- screenManager:drawSceneBackground(constants.IMAGES_OUTCOME_WIN_GAME)
+    screenManager:drawSceneBackground(constants.IMAGES_GAME_KO)
   end
+
+  love.graphics.printf(
+    "OK",
+    okButtonArea.x,
+    okButtonArea.y + (okButtonArea.height / 4),
+    okButtonArea.width,
+    "center"
+  )
 end
 
 function outcome.keypressed(key)

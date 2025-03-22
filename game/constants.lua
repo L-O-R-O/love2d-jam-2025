@@ -33,6 +33,10 @@ constants.IMAGES_MENU_PAUSE_BG             = love.graphics.newImage("assets/imag
 constants.IMAGES_CONFIRM_BG                = love.graphics.newImage("assets/images/CONFIRM.png")
 constants.IMAGES_CONFIRM_HOVER_NO_BG       = love.graphics.newImage("assets/images/CONFIRM_HOVER_NO.png")
 constants.IMAGES_CONFIRM_HOVER_YES_BG      = love.graphics.newImage("assets/images/CONFIRM_HOVER_YES.png")
+constants.IMAGES_SESSION_OK                = love.graphics.newImage("assets/images/outcome/SESSIONE_OK.png")
+constants.IMAGES_SESSION_KO                = love.graphics.newImage("assets/images/outcome/SESSIONE_KO.png")
+constants.IMAGES_GAME_OK                   = love.graphics.newImage("assets/images/outcome/PARTITA_OK.png")
+constants.IMAGES_GAME_KO                   = love.graphics.newImage("assets/images/outcome/PARTITA_KO.png")
 
 
 -- yearbook images
