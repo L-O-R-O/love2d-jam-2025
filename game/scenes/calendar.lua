@@ -38,6 +38,10 @@ end
 
 local function dateClicked(day)
   print("Day clicked: " .. day)
+  -- Chiedo al GameManager di verificare che il giorno selezionato sia valido
+  -- Subito dopo faccio la navigazione verso outcome
+  GameManager:tryDate(day)
+  screenManager:setScene(constants.SCENES_CONFIRM)
 end
 
 function calendar.draw()
