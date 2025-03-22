@@ -4,7 +4,8 @@ yearbookStudentCard = {}
 local studentCardArea = {}
 local imageArea = {}
 local nameArea = {}
-local descriptionArea = {}
+local quoteArea = {}
+local bestMemoryArea = {}
 local activitiesArea = {}
 --local player = yearbook.getCurrentStudent()
 
@@ -27,24 +28,31 @@ function yearbookStudentCard.setAreas()
   }
   -- Calculate image area
   imageArea = screenManager:calcRelativeArea(studentCardArea, {
-    xPerc = 0.10,
+    xPerc = 0.1,
     yPerc = 0.10,
     widthPerc = 0.35,
     heightPerc = 0.5,
   })
   nameArea = screenManager:calcRelativeArea(studentCardArea, {
-    xPerc = 0.5,
-    yPerc = 0.1,
+    xPerc = 0.49,
+    yPerc = 0.11,
     widthPerc = 0.45,
     heightPerc = 0.1,
   })
   -- Calculate description area relative to the card
-  descriptionArea = screenManager:calcRelativeArea(studentCardArea, {
-    xPerc = 0.5,
+  quoteArea = screenManager:calcRelativeArea(studentCardArea, {
+    xPerc = 0.48,
     yPerc = 0.25,
-    widthPerc = 0.5,
-    heightPerc = 0.3,
+    widthPerc = 0.49,
+    heightPerc = 0.24,
   })
+  bestMemoryArea = screenManager:calcRelativeArea(studentCardArea, {
+    xPerc = 0.48,
+    yPerc = 0.25,
+    widthPerc = 0.49,
+    heightPerc = 0.12,
+  })
+  bestMemoryArea.y = quoteArea.y + quoteArea.height + 5
   activitiesArea = screenManager:calcRelativeArea(studentCardArea, {
     xPerc = 0.15,
     yPerc = 0.7,
@@ -91,9 +99,11 @@ function yearbookStudentCard.draw()
   --love.graphics.rectangle("line", studentCardArea.x, studentCardArea.y, studentCardArea.width, studentCardArea.height)
 
   -- Draw image area
-  if (currentStudent.image ~= nil and currentStudent.image ~= "" and currentStudent.name == "Edward Thompson") then
+  if (currentStudent.image ~= nil and currentStudent.image ~= "") then
     love.graphics.setColor(1, 1, 1)
-    love.graphics.draw(currentStudent.image, imageArea.x, imageArea.y, -0.08,0.075,0.08)
+    local image = currentStudent.image
+    image:setFilter("linear", "linear")
+    love.graphics.draw(image, imageArea.x, imageArea.y, 0,0.18,0.18)
   end
   --love.graphics.rectangle("line", imageArea.x, imageArea.y, imageArea.width, imageArea.height)
 
@@ -101,14 +111,22 @@ function yearbookStudentCard.draw()
   --love.graphics.rectangle("line", nameArea.x, nameArea.y, nameArea.width, nameArea.height)
   love.graphics.setColor(0, 0, 0)
   love.graphics.setFont(constants.FONTS_NICE_CHALK_TITLE)
-  love.graphics.printf(currentStudent.name, nameArea.x, nameArea.y, nameArea.width, "left", -0.03)
+  love.graphics.printf(currentStudent.name, nameArea.x, nameArea.y, nameArea.width, "center", -0.03)
 
-  -- Draw description area
+  -- Draw quote area
   love.graphics.setColor(debugColor)
-  --love.graphics.rectangle("line", descriptionArea.x, descriptionArea.y, descriptionArea.width, descriptionArea.height)
+  --love.graphics.rectangle("line", quoteArea.x, quoteArea.y, quoteArea.width, quoteArea.height)
   love.graphics.setColor(0, 0, 0)
   love.graphics.setFont(constants.FONTS_NICE_CHALK_BODY)
-  love.graphics.printf(currentStudent.bestMemory, descriptionArea.x, descriptionArea.y, descriptionArea.width, "left")
+  love.graphics.printf('"'..currentStudent.quote..'"', quoteArea.x, quoteArea.y, quoteArea.width, "center", -0.02)
+  love.graphics.setColor(1, 1, 1)
+
+  -- Draw bestMemory area
+  love.graphics.setColor(debugColor)
+  --love.graphics.rectangle("line", bestMemoryArea.x, bestMemoryArea.y, bestMemoryArea.width, bestMemoryArea.height)
+  love.graphics.setColor(0, 0, 0)
+  love.graphics.setFont(constants.FONTS_NICE_CHALK_BODY)
+  love.graphics.printf("Best Memory: "..currentStudent.bestMemory, bestMemoryArea.x, bestMemoryArea.y, bestMemoryArea.width, "left", -0.015)
   love.graphics.setColor(1, 1, 1)
 
   -- Draw activities area
