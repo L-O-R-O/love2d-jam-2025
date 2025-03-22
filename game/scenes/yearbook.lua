@@ -36,6 +36,7 @@ local maxPages       = 1
 local clickables     = {}
 local prevArrow      = {}
 local nextArrow      = {}
+local backArrow      = {}
 local browserTabYB   = {}
 local browserTabCS   = {}
 local leftX, rightX  = 0.20, 0.753
@@ -116,8 +117,20 @@ function yearbook.drawPage()
     width       = 0,
     height      = 0,
   }
+  backArrow = {
+    name        = 'BACK_BUTTON',
+    xPerc       = 0.82,
+    yPerc       = 0.52,
+    widthPerc   = 0.06,
+    heightPerc  = 0.1,
+    x           = 0,
+    y           = 0,
+    width       = 0,
+    height      = 0,
+  }
   screenManager:setClickableArea(constants.SCENES_YEARBOOK, prevArrow, prevArrow.name, PREV_PAGE)
   screenManager:setClickableArea(constants.SCENES_YEARBOOK, nextArrow, nextArrow.name, NEXT_PAGE)
+  screenManager:setClickableArea(constants.SCENES_YEARBOOK, backArrow, backArrow.name, NEXT_PAGE)
 
   -- Definizione tab orizzontali del browser
   browserTabYB = {
@@ -256,7 +269,7 @@ function yearbook.keypressed(key)
   elseif (key =='j') then
     scenesManager:setScene(constants.SCENES_AGENDA)
   elseif (key =='l') then
-    --yearbook.drawPage() --!!!DEBUG!!!
+    yearbook.drawRedBoxes() --!!!DEBUG!!!
   elseif (key == constants.KEYS_PAUSE_MENU) then
     scenesManager:setScene(constants.SCENES_TITLE)
   end
@@ -264,13 +277,14 @@ end
 
 function yearbook.drawRedBoxes()
   love.graphics.setColor(1, 0, 0) -- Red color
-  for _, box in ipairs(yearbookLabels) do
+  --[[ for _, box in ipairs(yearbookLabels) do
       love.graphics.rectangle("line", box.x, box.y, box.width, box.height)
       local studentName = box.student ~= nil and box.student.name or "404 Student Not Found"
       love.graphics.printf(studentName, box.x, box.y, 350)
-  end
-  love.graphics.rectangle("line", browserTabYB.x, browserTabYB.y, browserTabYB.width, browserTabYB.height)
-  love.graphics.rectangle("line", browserTabCS.x, browserTabCS.y, browserTabCS.width, browserTabCS.height)
+  end ]]
+  --[[ love.graphics.rectangle("line", browserTabYB.x, browserTabYB.y, browserTabYB.width, browserTabYB.height)
+  love.graphics.rectangle("line", browserTabCS.x, browserTabCS.y, browserTabCS.width, browserTabCS.height) ]]
+  love.graphics.rectangle("line", backArrow.x, backArrow.y, backArrow.width, backArrow.height)
 
   love.graphics.setColor(0, 0, 0) -- Reset color to black
 end
@@ -285,12 +299,6 @@ function yearbook.draw()
   local arrowWidth    = screenManager.screenWidth * 0.06
   local arrowHeight   = screenManager.screenHeight * 0.06
   local centerX       = screenManager.screenWidth / 2
-
-  -- DEBUG disegna le aree delle linguette
-  --[[ for _, tab in ipairs(tabs) do
-    love.graphics.rectangle("line", tab.x, tab.y, tab.width, tab.height)
-    love.graphics.printf(tab.name, tab.x, tab.y + tab.height / 2 - 10, tab.width, "center")
-  end ]]
 
   -- Calcola le posizioni per i nomi
   local namesYOffset     = screenManager.screenHeight * 0.378
@@ -325,21 +333,6 @@ function yearbook.draw()
   for j = 1, 10 do
     if (j > numberOfLabels) then
       yearbookLabels[j].student = nil
-    end
-  end
-
-  --yearbook.drawRedBoxes()
-
-  -- DEBUG: disegna le aree PREV e NEXT
-  if maxPages > 1 then
-    if currentPage ~= 1 or alwaysShowArrows then
-      --love.graphics.setColor(1, 0, 0, 1)
-      --love.graphics.rectangle("line",prevArrow.x, prevArrow.y, prevArrow.width, prevArrow.height)
-      --love.graphics.printf("Prev", prevArrow.x, prevArrow.y, arrowWidth/2)
-    end
-    if currentPage < maxPages or alwaysShowArrows then
-        --love.graphics.rectangle("line",nextArrow.x, nextArrow.y, nextArrow.width, nextArrow.height)
-        --love.graphics.printf("Next", nextArrow.x, nextArrow.y, arrowWidth/2)
     end
   end
   -- Reset del colore per evitare effetti indesiderati

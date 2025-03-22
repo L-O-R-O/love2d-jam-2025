@@ -47,6 +47,9 @@ constants.IMAGES_CS_ARROWS_LEFT      = love.graphics.newImage("assets/images/act
 constants.IMAGES_CS_ARROWS_RIGHT     = love.graphics.newImage("assets/images/activities/activities_arrow_right.png")
 constants.IMAGES_CS_ACTIVITY_CARD_BG = love.graphics.newImage("assets/images/activities/activities_info.png")
 
+-- general ui images
+constants.IMAGES_UI_BACK       = love.graphics.newImage("assets/images/ui/BACK.png")
+constants.IMAGES_UI_BACK_HOVER = love.graphics.newImage("assets/images/ui/BACK_HOVER.png")
 -- sounds
 constants.SOUNDS_MOUSE_CLICK        = love.audio.newSource("assets/sounds/click.mp3", "static")
 constants.SOUNDS_PAGE_TURN          = love.audio.newSource("assets/sounds/pages.mp3", "static")
