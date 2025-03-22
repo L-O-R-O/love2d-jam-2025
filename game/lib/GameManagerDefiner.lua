@@ -41,7 +41,7 @@ function GameManagerDefiner:initialize()
   local index = math.random(1, constants.GAME_MANAGER_MAX_PLAYABLE)  -- Numero tra 1 e 7
 
   CalendarManager = CalendarManager:new(GameManager.month)
-  GameManager:fillPlaytableEntity()
+  GameManager:fillGlobalTables()
   GameManager:generateFittableActivities(index)
   CalendarManager:reset()
   GameManager:addInGuild(index)
@@ -52,7 +52,7 @@ function GameManagerDefiner:initialize()
   end
 end
 
-function GameManagerDefiner:fillPlaytableEntity()  -- Riempi la tabella playable Player con i dati dei primi N dove N è il numero di elementi della suddeta tabella con primi dati delle costanti student
+function GameManagerDefiner:fillGlobalTables()  -- Riempi la tabella playable Player con i dati dei primi N dove N è il numero di elementi della suddeta tabella con primi dati delle costanti student
   for  i = 1, constants.GAME_MANAGER_MAX_PLAYABLE do
     playableActivities[i] = Activity:new(constants.ACTIVITIES[i].name, constants.ACTIVITIES[i].description,{},{})
     playablePlayer[i] = Player:new(constants.STUDENTS[i].name, constants.STUDENTS[i].nickname, playableActivities[i]:getName(),playableActivities[i],true,false)
@@ -61,9 +61,9 @@ function GameManagerDefiner:fillPlaytableEntity()  -- Riempi la tabella playable
   end
 
   for i = constants.GAME_MANAGER_MAX_PLAYABLE, #constants.STUDENTS do
-
-    allActivities[i] = Activity:new('TMP_NAME', 'TMP_DESCRIPTION',{},{1})
-    allStudents[i] = Player:new(constants.STUDENTS[i].name, constants.STUDENTS[i].nickname, 'TMP_NAME',allActivities[i],false,false)
+    local r = math.random(1,7)
+    allActivities[i] = Activity:new(constants.ACTIVITIES[i].name, constants.ACTIVITIES[i].description,{},{r})
+    allStudents[i] = Player:new(constants.STUDENTS[i].name, constants.STUDENTS[i].nickname, constants.ACTIVITIES[i].name,allActivities[i],false,false)
   end
 end
 
@@ -122,16 +122,6 @@ function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna all
     playablePlayer[trueIndex]:setActivity(playableActivities[trueIndex])
   end
 end
-
-function GameManagerDefiner:getStudent(name)
-    for i =1, #allStudents do
-      if name == allStudents[i]:getName() then
-        return allStudents[i]
-      end
-    end
-    return false
-end
-
 
 function GameManagerDefiner:tryDate(proposedDate)
   if CalendarManager:isFreeDay(self.month, proposedDate) then
@@ -241,6 +231,23 @@ function GameManagerDefiner:getOutcomeState()
   return self.outcomeState
 end
 
+function GameManagerDefiner:getStudent(name)
+  for i =1, #allStudents do
+    if name == allStudents[i]:getName() then
+      return allStudents[i]
+    end
+  end
+  return false
+end
+
+function GameManagerDefiner:getActivity(name)
+  for i =1, #allActivities do
+    if name == allActivities[i]:getName() then
+      return allActivities[i]
+    end
+  end
+  return false
+end
 
 GameManager = GameManagerDefiner:new()
 GameManager:initialize()
