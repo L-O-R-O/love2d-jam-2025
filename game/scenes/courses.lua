@@ -1,7 +1,8 @@
 local constants = require("constants")
 courses = {}
 
-local allCourses = {
+local allCourses = constants.ACTIVITIES
+--[[ {
   { name = "Rugby", description = "A physical team sport played with an oval ball.", calendar = {}, dayOfTheWeek = "1", strSchedule = {} },
   { name = "Soccer", description = "A popular sport played with a round ball on a field.", calendar = {}, dayOfTheWeek = "2", strSchedule = {} },
   { name = "Basketball", description = "A team sport where players try to score points in a hoop.", calendar = {}, dayOfTheWeek = "3", strSchedule = {} },
@@ -40,7 +41,7 @@ local allCourses = {
   { name = "Coding Hackathons", description = "A club that organizes coding challenges and competitions.", calendar = {}, dayOfTheWeek = "1", strSchedule = {} },
   { name = "Meditation Club", description = "A group dedicated to mindfulness and mental relaxation.", calendar = {}, dayOfTheWeek = "2", strSchedule = {} },
   { name = "Linguistics Club", description = "A club for students interested in learning and discussing languages.", calendar = {}, dayOfTheWeek = "3", strSchedule = {} }
-}
+} ]]
 
 local browserTabYB   = {}
 local browserTabCS   = {}
@@ -218,7 +219,7 @@ function courses.draw()
     --love.graphics.rectangle("line", coursesLabel.x, coursesLabel.y, coursesLabel.width, coursesLabel.height)
     --print("Course Label:", coursesLabel.course and coursesLabel.course.name or "MISSING NAME")
     --print("X:", coursesLabel.x, "Y:", coursesLabel.y, "Width:", coursesLabel.width)
-    love.graphics.printf(coursesLabel.course.name, coursesLabel.x , coursesLabel.y + coursesLabel.offsetY, coursesLabel.width, "center",-0.001)
+    love.graphics.printf(coursesLabel.course.name, coursesLabel.x , coursesLabel.y + coursesLabel.offsetY, coursesLabel.width, "center",-0.002)
   end
   love.graphics.setColor(1, 1, 1, 1)
 end
@@ -229,7 +230,7 @@ function courses.keypressed(key)
   elseif (key == constants.KEYS_PAUSE_MENU) then
     scenesManager:setScene(constants.SCENES_TITLE)
   elseif (key == "y") then
-
+    --courses.drawPage()
   end
 end
 
