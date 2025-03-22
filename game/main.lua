@@ -60,7 +60,7 @@ function love.load()
   yearBookStudentCard.load()
   coursesActivityCard.load()
   outcome.load()
-    confirm.load()
+  confirm.load()
   gameOver.load()
 
   -- Carico le chiavi per i cursori

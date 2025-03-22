@@ -63,6 +63,8 @@ local players = {
   }
 }
 
+local guilders = {}
+
 local function getHearts()
   return GameManager:getHearts()
 end
@@ -72,7 +74,12 @@ function agenda.load()
 end
 
 function agenda.update(dt)
-
+  local t1 = GameManager:getGuild()
+  for i = 1, #t1 do
+    local nomeCompleto = t1[i]:getName()
+    local posizioneSpazio = nomeCompleto:find(" ")
+    guilders[i] = string.sub(nomeCompleto, 1, posizioneSpazio)
+  end
 end
 
 function agenda.draw()
@@ -95,7 +102,7 @@ function agenda.draw()
   --love.graphics.rectangle("line",agendaArea.x,agendaArea.y,agendaArea.width,agendaArea.height)
   love.graphics.setColor(1, 1, 1)
 
-  for i, player in ipairs(players) do
+  for i, player in ipairs(guilders) do
     local column = (i - 1) % 2
     local row = math.floor((i - 1) / 2)
     local x = 430 + column * 200
@@ -103,7 +110,7 @@ function agenda.draw()
 
     -- Draw player name
     love.graphics.setColor(1, 1, 1)
-    love.graphics.print(player.name, x + 100, y)
+    love.graphics.print(player, x + 100, y)
 
     -- Reset color
     love.graphics.setColor(1, 1, 1)
