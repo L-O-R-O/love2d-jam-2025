@@ -35,28 +35,16 @@ function GameManagerDefiner:new(strikes)
     month = getMonthFromOS(),
     consecutiveWins = 0,
     activities = {
-      {
-        name = "Synchronized Swimming Practice",
-        description = "Even in a bathtub, coordination is key!",
-        associatedPlayer = "a",
-      },
-      { name = "Marathon Movie Night", description = "Watch an entire trilogy in one sitting!", associatedPlayer = "b" },
-      { name = "Parkour Training", description = "Climb walls, jump over obstacles, be a ninja!", associatedPlayer = "c" },
-      {
-        name = "Balloon Animal Sculpting",
-        description = "Master the art of making inflatable pets!",
-        associatedPlayer = "d",
-      },
-      { name = "Ultimate Frisbee Showdown", description = "Throw, run, and jump like a pro!", associatedPlayer = "e" },
-      {
-        name = "Glow-in-the-Dark Bowling",
-        description = "Turn off the lights and let the fun begin!",
-        associatedPlayer = "f",
-      },
-      { name = "Water Balloon Dodgeball", description = "Dodge, throw, and get soaked!", associatedPlayer = "g" },
-      { name = "t1", description = "Throw, run, and jump like a pro!", associatedPlayer = "h" },
-      { name = "t2", description = "Turn off the lights and let the fun begin!", associatedPlayer = "i" },
-      { name = "t3", description = "Dodge, throw, and get soaked!", associatedPlayer = "i" },
+      { name = "",  description = ""},
+      { name = "",  description = ""},
+      { name = "",  description = ""},
+      { name = "",  description = ""},
+      { name = "",  description = ""},
+      { name = "",  description = ""},
+      { name = "",  description = ""},
+      { name = "",  description = ""},
+      { name = "",  description = ""},
+      { name = "",  description = ""},
     },
     outcomeState = 0,
   }
@@ -204,7 +192,7 @@ function GameManagerDefiner:getOutcomeState()
   return self.outcomeState
 end
 
-math.randomseed(os.time())      -- Imposta il seed per rendere i numeri casuali più imprevedibili
+math.randomseed(os.time())                    -- Imposta il seed per rendere i numeri casuali più imprevedibili
 local index = math.random(1, #playablePlyer)  -- Numero tra 1 e 7
 
 GameManager = GameManagerDefiner:new(0)
