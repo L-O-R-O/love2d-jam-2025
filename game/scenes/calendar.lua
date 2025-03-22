@@ -5,6 +5,7 @@ local currentMonthLabel = "MARCH"
 local monthFont = love.graphics.newFont("assets/font/NiceChalk.ttf", 70)
 local dayFont = love.graphics.newFont("assets/font/NiceChalk.ttf", 45)
 local dayNameFont = love.graphics.newFont("assets/font/NiceChalk.ttf", 15)
+local selectedDay = nil
 
 -- Calcolo mese corrente
 local currentMonth = GameManager:getMonth()
@@ -23,6 +24,10 @@ for _, day in ipairs(constants.WEEK_DAYS) do
   table.insert(daysOfWeek, day:sub(1, 3):upper())
 end
 
+function calendar.getSelectedDay()
+  return selectedDay
+end
+
 function calendar.load()
   mouse.registerHandler(calendar, constants.SCENES_CALENDAR)
   calendarArea = screenManager:calcAreaSizes({
@@ -38,10 +43,8 @@ end
 
 local function dateClicked(day)
   print("Day clicked: " .. day)
-  -- Chiedo al GameManager di verificare che il giorno selezionato sia valido
-  -- Subito dopo faccio la navigazione verso outcome
-  GameManager:tryDate(day)
-  screenManager:setScene(constants.SCENES_CONFIRM)
+  selectedDay = day
+  scenesManager:setScene(constants.SCENES_CONFIRM, false)
 end
 
 function calendar.draw()
