@@ -3,6 +3,7 @@ local constants = {}
 -- fonts
 constants.FONTS_NICE_CHALK_TITLE = love.graphics.newFont("assets/font/NiceChalk.ttf",32)
 constants.FONTS_NICE_CHALK_BODY  = love.graphics.newFont("assets/font/NiceChalk.ttf",18)
+constants.FONTS_NICE_CHALK_SMALL = love.graphics.newFont("assets/font/NiceChalk.ttf",15)
 constants.FONTS_MAIN_MENU        = love.graphics.newFont("assets/font/NiceChalk.ttf", 50)
 constants.FONTS_SUB_MENU         = love.graphics.newFont("assets/font/NiceChalk.ttf", 40)
 constants.FONTS_ROBOTO           = love.graphics.newFont("assets/font/Roboto-Black.ttf", 20)
@@ -163,7 +164,7 @@ constants.STUDENTS = {
   {
     nickname = "Green Thumb",
     name = "Beatrice Blossom",
-    image = love.graphics.newImage("assets/images/students/CHARACTER_BEATRICE.PNG"),
+    image = love.graphics.newImage("assets/images/students/CHARACTER_BEATRICE.png"),
     quote = "Sing like no one is listening, love like you've never been hurt, dance like no one is watching, and live like it is heaven on earth.",
     futurePlans = "Become an environmental lawyer to take down evil corporations one lawsuit at a time — all while wearing ethically sourced cardigans.",
     bestMemory = "Freeing the lab monkeys before spring break. (Still not sure if that was legal. Probably wasn't.)",
@@ -173,7 +174,7 @@ constants.STUDENTS = {
   {
     nickname = "Edgelord",
     name = "Edward Thompson",
-    image = love.graphics.newImage("assets/images/students/CHARACTER_EDWARD.PNG"),
+    image = love.graphics.newImage("assets/images/students/CHARACTER_EDWARD.png"),
     quote = "I am so clever that sometimes I don't understand a single word of what I am saying.",
     futurePlans = "Becoming a famous indie filmmaker (but only for the kind of films where the main character stares into the rain dramatically).",
     bestMemory = "Kicking soda cans around the mall parking lot like it was an Olympic sport.",
@@ -183,7 +184,7 @@ constants.STUDENTS = {
   {
     nickname = "World Domination",
     name = "Jessica Newton",
-    image = love.graphics.newImage("assets/images/students/CHARACTER_JESSICA.PNG"),
+    image = love.graphics.newImage("assets/images/students/CHARACTER_JESSICA.png"),
     quote = "It is better to be hated for what you are than to be loved for what you are not.",
     futurePlans = "First female President of the United States.",
     bestMemory = "Friday night pajama parties with the besties.",
@@ -193,7 +194,7 @@ constants.STUDENTS = {
   {
     nickname = "The Headbanger",
     name = "Lou Arenton",
-    image = love.graphics.newImage("assets/images/students/CHARACTER_LOU.PNG"),
+    image = love.graphics.newImage("assets/images/students/CHARACTER_LOU.png"),
     quote = "Without music, life would be a mistake.",
     futurePlans = "Becoming the next rock sensation, ideally headlining a festival where people throw underwear on stage.",
     bestMemory = "That sick 10-minute guitar solo at Battle of the Bands (the judges are still talking about it).",
@@ -213,7 +214,7 @@ constants.STUDENTS = {
   {
     nickname = "Turbo",
     name = "Max Reynolds",
-    image = love.graphics.newImage("assets/images/students/CHARACTER_MAX.PNG"),
+    image = love.graphics.newImage("assets/images/students/CHARACTER_MAX.png"),
     quote = "If you're not first, you're last.",
     futurePlans = "Becoming a professional skateboarder, or maybe just a guy who skates a lot.",
     bestMemory = "That one time I ollied over Principal Harris' flower bed and didn't get detention (he definitely saw me).",
@@ -223,7 +224,7 @@ constants.STUDENTS = {
   {
     nickname = "The Brain",
     name = "Olivia Park",
-    image = love.graphics.newImage("assets/images/students/CHARACTER_OLIVIA.PNG"),
+    image = love.graphics.newImage("assets/images/students/CHARACTER_OLIVIA.png"),
     quote = "I have not failed. I've just found 10,000 ways that won't work.",
     futurePlans = "Become a scientist, discover something cool, and get a building named after her.",
     bestMemory = "Correcting Mr. Johnson's math on the whiteboard and getting extra credit for it (he still hasn't forgiven me).",
@@ -233,7 +234,7 @@ constants.STUDENTS = {
   {
     nickname = "Gearhead",
     name = "Riley Thompson",
-    image = love.graphics.newImage("assets/images/students/CHARACTER_RILEY.PNG"),
+    image = love.graphics.newImage("assets/images/students/CHARACTER_RILEY.png"),
     quote = "The best way to predict the future is to invent it.",
     futurePlans = "Build a robot butler and retire early.",
     bestMemory = "When my science fair project accidentally set off the fire alarm (I still won).",
@@ -243,17 +244,17 @@ constants.STUDENTS = {
   {
     nickname = "Shield Maiden",
     name = "Florence Hale",
-    image = love.graphics.newImage("assets/images/students/CHARACTER_FLORENCE.PNG"),
+    image = love.graphics.newImage("assets/images/students/CHARACTER_FLORENCE.png"),
     quote = "No one can make you feel inferior without your consent.",
     futurePlans = "Join the military, become a firefighter, or maybe run a charity.",
-    bestMemory = "Standing up to a teacher who embarrassed a classmate — and getting half the class to walk out with her.",
+    bestMemory = "Standing up to a teacher who embarrassed a classmate and getting half the class to walk out with her.",
     favoriteDnDClass = "Paladin — because someone has to protect the kingdom. Well, I mean, the student council.",
     inGuild = false,
   },
   {
     nickname = "Iron Fist",
     name = "Marcus Lee",
-    image = love.graphics.newImage("assets/images/students/CHARACTER_MARCUS.PNG"),
+    image = love.graphics.newImage("assets/images/students/CHARACTER_MARCUS.png"),
     quote = "Pain is weakness leaving the body.",
     futurePlans = "Become a personal trainer, then maybe a superhero if that's still an option.",
     bestMemory = "Bench pressing more than Coach Davis and getting a high-five for it.",

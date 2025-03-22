@@ -6,6 +6,7 @@ local imageArea = {}
 local nameArea = {}
 local quoteArea = {}
 local bestMemoryArea = {}
+local plansArea = {}
 local activitiesArea = {}
 --local player = yearbook.getCurrentStudent()
 
@@ -53,11 +54,17 @@ function yearbookStudentCard.setAreas()
     heightPerc = 0.12,
   })
   bestMemoryArea.y = quoteArea.y + quoteArea.height + 5
+  plansArea = screenManager:calcRelativeArea(studentCardArea, {
+    xPerc = 0.15,
+    yPerc = 0.72,
+    widthPerc = 0.85,
+    heightPerc = 0.07,
+  })
   activitiesArea = screenManager:calcRelativeArea(studentCardArea, {
     xPerc = 0.15,
-    yPerc = 0.7,
+    yPerc = 0.83,
     widthPerc = 0.85,
-    heightPerc = 0.3,
+    heightPerc = 0.07,
   })
 end
 
@@ -129,18 +136,19 @@ function yearbookStudentCard.draw()
   love.graphics.printf("Best Memory: "..currentStudent.bestMemory, bestMemoryArea.x, bestMemoryArea.y, bestMemoryArea.width, "left", -0.015)
   love.graphics.setColor(1, 1, 1)
 
+  -- Draw futurePlans area
+  love.graphics.setColor(1,0,0)
+  --love.graphics.rectangle("line", plansArea.x, plansArea.y, plansArea.width, plansArea.height)
+  love.graphics.setColor(0, 0, 0)
+  love.graphics.setFont(constants.FONTS_NICE_CHALK_SMALL)
+  love.graphics.setColor(1, 1, 1)
   -- Draw activities area
   love.graphics.setColor(debugColor)
   --love.graphics.rectangle("line", activitiesArea.x, activitiesArea.y, activitiesArea.width, activitiesArea.height)
   love.graphics.setColor(0, 0, 0)
+  love.graphics.printf("Future Plans: "..currentStudent.futurePlans, activitiesArea.x, activitiesArea.y, activitiesArea.width, "left", -0.03)
   love.graphics.setColor(1, 1, 1)
-  --[[   for index, activity in ipairs(currentStudent.activities) do
-    local yOffset = 0.67 + (index - 1) * 0.033
-    local tab = screenManager:calcAreaSizes({ xPerc = 0.395, yPerc = yOffset, widthPerc = 0.8, heightPerc = 0.1 })
-    love.graphics.setColor(0, 0, 0)
-    love.graphics.printf(activity.name, tab.x, tab.y, tab.width)
-    love.graphics.setColor(1, 1, 1)
-  end ]]
+
 end
 
 
