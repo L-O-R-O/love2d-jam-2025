@@ -229,8 +229,8 @@ function courses.keypressed(key)
     scenesManager:setScene(constants.SCENES_DESKTOP)
   elseif (key == constants.KEYS_PAUSE_MENU) then
     scenesManager:setScene(constants.SCENES_TITLE)
-  elseif (key == "y") then
-    --courses.drawPage()
+  --[[elseif (key == "y") then
+    --courses.drawPage() ]]
   end
 end
 

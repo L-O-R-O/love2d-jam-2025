@@ -266,13 +266,13 @@ end
 ---Processes keyboard input for the overlay
 ---@param key string The key that was pressed
 ---@return nil
-function overlayStats.handleKeyboard(key)
+--[[function overlayStats.handleKeyboard(key)
   if key == "f3" then
     toggleOverlay()
   elseif key == "f5" then
     toggleVSync()
   end
-end
+end ]]
 
 ---Register a particle system to be tracked
 ---@param particleSystem love.ParticleSystem The particle system to register
