@@ -52,7 +52,7 @@ function Menu:draw()
     local screenHeight = love.graphics.getHeight()
     for i, item in ipairs(self.items) do
         local y = (screenHeight / 2 - (#self.items * self.font:getHeight() / 2) + (i - 1) * self.font:getHeight())
-        local x = screenWidth / 2 - self.font:getWidth(item.name) / 2
+        local x = screenWidth / 2 - self.font:getWidth(item.name) / 2 - 70
         local itemWidth = self.font:getWidth(item.name)
         local itemHeight = self.font:getHeight()
 
@@ -78,8 +78,9 @@ function Menu:draw()
         end
 
         -- Disegna il testo principale
-        love.graphics.setColor(1, 1, 1, 1) -- Bianco
+        love.graphics.setColor(0, 0, 0, 1) -- Nero
         love.graphics.print(item.name, x, y)
+        love.graphics.setColor(1, 1, 1, 1) -- Bianco
 
         -- Se è uno slider, disegna anche una barra
         if item.isSlider then
@@ -102,7 +103,7 @@ function Menu:draw()
             love.graphics.rectangle("line", barX, barY, barWidth, barHeight)
 
             -- Disegna la parte riempita
-            love.graphics.setColor(1, 1, 1) -- Verde
+            love.graphics.setColor(0.1, 0.1, 0.1)
             love.graphics.rectangle("fill", barX, barY, fillWidth, barHeight)
         end
 

@@ -6,6 +6,7 @@ constants.FONTS_NICE_CHALK_BODY  = love.graphics.newFont("assets/font/NiceChalk.
 constants.FONTS_NICE_CHALK_SMALL = love.graphics.newFont("assets/font/NiceChalk.ttf",15)
 constants.FONTS_MAIN_MENU        = love.graphics.newFont("assets/font/NiceChalk.ttf", 50)
 constants.FONTS_SUB_MENU         = love.graphics.newFont("assets/font/NiceChalk.ttf", 40)
+constants.FONTS_CREDITS_MENU         = love.graphics.newFont("assets/font/NiceChalk.ttf", 25)
 constants.FONTS_ROBOTO           = love.graphics.newFont("assets/font/Roboto-Black.ttf", 20)
 constants.FONTS_NICE_CHALK       = love.graphics.newFont("assets/font/NiceChalk.ttf", 20)
 constants.FONTS_CALENDAR_MONTH   = love.graphics.newFont("assets/font/NiceChalk.ttf", 70)
@@ -24,7 +25,10 @@ constants.IMAGES_CALENDAR_RED_CIRCLE       = love.graphics.newImage("assets/imag
 constants.IMAGES_AGENDA_BG_FULL            = love.graphics.newImage("assets/images/zoom/zoom_journal1.png")
 constants.IMAGES_AGENDA_BG_STRIKE_1        = love.graphics.newImage("assets/images/zoom/zoom_journal2.png")
 constants.IMAGES_AGENDA_BG_STRIKE_2        = love.graphics.newImage("assets/images/zoom/zoom_journal3.png")
-constants.IMAGES_HEART                     = love.graphics.newImage("assets/images/heart_placeholder.png")
+constants.IMAGES_HEART                     = love.graphics.newImage("assets/images/LIVES_FULL.png")
+constants.IMAGES_MENU_BG                   = love.graphics.newImage("assets/images/menu_start.png")
+constants.IMAGES_MENU_PAUSE_BG                   = love.graphics.newImage("assets/images/menu_pause.png")
+
 
 -- yearbook images
 constants.IMAGES_YB_AC = love.graphics.newImage("assets/images/yearbook/yearbook_ac.png")

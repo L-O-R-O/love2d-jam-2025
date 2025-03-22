@@ -28,6 +28,7 @@ function title.update(dt)
 end
 
 function title.draw()
+  screenManager:drawSceneBackground(constants.IMAGES_MENU_BG)
   currentMenu:draw()
 end
 
@@ -97,7 +98,7 @@ function title.buildMenuElements()
   controlsMenu:addItem("P - Pause", function() end)
 
   -- Creazione del subMenu Credits
-  local creditsMenu = Menu:new(constants.FONTS_SUB_MENU)
+  local creditsMenu = Menu:new(constants.FONTS_CREDITS_MENU)
   creditsMenu:addItem("Developed by:", function() end)
   creditsMenu:addItem("Dyd, Haxii, Daniela, Daniele, Teo", function() end)
   creditsMenu:addItem("Art by:", function() end)
