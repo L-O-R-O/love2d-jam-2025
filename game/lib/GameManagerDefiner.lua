@@ -11,55 +11,35 @@ local function getMonthFromOS()
   return monthNumber
 end
 
-playablePlyer =  {
-  Player:new('', '', '',{},false,false),
-  Player:new('', '', '',{},false,false),
-  Player:new('', '', '',{},false,false),
-  Player:new('', '', '',{},false,false),
-  Player:new('', '', '',{},false,false),
-  Player:new('', '', '',{},false,false),
-  Player:new('', '', '',{},false,false),
-  Player:new('', '', '',{},false,false),
-  Player:new('', '', '',{},false,false),
-  Player:new('', '', '',{},false,false),
-}
+playablePlyer =  {}
+playableActivities =  {}
+
 
 function GameManagerDefiner:new(strikes)
   local obj = {
     strikes = strikes,
     guild = {},
-    actualCycle = 10, --0 se non in partita, poi da 1 a 10
-    prob = 0, --OPT
-    suddenOn = 0, --variabile per capire se mostrare o meno la pagina degli orari
-    gameOver = 0,
-    month = getMonthFromOS(),
+    actualCycle     = 1, --0 se non in partita, poi da 1 a 10
+    prob            = 0, --OPT
+    suddenOn        = 0, --variabile per capire se mostrare o meno la pagina degli orari
+    gameOver        = 0,
+    month           = getMonthFromOS(),
     consecutiveWins = 0,
-    activities = {
-      { name = "",  description = ""},
-      { name = "",  description = ""},
-      { name = "",  description = ""},
-      { name = "",  description = ""},
-      { name = "",  description = ""},
-      { name = "",  description = ""},
-      { name = "",  description = ""},
-      { name = "",  description = ""},
-      { name = "",  description = ""},
-      { name = "",  description = ""},
-    },
-    outcomeState = 0,
+    outcomeState    = 0,
   }
   setmetatable(obj, GameManagerDefiner)
   return obj
 end
 
-function GameManagerDefiner:generatePlayers()  -- Riempi la tabella playable Player con i dati dei primi N dove N è il numero di elementi della suddeta tabella con primi dati delle costanti student
-  for  i = 1, #playablePlyer do
+function GameManagerDefiner:fillPlaytableEntity()  -- Riempi la tabella playable Player con i dati dei primi N dove N è il numero di elementi della suddeta tabella con primi dati delle costanti student
+  for  i = 1, constants.GAME_MANAGER_MAX_PLAYABLE do
+    playableActivities[i] = Activity:new(constants.ACTIVITIES[i].name, constants.ACTIVITIES[i].description,{},{})
     playablePlyer[i] = Player:new(constants.STUDENTS[i].name, constants.STUDENTS[i].nickname, 'a1',{},true,false)
   end
 end
 
 function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna alle attività dei player valori randomici in modo che torni sempre un valore
-  local randActivity = self.activities[endIndex]
+  local randActivity = playableActivities[endIndex]
   local trueIndex = endIndex
   local firstVal= math.random(1,7)
   local secondVal
@@ -67,14 +47,14 @@ function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna all
     secondVal = math.random(1,7)
   until  secondVal ~= firstVal
 
-  firstActivity = Activity:new(randActivity.name,randActivity.description,{},{firstVal,secondVal})
-  CalendarManager:addActivity(firstActivity)
-  playablePlyer[trueIndex]:setActivity(firstActivity)
+  playableActivities[endIndex] = Activity:new(randActivity:getName(),randActivity:getDescription(),{},{firstVal,secondVal})
+  CalendarManager:addActivity(playableActivities[endIndex])
+  playablePlyer[trueIndex]:setActivity(playableActivities[endIndex])
 
-  for i = 1,(#self.activities-1) do
+  for i = 1,(constants.GAME_MANAGER_MAX_PLAYABLE-1) do
     trueIndex = i+endIndex
-    if(trueIndex>#self.activities)then
-      trueIndex = trueIndex-#self.activities
+    if(trueIndex>constants.GAME_MANAGER_MAX_PLAYABLE)then
+      trueIndex = trueIndex-constants.GAME_MANAGER_MAX_PLAYABLE
     end
 
     local newActivity
@@ -85,9 +65,9 @@ function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna all
         tmpCalendar[r] = 0
       end
 
-      newActivity =Activity:new(self.activities[trueIndex].name,self.activities[trueIndex].description,tmpCalendar,{})
-    until CalendarManager:addActivity(newActivity,#self.activities-i)
-    playablePlyer[trueIndex]:setActivity(newActivity)
+      playableActivities[trueIndex] =Activity:new(playableActivities[trueIndex]:getName(),playableActivities[trueIndex]:getDescription(),tmpCalendar,{})
+    until CalendarManager:addActivity(playableActivities[trueIndex],constants.GAME_MANAGER_MAX_PLAYABLE-i)
+    playablePlyer[trueIndex]:setActivity(playableActivities[trueIndex])
   end
 end
 
@@ -99,19 +79,19 @@ function GameManagerDefiner:tryDate(proposedDate)
           if player.strikes >= 2 then
               self.strikes = self.strikes + 1
               self.consecutiveWins = self.consecutiveWins+1
-              self.outcomeState = constants.OUTCAMESTATE[2]
+              self.outcomeState = constants.OUTCOMESTATE[2]
           end
       end
   end
   if self.strikes >= 4 then
     self.gameOver = 1
-    self.outcomeState = constants.OUTCAMESTATE[4]
+    self.outcomeState = constants.OUTCOMESTATE[4]
   else
     if self.actualCycle == 10 then
-      self.outcomeState = constants.OUTCAMESTATE[3]
+      self.outcomeState = constants.OUTCOMESTATE[3]
     else
       self.month=self.month+1
-      self.outcomeState = constants.OUTCAMESTATE[1]
+      self.outcomeState = constants.OUTCOMESTATE[1]
     end
   end
   if(self.consecutiveWins==2)then
@@ -193,11 +173,11 @@ function GameManagerDefiner:getOutcomeState()
 end
 
 math.randomseed(os.time())                    -- Imposta il seed per rendere i numeri casuali più imprevedibili
-local index = math.random(1, #playablePlyer)  -- Numero tra 1 e 7
+local index = math.random(1, constants.GAME_MANAGER_MAX_PLAYABLE)  -- Numero tra 1 e 7
 
 GameManager = GameManagerDefiner:new(0)
 CalendarManager = CalendarManager:new(GameManager.month)
-GameManager:generatePlayers()
+GameManager:fillPlaytableEntity()
 GameManager:generateFittableActivities(index)
 
 function GameManager:resetStrikes()

@@ -73,6 +73,7 @@ constants.KEYS_PAUSE_MENU = "p"
 constants.KEYS_ESCAPE_MENU = "escape"
 
 -- various
+constants.GAME_MANAGER_MAX_PLAYABLE = 10
 constants.MAX_STRIKES = 3
 constants.MOUSE_SIZE = 64
 constants.DEFAULT_CURSOR = "default"
@@ -137,7 +138,7 @@ constants.scheduledActivity = {
   chess = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 }
 
-constants.OUTCAMESTATE = {
+constants.OUTCOMESTATE = {
   'Session Win',
   'Session KO',
   'Game Win',
