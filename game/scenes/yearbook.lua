@@ -268,8 +268,8 @@ function yearbook.keypressed(key)
     scenesManager:setScene(constants.SCENES_COURSES)
   elseif (key =='j') then
     scenesManager:setScene(constants.SCENES_AGENDA)
-  elseif (key =='l') then
-    yearbook.drawRedBoxes() --!!!DEBUG!!!
+  --[[elseif (key =='l') then
+    yearbook.drawRedBoxes() --!!!DEBUG!!! ]]
   elseif (key == constants.KEYS_PAUSE_MENU) then
     scenesManager:setScene(constants.SCENES_TITLE)
   end
