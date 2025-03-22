@@ -47,9 +47,10 @@ constants.IMAGES_CS_ARROWS_RIGHT     = love.graphics.newImage("assets/images/act
 constants.IMAGES_CS_ACTIVITY_CARD_BG = love.graphics.newImage("assets/images/activities/activities_info.png")
 
 -- sounds
-constants.SOUNDS_MOUSE_CLICK      = love.audio.newSource("assets/sounds/click.mp3", "static")
-constants.SOUNDS_PAGE_TURN        = love.audio.newSource("assets/sounds/pages.mp3", "static")
-constants.SOUNDS_BACKGROUND_MUSIC = love.audio.newSource("assets/sounds/theme.mp3", "stream")
+constants.SOUNDS_MOUSE_CLICK        = love.audio.newSource("assets/sounds/click.mp3", "static")
+constants.SOUNDS_PAGE_TURN          = love.audio.newSource("assets/sounds/pages.mp3", "static")
+constants.SOUNDS_BACKGROUND_MUSIC   = love.audio.newSource("assets/sounds/theme.mp3", "stream")
+constants.SOUNDS_BACKGROUND_AMBIENT = love.audio.newSource("assets/sounds/ambient.mp3", "stream")
 
 -- scenes
 constants.SCENES_DESKTOP = "desktop"
