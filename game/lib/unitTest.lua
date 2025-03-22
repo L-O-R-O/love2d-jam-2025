@@ -29,6 +29,16 @@ function unitTest:run()
   print("❌ Failed: " .. failed)
 end
 
+unitTest:add("GameManger: check strSchedule",
+      function()
+        for i = 1, #allActivities do
+          if allActivities[i]:getStrSchedule() == nil then
+            print('error')
+          else
+            print(i .. " " .. allActivities[i]:getName() .. " " ..  allActivities[i]:getStrSchedule())
+          end
+        end
+      end)
 --[[
 unitTest:add("GameManger: Get Current Month:", function()
   local m1 = GameManager:getMonth()
