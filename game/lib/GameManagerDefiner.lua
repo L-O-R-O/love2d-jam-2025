@@ -61,9 +61,7 @@ function GameManagerDefiner:fillPlaytableEntity()  -- Riempi la tabella playable
   end
 
   for i = constants.GAME_MANAGER_MAX_PLAYABLE, #constants.STUDENTS do
-    if i == 20 then
-      print('debug')
-    end
+
     allActivities[i] = Activity:new('TMP_NAME', 'TMP_DESCRIPTION',{},{1})
     allStudents[i] = Player:new(constants.STUDENTS[i].name, constants.STUDENTS[i].nickname, 'TMP_NAME',allActivities[i],false,false)
   end
@@ -124,6 +122,16 @@ function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna all
     playablePlayer[trueIndex]:setActivity(playableActivities[trueIndex])
   end
 end
+
+function GameManagerDefiner:getStudent(name)
+    for i =1, #allStudents do
+      if name == allStudents[i]:getName() then
+        return allStudents[i]
+      end
+    end
+    return false
+end
+
 
 function GameManagerDefiner:tryDate(proposedDate)
   if CalendarManager:isFreeDay(self.month, proposedDate) then
