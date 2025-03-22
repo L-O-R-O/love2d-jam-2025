@@ -8,6 +8,10 @@ local quoteArea = {}
 local bestMemoryArea = {}
 local plansArea = {}
 local activitiesArea = {}
+local currentStudentGame = {
+  playerObj = nil,
+  activityName  = ""
+}
 --local player = yearbook.getCurrentStudent()
 
 local function setFont(font, size)
@@ -17,6 +21,7 @@ end
 function yearbookStudentCard.load()
   mouse.registerHandler(yearbookStudentCard, constants.SCENES_YEARBOOK_STUDENT_CARD)
   yearbookStudentCard.setAreas()
+
 end
 
 function yearbookStudentCard.setAreas()
@@ -55,20 +60,25 @@ function yearbookStudentCard.setAreas()
   })
   bestMemoryArea.y = quoteArea.y + quoteArea.height + 5
   plansArea = screenManager:calcRelativeArea(studentCardArea, {
-    xPerc = 0.15,
-    yPerc = 0.72,
+    xPerc = 0.155,
+    yPerc = 0.83,
     widthPerc = 0.85,
     heightPerc = 0.07,
   })
   activitiesArea = screenManager:calcRelativeArea(studentCardArea, {
-    xPerc = 0.15,
-    yPerc = 0.83,
+    xPerc = 0.155,
+    yPerc = 0.735,
     widthPerc = 0.85,
     heightPerc = 0.07,
   })
 end
 
-function yearbookStudentCard.update(dt) end
+function yearbookStudentCard.update(dt)
+  currentStudentGame.playerObj = GameManager:getStudent(currentStudent.name)
+  if currentStudentGame.playerObj ~= false and currentStudentGame.playerObj ~= nil then
+    currentStudentGame.activityName = currentStudentGame.playerObj:getActivityName()
+  end
+end
 
 function yearbookStudentCard.keypressed(key)
   if key == constants.KEYS_ESCAPE_MENU then
@@ -140,13 +150,15 @@ function yearbookStudentCard.draw()
   love.graphics.setColor(1,0,0)
   --love.graphics.rectangle("line", plansArea.x, plansArea.y, plansArea.width, plansArea.height)
   love.graphics.setColor(0, 0, 0)
-  love.graphics.setFont(constants.FONTS_NICE_CHALK_SMALL)
+  love.graphics.printf("Activity: "..currentStudentGame.activityName, activitiesArea.x, activitiesArea.y, activitiesArea.width, "left", -0.03)
   love.graphics.setColor(1, 1, 1)
+
   -- Draw activities area
   love.graphics.setColor(debugColor)
   --love.graphics.rectangle("line", activitiesArea.x, activitiesArea.y, activitiesArea.width, activitiesArea.height)
+  love.graphics.setFont(constants.FONTS_NICE_CHALK_SMALL)
   love.graphics.setColor(0, 0, 0)
-  love.graphics.printf("Future Plans: "..currentStudent.futurePlans, activitiesArea.x, activitiesArea.y, activitiesArea.width, "left", -0.03)
+  love.graphics.printf("Future Plans: "..currentStudent.futurePlans, plansArea.x, plansArea.y, plansArea.width, "left", -0.03)
   love.graphics.setColor(1, 1, 1)
 
 end
