@@ -50,7 +50,7 @@ constants.IMAGES_CS_ACTIVITY_CARD_BG = love.graphics.newImage("assets/images/act
 constants.SOUNDS_MOUSE_CLICK        = love.audio.newSource("assets/sounds/click.mp3", "static")
 constants.SOUNDS_PAGE_TURN          = love.audio.newSource("assets/sounds/pages.mp3", "static")
 constants.SOUNDS_BACKGROUND_MUSIC   = love.audio.newSource("assets/sounds/theme.mp3", "stream")
-constants.SOUNDS_BACKGROUND_AMBIENT = love.audio.newSource("assets/sounds/ambient.mp3", "stream")
+--constants.SOUNDS_BACKGROUND_AMBIENT = love.audio.newSource("assets/sounds/ambient.mp3", "stream")
 
 -- scenes
 constants.SCENES_DESKTOP = "desktop"
@@ -161,7 +161,7 @@ constants.STUDENTS = {
   {
     nickname = "Green Thumb",
     name = "Beatrice Blossom",
-    image = "assets/images/students/beatrice_blossom.png",
+    image = "assets/images/students/BEATRICE.PNG",
     quote = "Sing like no one is listening, love like you've never been hurt, dance like no one is watching, and live like it is heaven on earth.",
     futurePlans = "Become an environmental lawyer to take down evil corporations one lawsuit at a time — all while wearing ethically sourced cardigans.",
     bestMemory = "Freeing the lab monkeys before spring break. (Still not sure if that was legal. Probably wasn't.)",
@@ -171,7 +171,7 @@ constants.STUDENTS = {
   {
     nickname = "Edgelord",
     name = "Edward Thompson",
-    image = "assets/images/students/edward_thompson.png",
+    image = love.graphics.newImage("assets/images/students/EDWARD.PNG"),
     quote = "I am so clever that sometimes I don't understand a single word of what I am saying.",
     futurePlans = "Becoming a famous indie filmmaker (but only for the kind of films where the main character stares into the rain dramatically).",
     bestMemory = "Kicking soda cans around the mall parking lot like it was an Olympic sport.",
@@ -181,7 +181,7 @@ constants.STUDENTS = {
   {
     nickname = "World Domination",
     name = "Jessica Newton",
-    image = "assets/images/students/jessica_newton.png",
+    image = "assets/images/students/JESSICA.PNG",
     quote = "It is better to be hated for what you are than to be loved for what you are not.",
     futurePlans = "First female President of the United States.",
     bestMemory = "Friday night pajama parties with the besties.",
@@ -211,7 +211,7 @@ constants.STUDENTS = {
   {
     nickname = "Turbo",
     name = "Max Reynolds",
-    image = "assets/images/students/max_reynolds.png",
+    image = "assets/images/students/MAX.PNG",
     quote = "If you're not first, you're last.",
     futurePlans = "Becoming a professional skateboarder, or maybe just a guy who skates a lot.",
     bestMemory = "That one time I ollied over Principal Harris' flower bed and didn't get detention (he definitely saw me).",
@@ -221,7 +221,7 @@ constants.STUDENTS = {
   {
     nickname = "The Brain",
     name = "Olivia Park",
-    image = "assets/images/students/olivia_park.png",
+    image = "assets/images/students/OLIVIA.PNG",
     quote = "I have not failed. I've just found 10,000 ways that won't work.",
     futurePlans = "Become a scientist, discover something cool, and get a building named after her.",
     bestMemory = "Correcting Mr. Johnson's math on the whiteboard and getting extra credit for it (he still hasn't forgiven me).",
@@ -231,7 +231,7 @@ constants.STUDENTS = {
   {
     nickname = "Gearhead",
     name = "Riley Thompson",
-    image = "assets/images/students/riley_thompson.png",
+    image = "assets/images/students/RILEY.PNG",
     quote = "The best way to predict the future is to invent it.",
     futurePlans = "Build a robot butler and retire early.",
     bestMemory = "When my science fair project accidentally set off the fire alarm (I still won).",
@@ -241,7 +241,7 @@ constants.STUDENTS = {
   {
     nickname = "Shield Maiden",
     name = "Florence Hale",
-    image = "assets/images/students/florence_hale.png",
+    image = "assets/images/students/FLORENCE.PNG",
     quote = "No one can make you feel inferior without your consent.",
     futurePlans = "Join the military, become a firefighter, or maybe run a charity.",
     bestMemory = "Standing up to a teacher who embarrassed a classmate — and getting half the class to walk out with her.",
@@ -251,7 +251,7 @@ constants.STUDENTS = {
   {
     nickname = "Iron Fist",
     name = "Marcus Lee",
-    image = "assets/images/students/marcus_lee.png",
+    image = "assets/images/students/MARCUS.PNG",
     quote = "Pain is weakness leaving the body.",
     futurePlans = "Become a personal trainer, then maybe a superhero if that's still an option.",
     bestMemory = "Bench pressing more than Coach Davis and getting a high-five for it.",
@@ -261,7 +261,7 @@ constants.STUDENTS = {
   {
     nickname = "The Human Bulldozer",
     name = "Taylor  Johnson",
-    image = "assets/images/students/taylor_johnson.png",
+    image = "",
     quote = "You can be a warrior and a cinnamon roll too.",
     futurePlans = "Professional wrestler or preschool teacher — honestly, whichever hires first.",
     bestMemory = "Winning the senior tug-of-war while casually eating a granola bar mid-pull.",
@@ -271,7 +271,7 @@ constants.STUDENTS = {
   {
     nickname = "The Wildfire",
     name = "Ava Hayes",
-    image = "assets/images/students/ava_hayes.png",
+    image = "",
     quote = "Normal is an illusion. What is normal for the spider is chaos for the fly.",
     futurePlans = 'Still deciding between "becoming a celebrity" or "accidentally becoming a celebrity."',
     bestMemory = 'That time I convinced half the school spirit squad to dye their hair neon green for "prank week."',
@@ -281,7 +281,7 @@ constants.STUDENTS = {
   {
     nickname = "The Healer",
     name = "Charlie Brooks",
-    image = "assets/images/students/charlie_brooks.png",
+    image = "",
     quote = "Be kind whenever possible. It is always possible.",
     futurePlans = "Become a nurse or a therapist.",
     bestMemory = "Talking Jake down from fighting the vending machine after it stole his dollar.",
@@ -291,12 +291,22 @@ constants.STUDENTS = {
   {
     nickname = "Trailblazer",
     name = "Logan Rivera",
-    image = "assets/images/students/logan_rivera.png",
+    image = "assets/images/students/LOU.png",
     quote = "Not all those who wander are lost.",
     futurePlans = "Hiking the Appalachian Trail, then maybe figuring out what to do with life.",
     bestMemory = "Camping with friends and telling ghost stories until the fire went out.",
     favoriteDnDClass = "Ranger — prefers animals to people, honestly.",
     inGuild = false,
+  },
+  {
+    nickname = "Headbanger",
+    name = "Lou Vasquez",
+    image = "assets/images/students/LOU.png",
+    quote = "Turn it up to eleven.",
+    futurePlans = "Touring with the band, breaking a few amps, and living loud.",
+    bestMemory = "That first time on stage, feeling the roar of the crowd and the bass in my bones.",
+    favoriteDnDClass = "Bard — but make it all distortion pedals and screaming solos.",
+    inGuild = true
   },
   {
     name = "Abel Funkleton",
