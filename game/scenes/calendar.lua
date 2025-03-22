@@ -6,6 +6,7 @@ local monthFont = love.graphics.newFont("assets/font/NiceChalk.ttf", 70)
 local dayFont = love.graphics.newFont("assets/font/NiceChalk.ttf", 45)
 local dayNameFont = love.graphics.newFont("assets/font/NiceChalk.ttf", 15)
 local selectedDay = nil
+local selectedDayLabel = nil
 
 -- Calcolo mese corrente
 local currentMonth = GameManager:getMonth()
@@ -24,8 +25,8 @@ for _, day in ipairs(constants.WEEK_DAYS) do
   table.insert(daysOfWeek, day:sub(1, 3):upper())
 end
 
-function calendar.getSelectedDay()
-  return selectedDay
+function calendar.getSelectedDate()
+  return { day = selectedDay, month = currentMonthLabel, dayLabel = selectedDayLabel }
 end
 
 function calendar.load()
@@ -41,9 +42,9 @@ end
 function calendar.update(dt)
 end
 
-local function dateClicked(day)
-  print("Day clicked: " .. day)
+local function dateClicked(day, dayOfWeek)
   selectedDay = day
+  selectedDayLabel = dayOfWeek
   scenesManager:setScene(constants.SCENES_CONFIRM, false)
 end
 
@@ -114,7 +115,7 @@ function calendar.draw()
 
     -- Assegno un'area cliccabile al giorno
     screenManager:setClickableArea(constants.SCENES_CALENDAR, nameArea, constants.SCENES_CALENDAR, function()
-      dateClicked(day)
+      dateClicked(day, dayOfWeek)
     end, {
       day = day
     })

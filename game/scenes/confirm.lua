@@ -4,20 +4,18 @@ confirm = {}
 local yesButtonArea = {}
 local noButtonArea = {}
 local bg = constants.IMAGES_CONFIRM_BG
+local selectedDay = 0
+local selectedMonth = 0
+local selectedMonthLabel = ''
+local selectedDayLabel = ''
 
 
 local function yesButtonHandler()
-  -- Chiedo al GameManager di verificare che il giorno selezionato sia valido
-  -- Subito dopo faccio la navigazione verso outcome
-  print("yesButtonHandler")
-  print(calendar.getSelectedDay())
-  -- GameManager:tryDate(day)
+  GameManager:tryDate(selectedDay)
   screenManager:setScene(constants.SCENES_OUTCOME, false)
 end
 
 local function noButtonHandler()
-  print("noButtonHandler")
-  print(calendar.getSelectedDay())
   scenesManager:setScene(constants.SCENES_CALENDAR, false)
 end
 
@@ -48,14 +46,55 @@ function confirm.load()
 end
 
 function confirm.update(dt)
+  local day = calendar.getSelectedDate()
+  selectedDay = day.day
+  selectedMonthLabel = day.month
+  selectedDayLabel = day.dayLabel
 end
 
 function confirm.draw()
   if (bg == nil) then
     return
   end
-
   screenManager:drawSceneBackground(bg)
+
+  love.graphics.translate(love.graphics.getWidth() / 2, love.graphics.getHeight() / 2)
+  love.graphics.rotate(math.rad(5))
+  love.graphics.translate(-love.graphics.getWidth() / 2, -love.graphics.getHeight() / 2)
+
+  love.graphics.setColor(1, 1, 1, 1) -- Reset color to white
+  love.graphics.setColor(0, 0, 0, 1) -- Set color to black
+  love.graphics.setFont(constants.FONTS_NICE_CHALK_CONFIRM)
+
+
+  -- Draw selected day label
+  love.graphics.printf(
+    selectedDayLabel,
+    0,
+    love.graphics.getHeight() * 0.425,
+    love.graphics.getWidth() - 80,
+    "center"
+  )
+
+  -- Draw selected day
+  love.graphics.printf(
+    selectedDay,
+    0,
+    love.graphics.getHeight() * 0.425,
+    love.graphics.getWidth()+ 20,
+    "center"
+  )
+
+  -- Draw selected month
+  love.graphics.printf(
+    selectedMonthLabel,
+    0,
+    love.graphics.getHeight() * 0.425,
+    love.graphics.getWidth() + 140,
+    "center"
+  )
+
+  love.graphics.setColor(1, 1, 1, 1)
 end
 
 function confirm.keypressed(key)

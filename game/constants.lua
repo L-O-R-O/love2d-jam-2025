@@ -9,6 +9,7 @@ constants.FONTS_SUB_MENU         = love.graphics.newFont("assets/font/NiceChalk.
 constants.FONTS_CREDITS_MENU     = love.graphics.newFont("assets/font/NiceChalk.ttf", 25)
 constants.FONTS_ROBOTO           = love.graphics.newFont("assets/font/Roboto-Black.ttf", 20)
 constants.FONTS_NICE_CHALK       = love.graphics.newFont("assets/font/NiceChalk.ttf", 20)
+constants.FONTS_NICE_CHALK_CONFIRM       = love.graphics.newFont("assets/font/NiceChalk.ttf", 30)
 constants.FONTS_CALENDAR_MONTH   = love.graphics.newFont("assets/font/NiceChalk.ttf", 70)
 
 -- images
