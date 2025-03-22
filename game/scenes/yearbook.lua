@@ -194,7 +194,7 @@ function yearbook.drawPage()
   local totalItems = 10
   local rowsPerColumn = totalItems / columns
 
-  local tabsYOffset = 0.26  -- Starting Y position (28% from top)
+  local tabsYOffset = 0.255 -- Starting Y position (28% from top)
   local screenWidth = screenManager.screenWidth
   local centerX = screenWidth / 2  -- Center of the screen
 
@@ -214,7 +214,7 @@ function yearbook.drawPage()
 
       -- Determine column position
       local xPerc = (i <= rowsPerColumn) and leftX or rightX
-      local yPerc = tabsYOffset + (0.095 * heightIndex) -- Adjust vertical spacing
+      local yPerc = tabsYOffset + (0.096 * heightIndex) -- Adjust vertical spacing
       heightIndex = heightIndex + 1
 
       local clickableLabel = {
@@ -257,9 +257,8 @@ function yearbook.keypressed(key)
     scenesManager:setScene(constants.SCENES_AGENDA)
   elseif (key =='l') then
     --yearbook.drawPage() --!!!DEBUG!!!
-  end
-  if (key == constants.KEYS_ESCAPE_MENU) then
-    scenesManager:setScene(constants.SCENES_DESKTOP)
+  elseif (key == constants.KEYS_PAUSE_MENU) then
+    scenesManager:setScene(constants.SCENES_TITLE)
   end
 end
 
@@ -294,7 +293,7 @@ function yearbook.draw()
   end ]]
 
   -- Calcola le posizioni per i nomi
-  local namesYOffset     = screenManager.screenHeight * 0.38
+  local namesYOffset     = screenManager.screenHeight * 0.378
   local namesYSpacing    = screenManager.screenHeight * 0.094
   local namesXLeftStart  = screenManager.screenHeight * 0.31
   local namesXRightStart = screenManager.screenHeight * 0.11
@@ -312,8 +311,7 @@ function yearbook.draw()
     local name = selectedNames[i].name
     local y = namesYOffset + (((i - startIdx) % (namesPerPage/2)) * namesYSpacing)
     local x = (i - startIdx) < namesPerPage/2 and (centerX - xLeftStart) or (centerX + xRightStart)
-
-    love.graphics.print(name, x, y)
+    love.graphics.print(name, x, y, -0.01)
     if (selectedNames[i] ~= nil) then
       if (yearbookLabels[i] ~= nil) then
         yearbookLabels[i].student = selectedNames[i]

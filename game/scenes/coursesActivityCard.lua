@@ -22,6 +22,8 @@ function coursesActivityCard.keypressed(key)
     scenesManager:setScene(constants.SCENES_COURSES)
   elseif (key =='j') then
     scenesManager:setScene(constants.SCENES_AGENDA)
+  elseif (key == constants.KEYS_PAUSE_MENU) then
+    scenesManager:setScene(constants.SCENES_TITLE)
   end
 end
 
@@ -32,7 +34,7 @@ function coursesActivityCard.mousePressed(x, y, button)
 end
 
 function coursesActivityCard.draw()
-  love.graphics.setFont(constants.FONTS_NICE_CHALK)
+  love.graphics.setFont(constants.FONTS_NICE_CHALK_TITLE)
   screenManager:drawSceneBackground(constants.IMAGES_CS_ACTIVITY_CARD_BG)
 
   love.graphics.setColor(1, 0, 0)
@@ -43,7 +45,7 @@ function coursesActivityCard.draw()
   love.graphics.setColor(0, 0, 0)
   love.graphics.printf(currentCourse.name, nameArea.x, nameArea.y, nameArea.width)
   love.graphics.setColor(1, 1, 1)
-
+  love.graphics.setFont(constants.FONTS_NICE_CHALK_BODY)
   local descriptionArea = screenManager:calcAreaSizes({ xPerc = 0.325, yPerc = 0.53, widthPerc = 0.35, heightPerc = 0.05 })
   love.graphics.setColor(0, 0, 0)
   --love.graphics.rectangle("line", descriptionArea.x, descriptionArea.y, descriptionArea.width, descriptionArea.height)

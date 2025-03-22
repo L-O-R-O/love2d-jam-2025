@@ -2,6 +2,8 @@ local constants = require("constants")
 
 agenda = {}
 
+local agendaArea = {}
+
 local players = {
   {
     name = "Alice",
@@ -83,6 +85,16 @@ function agenda.draw()
     screenManager:drawSceneBackground(constants.IMAGES_AGENDA_BG_STRIKE_2)
   end
 
+  agendaArea = screenManager:calcAreaSizes({
+    xPerc = 0.17,
+    yPerc = 0.15,
+    widthPerc = 0.65,
+    heightPerc = 0.77
+  })
+  love.graphics.setColor(0, 0, 1)
+  --love.graphics.rectangle("line",agendaArea.x,agendaArea.y,agendaArea.width,agendaArea.height)
+  love.graphics.setColor(1, 1, 1)
+
   for i, player in ipairs(players) do
     local column = (i - 1) % 2
     local row = math.floor((i - 1) / 2)
@@ -108,6 +120,9 @@ end
 
 function agenda.mousePressed(x, y, button)
   print('AGENDA mousepressed')
+  if screenManager:checkIfClickingOutside(x,y,agendaArea) then
+    scenesManager:setScene(constants.SCENES_DESKTOP)
+  end
 end
 
 function agenda.mouseHovered(x, y)
