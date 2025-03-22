@@ -6,7 +6,7 @@ constants.FONTS_NICE_CHALK_BODY  = love.graphics.newFont("assets/font/NiceChalk.
 constants.FONTS_NICE_CHALK_SMALL = love.graphics.newFont("assets/font/NiceChalk.ttf",15)
 constants.FONTS_MAIN_MENU        = love.graphics.newFont("assets/font/NiceChalk.ttf", 50)
 constants.FONTS_SUB_MENU         = love.graphics.newFont("assets/font/NiceChalk.ttf", 40)
-constants.FONTS_CREDITS_MENU         = love.graphics.newFont("assets/font/NiceChalk.ttf", 25)
+constants.FONTS_CREDITS_MENU     = love.graphics.newFont("assets/font/NiceChalk.ttf", 25)
 constants.FONTS_ROBOTO           = love.graphics.newFont("assets/font/Roboto-Black.ttf", 20)
 constants.FONTS_NICE_CHALK       = love.graphics.newFont("assets/font/NiceChalk.ttf", 20)
 constants.FONTS_CALENDAR_MONTH   = love.graphics.newFont("assets/font/NiceChalk.ttf", 70)
@@ -28,7 +28,7 @@ constants.IMAGES_AGENDA_BG_STRIKE_2        = love.graphics.newImage("assets/imag
 constants.IMAGES_HEART                     = love.graphics.newImage("assets/images/LIVES_FULL.png")
 constants.IMAGES_HEART_STRIKE                     = love.graphics.newImage("assets/images/LIVES_STRIKE.png")
 constants.IMAGES_MENU_BG                   = love.graphics.newImage("assets/images/menu_start.png")
-constants.IMAGES_MENU_PAUSE_BG                   = love.graphics.newImage("assets/images/menu_pause.png")
+constants.IMAGES_MENU_PAUSE_BG             = love.graphics.newImage("assets/images/menu_pause.png")
 constants.IMAGES_CONFIRM_BG                = love.graphics.newImage("assets/images/CONFIRM.png")
 constants.IMAGES_CONFIRM_HOVER_NO_BG       = love.graphics.newImage("assets/images/CONFIRM_HOVER_NO.png")
 constants.IMAGES_CONFIRM_HOVER_YES_BG      = love.graphics.newImage("assets/images/CONFIRM_HOVER_YES.png")
@@ -129,26 +129,6 @@ constants.WEEK_DAYS = {
   [5] = "Friday",
   [6] = "Saturday",
   [7] = "Sunday",
-}
-
--- Tabella con le attività schedulate
-constants.repeatedActivity = {
-  cooking = { 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1 },
-  rock_climbing = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1 },
-  gaming_night = { 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1 },
-  gym = { 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0 },
-  jogging = { 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1 },
-  go_kart = { 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1 },
-}
-
--- Tabella con le attività ripetute
-constants.scheduledActivity = {
-  soccer = { 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-  basket = { 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-  golf = { 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-  PartyHard = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1 },
-  swimming = { 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-  chess = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 }
 
 constants.OUTCOMESTATE = {
@@ -387,11 +367,11 @@ constants.STUDENTS = {
   },
   {
     name = "Alberto Bananovich",
-    bestMemory = "That one perfect summer evening—good company, great food, and nothing to worry about.",
+    bestMemory = "That summer I spent at a dance camp in Madrid. Learned most of my moves there!",
     image = nil,
-    quote = "Life’s too short for bad coffee and boring conversations.",
-    futurePlans = "Finding the best pizza in the world and maybe settling down somewhere unexpected.",
-    favoriteDnDClass = "Cleric — someone’s gotta keep the party alive, right?",
+    quote = "Bom, sha-sha ka-kà!",
+    futurePlans = "Being a coreographer for many italian singers.",
+    favoriteDnDClass = "Rogue - he's all for acrobatics",
     inGuild = false
   },
   {
