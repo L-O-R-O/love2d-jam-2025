@@ -32,7 +32,7 @@ end
 unitTest:add("GameManager: Game Over Reset Test", function()
   -- Force game over
   GameManager.hearts = 0
-  assert(GameManager:getHeart() == 0)
+  assert(GameManager:getHearts() == 0)
   end)
 
 unitTest:add("GameManger: Get Current Month:", function()

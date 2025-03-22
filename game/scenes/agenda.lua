@@ -63,8 +63,8 @@ local players = {
   }
 }
 
-local function getStrikes()
-  return GameManager:getStrikes()
+local function getHearts()
+  return GameManager:getHearts()
 end
 
 function agenda.load()
@@ -76,7 +76,7 @@ function agenda.update(dt)
 end
 
 function agenda.draw()
-  local strikes = getStrikes()
+  local strikes = getHearts()
   if (strikes == 0) then
     screenManager:drawSceneBackground(constants.IMAGES_AGENDA_BG_FULL)
   elseif (strikes == 1) then

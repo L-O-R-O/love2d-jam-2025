@@ -92,7 +92,7 @@ function love.update(dt)
   onMouseHover()
 
   --[[ -- Commentato perchè non dovrebbe stare qui
-  if GameManager:getStrikes() >= constants.MAX_STRIKES and scenesManager:getScene() ~= constants.SCENES_GAME_OVER then
+  if GameManager:getHearts() >= constants.MAX_HEARTS and scenesManager:getScene() ~= constants.SCENES_GAME_OVER then
     scenesManager:setScene(constants.SCENES_GAME_OVER, false) -- Add false to prevent transition
     return -- Add return to prevent further updates this frame
   end
@@ -160,7 +160,7 @@ function love.draw()
   end
 
   -- Draw hearts
-  local numHearts = GameManager:getHeart()
+  local numHearts = GameManager:getHearts()
   screenManager:drawHearts(numHearts)
 end
 

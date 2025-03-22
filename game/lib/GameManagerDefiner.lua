@@ -12,7 +12,7 @@ local function getMonthFromOS()
 end
 
 allStudents         = {}
-playablePlyer       = {}
+playablePlayer       = {}
 playableActivities  = {}
 
 
@@ -44,7 +44,7 @@ function GameManagerDefiner:initialize()
   GameManager:generateFittableActivities(index)
   CalendarManager:reset()
   GameManager:addInGuild(index)
-  if index > constants.GAME_MANAGER_MAX_PLAYABLE then
+  if index >= constants.GAME_MANAGER_MAX_PLAYABLE then
     GameManager:addInGuild(1)
   else
     GameManager:addInGuild(index+1)
@@ -54,7 +54,7 @@ end
 function GameManagerDefiner:fillPlaytableEntity()  -- Riempi la tabella playable Player con i dati dei primi N dove N è il numero di elementi della suddeta tabella con primi dati delle costanti student
   for  i = 1, constants.GAME_MANAGER_MAX_PLAYABLE do
     playableActivities[i] = Activity:new(constants.ACTIVITIES[i].name, constants.ACTIVITIES[i].description,{},{})
-    playablePlyer[i] = Player:new(constants.STUDENTS[i].name, constants.STUDENTS[i].nickname, playableActivities[i]:getName(),playableActivities[i],true,false)
+    playablePlayer[i] = Player:new(constants.STUDENTS[i].name, constants.STUDENTS[i].nickname, playableActivities[i]:getName(),playableActivities[i],true,false)
   end
 
 end
@@ -71,7 +71,7 @@ function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna all
   local tmpActivity = Activity:new(randActivity:getName(),randActivity:getDescription(),{},{firstVal,secondVal})
   playableActivities[endIndex] = tmpActivity
   CalendarManager:addActivity(playableActivities[endIndex])
-  playablePlyer[trueIndex]:setActivity(playableActivities[endIndex])
+  playablePlayer[trueIndex]:setActivity(playableActivities[endIndex])
 
   for i = 1,(constants.GAME_MANAGER_MAX_PLAYABLE-1) do
     trueIndex = i+endIndex
@@ -111,7 +111,7 @@ function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna all
       until CalendarManager:addActivity(newActivity,constants.GAME_MANAGER_MAX_PLAYABLE-i)
       playableActivities[trueIndex] = newActivity
     end
-    playablePlyer[trueIndex]:setActivity(playableActivities[trueIndex])
+    playablePlayer[trueIndex]:setActivity(playableActivities[trueIndex])
   end
 end
 
@@ -147,9 +147,9 @@ function GameManagerDefiner:tryDate(proposedDate)
 end
 
 function GameManagerDefiner:addInGuild(i)
-  table.insert(self.guild, #self.guild+1, playablePlyer[i])
-  playablePlyer[i]:setInGuild()
-  CalendarManager:addActivity(playablePlyer[i]:getActivity())
+  table.insert(self.guild, #self.guild+1, playablePlayer[i])
+  playablePlayer[i]:setInGuild()
+  CalendarManager:addActivity(playablePlayer[i]:getActivity())
 end
 
 function GameManagerDefiner:removeFromGuild(player)
@@ -199,7 +199,7 @@ function GameManagerDefiner:getMonth()
   return self.month
 end
 
-function GameManagerDefiner:getHeart()
+function GameManagerDefiner:getHearts()
   return self.hearts
 end
 
