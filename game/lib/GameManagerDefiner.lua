@@ -86,13 +86,16 @@ end
 function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna alle attività dei player valori randomici in modo che torni sempre un valore
   local randActivity = playableActivities[endIndex]
   local trueIndex = endIndex
-  local firstVal= math.random(1,7)
-  local secondVal
+  local firstDay= math.random(1,7)
+  local secondDay, thirdDay
   repeat
-    secondVal = math.random(1,7)
-  until  secondVal ~= firstVal
+    secondDay = math.random(1,7)
+  until  secondDay ~= firstDay
+  repeat
+    thirdDay = math.random(1,7)
+  until  secondDay ~= firstDay and thirdDay ~= secondDay
 
-  local tmpActivity = Activity:new(randActivity:getName(),randActivity:getDescription(),{},{firstVal,secondVal})
+  local tmpActivity = Activity:new(randActivity:getName(),randActivity:getDescription(),{},{firstDay,secondDay, thirdDay})
   playableActivities[endIndex] = tmpActivity
   CalendarManager:addActivity(playableActivities[endIndex])
   playablePlayer[trueIndex]:setActivity(playableActivities[endIndex])
@@ -110,7 +113,7 @@ function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna all
     if(chance<0.60)then
       repeat
         local tmpCalendar={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-        for j=0,i+2 do
+        for j=0,i+5 do
           local r = math.random(1,31)
           tmpCalendar[r] = 0
         end

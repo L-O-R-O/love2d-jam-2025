@@ -40,6 +40,9 @@ function calendar.load()
 end
 
 function calendar.update(dt)
+  currentMonth = GameManager:getMonth()
+  currentMonthLabel = constants.MONTH_NAMES[currentMonth]
+  firstDayOfTheMonth = CalendarManager:getFirstDayOfMonth(currentMonth)
 end
 
 local function dateClicked(day, dayOfWeek)
