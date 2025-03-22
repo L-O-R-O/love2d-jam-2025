@@ -15,10 +15,10 @@ playablePlyer =  {}
 playableActivities =  {}
 
 
-function GameManagerDefiner:new(strikes)
+function GameManagerDefiner:new()
   local obj = {
-    strikes = strikes,
-    guild = {},
+    hearts          = constants.MAX_HEARTS,
+    guild           = {},
     actualCycle     = 1, --0 se non in partita, poi da 1 a 10
     prob            = 0, --OPT
     suddenOn        = 0, --variabile per capire se mostrare o meno la pagina degli orari
@@ -34,7 +34,7 @@ end
 function GameManagerDefiner:fillPlaytableEntity()  -- Riempi la tabella playable Player con i dati dei primi N dove N è il numero di elementi della suddeta tabella con primi dati delle costanti student
   for  i = 1, constants.GAME_MANAGER_MAX_PLAYABLE do
     playableActivities[i] = Activity:new(constants.ACTIVITIES[i].name, constants.ACTIVITIES[i].description,{},{})
-    playablePlyer[i] = Player:new(constants.STUDENTS[i].name, constants.STUDENTS[i].nickname, 'a1',{},true,false)
+    playablePlyer[i] = Player:new(constants.STUDENTS[i].name, constants.STUDENTS[i].nickname, playableActivities[i]:getName(),playableActivities[i],true,false)
   end
 end
 
@@ -47,7 +47,8 @@ function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna all
     secondVal = math.random(1,7)
   until  secondVal ~= firstVal
 
-  playableActivities[endIndex] = Activity:new(randActivity:getName(),randActivity:getDescription(),{},{firstVal,secondVal})
+  local tmpActivity = Activity:new(randActivity:getName(),randActivity:getDescription(),{},{firstVal,secondVal})
+  playableActivities[endIndex] = tmpActivity
   CalendarManager:addActivity(playableActivities[endIndex])
   playablePlyer[trueIndex]:setActivity(playableActivities[endIndex])
 
@@ -58,55 +59,76 @@ function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna all
     end
 
     local newActivity
-    repeat
-      local tmpCalendar={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-      for j=0,i+2 do
-        local r = math.random(1,31)
-        tmpCalendar[r] = 0
-      end
 
-      playableActivities[trueIndex] =Activity:new(playableActivities[trueIndex]:getName(),playableActivities[trueIndex]:getDescription(),tmpCalendar,{})
-    until CalendarManager:addActivity(playableActivities[trueIndex],constants.GAME_MANAGER_MAX_PLAYABLE-i)
+    local chance = math.random()
+    if(chance<0.60)then
+      repeat
+        local tmpCalendar={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+        for j=0,i+2 do
+          local r = math.random(1,31)
+          tmpCalendar[r] = 0
+        end
+
+        newActivity = Activity:new(playableActivities[trueIndex]:getName(),playableActivities[trueIndex]:getDescription(),tmpCalendar,{})
+        playableActivities[trueIndex] = newActivity
+      until CalendarManager:addActivity(newActivity,constants.GAME_MANAGER_MAX_PLAYABLE-i)
+    elseif(chance>=0.60 and chance < 0.9)then
+        repeat
+          local r = math.random(1,7)
+          newActivity = Activity:new(playableActivities[trueIndex]:getName(),playableActivities[trueIndex]:getDescription(),{},{r})
+          playableActivities[trueIndex] = newActivity
+        until CalendarManager:addActivity(newActivity,constants.GAME_MANAGER_MAX_PLAYABLE-i)
+    else
+      repeat
+        local tmpCalendar={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+        for j=0,i+2 do
+          local r1 = math.random(1,31)
+          tmpCalendar[r1] = 0
+        end
+        local r2 = math.random(1,7)
+        newActivity = Activity:new(playableActivities[trueIndex]:getName(),playableActivities[trueIndex]:getDescription(),tmpCalendar,{r2})
+      until CalendarManager:addActivity(newActivity,constants.GAME_MANAGER_MAX_PLAYABLE-i)
+      playableActivities[trueIndex] = newActivity
+    end
     playablePlyer[trueIndex]:setActivity(playableActivities[trueIndex])
   end
 end
 
 function GameManagerDefiner:tryDate(proposedDate)
-  for i = #self.guild, 1, -1 do
-      local player = self.guild[i]
-      if not CalendarManager:isFreeDay(self.month, proposedDate) then
-          player.strikes = player.strikes + 1
-          if player.strikes >= 2 then
-              self.strikes = self.strikes + 1
-              self.consecutiveWins = self.consecutiveWins+1
-              self.outcomeState = constants.OUTCOMESTATE[2]
-          end
-      end
-  end
-  if self.strikes >= 4 then
-    self.gameOver = 1
-    self.outcomeState = constants.OUTCOMESTATE[4]
-  else
-    if self.actualCycle == 10 then
-      self.outcomeState = constants.OUTCOMESTATE[3]
+  if CalendarManager:isFreeDay(self.month, proposedDate) then
+    if self.actualCycle >= 10 then
+      self.outcomeState = constants.OUTCOMESTATE[3]   --Game Win
     else
-      self.month=self.month+1
-      self.outcomeState = constants.OUTCOMESTATE[1]
+      self.outcomeState = constants.OUTCOMESTATE[1]   --Session Win
+    end
+  else
+    self.hearts = self.hearts - 1
+    if self.hearts <= 0 then
+      self.outcomeState = constants.OUTCOMESTATE[4]   --Game KO
+    else
+      self.outcomeState = constants.OUTCOMESTATE[2]   --Session KO
     end
   end
-  if(self.consecutiveWins==2)then
-      self:addInGuild(self:findSuitablePlayer())
-      self.consecutiveWins = 0
+
+  if self.outcomeState ==  constants.OUTCOMESTATE[1] or self.outcomeState ==  constants.OUTCOMESTATE[3] then
+    self.actualCycle = self.actualCycle +1
+    if self.month ==12 then
+      self.month = 1
+    else
+      self.month = self.month +1
+    end
+  end
+
+  if self.actualCycle % 2 == 0 and self.actualCycle ~= 2 then
+    local i = math.floor(self.actualCycle)
+    self:addInGuild(i)
   end
 end
 
-function GameManagerDefiner:addInGuild(player)
-  for i, iPlayer in ipairs(self.guild) do
-    if player.name == iPlayer.name then
-      return 0
-    end
-  end
-  self.guild[#self.guild + 1] = player
+function GameManagerDefiner:addInGuild(i)
+  table.insert(self.guild, #self.guild+1, playablePlyer[i])
+  playablePlyer[i]:setInGuild()
+  CalendarManager:addActivity(playablePlyer[i]:getActivity())
 end
 
 function GameManagerDefiner:removeFromGuild(player)
@@ -120,7 +142,7 @@ function GameManagerDefiner:removeFromGuild(player)
 end
 
 function GameManagerDefiner:updateProb() --OPT
-  local strikes = self.strikes
+  local strikes = self.hearts
   local guildSize = #self.guild
   local actualCycle = self.actualCycle
 
@@ -156,12 +178,20 @@ function GameManagerDefiner:getMonth()
   return self.month
 end
 
-function GameManagerDefiner:getStrikes()
-  return self.strikes
+function GameManagerDefiner:getHeart()
+  return self.hearts
 end
 
 function GameManagerDefiner:getGuild()
     return self.guild
+end
+
+function GameManagerDefiner:getPlayerInGuildT()
+  local t = {}
+  for i = 1, #self.guild do
+    table.insert(t, #t+1, self.guild:getName())
+  end
+  return t
 end
 
 function GameManagerDefiner:getMonth()
@@ -175,13 +205,12 @@ end
 math.randomseed(os.time())                    -- Imposta il seed per rendere i numeri casuali più imprevedibili
 local index = math.random(1, constants.GAME_MANAGER_MAX_PLAYABLE)  -- Numero tra 1 e 7
 
-GameManager = GameManagerDefiner:new(0)
+GameManager = GameManagerDefiner:new()
 CalendarManager = CalendarManager:new(GameManager.month)
 GameManager:fillPlaytableEntity()
 GameManager:generateFittableActivities(index)
+GameManager:addInGuild(index)
 
-function GameManager:resetStrikes()
-  self.strikes = 0
-end
+
 
 return GameManager

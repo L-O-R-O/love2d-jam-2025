@@ -49,6 +49,16 @@ function Player:getInGuild()
   return self.inGuild
 end
 
+function Player:setInGuild()
+  if self.playable == 1 then
+    self.inGuild = 1
+  end
+end
+
+function Player:setOutGuild()
+  self.inGuild = 0
+end
+
 function Player:getFavouriteClass()
   return self.favouriteClass
 end

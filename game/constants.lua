@@ -74,7 +74,7 @@ constants.KEYS_ESCAPE_MENU = "escape"
 
 -- various
 constants.GAME_MANAGER_MAX_PLAYABLE = 10
-constants.MAX_STRIKES = 3
+constants.MAX_HEARTS = 3
 constants.MOUSE_SIZE = 64
 constants.DEFAULT_CURSOR = "default"
 constants.HAND_CURSOR = "hand"
@@ -93,6 +93,7 @@ constants.DAYS_IN_MONTH = { --numero di giorni per ogni mese
   [11] = 30, -- November
   [12] = 31, -- December
 }
+
 constants.MONTH_NAMES = {
   "January",
   "February",

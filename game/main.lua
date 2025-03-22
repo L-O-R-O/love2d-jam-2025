@@ -91,10 +91,12 @@ function love.update(dt)
   timer.update()
   onMouseHover()
 
+  --[[ -- Commentato perchè non dovrebbe stare qui
   if GameManager:getStrikes() >= constants.MAX_STRIKES and scenesManager:getScene() ~= constants.SCENES_GAME_OVER then
     scenesManager:setScene(constants.SCENES_GAME_OVER, false) -- Add false to prevent transition
     return -- Add return to prevent further updates this frame
   end
+  ]]
 
   -- Update transition effect
   screenManager:update(dt, scenesManager)
