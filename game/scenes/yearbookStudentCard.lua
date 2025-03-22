@@ -84,13 +84,17 @@ function yearbookStudentCard.draw()
   local debugColor = { 0, 1, 0 }
   screenManager:drawSceneBackground(constants.IMAGES_YB_STUDENT_CARD_BG)
 
-  --yearbookStudentCard.setAreas()
+  yearbookStudentCard.setAreas()
 
   -- Draw card boundaries
   love.graphics.setColor(debugColor)
   --love.graphics.rectangle("line", studentCardArea.x, studentCardArea.y, studentCardArea.width, studentCardArea.height)
 
   -- Draw image area
+  if (currentStudent.image ~= nil and currentStudent.image ~= "" and currentStudent.name == "Edward Thompson") then
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.draw(currentStudent.image, imageArea.x, imageArea.y, -0.08,0.075,0.08)
+  end
   --love.graphics.rectangle("line", imageArea.x, imageArea.y, imageArea.width, imageArea.height)
 
   -- Draw name area
