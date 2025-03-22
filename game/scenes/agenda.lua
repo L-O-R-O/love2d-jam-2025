@@ -76,12 +76,12 @@ function agenda.update(dt)
 end
 
 function agenda.draw()
-  local strikes = getHearts()
-  if (strikes == 0) then
+  local hearts = getHearts()
+  if (hearts == 3) then
     screenManager:drawSceneBackground(constants.IMAGES_AGENDA_BG_FULL)
-  elseif (strikes == 1) then
+  elseif (hearts == 2) then
     screenManager:drawSceneBackground(constants.IMAGES_AGENDA_BG_STRIKE_1)
-  elseif (strikes == 2) then
+  elseif (hearts == 1) then
     screenManager:drawSceneBackground(constants.IMAGES_AGENDA_BG_STRIKE_2)
   end
 

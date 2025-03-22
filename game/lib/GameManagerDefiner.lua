@@ -100,12 +100,14 @@ function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna all
 
         newActivity = Activity:new(playableActivities[trueIndex]:getName(),playableActivities[trueIndex]:getDescription(),tmpCalendar,{})
         playableActivities[trueIndex] = newActivity
+        allActivities[trueIndex] = newActivity
       until CalendarManager:addActivity(newActivity,constants.GAME_MANAGER_MAX_PLAYABLE-i)
     elseif(chance>=0.60 and chance < 0.9)then
         repeat
           local r = math.random(1,7)
           newActivity = Activity:new(playableActivities[trueIndex]:getName(),playableActivities[trueIndex]:getDescription(),{},{r})
           playableActivities[trueIndex] = newActivity
+          allActivities[trueIndex] = newActivity
         until CalendarManager:addActivity(newActivity,constants.GAME_MANAGER_MAX_PLAYABLE-i)
     else
       repeat
@@ -118,6 +120,7 @@ function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna all
         newActivity = Activity:new(playableActivities[trueIndex]:getName(),playableActivities[trueIndex]:getDescription(),tmpCalendar,{r2})
       until CalendarManager:addActivity(newActivity,constants.GAME_MANAGER_MAX_PLAYABLE-i)
       playableActivities[trueIndex] = newActivity
+      allActivities[trueIndex] = newActivity
     end
     playablePlayer[trueIndex]:setActivity(playableActivities[trueIndex])
   end
