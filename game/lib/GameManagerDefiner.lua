@@ -12,7 +12,8 @@ local function getMonthFromOS()
 end
 
 allStudents         = {}
-playablePlayer       = {}
+allActivities       = {}
+playablePlayer      = {}
 playableActivities  = {}
 
 
@@ -55,8 +56,17 @@ function GameManagerDefiner:fillPlaytableEntity()  -- Riempi la tabella playable
   for  i = 1, constants.GAME_MANAGER_MAX_PLAYABLE do
     playableActivities[i] = Activity:new(constants.ACTIVITIES[i].name, constants.ACTIVITIES[i].description,{},{})
     playablePlayer[i] = Player:new(constants.STUDENTS[i].name, constants.STUDENTS[i].nickname, playableActivities[i]:getName(),playableActivities[i],true,false)
+    allStudents[i] = playablePlayer[i]
+    allActivities[i] = playableActivities[i]
   end
 
+  for i = constants.GAME_MANAGER_MAX_PLAYABLE, #constants.STUDENTS do
+    if i == 20 then
+      print('debug')
+    end
+    allActivities[i] = Activity:new('TMP_NAME', 'TMP_DESCRIPTION',{},{1})
+    allStudents[i] = Player:new(constants.STUDENTS[i].name, constants.STUDENTS[i].nickname, 'TMP_NAME',allActivities[i],false,false)
+  end
 end
 
 function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna alle attività dei player valori randomici in modo che torni sempre un valore

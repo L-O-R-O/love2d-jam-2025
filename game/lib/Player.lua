@@ -11,7 +11,7 @@ function Player:new(name, description, activityName, activity, playable, inGuild
         description = description,
         strikes = 0,
         activityName = activityName,
-        activity = {},
+        activity = activity,
         playable = playable or false,
         inGuild = (playable == 1) and inGuild or 0, -- Se non è giocabile, non può essere in una gilda
         favouriteClass = favouriteClass or ''
