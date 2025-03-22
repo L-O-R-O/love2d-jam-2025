@@ -45,10 +45,16 @@ function ScreenManager:drawHearts(hearts)
   local imageWidth, imageHeight = 60, 60 -- Dimensions of each image
   local padding = 20 -- Padding between images and from the left side
 
-  for i = 1, hearts do
+  for i = 1, 3 do
     local x = padding + (i - 1) * (imageWidth + padding)
     local y = padding
-    love.graphics.draw(constants.IMAGES_HEART, x, y, 0, imageWidth / constants.IMAGES_HEART:getWidth(), imageHeight / constants.IMAGES_HEART:getHeight())
+    if i <= hearts then
+      -- Draw a full heart
+      love.graphics.draw(constants.IMAGES_HEART, x, y, 0, imageWidth / constants.IMAGES_HEART:getWidth(), imageHeight / constants.IMAGES_HEART:getHeight())
+    else
+      -- Draw a struck heart
+      love.graphics.draw(constants.IMAGES_HEART_STRIKE, x, y, 0, imageWidth / constants.IMAGES_HEART_STRIKE:getWidth(), imageHeight / constants.IMAGES_HEART_STRIKE:getHeight())
+    end
   end
 end
 
