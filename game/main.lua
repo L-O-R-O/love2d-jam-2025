@@ -160,7 +160,7 @@ function love.draw()
   end
 
   -- Draw hearts
-  local numHearts = constants.MAX_STRIKES - GameManager:getStrikes()
+  local numHearts = GameManager:getHeart()
   screenManager:drawHearts(numHearts)
 end
 
