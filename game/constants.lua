@@ -29,6 +29,9 @@ constants.IMAGES_HEART                     = love.graphics.newImage("assets/imag
 constants.IMAGES_HEART_STRIKE                     = love.graphics.newImage("assets/images/LIVES_STRIKE.png")
 constants.IMAGES_MENU_BG                   = love.graphics.newImage("assets/images/menu_start.png")
 constants.IMAGES_MENU_PAUSE_BG                   = love.graphics.newImage("assets/images/menu_pause.png")
+constants.IMAGES_CONFIRM_BG                = love.graphics.newImage("assets/images/CONFIRM.png")
+constants.IMAGES_CONFIRM_HOVER_NO_BG       = love.graphics.newImage("assets/images/CONFIRM_HOVER_NO.png")
+constants.IMAGES_CONFIRM_HOVER_YES_BG      = love.graphics.newImage("assets/images/CONFIRM_HOVER_YES.png")
 
 
 -- yearbook images
