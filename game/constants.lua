@@ -137,7 +137,7 @@ constants.scheduledActivity = {
   chess = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 }
 
-constants.OUTCAMESTATE = {
+constants.OUTCOMESTATE = {
   'Session Win',
   'Session KO',
   'Game Win',
