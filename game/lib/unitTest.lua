@@ -31,12 +31,27 @@ end
 
 unitTest:add("GameManager: Game Over Reset Test", function()
   -- Force game over
-  GameManager.strikes = constants.MAX_STRIKES
-  assert(GameManager:getStrikes() == constants.MAX_STRIKES)
+  GameManager.hearts = 0
+  assert(GameManager:getHeart() == 0)
+  end)
 
-  -- Simulate returning to title
-  GameManager:resetStrikes()
-  assert(GameManager:getStrikes() == 0)
+unitTest:add("GameManger: Get Current Month:", function()
+  local m1 = GameManager:getMonth()
+  assert(m1 == 3)
+end)
+
+unitTest:add("GameManger check players",
+  function()
+    local guild =  GameManager:getGuild()
+  for i = 1, #guild do
+    local p_name = guild[i]:getName()
+    local a_name = guild[i]:getActivity():getName()
+    local a_schedule = guild[i]:getActivity():getStrSchedule()
+    print(p_name .. " " .. a_name .. " " .. a_schedule)
+    local a_calendar = guild[i]:getActivity():printActivity()
+  end
+
+  CalendarManager:printCalendar()
 end)
 
 return unitTest

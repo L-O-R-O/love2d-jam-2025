@@ -11,8 +11,9 @@ local function getMonthFromOS()
   return monthNumber
 end
 
-playablePlyer =  {}
-playableActivities =  {}
+allStudents         = {}
+playablePlyer       = {}
+playableActivities  = {}
 
 
 function GameManagerDefiner:new()
@@ -27,8 +28,27 @@ function GameManagerDefiner:new()
     consecutiveWins = 0,
     outcomeState    = 0,
   }
+
+
+
   setmetatable(obj, GameManagerDefiner)
   return obj
+end
+
+function GameManagerDefiner:initialize()
+  math.randomseed(os.time())                    -- Imposta il seed per rendere i numeri casuali più imprevedibili
+  local index = math.random(1, constants.GAME_MANAGER_MAX_PLAYABLE)  -- Numero tra 1 e 7
+
+  CalendarManager = CalendarManager:new(GameManager.month)
+  GameManager:fillPlaytableEntity()
+  GameManager:generateFittableActivities(index)
+  CalendarManager:reset()
+  GameManager:addInGuild(index)
+  if index > constants.GAME_MANAGER_MAX_PLAYABLE then
+    GameManager:addInGuild(1)
+  else
+    GameManager:addInGuild(index+1)
+  end
 end
 
 function GameManagerDefiner:fillPlaytableEntity()  -- Riempi la tabella playable Player con i dati dei primi N dove N è il numero di elementi della suddeta tabella con primi dati delle costanti student
@@ -36,6 +56,7 @@ function GameManagerDefiner:fillPlaytableEntity()  -- Riempi la tabella playable
     playableActivities[i] = Activity:new(constants.ACTIVITIES[i].name, constants.ACTIVITIES[i].description,{},{})
     playablePlyer[i] = Player:new(constants.STUDENTS[i].name, constants.STUDENTS[i].nickname, playableActivities[i]:getName(),playableActivities[i],true,false)
   end
+
 end
 
 function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna alle attività dei player valori randomici in modo che torni sempre un valore
@@ -202,14 +223,9 @@ function GameManagerDefiner:getOutcomeState()
   return self.outcomeState
 end
 
-math.randomseed(os.time())                    -- Imposta il seed per rendere i numeri casuali più imprevedibili
-local index = math.random(1, constants.GAME_MANAGER_MAX_PLAYABLE)  -- Numero tra 1 e 7
 
 GameManager = GameManagerDefiner:new()
-CalendarManager = CalendarManager:new(GameManager.month)
-GameManager:fillPlaytableEntity()
-GameManager:generateFittableActivities(index)
-GameManager:addInGuild(index)
+GameManager:initialize()
 
 
 

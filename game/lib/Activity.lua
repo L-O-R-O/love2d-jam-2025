@@ -82,7 +82,9 @@ end
 
 local function checkAllDaysOccupied(obj, month)   -- Ritorna una stringa con i giorni occupati --
   local r, s, z
-  table.move(obj.calendar, 1, #obj.calendar, 1, tmpCalendar)
+  for x = 1, #obj.calendar do
+    tmpCalendar[x] = obj.calendar[x]
+  end
 
   updateDayWeekOffset(month)
   -- Check for every day of the week

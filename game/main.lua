@@ -46,8 +46,8 @@ function loadMousePng(image)
 end
 
 function love.load()
-  -- unitTest
-  Debug_Testing()
+  -- DEBUG - unitTest
+  unitTest:run()
 
   -- Carico tutte le scene (setup iniziale)
   desktop.load()
@@ -206,24 +206,3 @@ function love.mousepressed(x, y, button, istouch, presses)
   mouse.mousePressed(x, y)
 end
 
-function Debug_Testing()
-  unitTest:add("GameManger: Get Current Month:", function()
-    local m1 = GameManager:getMonth()
-    assert(m1 == 3)
-  end)
-
-  unitTest:add("GameManger check players", function()
-    for i = 1, #playablePlyer do
-      local p_name = playablePlyer[i]:getName()
-      local a_name = playablePlyer[i]:getActivity():getName()
-      local a_schedule = playablePlyer[i]:getActivity():getStrSchedule()
-      print(p_name .. " " .. a_name .. " " .. a_schedule)
-      local a_calendar = playablePlyer[i]:getActivity():printActivity()
-    end
-
-    CalendarManager:printCalendar()
-  end)
-
-  -- Esegui i test
-  unitTest:run()
-end
