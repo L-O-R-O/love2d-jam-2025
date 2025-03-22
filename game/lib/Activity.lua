@@ -114,10 +114,10 @@ local function checkAllDaysOccupied(obj, month)   -- Ritorna una stringa con i g
           end
       end
   else
-      for d = 1, constants.DAYS_IN_MONTH[month] do
+      for d = constants.DAYS_IN_MONTH[month],1,-1  do
           if tmpCalendar[d] == 0 then
               if  z == nil then
-                  z = ', ' .. d
+                  z = '' .. d
               else
                   z = d .. ', ' .. z
               end
