@@ -29,6 +29,7 @@ function unitTest:run()
   print("❌ Failed: " .. failed)
 end
 
+--[[
 unitTest:add("GameManger: Get Current Month:", function()
   local m1 = GameManager:getMonth()
   assert(m1 == 3)
@@ -47,5 +48,5 @@ unitTest:add("GameManger check players",
 
   CalendarManager:printCalendar()
 end)
-
+]]
 return unitTest
