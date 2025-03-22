@@ -3,7 +3,7 @@ local constants = require("constants")
 yearbook = {}
 
 -- Creazione dell'agenda con i nomi
-local students = constants.STUDENTS
+local students = orderedStudents
 
 
 -- Creazione dei gruppi
@@ -284,6 +284,17 @@ function yearbook.drawRedBoxes()
   end ]]
   --[[ love.graphics.rectangle("line", browserTabYB.x, browserTabYB.y, browserTabYB.width, browserTabYB.height)
   love.graphics.rectangle("line", browserTabCS.x, browserTabCS.y, browserTabCS.width, browserTabCS.height) ]]
+  backArrow = {
+    name        = 'BACK_BUTTON',
+    xPerc       = 0.82,
+    yPerc       = 0.52,
+    widthPerc   = 0.06,
+    heightPerc  = 0.1,
+    x           = 0,
+    y           = 0,
+    width       = 0,
+    height      = 0,
+  }
   love.graphics.rectangle("line", backArrow.x, backArrow.y, backArrow.width, backArrow.height)
 
   love.graphics.setColor(0, 0, 0) -- Reset color to black

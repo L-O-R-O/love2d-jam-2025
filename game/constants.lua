@@ -383,11 +383,11 @@ constants.STUDENTS = {
   },
   {
     name = "Alberto Bananovich",
-    bestMemory = "That one perfect summer evening—good company, great food, and nothing to worry about.",
+    bestMemory = "That summer I spent at a dance camp in Madrid. Learned most of my moves there!",
     image = nil,
-    quote = "Life’s too short for bad coffee and boring conversations.",
-    futurePlans = "Finding the best pizza in the world and maybe settling down somewhere unexpected.",
-    favoriteDnDClass = "Cleric — someone’s gotta keep the party alive, right?",
+    quote = "Bom, sha-sha ka-kà!",
+    futurePlans = "Being a coreographer for many italian singers.",
+    favoriteDnDClass = "Rogue - he's all for acrobatics",
     inGuild = false
   },
   {
