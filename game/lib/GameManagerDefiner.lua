@@ -60,7 +60,7 @@ function GameManagerDefiner:fillGlobalTables()  -- Riempi la tabella playable Pl
     allActivities[i] = playableActivities[i]
   end
 
-  for i = constants.GAME_MANAGER_MAX_PLAYABLE, #constants.STUDENTS do
+  for i = constants.GAME_MANAGER_MAX_PLAYABLE+1, #constants.STUDENTS do
     local r = math.random(1,7)
     allActivities[i] = Activity:new(constants.ACTIVITIES[i].name, constants.ACTIVITIES[i].description,{},{r})
     allStudents[i] = Player:new(constants.STUDENTS[i].name, constants.STUDENTS[i].nickname, constants.ACTIVITIES[i].name,allActivities[i],false,false)
@@ -80,6 +80,7 @@ function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna all
   playableActivities[endIndex] = tmpActivity
   CalendarManager:addActivity(playableActivities[endIndex])
   playablePlayer[trueIndex]:setActivity(playableActivities[endIndex])
+  allActivities[trueIndex] = tmpActivity
 
   for i = 1,(constants.GAME_MANAGER_MAX_PLAYABLE-1) do
     trueIndex = i+endIndex
