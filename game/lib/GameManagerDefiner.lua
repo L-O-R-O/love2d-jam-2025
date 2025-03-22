@@ -11,6 +11,7 @@ local function getMonthFromOS()
   return monthNumber
 end
 
+orderedStudents     = {}
 allStudents         = {}
 allActivities       = {}
 playablePlayer      = {}
@@ -30,8 +31,6 @@ function GameManagerDefiner:new()
     outcomeState    = 0,
   }
 
-
-
   setmetatable(obj, GameManagerDefiner)
   return obj
 end
@@ -40,9 +39,13 @@ function GameManagerDefiner:initialize()
   math.randomseed(os.time())                    -- Imposta il seed per rendere i numeri casuali più imprevedibili
   local index = math.random(1, constants.GAME_MANAGER_MAX_PLAYABLE)  -- Numero tra 1 e 7
 
+  -- Setup variabili globali --
   CalendarManager = CalendarManager:new(GameManager.month)
   GameManager:fillGlobalTables()
   GameManager:generateFittableActivities(index)
+  GameManager:generateOrderedStuedent()
+
+  -- Preparazione gioco --
   CalendarManager:reset()
   GameManager:addInGuild(index)
   if index >= constants.GAME_MANAGER_MAX_PLAYABLE then
@@ -50,6 +53,19 @@ function GameManagerDefiner:initialize()
   else
     GameManager:addInGuild(index+1)
   end
+end
+
+function GameManagerDefiner:generateOrderedStuedent()
+  -- Crea una copia della tabella STUDENTS per evitare di modificare l'originale
+  orderedStudents = {}
+  for _, student in ipairs(constants.STUDENTS) do
+      table.insert(orderedStudents, student)
+  end
+
+  -- Ordina la copia basandosi sul campo 'name'
+  table.sort(orderedStudents, function(a, b)
+      return a.name < b.name
+  end)
 end
 
 function GameManagerDefiner:fillGlobalTables()  -- Riempi la tabella playable Player con i dati dei primi N dove N è il numero di elementi della suddeta tabella con primi dati delle costanti student
