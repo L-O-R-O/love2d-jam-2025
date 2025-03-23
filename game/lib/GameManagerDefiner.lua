@@ -11,6 +11,7 @@ local function getMonthFromOS()
   return monthNumber
 end
 
+orderedActivities   = {}
 orderedStudents     = {}
 allStudents         = {}
 allActivities       = {}
@@ -79,7 +80,6 @@ function GameManagerDefiner:generateOrderedStuedent()
 end
 
 function GameManagerDefiner:generateOrderedActivities()
-  orderedActivities = {}
     for _, activity in ipairs(constants.ACTIVITIES) do
     table.insert(orderedActivities,activity)
   end
@@ -181,7 +181,7 @@ function GameManagerDefiner:tryDate(proposedDate)
       self.outcomeState = constants.OUTCOMESTATE[1]   --Session Win
     end
   else
-    self.hearts = self.hearts
+    self.hearts = self.hearts -1
     if self.hearts <= 0 then
       self.outcomeState = constants.OUTCOMESTATE[4]   --Game KO
     else
