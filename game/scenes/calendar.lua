@@ -45,9 +45,10 @@ function calendar.update(dt)
   firstDayOfTheMonth = CalendarManager:getFirstDayOfMonth(currentMonth)
 end
 
-local function dateClicked(day, dayOfWeek)
+local function dateClicked(day)
+  local dayOfWeekIndex = ((firstDayOfTheMonth + day - 2) % #daysOfWeek) + 1
   selectedDay = day
-  selectedDayLabel = dayOfWeek
+  selectedDayLabel = string.sub(constants.WEEK_DAYS[dayOfWeekIndex], 1,3)
   scenesManager:setScene(constants.SCENES_CONFIRM, false)
 end
 
@@ -67,6 +68,7 @@ function calendar.draw()
   love.graphics.printf(currentMonthLabel, monthArea.x, monthArea.y, monthArea.width, "center")
   love.graphics.setColor(1, 1, 1)
 
+  local dayOfWeek
   local daysInMonth = constants.DAYS_IN_MONTH[currentMonth]
   local colIndex = 1
   local xOffset, yOffset = 0.309, 0.22
@@ -92,7 +94,7 @@ function calendar.draw()
     love.graphics.setFont(dayNameFont)
     -- Seleziono il giorno della settimana
     local dayOfWeekIndex = ((firstDayOfTheMonth + day - 2) % #daysOfWeek) + 1
-    local dayOfWeek = daysOfWeek[dayOfWeekIndex]
+    dayOfWeek = daysOfWeek[dayOfWeekIndex]
 
     -- Stampo nome giorno
     love.graphics.setColor(0, 0, 0)
@@ -116,12 +118,14 @@ function calendar.draw()
       love.graphics.draw(image, x, y, 0, sx, sy)
     end
 
+    --print(day .. " " .. dayOfWeek .. " " .. currentMonth)
     -- Assegno un'area cliccabile al giorno
-    screenManager:setClickableArea(constants.SCENES_CALENDAR, nameArea, constants.SCENES_CALENDAR, function()
-      dateClicked(day, dayOfWeek)
-    end, {
-      day = day
-    })
+    screenManager:setClickableArea(constants.SCENES_CALENDAR, nameArea, constants.SCENES_CALENDAR,
+                        function()
+                          dateClicked(day)
+                        end, {
+                          day = day
+                        })
     colIndex = (colIndex % 5) + 1
     previousGroup = group
   end
