@@ -35,7 +35,7 @@ echo "Extracting to temporary directory..."
 unzip -q "$ZIP_FILE" -d "$TEMP_DIR"
 
 echo "Starting server on http://localhost:1337"
-cd "$TEMP_DIR/weHaveToReschedule"
+cd "$TEMP_DIR/"
 miniserve \
   --header "Cross-Origin-Opener-Policy: same-origin" \
   --header "Cross-Origin-Embedder-Policy: require-corp" \
