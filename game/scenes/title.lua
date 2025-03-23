@@ -92,10 +92,10 @@ function title.buildMenuElements()
   settingsMenu:addItem("Controls", function()
     settingsMenu:openSubMenu("controls")
   end, nil, false, 50)
-  controlsMenu:addItem("J - Agenda", function() end)
+  controlsMenu:addItem("J - Journal", function() end)
   controlsMenu:addItem("C - Calendar", function() end)
   controlsMenu:addItem("F - YearBook/Courses", function() end)
-  controlsMenu:addItem("P - Pause", function() end)
+  controlsMenu:addItem("P - Menu", function() end)
 
   -- Creazione del subMenu Credits
   local creditsMenu = Menu:new(constants.FONTS_CREDITS_MENU)

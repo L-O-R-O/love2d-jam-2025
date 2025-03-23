@@ -60,7 +60,7 @@ function love.load()
   yearBookStudentCard.load()
   coursesActivityCard.load()
   outcome.load()
-    confirm.load()
+  confirm.load()
   gameOver.load()
 
   -- Carico le chiavi per i cursori
@@ -166,11 +166,11 @@ end
 
 function love.keypressed(key)
   -- Add debug key for testing game over - REMOVE BEFORE RELEASING
-  if key == "0" then -- Press 0 to instantly trigger game over
+ --[[ if key == "0" then -- Press 0 to instantly trigger game over
     GameManager.strikes = constants.MAX_STRIKES
     scenesManager:setScene(constants.SCENES_GAME_OVER, false) -- Add false to prevent transition
     return
-  end
+  end ]]
 
   if scenesManager:getScene() == constants.SCENES_TITLE then
     title.keypressed(key)
