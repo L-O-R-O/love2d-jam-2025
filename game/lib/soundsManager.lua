@@ -48,4 +48,10 @@ function SoundsManager:playClickOnComputerScreen()
   sound:play()
 end
 
+
+function SoundsManager:playMe(audio)
+  local path = audio
+  path:play()
+end
+
 return SoundsManager

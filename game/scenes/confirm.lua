@@ -12,6 +12,16 @@ local selectedDayLabel = ''
 
 local function yesButtonHandler()
   GameManager:tryDate(selectedDay)
+  local outcome = GameManager:getOutcomeState()
+  if outcome == constants.OUTCOMESTATE[1] then
+    SoundsManager:playMe(constants.SOUNDS_RIGHT_CHOISE)
+  elseif outcome == constants.OUTCOMESTATE[2] then
+    SoundsManager:playMe(constants.SOUNDS_WRONG_CHOISE)
+  elseif outcome == constants.OUTCOMESTATE[3] then
+    SoundsManager:playMe(constants.SOUNDS_SELECTION)
+  else
+    SoundsManager:playMe(constants.SOUNDS_FAILED)
+  end
   screenManager:setScene(constants.SCENES_OUTCOME, false)
 end
 
