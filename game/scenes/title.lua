@@ -105,7 +105,7 @@ function title.buildMenuElements()
   controlsMenu:addItem("C - Calendar", function() end)
   controlsMenu:addItem("F - YearBook", function() end)
   controlsMenu:addItem("G - Activity Calendar", function() end)
-  controlsMenu:addItem("P - Menu", function() end)
+  controlsMenu:addItem("P - Pause Menu", function() end)
 
   -- Creazione del subMenu Credits
   local creditsMenu = Menu:new(constants.FONTS_CREDITS_MENU)
