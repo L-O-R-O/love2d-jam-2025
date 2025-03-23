@@ -57,6 +57,7 @@ constants.IMAGES_YB_NP = love.graphics.newImage("assets/images/yearbook/yearbook
 constants.IMAGES_YB_QS = love.graphics.newImage("assets/images/yearbook/yearbook_qs.png")
 constants.IMAGES_YB_TV = love.graphics.newImage("assets/images/yearbook/yearbook_tv.png")
 constants.IMAGES_YB_WZ = love.graphics.newImage("assets/images/yearbook/yearbook_wz.png")
+constants.IMAGES_YB_NUMB = love.graphics.newImage("assets/images/yearbook/playernumber_icon.png")
 constants.IMAGES_YB_ARROWS_NONE = love.graphics.newImage("assets/images/yearbook/yearbook_arrow_none.png")
 constants.IMAGES_YB_ARROWS_LEFT = love.graphics.newImage("assets/images/yearbook/yearbook_arrow_left.png")
 constants.IMAGES_YB_ARROWS_RIGHT = love.graphics.newImage("assets/images/yearbook/yearbook_arrow_right.png")
@@ -423,7 +424,7 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = "Beatrice Wiggly",
+    name = "Barbara Wiggly",
     bestMemory = "Got stuck in a hat shop for three hours because she couldn’t decide on the perfect pair of sunglasses",
     image = nil,
     quote = "Life’s too short to not wear fun sunglasses.",
