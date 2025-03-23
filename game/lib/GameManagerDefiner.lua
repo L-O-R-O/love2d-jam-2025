@@ -58,7 +58,7 @@ function GameManagerDefiner:initialize()
     GameManager:addInGuild(absoluteIndex)
   end
 
-  GameManager:debugCalendar()
+  --GameManager:debugCalendar()
 end
 
 function GameManagerDefiner:reset()
@@ -91,10 +91,12 @@ function GameManagerDefiner:generateOrderedActivities()
   table.sort(orderedActivities, function(a, b)
     return a.name < b.name
   end)
+  --[[
   for i,iActivity in ipairs(orderedActivities)do
     print(i, iActivity.name)
   end
   print("\n")
+  ]]
 end
 
 function GameManagerDefiner:fillGlobalTables()  -- Riempi la tabella playable Player con i dati dei primi N dove N è il numero di elementi della suddeta tabella con primi dati delle costanti student
@@ -173,9 +175,11 @@ function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna all
     end
     playablePlayer[trueIndex]:setActivity(playableActivities[trueIndex])
   end
+  --[[
   for i,iPlayer in ipairs(playablePlayer)do
     print(iPlayer:getName())
   end
+  ]]
 end
 
 function GameManagerDefiner:debugCalendar()
@@ -222,7 +226,7 @@ function GameManagerDefiner:tryDate(proposedDate)
       self:addInGuild(absoluteIndex)
     end
   end
-  GameManager:debugCalendar()
+  --GameManager:debugCalendar()
 end
 
 function GameManagerDefiner:addInGuild(i)
