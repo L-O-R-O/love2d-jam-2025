@@ -29,6 +29,7 @@ end
 
 function title.draw()
   love.graphics.draw(constants.IMAGES_DESKTOP_BG)
+  screenManager:drawSceneBackground(constants.IMAGES_HOVER_DESKTOP_POSTITS)
   love.graphics.setColor(1,1,1,currentMenu.fadingAlpha)
   screenManager:drawSceneBackground(constants.IMAGES_MENU_BG)
   love.graphics.setColor(1,1,1,1)
