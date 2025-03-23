@@ -46,6 +46,11 @@ end
 function title.buildMenuElements()
   -- Creazione di un menu principale
   local mainMenu = Menu:new(constants.FONTS_MAIN_MENU)
+
+  if GameManager:getOutcomeState() == constants.OUTCOMESTATE[3] or  GameManager:getOutcomeState() == constants.OUTCOMESTATE[4] then
+    GameManager:reset()
+    scenesManager.fromScene = ""
+  end
   if scenesManager.fromScene == "" then
     mainMenu:addItem("Start Game", function()
       scenesManager:setScene(constants.SCENES_DESKTOP)

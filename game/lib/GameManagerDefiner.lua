@@ -11,6 +11,7 @@ local function getMonthFromOS()
   return monthNumber
 end
 
+orderedActivities   = {}
 orderedStudents     = {}
 allStudents         = {}
 allActivities       = {}
@@ -30,6 +31,7 @@ function GameManagerDefiner:new()
     consecutiveWins = 0,
     outcomeState    = 0,
   }
+  CalendarManager = CalendarManager:new(getMonthFromOS())
 
   setmetatable(obj, GameManagerDefiner)
   return obj
@@ -38,12 +40,12 @@ end
 function GameManagerDefiner:initialize()
   math.randomseed(os.time())                    -- Imposta il seed per rendere i numeri casuali più imprevedibili
   local index = math.random(1, constants.GAME_MANAGER_MAX_PLAYABLE)  -- Numero tra 1 e 7
-
+  CalendarManager:reset()
   -- Setup variabili globali --
-  CalendarManager = CalendarManager:new(GameManager.month)
   GameManager:fillGlobalTables()
   GameManager:generateFittableActivities(index)
-  GameManager:generateOrderedStuedent()
+  GameManager:generateOrderedStudents()
+  GameManager:generateOrderedActivities()
 
   -- Preparazione gioco --
   CalendarManager:reset()
@@ -55,7 +57,16 @@ function GameManagerDefiner:initialize()
   end
 end
 
-function GameManagerDefiner:generateOrderedStuedent()
+function GameManagerDefiner:reset()
+  self.hearts           = constants.MAX_HEARTS
+  self.guild            = {}
+  self.actualCycle      = 1 --0 se non in partita, poi da 1 a 10
+  self.month            = getMonthFromOS()
+
+  GameManager:initialize()
+end
+
+function GameManagerDefiner:generateOrderedStudents()
   -- Crea una copia della tabella STUDENTS per evitare di modificare l'originale
   orderedStudents = {}
   for _, student in ipairs(constants.STUDENTS) do
@@ -66,6 +77,19 @@ function GameManagerDefiner:generateOrderedStuedent()
   table.sort(orderedStudents, function(a, b)
       return a.name < b.name
   end)
+end
+
+function GameManagerDefiner:generateOrderedActivities()
+    for _, activity in ipairs(constants.ACTIVITIES) do
+    table.insert(orderedActivities,activity)
+  end
+  table.sort(orderedActivities, function(a, b)
+    return a.name < b.name
+  end)
+  for i,iActivity in ipairs(orderedActivities)do
+    print(i, iActivity.name)
+  end
+  print("\n")
 end
 
 function GameManagerDefiner:fillGlobalTables()  -- Riempi la tabella playable Player con i dati dei primi N dove N è il numero di elementi della suddeta tabella con primi dati delle costanti student
@@ -144,6 +168,9 @@ function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna all
     end
     playablePlayer[trueIndex]:setActivity(playableActivities[trueIndex])
   end
+  for i,iPlayer in ipairs(playablePlayer)do
+    print(iPlayer:getName())
+  end
 end
 
 function GameManagerDefiner:tryDate(proposedDate)
@@ -154,7 +181,7 @@ function GameManagerDefiner:tryDate(proposedDate)
       self.outcomeState = constants.OUTCOMESTATE[1]   --Session Win
     end
   else
-    self.hearts = self.hearts - 1
+    self.hearts = self.hearts -1
     if self.hearts <= 0 then
       self.outcomeState = constants.OUTCOMESTATE[4]   --Game KO
     else
@@ -162,12 +189,12 @@ function GameManagerDefiner:tryDate(proposedDate)
     end
   end
 
-  if self.outcomeState ==  constants.OUTCOMESTATE[1] or self.outcomeState ==  constants.OUTCOMESTATE[3] then
+  if self.outcomeState ==  constants.OUTCOMESTATE[1] or self.outcomeState ==  constants.OUTCOMESTATE[2] then
     self.actualCycle = self.actualCycle +1
-    if self.month ==12 then
+    if self.month == 12 then
       self.month = 1
     else
-      self.month = self.month +1
+      self.month = self.month + 1
     end
   end
 
@@ -179,8 +206,15 @@ end
 
 function GameManagerDefiner:addInGuild(i)
   table.insert(self.guild, #self.guild+1, playablePlayer[i])
-  playablePlayer[i]:setInGuild()
-  CalendarManager:addActivity(playablePlayer[i]:getActivity())
+  if(i>7)then
+
+  end
+  if(playablePlayer[i]:getInGuild()==0)then
+    playablePlayer[i]:setInGuild()
+    CalendarManager:addActivity(playablePlayer[i]:getActivity())
+    return true
+  end
+  return false
 end
 
 function GameManagerDefiner:removeFromGuild(player)

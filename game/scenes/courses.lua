@@ -150,9 +150,10 @@ function courses.drawPage()
   local j = 1
 
   for i = startIdx, endIdx do
-    currentCourses[j] = allCourses[i]
+    currentCourses[j] = orderedActivities[i]
     j = j + 1
   end
+
   -- disegna le etichette
   for i = 1, maxViewCourses, 1 do
     if currentCourses[i] ~= nil then
