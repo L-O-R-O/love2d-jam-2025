@@ -70,6 +70,8 @@ function love.load()
   love.graphics.setBlendMode("alpha") -- Ensure transparency works
 
   -- Play main theme
+  constants.SOUNDS_BACKGROUND_AMBIENT:setVolume(0.5)
+  soundsManager:playMe(constants.SOUNDS_BACKGROUND_AMBIENT)
   soundsManager:startMusic()
 end
 

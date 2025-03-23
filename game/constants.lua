@@ -84,7 +84,7 @@ constants.SOUNDS_RIGHT_CHOISE       = love.audio.newSource("assets/sounds/right_
 constants.SOUNDS_FAILED             = love.audio.newSource("assets/sounds/failed.wav", "static")
 constants.SOUNDS_SELECTION          = love.audio.newSource("assets/sounds/selection.wav", "static")
 constants.SOUNDS_STARTING_PC        = love.audio.newSource("assets/sounds/starting_game.mp3", "static")
---constants.SOUNDS_BACKGROUND_AMBIENT = love.audio.newSource("assets/sounds/ambient.mp3", "stream")
+constants.SOUNDS_BACKGROUND_AMBIENT = love.audio.newSource("assets/sounds/ambient.mp3", "stream")
 
 -- scenes
 constants.SCENES_DESKTOP = "desktop"
@@ -107,7 +107,7 @@ constants.KEYS_PAUSE_MENU = "p"
 constants.KEYS_ESCAPE_MENU = "escape"
 
 -- various
-constants.START_GAME_TRANSITION_SPEED = 1 -- Speedo (increase = faster; decrease = slower)
+constants.START_GAME_TRANSITION_SPEED = 0.7 -- Speedo (increase = faster; decrease = slower)
 constants.GAME_MANAGER_MAX_PLAYABLE = 10
 constants.MAX_HEARTS = 3
 constants.MOUSE_SIZE = 64

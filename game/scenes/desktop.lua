@@ -102,7 +102,7 @@ function desktop.mousePressed(x, y, button)
     end, 0.5)
   end
   -- gestione suono bg
-  if clickableArea.to == "SOUND_BUTTON" then
+  if clickableArea ~= nil and clickableArea.to == "SOUND_BUTTON" then
     if (soundsManager.isPlayingBgMusic) then
       soundsManager:stopMusic()
     else
