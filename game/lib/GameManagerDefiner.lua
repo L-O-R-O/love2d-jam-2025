@@ -65,7 +65,7 @@ function GameManagerDefiner:reset()
   GameManager:initialize()
 end
 
-function GameManagerDefiner:generateOrderedStuedent()
+function GameManagerDefiner:generateOrderedStudents()
   -- Crea una copia della tabella STUDENTS per evitare di modificare l'originale
   orderedStudents = {}
   for _, student in ipairs(constants.STUDENTS) do
