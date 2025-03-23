@@ -21,6 +21,7 @@ constants.IMAGES_HOVER_DESKTOP_CALENDAR = love.graphics.newImage("assets/images/
 constants.IMAGES_HOVER_DESKTOP_AGENDA = love.graphics.newImage("assets/images/hover_desktop_agenda.png")
 constants.IMAGES_HOVER_DESKTOP_POSTITS = love.graphics.newImage("assets/images/postit_scritte.png")
 constants.IMAGES_DESKTOP_BG = love.graphics.newImage("assets/images/desktop.png")
+constants.IMAGES_TUTORIAL_BG = love.graphics.newImage("assets/images/ui/tutorial.png")
 constants.IMAGES_CALENDAR_BG = love.graphics.newImage("assets/images/zoom/zoom_calendar.png")
 constants.IMAGES_CURSOR = "assets/images/cursor.png"
 constants.IMAGES_CURSOR_HAND_CLICKED = "assets/images/cursor_hover.png"
@@ -64,6 +65,7 @@ constants.IMAGES_YB_ARROWS_RIGHT = love.graphics.newImage("assets/images/yearboo
 constants.IMAGES_YB_STUDENT_CARD_BG = love.graphics.newImage("assets/images/yearbook/yearbook_studentcard.png")
 constants.IMAGES_SOUND_ON = love.graphics.newImage("assets/images/ui/sound_on.png")
 constants.IMAGES_SOUND_OFF = love.graphics.newImage("assets/images/ui/sound_off.png")
+constants.IMAGES_HELP = love.graphics.newImage("assets/images/ui/help.png")
 
 -- courses/activities images
 constants.IMAGES_CS_BG = love.graphics.newImage("assets/images/activities/activities.png")
@@ -93,6 +95,7 @@ constants.SCENES_COMPUTER = "computer"
 constants.SCENES_YEARBOOK = "yearbook"
 constants.SCENES_COURSES = "courses"
 constants.SCENES_AGENDA = "agenda"
+constants.SCENES_TUTORIAL = "tutorial"
 constants.SCENES_TITLE = "title"
 constants.SCENES_YEARBOOK = "yearBook"
 constants.SCENES_YEARBOOK_STUDENT_CARD = "yearBookStudentCard"

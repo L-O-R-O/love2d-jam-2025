@@ -28,6 +28,7 @@ local desktop = require("scenes.desktop")
 local calendar = require("scenes.calendar")
 local computer = require("scenes.computer")
 local agenda = require("scenes.agenda")
+local tutorial = require("scenes.tutorial")
 local yearBook = require("scenes.yearbook")
 local courses = require("scenes.courses")
 local yearBookStudentCard = require("scenes.yearbookStudentCard")
@@ -46,6 +47,7 @@ function love.load()
   calendar.load()
   computer.load()
   agenda.load()
+  tutorial.load()
   title.load()
   yearBook.load()
   courses.load()
@@ -107,6 +109,8 @@ function love.update(dt)
     courses.update(dt)
   elseif scenesManager:getScene() == constants.SCENES_AGENDA then
     agenda.update(dt)
+  elseif scenesManager:getScene() == constants.SCENES_TUTORIAL then
+    tutorial.update(dt)
   elseif scenesManager:getScene() == constants.SCENES_YEARBOOK_STUDENT_CARD then
     yearBookStudentCard.update(dt)
   elseif scenesManager:getScene() == constants.SCENES_COURSES_ACTIVITY_CARD then
@@ -135,6 +139,8 @@ function love.draw()
     courses.draw()
   elseif scenesManager:getScene() == constants.SCENES_AGENDA then
     agenda.draw()
+  elseif scenesManager:getScene() == constants.SCENES_TUTORIAL then
+    tutorial.draw()
   elseif scenesManager:getScene() == constants.SCENES_YEARBOOK_STUDENT_CARD then
     yearBookStudentCard.draw()
   elseif scenesManager:getScene() == constants.SCENES_COURSES_ACTIVITY_CARD then
@@ -179,6 +185,8 @@ function love.keypressed(key)
     scenesManager:setScene(constants.SCENES_AGENDA)
   elseif (key =='d') then
     scenesManager:setScene(constants.SCENES_DESKTOP)
+  elseif (key =='h') then
+    scenesManager:setScene(constants.SCENES_TUTORIAL)
   elseif scenesManager:getScene() == constants.SCENES_DESKTOP then
     desktop.keypressed(key)
   elseif scenesManager:getScene() == constants.SCENES_CALENDAR then
@@ -189,6 +197,8 @@ function love.keypressed(key)
     courses.keypressed(key)
   elseif scenesManager:getScene() == constants.SCENES_AGENDA then
     agenda.keypressed(key)
+  elseif scenesManager:getScene() == constants.SCENES_TUTORIAL then
+    tutorial.keypressed(key)
   elseif scenesManager:getScene() == constants.SCENES_YEARBOOK_STUDENT_CARD then
     yearBookStudentCard.keypressed(key)
   elseif scenesManager:getScene() == constants.SCENES_COURSES_ACTIVITY_CARD then
