@@ -5,20 +5,23 @@ SoundsManager.__index = SoundsManager
 
 function SoundsManager:new()
   local properties = {
+    isPlayingBgMusic = false
   }
   setmetatable(properties, SoundsManager)
   return properties
 end
 
-function SoundsManager:stopMusic()
+function SoundsManager:stopMusic(music)
   local music = constants.SOUNDS_BACKGROUND_MUSIC
   music:stop()
+  self.isPlayingBgMusic = false
 end
 
 function SoundsManager:startMusic()
   local music = constants.SOUNDS_BACKGROUND_MUSIC
-  --music:play()
+  music:play()
   music:setLooping(true)
+  self.isPlayingBgMusic = true
 end
 
 function SoundsManager:mute(audio)

@@ -25,7 +25,6 @@ constants.IMAGES_CALENDAR_BG               = love.graphics.newImage("assets/imag
 constants.IMAGES_CURSOR                    = "assets/images/cursor.png"
 constants.IMAGES_CURSOR_HAND_CLICKED       = "assets/images/cursor_hover.png"
 constants.IMAGES_CURSOR_HAND               = "assets/images/cursor_hover.png"
-constants.IMAGES_SAMPLE_WINDOW             = love.graphics.newImage("assets/images/sample_window.png")
 constants.IMAGES_CALENDAR_RED_CIRCLE       = love.graphics.newImage("assets/images/red_circle.png")
 constants.IMAGES_AGENDA_BG_FULL            = love.graphics.newImage("assets/images/zoom/zoom_journal1.png")
 constants.IMAGES_AGENDA_BG_STRIKE_1        = love.graphics.newImage("assets/images/zoom/zoom_journal2.png")
@@ -62,6 +61,8 @@ constants.IMAGES_YB_ARROWS_NONE = love.graphics.newImage("assets/images/yearbook
 constants.IMAGES_YB_ARROWS_LEFT = love.graphics.newImage("assets/images/yearbook/yearbook_arrow_left.png")
 constants.IMAGES_YB_ARROWS_RIGHT = love.graphics.newImage("assets/images/yearbook/yearbook_arrow_right.png")
 constants.IMAGES_YB_STUDENT_CARD_BG = love.graphics.newImage("assets/images/yearbook/yearbook_studentcard.png")
+constants.IMAGES_SOUND_ON  = love.graphics.newImage("assets/images/ui/sound_on.png")
+constants.IMAGES_SOUND_OFF = love.graphics.newImage("assets/images/ui/sound_off.png")
 
 -- courses/activities images
 constants.IMAGES_CS_BG               = love.graphics.newImage("assets/images/activities/activities.png")
@@ -100,7 +101,7 @@ constants.KEYS_PAUSE_MENU = "p"
 constants.KEYS_ESCAPE_MENU = "escape"
 
 -- various
-constants.START_GAME_TRANSITION_SPEED = 0.5 -- Speedo (increase = faster; decrease = slower)
+constants.START_GAME_TRANSITION_SPEED = 1 -- Speedo (increase = faster; decrease = slower)
 constants.GAME_MANAGER_MAX_PLAYABLE = 10
 constants.MAX_HEARTS = 3
 constants.MOUSE_SIZE = 64

@@ -70,7 +70,7 @@ function love.load()
   love.graphics.setBlendMode("alpha") -- Ensure transparency works
 
   -- Play main theme
-  SoundsManager.startMusic()
+  soundsManager:startMusic()
 end
 
 function love.update(dt)
