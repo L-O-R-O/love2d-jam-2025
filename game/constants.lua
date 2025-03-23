@@ -25,7 +25,6 @@ constants.IMAGES_CALENDAR_BG               = love.graphics.newImage("assets/imag
 constants.IMAGES_CURSOR                    = "assets/images/cursor.png"
 constants.IMAGES_CURSOR_HAND_CLICKED       = "assets/images/cursor_hover.png"
 constants.IMAGES_CURSOR_HAND               = "assets/images/cursor_hover.png"
-constants.IMAGES_SAMPLE_WINDOW             = love.graphics.newImage("assets/images/sample_window.png")
 constants.IMAGES_CALENDAR_RED_CIRCLE       = love.graphics.newImage("assets/images/red_circle.png")
 constants.IMAGES_AGENDA_BG_FULL            = love.graphics.newImage("assets/images/zoom/zoom_journal1.png")
 constants.IMAGES_AGENDA_BG_STRIKE_1        = love.graphics.newImage("assets/images/zoom/zoom_journal2.png")
@@ -63,6 +62,8 @@ constants.IMAGES_YB_ARROWS_NONE = love.graphics.newImage("assets/images/yearbook
 constants.IMAGES_YB_ARROWS_LEFT = love.graphics.newImage("assets/images/yearbook/yearbook_arrow_left.png")
 constants.IMAGES_YB_ARROWS_RIGHT = love.graphics.newImage("assets/images/yearbook/yearbook_arrow_right.png")
 constants.IMAGES_YB_STUDENT_CARD_BG = love.graphics.newImage("assets/images/yearbook/yearbook_studentcard.png")
+constants.IMAGES_SOUND_ON  = love.graphics.newImage("assets/images/ui/sound_on.png")
+constants.IMAGES_SOUND_OFF = love.graphics.newImage("assets/images/ui/sound_off.png")
 
 -- courses/activities images
 constants.IMAGES_CS_BG               = love.graphics.newImage("assets/images/activities/activities.png")
@@ -106,7 +107,7 @@ constants.KEYS_PAUSE_MENU = "p"
 constants.KEYS_ESCAPE_MENU = "escape"
 
 -- various
-constants.START_GAME_TRANSITION_SPEED = 0.5 -- Speedo (increase = faster; decrease = slower)
+constants.START_GAME_TRANSITION_SPEED = 1 -- Speedo (increase = faster; decrease = slower)
 constants.GAME_MANAGER_MAX_PLAYABLE = 10
 constants.MAX_HEARTS = 3
 constants.MOUSE_SIZE = 64
@@ -466,9 +467,9 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = "Cesare McQuack",
+    name = "Dyd McQuack",
     bestMemory = "Had a duck race with his collection of rubber ducks at the local pond",
-    image = nil,
+    image = love.graphics.newImage("assets/images/devs/DEVS_DYD.png"),
     quote = "The duck that quacks last quacks the loudest.",
     futurePlans = "Plans to open a rubber duck racing league",
     favoriteDnDClass = "Barbarian",
@@ -504,7 +505,7 @@ constants.STUDENTS = {
   {
     name = "Domenico Twizzler",
     bestMemory = "Had ice cream delivered to his house on a snowy day, just because",
-    image = nil,
+    image = love.graphics.newImage("assets/images/devs/DEVS_DYD.png"),
     quote = "There’s no wrong time for ice cream.",
     futurePlans = "Wants to open an ice cream truck business",
     favoriteDnDClass = "Fighter",
@@ -538,10 +539,10 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = "Flora Snickerwhistle",
-    bestMemory = "Had an in-depth conversation with a plant for an entire afternoon",
-    image = nil,
-    quote = "Plants have stories too, if you listen closely.",
+    name = "Evil Sonja",
+    bestMemory = "Recovering the last save on a photoshop project",
+    image = love.graphics.newImage("assets/images/devs/DEVS_SONGIA.png"),
+    quote = "Always keep two fingers on ctrl/s",
     futurePlans = "Wants to start a plant-based wellness business",
     favoriteDnDClass = "Druid",
     inGuild = false,
@@ -657,7 +658,7 @@ constants.STUDENTS = {
   {
     name = "Jasmine Flapdoodle",
     bestMemory = "Once collected postcards from every country in a single summer",
-    image = nil,
+    image = love.graphics.newImage("assets/images/devs/DEVS_DANIELA.png"),
     quote = "Postcards are little pieces of the world.",
     futurePlans = "To open a postcard shop and share her collections",
     favoriteDnDClass = "Sorcerer",
@@ -700,9 +701,9 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = "Mortimer Quackfoot",
+    name = "Theobald Quackfoot",
     bestMemory = "Had a magical experience when he woke up on Christmas morning to find presents from Santa",
-    image = nil,
+    image = love.graphics.newImage("assets/images/devs/DEVS_THEO.png"),
     quote = "Santa’s real, I’ve seen the evidence.",
     futurePlans = "To find the perfect gift for everyone he meets",
     favoriteDnDClass = "Cleric",
@@ -772,9 +773,9 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = "Pietro Limoncello",
+    name = "Haaaxee Limoncello",
     bestMemory = "Made everyone laugh with his perfect duck impression during a family dinner",
-    image = nil,
+    image = love.graphics.newImage("assets/images/devs/DEVS_HAAX.png"),
     quote = "Quack! See? Perfect.",
     futurePlans = "To perfect his duck impression and perform at local comedy clubs",
     favoriteDnDClass = "Bard",
@@ -799,9 +800,9 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = "Renee Marshmellow",
+    name = "Daniele Marshmellow",
     bestMemory = "Found a lucky coin in a wishing well and made a wish that came true the very next day",
-    image = nil,
+    image = love.graphics.newImage("assets/images/devs/DEVS_DANIELE.png"),
     quote = "Sometimes, all you need is a lucky coin.",
     futurePlans = "To collect all the lucky coins in the world",
     favoriteDnDClass = "Sorcerer",

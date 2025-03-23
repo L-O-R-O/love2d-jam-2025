@@ -61,6 +61,24 @@ end
 function desktop.draw()
   screenManager:drawSceneBackground(constants.IMAGES_DESKTOP_BG,desktopHoveredImages)
   screenManager:drawSceneBackground(constants.IMAGES_HOVER_DESKTOP_POSTITS)
+
+  soundArea = {
+    name        = "SOUND_BUTTON",
+    xPerc       = 0.006,
+    yPerc       = 0.935,
+    widthPerc   = 0.03,
+    heightPerc  = 0.05,
+    x           = 0,
+    y           = 0,
+    width       = 0,
+    height      = 0,
+  }
+  soundArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, soundArea, soundArea.name)
+  if (soundsManager.isPlayingBgMusic) then
+    love.graphics.draw(constants.IMAGES_SOUND_ON,soundArea.x,soundArea.y,0,1,1)
+  else
+    love.graphics.draw(constants.IMAGES_SOUND_OFF,soundArea.x,soundArea.y,0,1,1)
+  end
 end
 
 function desktop.keypressed(key)
@@ -72,7 +90,8 @@ end
 function desktop.mousePressed(x, y, button)
   print('DESKTOP clicked x:'.. x .. ' and y:'..y)
   local clickableArea = screenManager:checkIfIsClickable(x, y)
-  if (clickableArea) then
+  -- trasferisciti
+  if (clickableArea and clickableArea.to ~= "SOUND_BUTTON") then
     soundsManager:playSceneTransitionSound(constants.SCENES_DESKTOP,clickableArea.to)
     mouse.loadCursor(constants.HAND_CLICKED_CURSOR)
     isClicked = true
@@ -81,6 +100,14 @@ function desktop.mousePressed(x, y, button)
       mouse.loadCursor(constants.DEFAULT_CURSOR)
       scenesManager:setScene(clickableArea.to)
     end, 0.5)
+  end
+  -- gestione suono bg
+  if clickableArea.to == "SOUND_BUTTON" then
+    if (soundsManager.isPlayingBgMusic) then
+      soundsManager:stopMusic()
+    else
+      soundsManager:startMusic()
+    end
   end
 end
 
