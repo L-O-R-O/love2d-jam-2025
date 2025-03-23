@@ -409,7 +409,7 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = "Beatrice Wiggly",
+    name = "Barbara Wiggly",
     bestMemory = "Got stuck in a hat shop for three hours because she couldn’t decide on the perfect pair of sunglasses",
     image = nil,
     quote = "Life’s too short to not wear fun sunglasses.",
