@@ -45,6 +45,7 @@ constants.IMAGES_GAME_OK                   = love.graphics.newImage("assets/imag
 constants.IMAGES_GAME_HOVER_OK             = love.graphics.newImage("assets/images/outcome/goodending_hover.png")
 constants.IMAGES_GAME_KO                   = love.graphics.newImage("assets/images/outcome/badending.png")
 constants.IMAGES_GAME_HOVER_KO             = love.graphics.newImage("assets/images/outcome/badending_hover.png")
+constants.IMAGES_PLAYER_COUNT_HUD          = love.graphics.newImage("assets/images/playernumber_icon.png")
 
 
 -- yearbook images
@@ -78,6 +79,11 @@ constants.IMAGES_UI_BACK_HOVER = love.graphics.newImage("assets/images/ui/BACK_H
 constants.SOUNDS_MOUSE_CLICK        = love.audio.newSource("assets/sounds/click.mp3", "static")
 constants.SOUNDS_PAGE_TURN          = love.audio.newSource("assets/sounds/pages.mp3", "static")
 constants.SOUNDS_BACKGROUND_MUSIC   = love.audio.newSource("assets/sounds/theme.mp3", "stream")
+constants.SOUNDS_WRONG_CHOISE       = love.audio.newSource("assets/sounds/wrong_choise.wav", "static")
+constants.SOUNDS_RIGHT_CHOISE       = love.audio.newSource("assets/sounds/right_choise.wav", "static")
+constants.SOUNDS_FAILED             = love.audio.newSource("assets/sounds/failed.wav", "static")
+constants.SOUNDS_SELECTION          = love.audio.newSource("assets/sounds/selection.wav", "static")
+constants.SOUNDS_STARTING_PC        = love.audio.newSource("assets/sounds/starting_game.mp3", "static")
 --constants.SOUNDS_BACKGROUND_AMBIENT = love.audio.newSource("assets/sounds/ambient.mp3", "stream")
 
 -- scenes
@@ -109,6 +115,21 @@ constants.DEFAULT_CURSOR = "default"
 constants.HAND_CURSOR = "hand"
 constants.HAND_CLICKED_CURSOR = "hand_clicked"
 constants.DAYS_IN_MONTH = { --numero di giorni per ogni mese
+  [1] = 28, -- January
+  [2] = 28, -- February
+  [3] = 28, -- March
+  [4] = 28, -- April
+  [5] = 28, -- May
+  [6] = 28, -- June
+  [7] = 28, -- July
+  [8] = 28, -- August
+  [9] = 28, -- September
+  [10] = 28, -- October
+  [11] = 28, -- November
+  [12] = 28, -- December
+}
+
+constants.DAYS_IN_MONTH_ORIGINAL = { --numero di giorni per ogni mese
   [1] = 31, -- January
   [2] = 28, -- February
   [3] = 31, -- March
@@ -446,9 +467,9 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = "Cesare McQuack",
+    name = "Dyd McQuack",
     bestMemory = "Had a duck race with his collection of rubber ducks at the local pond",
-    image = nil,
+    image = love.graphics.newImage("assets/images/devs/DEVS_DYD.png"),
     quote = "The duck that quacks last quacks the loudest.",
     futurePlans = "Plans to open a rubber duck racing league",
     favoriteDnDClass = "Barbarian",
@@ -484,7 +505,7 @@ constants.STUDENTS = {
   {
     name = "Domenico Twizzler",
     bestMemory = "Had ice cream delivered to his house on a snowy day, just because",
-    image = nil,
+    image = love.graphics.newImage("assets/images/devs/DEVS_DYD.png"),
     quote = "There’s no wrong time for ice cream.",
     futurePlans = "Wants to open an ice cream truck business",
     favoriteDnDClass = "Fighter",
@@ -518,10 +539,10 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = "Flora Snickerwhistle",
-    bestMemory = "Had an in-depth conversation with a plant for an entire afternoon",
-    image = nil,
-    quote = "Plants have stories too, if you listen closely.",
+    name = "Evil Sonja",
+    bestMemory = "Recovering the last save on a photoshop project",
+    image = love.graphics.newImage("assets/images/devs/DEVS_SONGIA.png"),
+    quote = "Always keep two fingers on ctrl/s",
     futurePlans = "Wants to start a plant-based wellness business",
     favoriteDnDClass = "Druid",
     inGuild = false,
@@ -637,7 +658,7 @@ constants.STUDENTS = {
   {
     name = "Jasmine Flapdoodle",
     bestMemory = "Once collected postcards from every country in a single summer",
-    image = nil,
+    image = love.graphics.newImage("assets/images/devs/DEVS_DANIELA.png"),
     quote = "Postcards are little pieces of the world.",
     futurePlans = "To open a postcard shop and share her collections",
     favoriteDnDClass = "Sorcerer",
@@ -680,9 +701,9 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = "Mortimer Quackfoot",
+    name = "Theobald Quackfoot",
     bestMemory = "Had a magical experience when he woke up on Christmas morning to find presents from Santa",
-    image = nil,
+    image = love.graphics.newImage("assets/images/devs/DEVS_THEO.png"),
     quote = "Santa’s real, I’ve seen the evidence.",
     futurePlans = "To find the perfect gift for everyone he meets",
     favoriteDnDClass = "Cleric",
@@ -752,9 +773,9 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = "Pietro Limoncello",
+    name = "Haaaxee Limoncello",
     bestMemory = "Made everyone laugh with his perfect duck impression during a family dinner",
-    image = nil,
+    image = love.graphics.newImage("assets/images/devs/DEVS_HAAX.png"),
     quote = "Quack! See? Perfect.",
     futurePlans = "To perfect his duck impression and perform at local comedy clubs",
     favoriteDnDClass = "Bard",
@@ -779,9 +800,9 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = "Renee Marshmellow",
+    name = "Daniele Marshmellow",
     bestMemory = "Found a lucky coin in a wishing well and made a wish that came true the very next day",
-    image = nil,
+    image = love.graphics.newImage("assets/images/devs/DEVS_DANIELE.png"),
     quote = "Sometimes, all you need is a lucky coin.",
     futurePlans = "To collect all the lucky coins in the world",
     favoriteDnDClass = "Sorcerer",
