@@ -70,11 +70,12 @@ function calendar.draw()
 
   local dayOfWeek
   local daysInMonth = constants.DAYS_IN_MONTH[currentMonth]
+  local daysInMonthOriginal = constants.DAYS_IN_MONTH_ORIGINAL[currentMonth]
   local colIndex = 1
   local xOffset, yOffset = 0.309, 0.22
   local yDiagonalOffset = 0
   local previousGroup = 1
-  for day = 1, daysInMonth do
+  for day = 1, daysInMonthOriginal do
     local group = math.ceil(day / 5)
     if group ~= previousGroup then
       yDiagonalOffset = 0
@@ -96,36 +97,52 @@ function calendar.draw()
     local dayOfWeekIndex = ((firstDayOfTheMonth + day - 2) % #daysOfWeek) + 1
     dayOfWeek = daysOfWeek[dayOfWeekIndex]
 
-    -- Stampo nome giorno
-    love.graphics.setColor(0, 0, 0)
-    love.graphics.printf(dayOfWeek, nameArea.x - 0.01, nameArea.y -20, nameArea.width, "center")
-    love.graphics.setColor(1, 1, 1)
+    if day <= daysInMonth then
+      -- Stampo nome giorno
+      love.graphics.setColor(0, 0, 0)
+      love.graphics.printf(dayOfWeek, nameArea.x - 0.01, nameArea.y -20, nameArea.width, "center")
+      love.graphics.setColor(1, 1, 1)
 
-    -- Stampo numero giorno
-    love.graphics.setFont(dayFont)
-    love.graphics.setColor(0, 0, 0)
-    love.graphics.printf(day, nameArea.x, nameArea.y, nameArea.width, "center")
-    love.graphics.setColor(1, 1, 1)
+      -- Stampo numero giorno
+      love.graphics.setFont(dayFont)
+      love.graphics.setColor(0, 0, 0)
+      love.graphics.printf(day, nameArea.x, nameArea.y, nameArea.width, "center")
+      love.graphics.setColor(1, 1, 1)
+    else
+      -- Stampo nome giorno
+      love.graphics.setColor(0.5, 0.5, 0.5)
+      love.graphics.printf(dayOfWeek, nameArea.x - 0.01, nameArea.y -20, nameArea.width, "center")
+      love.graphics.setColor(1, 1, 1)
 
-    -- Controllo se disegnare il cerchio rosso
-    if (redCircle.toDraw == true and redCircle.day == day) then
-      local image = constants.IMAGES_CALENDAR_RED_CIRCLE
-      local sx = nameArea.width / image:getWidth() + 0.1
-      local sy = nameArea.height / image:getHeight() + 0.1
-      local x = nameArea.x + (nameArea.width - image:getWidth() * sx) / 2
-      local y = nameArea.y + (nameArea.height - image:getHeight() * sy) / 2 - 10
-      love.graphics.setColor(1, 1, 1, 1)
-      love.graphics.draw(image, x, y, 0, sx, sy)
+      -- Stampo numero giorno
+      love.graphics.setFont(dayFont)
+      love.graphics.setColor(0.5, 0.5, 0.5)
+      love.graphics.printf(day, nameArea.x, nameArea.y, nameArea.width, "center")
+      love.graphics.setColor(1, 1, 1)
     end
 
-    --print(day .. " " .. dayOfWeek .. " " .. currentMonth)
-    -- Assegno un'area cliccabile al giorno
-    screenManager:setClickableArea(constants.SCENES_CALENDAR, nameArea, constants.SCENES_CALENDAR,
-                        function()
-                          dateClicked(day)
-                        end, {
-                          day = day
-                        })
+    if day <= daysInMonth then
+      -- Controllo se disegnare il cerchio rosso
+      if (redCircle.toDraw == true and redCircle.day == day) then
+        local image = constants.IMAGES_CALENDAR_RED_CIRCLE
+        local sx = nameArea.width / image:getWidth() + 0.1
+        local sy = nameArea.height / image:getHeight() + 0.1
+        local x = nameArea.x + (nameArea.width - image:getWidth() * sx) / 2
+        local y = nameArea.y + (nameArea.height - image:getHeight() * sy) / 2 - 10
+        love.graphics.setColor(1, 1, 1, 1)
+        love.graphics.draw(image, x, y, 0, sx, sy)
+      end
+
+      --print(day .. " " .. dayOfWeek .. " " .. currentMonth)
+      -- Assegno un'area cliccabile al giorno
+      screenManager:setClickableArea(constants.SCENES_CALENDAR, nameArea, constants.SCENES_CALENDAR,
+                          function()
+                            dateClicked(day)
+                          end, {
+                            day = day
+                          })
+    end
+
     colIndex = (colIndex % 5) + 1
     previousGroup = group
   end
