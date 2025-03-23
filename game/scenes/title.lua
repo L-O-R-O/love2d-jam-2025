@@ -28,8 +28,10 @@ function title.update(dt)
 end
 
 function title.draw()
+  love.graphics.draw(constants.IMAGES_DESKTOP_BG)
+  love.graphics.setColor(1,1,1,currentMenu.fadingAlpha)
   screenManager:drawSceneBackground(constants.IMAGES_MENU_BG)
-  screenManager:drawSceneBackground(constants.IMAGES_MENU_BG)
+  love.graphics.setColor(1,1,1,1)
   currentMenu:draw()
 end
 
@@ -54,7 +56,8 @@ function title.buildMenuElements()
   end
   if scenesManager.fromScene == "" then
     mainMenu:addItem("Start Game", function()
-      scenesManager:setScene(constants.SCENES_DESKTOP)
+      currentMenu:startFadingTransition()
+      --scenesManager:setScene(constants.SCENES_DESKTOP)
     end, nil, false, 50)
   else
     mainMenu:addItem("Continue", function()
@@ -102,7 +105,7 @@ function title.buildMenuElements()
   controlsMenu:addItem("C - Calendar", function() end)
   controlsMenu:addItem("F - YearBook", function() end)
   controlsMenu:addItem("G - Activity Calendar", function() end)
-  controlsMenu:addItem("P - Menu", function() end)
+  controlsMenu:addItem("P - Pause Menu", function() end)
 
   -- Creazione del subMenu Credits
   local creditsMenu = Menu:new(constants.FONTS_CREDITS_MENU)
