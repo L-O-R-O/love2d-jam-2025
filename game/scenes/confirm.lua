@@ -58,6 +58,7 @@ function confirm.draw()
   end
   screenManager:drawSceneBackground(bg)
 
+  love.graphics.push()
   love.graphics.translate(love.graphics.getWidth() / 2, love.graphics.getHeight() / 2)
   love.graphics.rotate(math.rad(5))
   love.graphics.translate(-love.graphics.getWidth() / 2, -love.graphics.getHeight() / 2)
@@ -93,8 +94,9 @@ function confirm.draw()
     love.graphics.getWidth() + 140,
     "center"
   )
-
   love.graphics.setColor(1, 1, 1, 1)
+  love.graphics.pop()
+
 end
 
 function confirm.keypressed(key)
