@@ -74,7 +74,7 @@ function desktop.draw()
   screenManager:drawSceneBackground(constants.IMAGES_DESKTOP_BG,desktopHoveredImages)
   screenManager:drawSceneBackground(constants.IMAGES_HOVER_DESKTOP_POSTITS)
 
-  if (soundsManager.isPlayingBgMusic) then
+  if (musicManager.isPlayingBgMusic) then
     love.graphics.draw(constants.IMAGES_SOUND_ON,soundArea.x,soundArea.y,0,1,1)
   else
     love.graphics.draw(constants.IMAGES_SOUND_OFF,soundArea.x,soundArea.y,0,1,1)
