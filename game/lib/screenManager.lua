@@ -41,10 +41,9 @@ function ScreenManager:setClickableArea(from, area, to, handler, data)
   return area
 end
 
-function ScreenManager:drawHearts(hearts)
+function ScreenManager:drawHUD(hearts,nPlayers)
   local imageWidth, imageHeight = 60, 60 -- Dimensions of each image
   local padding = 20 -- Padding between images and from the left side
-
   for i = 1, 3 do
     local x = padding + (i - 1) * (imageWidth + padding)
     local y = padding
@@ -56,6 +55,10 @@ function ScreenManager:drawHearts(hearts)
       love.graphics.draw(constants.IMAGES_HEART_STRIKE, x, y, 0, imageWidth / constants.IMAGES_HEART_STRIKE:getWidth(), imageHeight / constants.IMAGES_HEART_STRIKE:getHeight())
     end
   end
+  imageWidth, imageHeight = 60, 60 -- Dimensions of each image
+  love.graphics.draw(constants.IMAGES_HEART_STRIKE, 1.2*padding, 4.2*padding, 0, imageWidth / constants.IMAGES_HEART_STRIKE:getWidth(), imageHeight / constants.IMAGES_HEART_STRIKE:getHeight())
+  love.graphics.setFont(constants.FONTS_NICE_CHALK_HUD)
+  love.graphics.printf(nPlayers, 5*padding, 4.7*padding, 250, "left")
 end
 
 function ScreenManager:calcAreaSizes(area)

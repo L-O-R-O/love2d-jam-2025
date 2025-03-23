@@ -2,6 +2,7 @@ local constants = {}
 
 -- fonts
 constants.FONTS_NICE_CHALK_AGENDA   = love.graphics.newFont("assets/font/NiceChalk.ttf",35)
+constants.FONTS_NICE_CHALK_HUD      = love.graphics.newFont("assets/font/NiceChalk.ttf",40)
 constants.FONTS_NICE_CHALK_TITLE    = love.graphics.newFont("assets/font/NiceChalk.ttf",32)
 constants.FONTS_NICE_CHALK_YEARBOOK = love.graphics.newFont("assets/font/NiceChalk.ttf",22)
 constants.FONTS_NICE_CHALK_BODY     = love.graphics.newFont("assets/font/NiceChalk.ttf",18)
@@ -30,6 +31,7 @@ constants.IMAGES_AGENDA_BG_STRIKE_1        = love.graphics.newImage("assets/imag
 constants.IMAGES_AGENDA_BG_STRIKE_2        = love.graphics.newImage("assets/images/zoom/zoom_journal3.png")
 constants.IMAGES_HEART                     = love.graphics.newImage("assets/images/LIVES_FULL.png")
 constants.IMAGES_HEART_STRIKE              = love.graphics.newImage("assets/images/LIVES_STRIKE.png")
+--constants.IMAGES_PLAYERS_COUNT             = love.graphics.newImage("assets/images/PLAYERS_COUNT.png")
 constants.IMAGES_MENU_BG                   = love.graphics.newImage("assets/images/menu_start.png")
 constants.IMAGES_MENU_PAUSE_BG             = love.graphics.newImage("assets/images/menu_pause.png")
 constants.IMAGES_CONFIRM_BG                = love.graphics.newImage("assets/images/CONFIRM.png")

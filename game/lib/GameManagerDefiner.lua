@@ -82,7 +82,8 @@ function GameManagerDefiner:generateOrderedStudents()
 end
 
 function GameManagerDefiner:generateOrderedActivities()
-    for _, activity in ipairs(constants.ACTIVITIES) do
+  orderedActivities   = {}
+  for _, activity in ipairs(constants.ACTIVITIES) do
     table.insert(orderedActivities,activity)
   end
   table.sort(orderedActivities, function(a, b)
@@ -179,10 +180,6 @@ function GameManagerDefiner:tryDate(proposedDate)
   if CalendarManager:isFreeDay(self.month, proposedDate) then
     if self.actualCycle >= 10 then
       self.outcomeState = constants.OUTCOMESTATE[3]   --Game Win
-      print("QUA")
-      for i,iPlayer in ipairs(self.guild)do
-        print(i,iPlayer:getName())
-      end
     else
       self.outcomeState = constants.OUTCOMESTATE[1]   --Session Win
     end
