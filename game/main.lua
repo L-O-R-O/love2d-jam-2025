@@ -35,16 +35,6 @@ local confirm      = require("scenes.confirm")
 local unitTest = require("lib.unitTest")
 local gameOver = require("scenes.gameOver")
 
-function loadMousePng(image)
-  local canvas = love.graphics.newCanvas(constants.MOUSE_SIZE, constants.MOUSE_SIZE)
-  love.graphics.setCanvas(canvas)
-  love.graphics.clear()
-  love.graphics.draw(image, 0, 0, 0, constants.MOUSE_SIZE / image:getWidth(), constants.MOUSE_SIZE / image:getHeight())
-  love.graphics.setCanvas()
-  local resizedImageData = canvas:newImageData()
-  return resizedImageData
-end
-
 function love.load()
   -- DEBUG - unitTest
   unitTest:run()
@@ -70,11 +60,11 @@ function love.load()
     handClicked = constants.HAND_CLICKED_CURSOR,
   })
   -- Carico il cursore normale
-  mouse.defaultCursorImage = loadMousePng(constants.IMAGES_CURSOR)
+  mouse.defaultCursorImage = constants.IMAGES_CURSOR
   -- Carico il cursore mano
-  mouse.cursorHandImage = loadMousePng(constants.IMAGES_CURSOR_HAND)
+  mouse.cursorHandImage = constants.IMAGES_CURSOR_HAND
   -- Carico il cursore mano cliccata
-  mouse.cursorHandClickedImage = loadMousePng(constants.IMAGES_CURSOR_HAND_CLICKED)
+  mouse.cursorHandClickedImage = constants.IMAGES_CURSOR_HAND_CLICKED
   mouse.loadCursor(constants.DEFAULT_CURSOR)
 
   love.graphics.setBlendMode("alpha") -- Ensure transparency works
