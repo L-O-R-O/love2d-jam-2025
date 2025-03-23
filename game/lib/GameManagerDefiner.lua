@@ -57,6 +57,8 @@ function GameManagerDefiner:initialize()
     absoluteIndex = absoluteIndex+1
     GameManager:addInGuild(absoluteIndex)
   end
+
+  GameManager:debugCalendar()
 end
 
 function GameManagerDefiner:reset()
@@ -176,6 +178,19 @@ function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna all
   end
 end
 
+function GameManagerDefiner:debugCalendar()
+  print(self.month)
+  for i= 1, #self.guild do
+    print(self.guild[i]:getName())
+    print(self.guild[i]:getActivity():getStrSchedule())
+    self.guild[i]:getActivity():printActivity()
+  end
+  print("Calendar:")
+  CalendarManager:printCalendar()
+
+  print("")
+end
+
 function GameManagerDefiner:tryDate(proposedDate)
   if CalendarManager:isFreeDay(self.month, proposedDate) then
     if self.actualCycle >= 10 then
@@ -207,11 +222,15 @@ function GameManagerDefiner:tryDate(proposedDate)
       self:addInGuild(absoluteIndex)
     end
   end
+
+
+  CalendarManager:alignCalendar()
+  GameManager:debugCalendar()
 end
 
 function GameManagerDefiner:addInGuild(i)
   if(i>constants.GAME_MANAGER_MAX_PLAYABLE)then
-    i=i-10
+    i=i-constants.GAME_MANAGER_MAX_PLAYABLE
   end
   table.insert(self.guild, #self.guild+1, playablePlayer[i])
   if(playablePlayer[i]:getInGuild()==0)then
