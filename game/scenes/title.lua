@@ -57,24 +57,25 @@ function title.buildMenuElements()
   end
   if scenesManager.fromScene == "" then
     mainMenu:addItem("Start Game", function()
+      soundsManager:playMe(constants.SOUNDS_STARTING_PC)
       currentMenu:startFadingTransition()
       --scenesManager:setScene(constants.SCENES_DESKTOP)
-    end, nil, false, 50)
+    end)
   else
     mainMenu:addItem("Continue", function()
       scenesManager:setScene(scenesManager.fromScene)
-    end, nil, false, 50)
+    end)
   end
 
   mainMenu:addItem("Settings", function()
     mainMenu:openSubMenu("settings")
-  end, nil, false, 50)
+  end)
   mainMenu:addItem("Credits", function()
     mainMenu:openSubMenu("credits")
-  end, nil, false, 50)
+  end)
   mainMenu:addItem("Exit", function()
     love.event.quit()
-  end)
+  end, nil, false, 50)
 
   -- Creazione del subMenu settings
   local settingsMenu = Menu:new(constants.FONTS_SUB_MENU)
@@ -95,13 +96,13 @@ function title.buildMenuElements()
   end, function()
     menuManager:increaseVolume()
     settingsMenu.items[1].name = updateVolumeText()
-  end, true, 60)
+  end, true)
 
   -- Creazione del subMenu CONTROLLI
   local controlsMenu = Menu:new(constants.FONTS_SUB_MENU)
   settingsMenu:addItem("Controls", function()
     settingsMenu:openSubMenu("controls")
-  end, nil, false, 50)
+  end, nil, false)
   controlsMenu:addItem("J - Journal", function() end)
   controlsMenu:addItem("C - Calendar", function() end)
   controlsMenu:addItem("F - YearBook", function() end)
@@ -121,13 +122,13 @@ function title.buildMenuElements()
 
   settingsMenu:addItem("Back", function()
     settingsMenu:close()
-  end)
+  end, nil, false, 50)
   controlsMenu:addItem("Back", function()
     controlsMenu:close()
-  end)
+  end, nil, false, 50)
   creditsMenu:addItem("Back", function()
     creditsMenu:close()
-  end)
+  end, nil, false, 50)
 
   -- Collegare i subMenu
   settingsMenu:addSubMenu("controls", controlsMenu)

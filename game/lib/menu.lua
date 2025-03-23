@@ -25,7 +25,7 @@ function Menu:addItem(name, action, action2, isSlider, spacing)
         action = action or nil,
         action2 = action2 or nil,
         isSlider = isSlider or false,  -- Se è uno slider, lo gestiamo in modo diverso
-        spacing = spacing or 30
+        spacing = spacing or 0
     })
 end
 
@@ -51,10 +51,12 @@ function Menu:draw()
     love.graphics.setFont(self.font) -- Imposta il font scelto
 
     local screenWidth = love.graphics.getWidth()
-    local screenHeight = love.graphics.getHeight()
+    local screenHeight = love.graphics.getHeight()-50
     for i, item in ipairs(self.items) do
       local y = (screenHeight / 2 - (#self.items * self.font:getHeight() / 2) + (i - 1) * self.font:getHeight())
       local x = screenWidth / 2 - self.font:getWidth(item.name) / 2 - 70
+      -- 🔥 **AGGIORNAMENTO DI Y IN BASE ALLA SPAZIATURA**
+      y = y + (item.spacing or 30)
       local itemWidth = self.font:getWidth(item.name)
       local itemHeight = self.font:getHeight()
 
@@ -68,7 +70,7 @@ function Menu:draw()
 
       -- Effetto glow verde attorno alla voce selezionata
       if i == self.selectedIndex then
-          love.graphics.setColor(1, 1, 0, 0.1) -- Verde luminoso più trasparente
+          love.graphics.setColor(0.7, 0, 0.3, 0.08)
 
           -- Disegna il testo più volte con un piccolo offset per creare l'effetto bagliore
           local offsets = {-2, -1, 1, 2}
@@ -80,7 +82,7 @@ function Menu:draw()
       end
 
       -- Disegna il testo principale
-      love.graphics.setColor(0, 0, 0, 1) -- Nero
+      love.graphics.setColor(0, 0, 0.3, 1) -- Nero
       love.graphics.print(item.name, x, y)
       love.graphics.setColor(1, 1, 1, 1) -- Bianco
 
@@ -101,16 +103,14 @@ function Menu:draw()
           }
 
           -- Disegna il contorno della barra
-          love.graphics.setColor(0.1, 0.1, 0.1)
+          love.graphics.setColor(0, 0, 0.3, 1)
           love.graphics.rectangle("line", barX, barY, barWidth, barHeight)
 
           -- Disegna la parte riempita
-          love.graphics.setColor(0.1, 0.1, 0.1)
+          love.graphics.setColor(0, 0, 0.3, 1)
           love.graphics.rectangle("fill", barX, barY, fillWidth, barHeight)
       end
 
-      -- 🔥 **AGGIORNAMENTO DI Y IN BASE ALLA SPAZIATURA**
-      y = y + (item.spacing or 30)
   end
 
   -- Overlay per la transizione
