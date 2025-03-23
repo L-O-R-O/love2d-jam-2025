@@ -59,6 +59,10 @@ local function NEXT_PAGE()
   end
 end
 
+local function BACK_TO_DESKTOP()
+  screenManager:setScene(constants.SCENES_DESKTOP)
+end
+
 local function HANDLE_LABEL_CLICK(labelArea)
   if (labelArea.student ~= nil) then
     currentStudent = labelArea.student
@@ -119,9 +123,9 @@ function yearbook.drawPage()
   }
   backArrow = {
     name        = 'BACK_BUTTON',
-    xPerc       = 0.82,
-    yPerc       = 0.52,
-    widthPerc   = 0.06,
+    xPerc       = 0.81,
+    yPerc       = 0.87,
+    widthPerc   = 0.12,
     heightPerc  = 0.1,
     x           = 0,
     y           = 0,
@@ -130,7 +134,7 @@ function yearbook.drawPage()
   }
   screenManager:setClickableArea(constants.SCENES_YEARBOOK, prevArrow, prevArrow.name, PREV_PAGE)
   screenManager:setClickableArea(constants.SCENES_YEARBOOK, nextArrow, nextArrow.name, NEXT_PAGE)
-  screenManager:setClickableArea(constants.SCENES_YEARBOOK, backArrow, backArrow.name, NEXT_PAGE)
+  screenManager:setClickableArea(constants.SCENES_YEARBOOK, backArrow, backArrow.name, BACK_TO_DESKTOP)
 
   -- Definizione tab orizzontali del browser
   browserTabYB = {
@@ -243,7 +247,7 @@ function yearbook.drawPage()
           height = 0,
       }
       table.insert(yearbookLabels, clickableLabel)
-      screenManager:setClickableArea(constants.SCENES_YEARBOOK, clickableLabel, constants.SCENES_YEARBOOK, function()
+      screenManager:setClickableArea(constants.SCENES_YEARBOOK, clickableLabel, clickableLabel.name, function()
         HANDLE_LABEL_CLICK(clickableLabel)
       end, {
         clickableLabel = clickableLabel
@@ -284,29 +288,20 @@ function yearbook.drawRedBoxes()
   end ]]
   --[[ love.graphics.rectangle("line", browserTabYB.x, browserTabYB.y, browserTabYB.width, browserTabYB.height)
   love.graphics.rectangle("line", browserTabCS.x, browserTabCS.y, browserTabCS.width, browserTabCS.height) ]]
-  backArrow = {
-    name        = 'BACK_BUTTON',
-    xPerc       = 0.82,
-    yPerc       = 0.52,
-    widthPerc   = 0.06,
-    heightPerc  = 0.1,
-    x           = 0,
-    y           = 0,
-    width       = 0,
-    height      = 0,
-  }
-  love.graphics.rectangle("line", backArrow.x, backArrow.y, backArrow.width, backArrow.height)
 
+  love.graphics.rectangle("line", backArrow.x, backArrow.y, backArrow.width, backArrow.height)
+  love.graphics.draw(constants.IMAGES_UI_BACK, backArrow.x,backArrow.y,0,0.1,0.1)
   love.graphics.setColor(0, 0, 0) -- Reset color to black
+
 end
 
 function yearbook.draw()
   local alwaysShowArrows = true
   screenManager:drawSceneBackground(background)
   screenManager:drawSceneBackground(constants.IMAGES_YB_ARROWS_NONE,arrowsHoverImgs)
+  yearbook.drawRedBoxes()
   love.graphics.setFont(constants.FONTS_NICE_CHALK)
-  love.graphics.setColor(colorText.r, colorText.g, colorText.b, colorText.a)
-
+  love.graphics.setColor(0.196, 0.31, 0.71, 1)
   local arrowWidth    = screenManager.screenWidth * 0.06
   local arrowHeight   = screenManager.screenHeight * 0.06
   local centerX       = screenManager.screenWidth / 2
@@ -330,6 +325,14 @@ function yearbook.draw()
     local name = selectedNames[i].name
     local y = namesYOffset + (((i - startIdx) % (namesPerPage/2)) * namesYSpacing)
     local x = (i - startIdx) < namesPerPage/2 and (centerX - xLeftStart) or (centerX + xRightStart)
+    -- Stampa il nome dello studente
+    if isHovered then
+      if hoveredArea == 'Box '..(1 +(i - startIdx) % (namesPerPage)) then
+      love.graphics.setColor(0.737, 0.792, 1, 1)
+      else
+        love.graphics.setColor(0.196, 0.31, 0.71, 1)
+      end
+    end
     love.graphics.print(name, x, y, -0.01)
     if (selectedNames[i] ~= nil) then
       if (yearbookLabels[i] ~= nil) then
@@ -342,7 +345,7 @@ function yearbook.draw()
     numberOfLabels = numberOfLabels + 1
   end
   for j = 1, 10 do
-    if (j > numberOfLabels) then
+    if (j > numberOfLabels) and yearbookLabels[j] ~= nil then
       yearbookLabels[j].student = nil
     end
   end

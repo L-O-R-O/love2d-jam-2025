@@ -47,6 +47,7 @@ local browserTabYB   = {}
 local browserTabCS   = {}
 local prevArrow      = {}
 local nextArrow      = {}
+local backArrow      = {}
 local coursesLabels  = {}
 local currentPage    = 1
 local maxViewCourses = 13
@@ -80,6 +81,10 @@ local function NEXT_PAGE()
     currentPage = currentPage + 1
     reDrawAreas = true
   end
+end
+
+local function BACK_TO_DESKTOP()
+  screenManager:setScene(constants.SCENES_DESKTOP)
 end
 
 local function HANDLE_LABEL_CLICK(labelArea)
@@ -146,8 +151,20 @@ function courses.drawPage()
     width       = 0,
     height      = 0,
   }
+  backArrow = {
+    name        = 'BACK_BUTTON',
+    xPerc       = 0.81,
+    yPerc       = 0.87,
+    widthPerc   = 0.12,
+    heightPerc  = 0.1,
+    x           = 0,
+    y           = 0,
+    width       = 0,
+    height      = 0,
+  }
   screenManager:setClickableArea(constants.SCENES_COURSES, prevArrow, prevArrow.name, PREV_PAGE)
   screenManager:setClickableArea(constants.SCENES_COURSES, nextArrow, nextArrow.name, NEXT_PAGE)
+  screenManager:setClickableArea(constants.SCENES_YEARBOOK, backArrow, backArrow.name, BACK_TO_DESKTOP)
   screenManager:setClickableArea(constants.SCENES_COURSES, browserTabYB, browserTabYB.name, function()
     HANDLE_BROWSER_TAB_CLICK(browserTabYB)
   end, {
