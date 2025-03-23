@@ -45,7 +45,7 @@ constants.IMAGES_SESSION_HOVER_KO          = love.graphics.newImage("assets/imag
 constants.IMAGES_GAME_OK                   = love.graphics.newImage("assets/images/outcome/goodending.png")
 constants.IMAGES_GAME_HOVER_OK             = love.graphics.newImage("assets/images/outcome/goodending_hover.png")
 constants.IMAGES_GAME_KO                   = love.graphics.newImage("assets/images/outcome/badending.png")
-constants.IMAGES_GAME_HOVER_KO             = love.graphics.newImage("assets/images/outcome/badending_hover.PNG")
+constants.IMAGES_GAME_HOVER_KO             = love.graphics.newImage("assets/images/outcome/badending_hover.png")
 
 
 -- yearbook images
