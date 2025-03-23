@@ -56,7 +56,7 @@ function ScreenManager:drawHUD(hearts,nPlayers)
     end
   end
   imageWidth, imageHeight = 60, 60 -- Dimensions of each image
-  love.graphics.draw(constants.IMAGES_HEART_STRIKE, 1.2*padding, 4.2*padding, 0, imageWidth / constants.IMAGES_HEART_STRIKE:getWidth(), imageHeight / constants.IMAGES_HEART_STRIKE:getHeight())
+  love.graphics.draw(constants.IMAGES_PLAYER_COUNT_HUD, 1.2*padding, 4.2*padding, 0, imageWidth / constants.IMAGES_PLAYER_COUNT_HUD:getWidth(), imageHeight / constants.IMAGES_PLAYER_COUNT_HUD:getHeight())
   love.graphics.setFont(constants.FONTS_NICE_CHALK_HUD)
   love.graphics.printf(nPlayers, 5*padding, 4.7*padding, 250, "left")
 end
