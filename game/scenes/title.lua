@@ -29,6 +29,7 @@ end
 
 function title.draw()
   screenManager:drawSceneBackground(constants.IMAGES_MENU_BG)
+  screenManager:drawSceneBackground(constants.IMAGES_MENU_BG)
   currentMenu:draw()
 end
 

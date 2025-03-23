@@ -42,10 +42,10 @@ constants.IMAGES_SESSION_OK                = love.graphics.newImage("assets/imag
 constants.IMAGES_SESSION_HOVER_OK          = love.graphics.newImage("assets/images/outcome/proceed_good_hover.png")
 constants.IMAGES_SESSION_KO                = love.graphics.newImage("assets/images/outcome/proceed_bad.png")
 constants.IMAGES_SESSION_HOVER_KO          = love.graphics.newImage("assets/images/outcome/proceed_bad_hover.png")
-constants.IMAGES_GAME_OK                   = love.graphics.newImage("assets/images/outcome/goodending.PNG")
+constants.IMAGES_GAME_OK                   = love.graphics.newImage("assets/images/outcome/goodending.png")
 constants.IMAGES_GAME_HOVER_OK             = love.graphics.newImage("assets/images/outcome/goodending_hover.png")
-constants.IMAGES_GAME_KO                   = love.graphics.newImage("assets/images/outcome/badending.PNG")
-constants.IMAGES_GAME_HOVER_KO             = love.graphics.newImage("assets/images/outcome/badending_hover.PNG")
+constants.IMAGES_GAME_KO                   = love.graphics.newImage("assets/images/outcome/badending.png")
+constants.IMAGES_GAME_HOVER_KO             = love.graphics.newImage("assets/images/outcome/badending_hover.png")
 
 
 -- yearbook images
@@ -273,7 +273,7 @@ constants.STUDENTS = {
   {
     nickname = "Living Dead Girl",
     name = "Zoe Barry",
-    image = "",
+    image = love.graphics.newImage("assets/images/students/CHARACTER_ZOE.png"),
     quote = "Always forgive your enemies; nothing annoys them so much.",
     futurePlans = "Open her own tattoo parlor — a cool one, where the playlist is nothing but industrial metal and sad boy punk.",
     bestMemory = "Winning first prize at the regional art contest. Her painting of a flaming raven was truly one of a kind.",
