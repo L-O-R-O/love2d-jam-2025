@@ -135,6 +135,7 @@ function calendar.draw()
 
       local doesAreaExists = screenManager:checkIfAreaExists(constants.SCENES_CALENDAR, day)
       if (doesAreaExists == false) then
+        print("Creating clickable area for day " .. day)
         screenManager:setClickableArea(constants.SCENES_CALENDAR, nameArea, constants.SCENES_CALENDAR,
                             function()
                               dateClicked(day)
