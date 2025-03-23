@@ -1,52 +1,51 @@
 local constants = {}
 
 -- fonts
-constants.FONTS_NICE_CHALK_AGENDA   = love.graphics.newFont("assets/font/NiceChalk.ttf",35)
-constants.FONTS_NICE_CHALK_HUD      = love.graphics.newFont("assets/font/NiceChalk.ttf",40)
-constants.FONTS_NICE_CHALK_TITLE    = love.graphics.newFont("assets/font/NiceChalk.ttf",32)
-constants.FONTS_NICE_CHALK_YEARBOOK = love.graphics.newFont("assets/font/NiceChalk.ttf",22)
-constants.FONTS_NICE_CHALK_BODY     = love.graphics.newFont("assets/font/NiceChalk.ttf",18)
-constants.FONTS_NICE_CHALK_SMALL    = love.graphics.newFont("assets/font/NiceChalk.ttf",15)
-constants.FONTS_MAIN_MENU           = love.graphics.newFont("assets/font/NiceChalk.ttf", 50)
-constants.FONTS_SUB_MENU            = love.graphics.newFont("assets/font/NiceChalk.ttf", 40)
-constants.FONTS_CREDITS_MENU        = love.graphics.newFont("assets/font/NiceChalk.ttf", 25)
-constants.FONTS_ROBOTO              = love.graphics.newFont("assets/font/Roboto-Black.ttf", 20)
-constants.FONTS_NICE_CHALK          = love.graphics.newFont("assets/font/NiceChalk.ttf", 20)
-constants.FONTS_NICE_CHALK_CONFIRM  = love.graphics.newFont("assets/font/NiceChalk.ttf", 30)
-constants.FONTS_CALENDAR_MONTH      = love.graphics.newFont("assets/font/NiceChalk.ttf", 70)
+constants.FONTS_NICE_CHALK_AGENDA = love.graphics.newFont("assets/font/NiceChalk.ttf", 35)
+constants.FONTS_NICE_CHALK_HUD = love.graphics.newFont("assets/font/NiceChalk.ttf", 40)
+constants.FONTS_NICE_CHALK_TITLE = love.graphics.newFont("assets/font/NiceChalk.ttf", 32)
+constants.FONTS_NICE_CHALK_YEARBOOK = love.graphics.newFont("assets/font/NiceChalk.ttf", 22)
+constants.FONTS_NICE_CHALK_BODY = love.graphics.newFont("assets/font/NiceChalk.ttf", 18)
+constants.FONTS_NICE_CHALK_SMALL = love.graphics.newFont("assets/font/NiceChalk.ttf", 15)
+constants.FONTS_MAIN_MENU = love.graphics.newFont("assets/font/NiceChalk.ttf", 50)
+constants.FONTS_SUB_MENU = love.graphics.newFont("assets/font/NiceChalk.ttf", 40)
+constants.FONTS_CREDITS_MENU = love.graphics.newFont("assets/font/NiceChalk.ttf", 25)
+constants.FONTS_ROBOTO = love.graphics.newFont("assets/font/Roboto-Black.ttf", 20)
+constants.FONTS_NICE_CHALK = love.graphics.newFont("assets/font/NiceChalk.ttf", 20)
+constants.FONTS_NICE_CHALK_CONFIRM = love.graphics.newFont("assets/font/NiceChalk.ttf", 30)
+constants.FONTS_CALENDAR_MONTH = love.graphics.newFont("assets/font/NiceChalk.ttf", 70)
 
 -- images
-constants.IMAGES_HOVER_DESKTOP_COMPUTER    = love.graphics.newImage("assets/images/hover_desktop_pc.png")
-constants.IMAGES_HOVER_DESKTOP_CALENDAR    = love.graphics.newImage("assets/images/hover_desktop_calendario.png")
-constants.IMAGES_HOVER_DESKTOP_AGENDA      = love.graphics.newImage("assets/images/hover_desktop_agenda.png")
-constants.IMAGES_HOVER_DESKTOP_POSTITS     = love.graphics.newImage("assets/images/postit_scritte.png")
-constants.IMAGES_DESKTOP_BG                = love.graphics.newImage("assets/images/desktop.png")
-constants.IMAGES_CALENDAR_BG               = love.graphics.newImage("assets/images/zoom/zoom_calendar.png")
-constants.IMAGES_CURSOR                    = "assets/images/cursor.png"
-constants.IMAGES_CURSOR_HAND_CLICKED       = "assets/images/cursor_hover.png"
-constants.IMAGES_CURSOR_HAND               = "assets/images/cursor_hover.png"
-constants.IMAGES_CALENDAR_RED_CIRCLE       = love.graphics.newImage("assets/images/red_circle.png")
-constants.IMAGES_AGENDA_BG_FULL            = love.graphics.newImage("assets/images/zoom/zoom_journal1.png")
-constants.IMAGES_AGENDA_BG_STRIKE_1        = love.graphics.newImage("assets/images/zoom/zoom_journal2.png")
-constants.IMAGES_AGENDA_BG_STRIKE_2        = love.graphics.newImage("assets/images/zoom/zoom_journal3.png")
-constants.IMAGES_HEART                     = love.graphics.newImage("assets/images/LIVES_FULL.png")
-constants.IMAGES_HEART_STRIKE              = love.graphics.newImage("assets/images/LIVES_STRIKE.png")
+constants.IMAGES_HOVER_DESKTOP_COMPUTER = love.graphics.newImage("assets/images/hover_desktop_pc.png")
+constants.IMAGES_HOVER_DESKTOP_CALENDAR = love.graphics.newImage("assets/images/hover_desktop_calendario.png")
+constants.IMAGES_HOVER_DESKTOP_AGENDA = love.graphics.newImage("assets/images/hover_desktop_agenda.png")
+constants.IMAGES_HOVER_DESKTOP_POSTITS = love.graphics.newImage("assets/images/postit_scritte.png")
+constants.IMAGES_DESKTOP_BG = love.graphics.newImage("assets/images/desktop.png")
+constants.IMAGES_CALENDAR_BG = love.graphics.newImage("assets/images/zoom/zoom_calendar.png")
+constants.IMAGES_CURSOR = "assets/images/cursor.png"
+constants.IMAGES_CURSOR_HAND_CLICKED = "assets/images/cursor_hover.png"
+constants.IMAGES_CURSOR_HAND = "assets/images/cursor_hover.png"
+constants.IMAGES_CALENDAR_RED_CIRCLE = love.graphics.newImage("assets/images/red_circle.png")
+constants.IMAGES_AGENDA_BG_FULL = love.graphics.newImage("assets/images/zoom/zoom_journal1.png")
+constants.IMAGES_AGENDA_BG_STRIKE_1 = love.graphics.newImage("assets/images/zoom/zoom_journal2.png")
+constants.IMAGES_AGENDA_BG_STRIKE_2 = love.graphics.newImage("assets/images/zoom/zoom_journal3.png")
+constants.IMAGES_HEART = love.graphics.newImage("assets/images/LIVES_FULL.png")
+constants.IMAGES_HEART_STRIKE = love.graphics.newImage("assets/images/LIVES_STRIKE.png")
 --constants.IMAGES_PLAYERS_COUNT             = love.graphics.newImage("assets/images/PLAYERS_COUNT.png")
-constants.IMAGES_MENU_BG                   = love.graphics.newImage("assets/images/menu_start.png")
-constants.IMAGES_MENU_PAUSE_BG             = love.graphics.newImage("assets/images/menu_pause.png")
-constants.IMAGES_CONFIRM_BG                = love.graphics.newImage("assets/images/CONFIRM.png")
-constants.IMAGES_CONFIRM_HOVER_NO_BG       = love.graphics.newImage("assets/images/CONFIRM_HOVER_NO.png")
-constants.IMAGES_CONFIRM_HOVER_YES_BG      = love.graphics.newImage("assets/images/CONFIRM_HOVER_YES.png")
-constants.IMAGES_SESSION_OK                = love.graphics.newImage("assets/images/outcome/proceed_good.png")
-constants.IMAGES_SESSION_HOVER_OK          = love.graphics.newImage("assets/images/outcome/proceed_good_hover.png")
-constants.IMAGES_SESSION_KO                = love.graphics.newImage("assets/images/outcome/proceed_bad.png")
-constants.IMAGES_SESSION_HOVER_KO          = love.graphics.newImage("assets/images/outcome/proceed_bad_hover.png")
-constants.IMAGES_GAME_OK                   = love.graphics.newImage("assets/images/outcome/goodending.png")
-constants.IMAGES_GAME_HOVER_OK             = love.graphics.newImage("assets/images/outcome/goodending_hover.png")
-constants.IMAGES_GAME_KO                   = love.graphics.newImage("assets/images/outcome/badending.png")
-constants.IMAGES_GAME_HOVER_KO             = love.graphics.newImage("assets/images/outcome/badending_hover.png")
-constants.IMAGES_PLAYER_COUNT_HUD          = love.graphics.newImage("assets/images/playernumber_icon.png")
-
+constants.IMAGES_MENU_BG = love.graphics.newImage("assets/images/menu_start.png")
+constants.IMAGES_MENU_PAUSE_BG = love.graphics.newImage("assets/images/menu_pause.png")
+constants.IMAGES_CONFIRM_BG = love.graphics.newImage("assets/images/CONFIRM.png")
+constants.IMAGES_CONFIRM_HOVER_NO_BG = love.graphics.newImage("assets/images/CONFIRM_HOVER_NO.png")
+constants.IMAGES_CONFIRM_HOVER_YES_BG = love.graphics.newImage("assets/images/CONFIRM_HOVER_YES.png")
+constants.IMAGES_SESSION_OK = love.graphics.newImage("assets/images/outcome/proceed_good.png")
+constants.IMAGES_SESSION_HOVER_OK = love.graphics.newImage("assets/images/outcome/proceed_good_hover.png")
+constants.IMAGES_SESSION_KO = love.graphics.newImage("assets/images/outcome/proceed_bad.png")
+constants.IMAGES_SESSION_HOVER_KO = love.graphics.newImage("assets/images/outcome/proceed_bad_hover.png")
+constants.IMAGES_GAME_OK = love.graphics.newImage("assets/images/outcome/goodending.png")
+constants.IMAGES_GAME_HOVER_OK = love.graphics.newImage("assets/images/outcome/goodending_hover.png")
+constants.IMAGES_GAME_KO = love.graphics.newImage("assets/images/outcome/badending.png")
+constants.IMAGES_GAME_HOVER_KO = love.graphics.newImage("assets/images/outcome/badending_hover.png")
+constants.IMAGES_PLAYER_COUNT_HUD = love.graphics.newImage("assets/images/playernumber_icon.png")
 
 -- yearbook images
 constants.IMAGES_YB_AC = love.graphics.newImage("assets/images/yearbook/yearbook_ac.png")
@@ -62,28 +61,28 @@ constants.IMAGES_YB_ARROWS_NONE = love.graphics.newImage("assets/images/yearbook
 constants.IMAGES_YB_ARROWS_LEFT = love.graphics.newImage("assets/images/yearbook/yearbook_arrow_left.png")
 constants.IMAGES_YB_ARROWS_RIGHT = love.graphics.newImage("assets/images/yearbook/yearbook_arrow_right.png")
 constants.IMAGES_YB_STUDENT_CARD_BG = love.graphics.newImage("assets/images/yearbook/yearbook_studentcard.png")
-constants.IMAGES_SOUND_ON  = love.graphics.newImage("assets/images/ui/sound_on.png")
+constants.IMAGES_SOUND_ON = love.graphics.newImage("assets/images/ui/sound_on.png")
 constants.IMAGES_SOUND_OFF = love.graphics.newImage("assets/images/ui/sound_off.png")
 
 -- courses/activities images
-constants.IMAGES_CS_BG               = love.graphics.newImage("assets/images/activities/activities.png")
-constants.IMAGES_CS_ARROWS_NONE      = love.graphics.newImage("assets/images/activities/activities_arrow_none.png")
-constants.IMAGES_CS_ARROWS_LEFT      = love.graphics.newImage("assets/images/activities/activities_arrow_left.png")
-constants.IMAGES_CS_ARROWS_RIGHT     = love.graphics.newImage("assets/images/activities/activities_arrow_right.png")
+constants.IMAGES_CS_BG = love.graphics.newImage("assets/images/activities/activities.png")
+constants.IMAGES_CS_ARROWS_NONE = love.graphics.newImage("assets/images/activities/activities_arrow_none.png")
+constants.IMAGES_CS_ARROWS_LEFT = love.graphics.newImage("assets/images/activities/activities_arrow_left.png")
+constants.IMAGES_CS_ARROWS_RIGHT = love.graphics.newImage("assets/images/activities/activities_arrow_right.png")
 constants.IMAGES_CS_ACTIVITY_CARD_BG = love.graphics.newImage("assets/images/activities/activities_info.png")
 
 -- general ui images
-constants.IMAGES_UI_BACK       = love.graphics.newImage("assets/images/ui/BACK.png")
+constants.IMAGES_UI_BACK = love.graphics.newImage("assets/images/ui/BACK.png")
 constants.IMAGES_UI_BACK_HOVER = love.graphics.newImage("assets/images/ui/BACK_HOVER.png")
 -- sounds
-constants.SOUNDS_MOUSE_CLICK        = love.audio.newSource("assets/sounds/click.mp3", "static")
-constants.SOUNDS_PAGE_TURN          = love.audio.newSource("assets/sounds/pages.mp3", "static")
-constants.SOUNDS_BACKGROUND_MUSIC   = love.audio.newSource("assets/sounds/theme.mp3", "stream")
-constants.SOUNDS_WRONG_CHOISE       = love.audio.newSource("assets/sounds/wrong_choise.wav", "static")
-constants.SOUNDS_RIGHT_CHOISE       = love.audio.newSource("assets/sounds/right_choise.wav", "static")
-constants.SOUNDS_FAILED             = love.audio.newSource("assets/sounds/failed.wav", "static")
-constants.SOUNDS_SELECTION          = love.audio.newSource("assets/sounds/selection.wav", "static")
-constants.SOUNDS_STARTING_PC        = love.audio.newSource("assets/sounds/starting_game.mp3", "static")
+constants.SOUNDS_MOUSE_CLICK = love.audio.newSource("assets/sounds/click.mp3", "static")
+constants.SOUNDS_PAGE_TURN = love.audio.newSource("assets/sounds/pages.mp3", "static")
+constants.SOUNDS_BACKGROUND_MUSIC = love.audio.newSource("assets/sounds/theme.mp3", "stream")
+constants.SOUNDS_WRONG_CHOISE = love.audio.newSource("assets/sounds/wrong_choise.wav", "static")
+constants.SOUNDS_RIGHT_CHOISE = love.audio.newSource("assets/sounds/right_choise.wav", "static")
+constants.SOUNDS_FAILED = love.audio.newSource("assets/sounds/failed.wav", "static")
+constants.SOUNDS_SELECTION = love.audio.newSource("assets/sounds/selection.wav", "static")
+constants.SOUNDS_STARTING_PC = love.audio.newSource("assets/sounds/starting_game.mp3", "static")
 constants.SOUNDS_BACKGROUND_AMBIENT = love.audio.newSource("assets/sounds/ambient.mp3", "stream")
 
 -- scenes
@@ -95,8 +94,8 @@ constants.SCENES_COURSES = "courses"
 constants.SCENES_AGENDA = "agenda"
 constants.SCENES_TITLE = "title"
 constants.SCENES_YEARBOOK = "yearBook"
-constants.SCENES_YEARBOOK_STUDENT_CARD  = "yearBookStudentCard"
-constants.SCENES_COURSES_ACTIVITY_CARD  = "coursesActivityCard"
+constants.SCENES_YEARBOOK_STUDENT_CARD = "yearBookStudentCard"
+constants.SCENES_COURSES_ACTIVITY_CARD = "coursesActivityCard"
 constants.SCENES_CONFIRM = "confirm"
 constants.SCENES_OUTCOME = "outcome"
 constants.SCENES_OUTCOME = "outcome"
@@ -170,87 +169,306 @@ constants.WEEK_DAYS = {
 }
 
 constants.OUTCOMESTATE = {
-  'Session Win',
-  'Session KO',
-  'Game Win',
-  'Game KO'
+  "Session Win",
+  "Session KO",
+  "Game Win",
+  "Game KO",
 }
 
 constants.ACTIVITIES = {
-  {name = "Botanic Battle Royale",       description = "Participants create mini botanical gardens in small containers. The most original or aesthetically pleasing ecosystem wins."},
-  {name = "Deep Dive Movie Quiz",        description = "A cinematic quiz inspired by the iceberg theory, where participants earn points by uncovering hidden details in films."},
-  {name = "Boxing Beatdown Relay",       description = "A team competition combining boxing sessions on punching bags with cheerleading choreography to celebrate each round won."},
-  {name = "Cross-Stitch & Mosh Pit",     description = "A unique event where participants cross-stitch to heavy metal music. The most punk and detailed creations win!"},
-  {name = "Taxidermy Tales Theater",     description = "Participants use taxidermy animals (or plushies for a lighter approach) to perform improvised theatrical plays."},
-  {name = "Custom Tee Skate Showdown",   description = "Participants design and print custom t-shirts, then show them off during a mini skateboarding contest."},
-  {name = "Chessfold Championship",      description = "A tournament alternating between chess matches and creative origami challenges, where winning pieces are folded into art."},
-  {name = "Home Fix Olympics",           description = "A competition featuring challenges like sewing buttons, fixing broken items, or assembling shelves in record time."},
-  {name = "Rugby Rodeo",                 description = "A mix of rugby and physical skill games, including obstacle courses and endurance challenges with rugby balls."},
-  {name = "Flex & Freeze Dance-Off",     description = "A competition combining flexing poses with dance moves, rewarding smooth transitions between strength and rhythm."},
-  {name = "Graffiti Gauntlet",           description = "Participants navigate an obstacle course while creating a collaborative graffiti mural along the way."},
-  {name = "Blindfolded Bake-Off",        description = "Teams must bake a dessert while blindfolded, guided only by verbal instructions from their partners."},
-  {name = "Echo Chamber Karaoke",        description = "A singing contest where performers wear noise-canceling headphones and can’t hear their own voices."},
-  {name = "DIY Cosplay Combat",          description = "Participants create quick cosplay outfits from random materials and then compete in themed duels."},
-  {name = "Synchronized Scooter Ballet", description = "A team event blending scooter tricks with synchronized choreography for the most artistic performance."},
-  {name = "Speedrun Scrap Sculptures",   description = "Teams build sculptures using only scrap materials within a limited time. The most creative structure wins."},
-  {name = "Horror Haiku Slam",           description = "A poetry contest where participants craft and perform eerie haikus in a dramatic setting."},
-  {name = "Gravity-Defying Jenga",       description = "A Jenga challenge on moving platforms, requiring balance and precision to avoid toppling the tower."},
-  {name = "Parkour Paint Tag",           description = "A game of tag where participants leave colorful paint marks on obstacles as they traverse a parkour course."},
-  {name = "Reverse Engineering Riddle",  description = "Teams receive a finished product and must deduce its original assembly process to reconstruct it correctly."},
-  {name = "Battle of the Bubble Wrap",   description = "Contestants wear bubble wrap armor and engage in playful duels to see who can stay unpopped the longest."},
-  {name = "Acapella Air Guitar Showdown",description = "A competition where participants perform epic air guitar solos accompanied only by their own vocal sound effects."},
-  {name = "Subway Sketch-Off",           description = "Artists must quickly sketch strangers on public transport without being noticed."},
-  {name = "Steampunk Soapbox Speeches",  description = "Participants deliver impassioned speeches on wild, fictional topics while dressed in full steampunk attire."},
-  {name = "Lava Floor Dodgeball",        description = "A dodgeball game where players must avoid the ball while staying on elevated platforms, pretending the floor is lava."},
-  {name = "Silent Rave Capture the Flag",description = "A capture-the-flag game played at a silent disco, where teams communicate only through dance moves."},
-  {name = "Tattoo Tarot",                description = "Participants design temporary tattoos inspired by randomly drawn tarot cards."},
-  {name = "Neon Ninja Obstacle Course",  description = "A night-time obstacle course where players navigate glowing challenges while dressed in blacklight-reactive gear."},
-  {name = "Shakespearean Rap Battle",    description = "A rap battle where lyrics must be in Shakespearean language and delivered in iambic pentameter."},
-  {name = "Spaghetti Suspension Bridge", description = "Teams construct bridges out of spaghetti and test their strength by placing weights on them."},
-  {name = "Extreme Origami Fencing",     description = "Contestants must fold paper into swords and duel until their opponent’s weapon crumbles."},
-  {name = "Quantum Charades",            description = "A game of charades where every action must have two possible meanings at once, forcing creative guesses."},
-  {name = "Beatboxing Bee",              description = "A spelling bee where contestants must beatbox their way through the pronunciation of difficult words."},
-  {name = "Escape Room Speedrun",        description = "Teams attempt to break out of an escape room in record time with minimal clues."},
-  {name = "Reverse Pictionary",          description = "Artists blindly draw a picture based only on their partner’s reaction to each stroke."},
-  {name = "Marathon Monopoly",           description = "A Monopoly tournament where each roll of the dice requires completing a physical endurance challenge."},
-  {name = "Tech-Free Treasure Hunt",     description = "A scavenger hunt where participants must navigate using only analog tools like paper maps and compasses."},
-  {name = "Synchronized Slacklining",    description = "Teams perform synchronized routines on slacklines, blending balance with acrobatics."},
-  {name = "Cyberpunk Costume Dash",      description = "Contestants create cyberpunk outfits from thrifted or found materials in under an hour."},
-  {name = "Firefly Glowstick Chase",     description = "A night game where players act as 'fireflies,' using glowsticks to lead their team through a darkened course."},
-  {name = "No-Handed Pottery Duel",      description = "A pottery-making challenge where participants must sculpt using only their elbows or feet."},
-  {name = "Time Traveler’s Debate",      description = "A debate game where each participant argues from the perspective of a different historical or futuristic era."},
-  {name = "Viking Feast Mystery Cookoff",description = "A cooking competition where teams must prepare a dish using only ingredients available in Viking times."},
-  {name = "Bubble Tea Pong",             description = "A twist on beer pong where cups are filled with bubble tea, and players must drink the boba before shooting again."},
-  {name = "Giant Shadow Puppetry",       description = "Teams use oversized cutouts and projectors to create elaborate shadow puppet performances."},
-  {name = "Cardboard Combat League",     description = "Participants craft weapons and armor from cardboard and engage in strategic duels."},
-  {name = "Retro Arcade Remix",          description = "A competition where players must beat classic arcade games using unconventional controllers."},
-  {name = "Silent Library Stunt Show",   description = "A challenge where contestants must perform extreme stunts or hilarious dares without making a sound in a real library."},
-  {name = "Underwater Charades",         description = "A classic game of charades, but played entirely underwater for an extra challenge."},
-  {name = "Shadowboxing Storytime",      description = "Participants narrate a story while performing a shadowboxing routine. The best combination of storytelling and movement wins!"},
-  {name = "Invisible Maze Relay",        description = "Players must navigate an invisible maze relying only on verbal instructions from their team."},
-  {name = "Flash Mob Freeze Tag",        description = "A game of tag where players must freeze in dramatic poses when touched."},
-  {name = "Origami Speed Challenge",     description = "Contestants race to fold as many perfect origami figures as possible within a time limit."},
-  {name = "Backwards Olympics",          description = "A series of sports challenges that must be performed entirely in reverse."},
-  {name = "Duct Tape Fashion Show",      description = "A fashion contest where outfits are made exclusively from duct tape."},
-  {name = "Bubble Wrap Ballet",          description = "A dance performance where participants must move elegantly without popping bubble wrap on the floor."},
-  {name = "Lightning Round LARP",        description = "A live-action role-playing game where the scenario changes every five minutes."},
-  {name = "One-Handed Puzzle Race",      description = "A puzzle-solving race where players can only use one hand."},
-  {name = "Mirror Dance Battle",         description = "A dance-off where pairs must mimic each other’s moves like a mirror."},
-  {name = "Glow-in-the-Dark Capture the Flag", description = "A nighttime version of capture the flag with glowing flags and markers."},
-  {name = "Cardboard Box Grand Prix",    description = "A race where participants must build and ride vehicles made entirely from cardboard."},
-  {name = "Improv Sci-Fi Dub",           description = "Players must live-dub silent scenes from old sci-fi films with improvised dialogue."},
-  {name = "Giant Puzzle Heist",          description = "Teams race to retrieve scattered puzzle pieces and complete the puzzle first."},
-  {name = "Musical Chairs Obstacle Course", description = "A chaotic version of musical chairs with obstacles between each seat."},
-  {name = "Speedrun Stop Motion",        description = "Teams must create a stop-motion animation in the shortest possible time."},
-  {name = "Alien Language Spelling Bee", description = "A spelling bee where contestants must spell words in invented alien languages."},
-  {name = "Emoji Pictionary",            description = "A Pictionary game where words are replaced with emoji sequences."},
-  {name = "Jellybean Architecture",      description = "Contestants construct creative structures using only jellybeans and toothpicks."},
-  {name = "Silent Movie Lip Sync",       description = "Players must lip-sync and act out silent movie scenes with exaggerated gestures."},
-  {name = "Theatrical Rock-Paper-Scissors", description = "A dramatic take on rock-paper-scissors where each move is performed as a theatrical act."},
-  {name = "Zero Gravity Yoga",           description = "A yoga challenge where participants must move as if in zero gravity."},
-  {name = "Wind Tunnel Dodgeball",       description = "Dodgeball played in an area with strong fans that alter the ball’s trajectory."},
-  {name = "Haunted Puppet Show",         description = "Teams create eerie puppet shows with improvised horror stories."},
-  {name = "Giant Chess Parkour",         description = "A game of giant chess where players must complete parkour challenges to move pieces."}
+  {
+    name = "Botanic Battle Royale",
+    description = "Participants create mini botanical gardens in small containers. The most original or aesthetically pleasing ecosystem wins.",
+  },
+  {
+    name = "Deep Dive Movie Quiz",
+    description = "A cinematic quiz inspired by the iceberg theory, where participants earn points by uncovering hidden details in films.",
+  },
+  {
+    name = "Boxing Beatdown Relay",
+    description = "A team competition combining boxing sessions on punching bags with cheerleading choreography to celebrate each round won.",
+  },
+  {
+    name = "Cross-Stitch & Mosh Pit",
+    description = "A unique event where participants cross-stitch to heavy metal music. The most punk and detailed creations win!",
+  },
+  {
+    name = "Taxidermy Tales Theater",
+    description = "Participants use taxidermy animals (or plushies for a lighter approach) to perform improvised theatrical plays.",
+  },
+  {
+    name = "Custom Tee Skate Showdown",
+    description = "Participants design and print custom t-shirts, then show them off during a mini skateboarding contest.",
+  },
+  {
+    name = "Chessfold Championship",
+    description = "A tournament alternating between chess matches and creative origami challenges, where winning pieces are folded into art.",
+  },
+  {
+    name = "Home Fix Olympics",
+    description = "A competition featuring challenges like sewing buttons, fixing broken items, or assembling shelves in record time.",
+  },
+  {
+    name = "Rugby Rodeo",
+    description = "A mix of rugby and physical skill games, including obstacle courses and endurance challenges with rugby balls.",
+  },
+  {
+    name = "Flex & Freeze Dance-Off",
+    description = "A competition combining flexing poses with dance moves, rewarding smooth transitions between strength and rhythm.",
+  },
+  {
+    name = "Graffiti Gauntlet",
+    description = "Participants navigate an obstacle course while creating a collaborative graffiti mural along the way.",
+  },
+  {
+    name = "Blindfolded Bake-Off",
+    description = "Teams must bake a dessert while blindfolded, guided only by verbal instructions from their partners.",
+  },
+  {
+    name = "Echo Chamber Karaoke",
+    description = "A singing contest where performers wear noise-canceling headphones and can’t hear their own voices.",
+  },
+  {
+    name = "DIY Cosplay Combat",
+    description = "Participants create quick cosplay outfits from random materials and then compete in themed duels.",
+  },
+  {
+    name = "Synchronized Scooter Ballet",
+    description = "A team event blending scooter tricks with synchronized choreography for the most artistic performance.",
+  },
+  {
+    name = "Speedrun Scrap Sculptures",
+    description = "Teams build sculptures using only scrap materials within a limited time. The most creative structure wins.",
+  },
+  {
+    name = "Horror Haiku Slam",
+    description = "A poetry contest where participants craft and perform eerie haikus in a dramatic setting.",
+  },
+  {
+    name = "Gravity-Defying Jenga",
+    description = "A Jenga challenge on moving platforms, requiring balance and precision to avoid toppling the tower.",
+  },
+  {
+    name = "Parkour Paint Tag",
+    description = "A game of tag where participants leave colorful paint marks on obstacles as they traverse a parkour course.",
+  },
+  {
+    name = "Reverse Engineering Riddle",
+    description = "Teams receive a finished product and must deduce its original assembly process to reconstruct it correctly.",
+  },
+  {
+    name = "Battle of the Bubble Wrap",
+    description = "Contestants wear bubble wrap armor and engage in playful duels to see who can stay unpopped the longest.",
+  },
+  {
+    name = "Acapella Air Guitar Showdown",
+    description = "A competition where participants perform epic air guitar solos accompanied only by their own vocal sound effects.",
+  },
+  {
+    name = "Subway Sketch-Off",
+    description = "Artists must quickly sketch strangers on public transport without being noticed.",
+  },
+  {
+    name = "Steampunk Soapbox Speeches",
+    description = "Participants deliver impassioned speeches on wild, fictional topics while dressed in full steampunk attire.",
+  },
+  {
+    name = "Lava Floor Dodgeball",
+    description = "A dodgeball game where players must avoid the ball while staying on elevated platforms, pretending the floor is lava.",
+  },
+  {
+    name = "Silent Rave Capture the Flag",
+    description = "A capture-the-flag game played at a silent disco, where teams communicate only through dance moves.",
+  },
+  {
+    name = "Tattoo Tarot",
+    description = "Participants design temporary tattoos inspired by randomly drawn tarot cards.",
+  },
+  {
+    name = "Neon Ninja Obstacle Course",
+    description = "A night-time obstacle course where players navigate glowing challenges while dressed in blacklight-reactive gear.",
+  },
+  {
+    name = "Shakespearean Rap Battle",
+    description = "A rap battle where lyrics must be in Shakespearean language and delivered in iambic pentameter.",
+  },
+  {
+    name = "Spaghetti Suspension Bridge",
+    description = "Teams construct bridges out of spaghetti and test their strength by placing weights on them.",
+  },
+  {
+    name = "Extreme Origami Fencing",
+    description = "Contestants must fold paper into swords and duel until their opponent’s weapon crumbles.",
+  },
+  {
+    name = "Quantum Charades",
+    description = "A game of charades where every action must have two possible meanings at once, forcing creative guesses.",
+  },
+  {
+    name = "Beatboxing Bee",
+    description = "A spelling bee where contestants must beatbox their way through the pronunciation of difficult words.",
+  },
+  {
+    name = "Escape Room Speedrun",
+    description = "Teams attempt to break out of an escape room in record time with minimal clues.",
+  },
+  {
+    name = "Reverse Pictionary",
+    description = "Artists blindly draw a picture based only on their partner’s reaction to each stroke.",
+  },
+  {
+    name = "Marathon Monopoly",
+    description = "A Monopoly tournament where each roll of the dice requires completing a physical endurance challenge.",
+  },
+  {
+    name = "Tech-Free Treasure Hunt",
+    description = "A scavenger hunt where participants must navigate using only analog tools like paper maps and compasses.",
+  },
+  {
+    name = "Synchronized Slacklining",
+    description = "Teams perform synchronized routines on slacklines, blending balance with acrobatics.",
+  },
+  {
+    name = "Cyberpunk Costume Dash",
+    description = "Contestants create cyberpunk outfits from thrifted or found materials in under an hour.",
+  },
+  {
+    name = "Firefly Glowstick Chase",
+    description = "A night game where players act as 'fireflies,' using glowsticks to lead their team through a darkened course.",
+  },
+  {
+    name = "No-Handed Pottery Duel",
+    description = "A pottery-making challenge where participants must sculpt using only their elbows or feet.",
+  },
+  {
+    name = "Time Traveler’s Debate",
+    description = "A debate game where each participant argues from the perspective of a different historical or futuristic era.",
+  },
+  {
+    name = "Viking Feast Mystery Cookoff",
+    description = "A cooking competition where teams must prepare a dish using only ingredients available in Viking times.",
+  },
+  {
+    name = "Bubble Tea Pong",
+    description = "A twist on beer pong where cups are filled with bubble tea, and players must drink the boba before shooting again.",
+  },
+  {
+    name = "Giant Shadow Puppetry",
+    description = "Teams use oversized cutouts and projectors to create elaborate shadow puppet performances.",
+  },
+  {
+    name = "Cardboard Combat League",
+    description = "Participants craft weapons and armor from cardboard and engage in strategic duels.",
+  },
+  {
+    name = "Retro Arcade Remix",
+    description = "A competition where players must beat classic arcade games using unconventional controllers.",
+  },
+  {
+    name = "Silent Library Stunt Show",
+    description = "A challenge where contestants must perform extreme stunts or hilarious dares without making a sound in a real library.",
+  },
+  {
+    name = "Underwater Charades",
+    description = "A classic game of charades, but played entirely underwater for an extra challenge.",
+  },
+  {
+    name = "Shadowboxing Storytime",
+    description = "Participants narrate a story while performing a shadowboxing routine. The best combination of storytelling and movement wins!",
+  },
+  {
+    name = "Invisible Maze Relay",
+    description = "Players must navigate an invisible maze relying only on verbal instructions from their team.",
+  },
+  {
+    name = "Flash Mob Freeze Tag",
+    description = "A game of tag where players must freeze in dramatic poses when touched.",
+  },
+  {
+    name = "Origami Speed Challenge",
+    description = "Contestants race to fold as many perfect origami figures as possible within a time limit.",
+  },
+  {
+    name = "Backwards Olympics",
+    description = "A series of sports challenges that must be performed entirely in reverse.",
+  },
+  {
+    name = "Duct Tape Fashion Show",
+    description = "A fashion contest where outfits are made exclusively from duct tape.",
+  },
+  {
+    name = "Bubble Wrap Ballet",
+    description = "A dance performance where participants must move elegantly without popping bubble wrap on the floor.",
+  },
+  {
+    name = "Lightning Round LARP",
+    description = "A live-action role-playing game where the scenario changes every five minutes.",
+  },
+  { name = "One-Handed Puzzle Race", description = "A puzzle-solving race where players can only use one hand." },
+  {
+    name = "Mirror Dance Battle",
+    description = "A dance-off where pairs must mimic each other’s moves like a mirror.",
+  },
+  {
+    name = "Glow-in-the-Dark Capture the Flag",
+    description = "A nighttime version of capture the flag with glowing flags and markers.",
+  },
+  {
+    name = "Cardboard Box Grand Prix",
+    description = "A race where participants must build and ride vehicles made entirely from cardboard.",
+  },
+  {
+    name = "Improv Sci-Fi Dub",
+    description = "Players must live-dub silent scenes from old sci-fi films with improvised dialogue.",
+  },
+  {
+    name = "Giant Puzzle Heist",
+    description = "Teams race to retrieve scattered puzzle pieces and complete the puzzle first.",
+  },
+  {
+    name = "Musical Chairs Obstacle Course",
+    description = "A chaotic version of musical chairs with obstacles between each seat.",
+  },
+  {
+    name = "Speedrun Stop Motion",
+    description = "Teams must create a stop-motion animation in the shortest possible time.",
+  },
+  {
+    name = "Alien Language Spelling Bee",
+    description = "A spelling bee where contestants must spell words in invented alien languages.",
+  },
+  {
+    name = "Emoji Pictionary",
+    description = "A Pictionary game where words are replaced with emoji sequences.",
+  },
+  {
+    name = "Jellybean Architecture",
+    description = "Contestants construct creative structures using only jellybeans and toothpicks.",
+  },
+  {
+    name = "Silent Movie Lip Sync",
+    description = "Players must lip-sync and act out silent movie scenes with exaggerated gestures.",
+  },
+  {
+    name = "Theatrical Rock-Paper-Scissors",
+    description = "A dramatic take on rock-paper-scissors where each move is performed as a theatrical act.",
+  },
+  {
+    name = "Zero Gravity Yoga",
+    description = "A yoga challenge where participants must move as if in zero gravity.",
+  },
+  {
+    name = "Wind Tunnel Dodgeball",
+    description = "Dodgeball played in an area with strong fans that alter the ball’s trajectory.",
+  },
+  {
+    name = "Haunted Puppet Show",
+    description = "Teams create eerie puppet shows with improvised horror stories.",
+  },
+  {
+    name = "Giant Chess Parkour",
+    description = "A game of giant chess where players must complete parkour challenges to move pieces.",
+  },
 }
 
 constants.STUDENTS = {
@@ -410,7 +628,7 @@ constants.STUDENTS = {
     quote = "Bom, sha-sha ka-kà!",
     futurePlans = "Being a coreographer for many performers.",
     favoriteDnDClass = "Rogue - he's all for acrobatics",
-    inGuild = false
+    inGuild = false,
   },
   {
     name = "Anna Von Sprinkles",
@@ -584,12 +802,12 @@ constants.STUDENTS = {
     inGuild = false,
   },
   {
-    name = "Giorgio Snickerdoodle",
-    bestMemory = "Invented a hilarious conspiracy theory about talking squirrels",
-    image = nil,
-    quote = "The truth is out there... in the bushes.",
-    futurePlans = "Wants to write a comedic book on conspiracy theories",
-    favoriteDnDClass = "Rogue",
+    name = "Daniela Snickerdoodle",
+    bestMemory = "Having a surprise birthday party with parmigiana instead of cake",
+    image = love.graphics.newImage("assets/images/devs/DEVS_DANIELA.png"),
+    quote = "Sometimes magic is just someone spending more time on something than anyone else might reasonably expect.",
+    futurePlans = "Wants to ride a giant cat mount into battle",
+    favoriteDnDClass = "Sorcerer",
     inGuild = false,
   },
   {
@@ -933,9 +1151,8 @@ constants.STUDENTS = {
     futurePlans = "To become a public speaker who embraces the unexpected",
     favoriteDnDClass = "Sorcerer",
     inGuild = false,
-  }
+  },
 }
-
 
 function constants.setFont(font, size)
   return love.graphics.setFont(love.graphics.newFont("assets/font/" .. font .. ".ttf", size))
