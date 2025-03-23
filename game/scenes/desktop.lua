@@ -46,7 +46,7 @@ function desktop.load()
   }
   soundArea = {
     name        = "SOUND_BUTTON",
-    xPerc       = 0.006,
+    xPerc       = 0.016,
     yPerc       = 0.935,
     widthPerc   = 0.03,
     heightPerc  = 0.05,
@@ -57,7 +57,7 @@ function desktop.load()
   }
   helpButtonArea = {
     name        = "HELP_BUTTON",
-    xPerc       = 0.042,
+    xPerc       = 0.046,
     yPerc       = 0.935,
     widthPerc   = 0.03,
     heightPerc  = 0.05,
@@ -87,11 +87,11 @@ function desktop.draw()
   screenManager:drawSceneBackground(constants.IMAGES_HOVER_DESKTOP_POSTITS)
 
   --love.graphics.rectangle("line",helpButtonArea.x,helpButtonArea.y,helpButtonArea.width,helpButtonArea.height)
-  love.graphics.draw(constants.IMAGES_HELP,helpButtonArea.x,helpButtonArea.y,0,1,1)
+  love.graphics.draw(constants.IMAGES_HELP,helpButtonArea.x,helpButtonArea.y,0,0.25,0.25)
   if (musicManager.isPlayingBgMusic) then
-    love.graphics.draw(constants.IMAGES_SOUND_ON,soundArea.x,soundArea.y,0,1,1)
+    love.graphics.draw(constants.IMAGES_SOUND_ON,soundArea.x,soundArea.y,0,0.25,0.25)
   else
-    love.graphics.draw(constants.IMAGES_SOUND_OFF,soundArea.x,soundArea.y,0,1,1)
+    love.graphics.draw(constants.IMAGES_SOUND_OFF,soundArea.x,soundArea.y,0,0.25,0.25)
   end
 end
 
