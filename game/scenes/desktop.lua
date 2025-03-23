@@ -74,7 +74,7 @@ function desktop.draw()
     height      = 0,
   }
   soundArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, soundArea, soundArea.name)
-  if (soundsManager.isPlayingBgMusic) then
+  if (musicManager.isPlayingBgMusic) then
     love.graphics.draw(constants.IMAGES_SOUND_ON,soundArea.x,soundArea.y,0,1,1)
   else
     love.graphics.draw(constants.IMAGES_SOUND_OFF,soundArea.x,soundArea.y,0,1,1)
