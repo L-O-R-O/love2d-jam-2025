@@ -30,6 +30,7 @@ function GameManagerDefiner:new()
     consecutiveWins = 0,
     outcomeState    = 0,
   }
+  CalendarManager = CalendarManager:new(getMonthFromOS())
 
   setmetatable(obj, GameManagerDefiner)
   return obj
@@ -38,9 +39,8 @@ end
 function GameManagerDefiner:initialize()
   math.randomseed(os.time())                    -- Imposta il seed per rendere i numeri casuali più imprevedibili
   local index = math.random(1, constants.GAME_MANAGER_MAX_PLAYABLE)  -- Numero tra 1 e 7
-
+  CalendarManager:reset()
   -- Setup variabili globali --
-  CalendarManager = CalendarManager:new(GameManager.month)
   GameManager:fillGlobalTables()
   GameManager:generateFittableActivities(index)
   GameManager:generateOrderedStuedent()
@@ -53,6 +53,15 @@ function GameManagerDefiner:initialize()
   else
     GameManager:addInGuild(index+1)
   end
+end
+
+function GameManagerDefiner:reset()
+  self.hearts           = constants.MAX_HEARTS
+  self.guild            = {}
+  self.actualCycle      = 1 --0 se non in partita, poi da 1 a 10
+  self.month            = getMonthFromOS()
+
+  GameManager:initialize()
 end
 
 function GameManagerDefiner:generateOrderedStuedent()
@@ -162,7 +171,7 @@ function GameManagerDefiner:tryDate(proposedDate)
     end
   end
 
-  if self.outcomeState ==  constants.OUTCOMESTATE[1] or self.outcomeState ==  constants.OUTCOMESTATE[3] then
+  if self.outcomeState ==  constants.OUTCOMESTATE[1] or self.outcomeState ==  constants.OUTCOMESTATE[2] then
     self.actualCycle = self.actualCycle +1
     if self.month ==12 then
       self.month = 1
