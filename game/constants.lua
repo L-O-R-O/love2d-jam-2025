@@ -1,16 +1,18 @@
 local constants = {}
 
 -- fonts
-constants.FONTS_NICE_CHALK_TITLE = love.graphics.newFont("assets/font/NiceChalk.ttf",32)
-constants.FONTS_NICE_CHALK_BODY  = love.graphics.newFont("assets/font/NiceChalk.ttf",18)
-constants.FONTS_NICE_CHALK_SMALL = love.graphics.newFont("assets/font/NiceChalk.ttf",15)
-constants.FONTS_MAIN_MENU        = love.graphics.newFont("assets/font/NiceChalk.ttf", 50)
-constants.FONTS_SUB_MENU         = love.graphics.newFont("assets/font/NiceChalk.ttf", 40)
-constants.FONTS_CREDITS_MENU     = love.graphics.newFont("assets/font/NiceChalk.ttf", 25)
-constants.FONTS_ROBOTO           = love.graphics.newFont("assets/font/Roboto-Black.ttf", 20)
-constants.FONTS_NICE_CHALK       = love.graphics.newFont("assets/font/NiceChalk.ttf", 20)
-constants.FONTS_NICE_CHALK_CONFIRM       = love.graphics.newFont("assets/font/NiceChalk.ttf", 30)
-constants.FONTS_CALENDAR_MONTH   = love.graphics.newFont("assets/font/NiceChalk.ttf", 70)
+constants.FONTS_NICE_CHALK_AGENDA   = love.graphics.newFont("assets/font/NiceChalk.ttf",35)
+constants.FONTS_NICE_CHALK_TITLE    = love.graphics.newFont("assets/font/NiceChalk.ttf",32)
+constants.FONTS_NICE_CHALK_YEARBOOK = love.graphics.newFont("assets/font/NiceChalk.ttf",22)
+constants.FONTS_NICE_CHALK_BODY     = love.graphics.newFont("assets/font/NiceChalk.ttf",18)
+constants.FONTS_NICE_CHALK_SMALL    = love.graphics.newFont("assets/font/NiceChalk.ttf",15)
+constants.FONTS_MAIN_MENU           = love.graphics.newFont("assets/font/NiceChalk.ttf", 50)
+constants.FONTS_SUB_MENU            = love.graphics.newFont("assets/font/NiceChalk.ttf", 40)
+constants.FONTS_CREDITS_MENU        = love.graphics.newFont("assets/font/NiceChalk.ttf", 25)
+constants.FONTS_ROBOTO              = love.graphics.newFont("assets/font/Roboto-Black.ttf", 20)
+constants.FONTS_NICE_CHALK          = love.graphics.newFont("assets/font/NiceChalk.ttf", 20)
+constants.FONTS_NICE_CHALK_CONFIRM  = love.graphics.newFont("assets/font/NiceChalk.ttf", 30)
+constants.FONTS_CALENDAR_MONTH      = love.graphics.newFont("assets/font/NiceChalk.ttf", 70)
 
 -- images
 constants.IMAGES_HOVER_DESKTOP_COMPUTER    = love.graphics.newImage("assets/images/hover_desktop_pc.png")
@@ -375,7 +377,7 @@ constants.STUDENTS = {
     bestMemory = "That summer I spent at a dance camp in Madrid. Learned most of my moves there!",
     image = nil,
     quote = "Bom, sha-sha ka-kà!",
-    futurePlans = "Being a coreographer for many italian singers.",
+    futurePlans = "Being a coreographer for many performers.",
     favoriteDnDClass = "Rogue - he's all for acrobatics",
     inGuild = false
   },

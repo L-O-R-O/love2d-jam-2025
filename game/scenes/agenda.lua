@@ -74,15 +74,24 @@ function agenda.load()
 end
 
 function agenda.update(dt)
-  local t1 = GameManager:getGuild()
-  for i = 1, #t1 do
-    local nomeCompleto = t1[i]:getName()
-    local posizioneSpazio = nomeCompleto:find(" ")
-    guilders[i] = string.sub(nomeCompleto, 1, posizioneSpazio)
+  local numberOfLoadGuilders = #guilders
+  local gameManagerGuilders = GameManager:getGuild()
+  local numberOfManagerGuilders = #gameManagerGuilders
+
+  local t = math.max(numberOfLoadGuilders, numberOfManagerGuilders)
+  for i = 1, t do
+    if i <= numberOfManagerGuilders then
+      local nomeCompleto = gameManagerGuilders[i]:getName()
+      local posizioneSpazio = nomeCompleto:find(" ")
+      guilders[i] = string.sub(nomeCompleto, 1, posizioneSpazio)
+    else
+      guilders[i] = ""
+    end
   end
 end
 
 function agenda.draw()
+  love.graphics.setFont(constants.FONTS_NICE_CHALK_AGENDA)
   local hearts = getHearts()
   if (hearts == 3) then
     screenManager:drawSceneBackground(constants.IMAGES_AGENDA_BG_FULL)
