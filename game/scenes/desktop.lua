@@ -55,6 +55,18 @@ function desktop.load()
     width       = 0,
     height      = 0,
   }
+  helpButtonArea = {
+    name        = "HELP_BUTTON",
+    xPerc       = 0.042,
+    yPerc       = 0.935,
+    widthPerc   = 0.03,
+    heightPerc  = 0.05,
+    x           = 0,
+    y           = 0,
+    width       = 0,
+    height      = 0,
+  }
+  helpButtonArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, helpButtonArea, helpButtonArea.name)
   soundArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, soundArea, soundArea.name)
   computerArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, computerArea, constants.SCENES_YEARBOOK)
   calendarArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, calendarArea, constants.SCENES_CALENDAR)
@@ -74,6 +86,8 @@ function desktop.draw()
   screenManager:drawSceneBackground(constants.IMAGES_DESKTOP_BG,desktopHoveredImages)
   screenManager:drawSceneBackground(constants.IMAGES_HOVER_DESKTOP_POSTITS)
 
+  --love.graphics.rectangle("line",helpButtonArea.x,helpButtonArea.y,helpButtonArea.width,helpButtonArea.height)
+  love.graphics.draw(constants.IMAGES_HELP,helpButtonArea.x,helpButtonArea.y,0,1,1)
   if (musicManager.isPlayingBgMusic) then
     love.graphics.draw(constants.IMAGES_SOUND_ON,soundArea.x,soundArea.y,0,1,1)
   else
@@ -91,7 +105,7 @@ function desktop.mousePressed(x, y, button)
   print('DESKTOP clicked x:'.. x .. ' and y:'..y)
   local clickableArea = screenManager:checkIfIsClickable(x, y)
   -- trasferisciti
-  if (clickableArea and clickableArea.to ~= "SOUND_BUTTON") then
+  if (clickableArea and clickableArea.to ~= "SOUND_BUTTON" and clickableArea.to ~= "HELP_BUTTON") then
     soundsManager:playSceneTransitionSound(constants.SCENES_DESKTOP,clickableArea.to)
     mouse.loadCursor(constants.HAND_CLICKED_CURSOR)
     isClicked = true
@@ -108,6 +122,9 @@ function desktop.mousePressed(x, y, button)
     else
       musicManager:startMusic()
     end
+  end
+  if clickableArea ~= nil and clickableArea.to == "HELP_BUTTON" then
+    scenesManager:setScene(constants.SCENES_TUTORIAL)
   end
 end
 

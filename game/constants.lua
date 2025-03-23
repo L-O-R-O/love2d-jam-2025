@@ -65,6 +65,7 @@ constants.IMAGES_YB_ARROWS_RIGHT = love.graphics.newImage("assets/images/yearboo
 constants.IMAGES_YB_STUDENT_CARD_BG = love.graphics.newImage("assets/images/yearbook/yearbook_studentcard.png")
 constants.IMAGES_SOUND_ON = love.graphics.newImage("assets/images/ui/sound_on.png")
 constants.IMAGES_SOUND_OFF = love.graphics.newImage("assets/images/ui/sound_off.png")
+constants.IMAGES_HELP = love.graphics.newImage("assets/images/ui/question_mark_empty.png")
 
 -- courses/activities images
 constants.IMAGES_CS_BG = love.graphics.newImage("assets/images/activities/activities.png")
