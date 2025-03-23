@@ -36,12 +36,6 @@ function computer.keypressed(key)
     scenesManager:setScene(constants.SCENES_DESKTOP)
   elseif (key == constants.KEYS_PAUSE_MENU) then
     scenesManager:setScene(constants.SCENES_TITLE)
-  elseif (key == "y") then
-    if computerCurrentState == nil then
-      computerCurrentState = "courses"
-    else
-      computerCurrentState = nil
-    end
   end
 end
 

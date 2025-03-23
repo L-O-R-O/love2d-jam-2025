@@ -29,12 +29,6 @@ end
 function coursesActivityCard.keypressed(key)
   if (key == constants.KEYS_ESCAPE_MENU) then
     scenesManager:setScene(constants.SCENES_COURSES, false)
-  elseif (key =='c') then
-    scenesManager:setScene(constants.SCENES_CALENDAR)
-  elseif (key =='f') then
-    scenesManager:setScene(constants.SCENES_COURSES)
-  elseif (key =='j') then
-    scenesManager:setScene(constants.SCENES_AGENDA)
   elseif (key == constants.KEYS_PAUSE_MENU) then
     scenesManager:setScene(constants.SCENES_TITLE)
   end

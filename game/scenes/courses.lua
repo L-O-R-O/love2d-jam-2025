@@ -2,46 +2,6 @@ local constants = require("constants")
 courses = {}
 
 local allCourses = constants.ACTIVITIES
---[[ {
-  { name = "Rugby", description = "A physical team sport played with an oval ball.", calendar = {}, dayOfTheWeek = "1", strSchedule = {} },
-  { name = "Soccer", description = "A popular sport played with a round ball on a field.", calendar = {}, dayOfTheWeek = "2", strSchedule = {} },
-  { name = "Basketball", description = "A team sport where players try to score points in a hoop.", calendar = {}, dayOfTheWeek = "3", strSchedule = {} },
-  { name = "Volleyball", description = "A net game where teams aim to land the ball on the opponent's side.", calendar = {}, dayOfTheWeek = "4", strSchedule = {} },
-  { name = "Tennis", description = "A racket sport played individually or in pairs.", calendar = {}, dayOfTheWeek = "5", strSchedule = {} },
-  { name = "Chess Club", description = "A strategic board game played by two people.", calendar = {}, dayOfTheWeek = "1", strSchedule = {} },
-  { name = "Debate Club", description = "A club where students discuss and argue various topics.", calendar = {}, dayOfTheWeek = "2", strSchedule = {} },
-  { name = "Drama Club", description = "A group for students interested in acting and stage performances.", calendar = {}, dayOfTheWeek = "3", strSchedule = {} },
-  { name = "Photography Club", description = "A club for students passionate about capturing images.", calendar = {}, dayOfTheWeek = "4", strSchedule = {} },
-  { name = "Music Band", description = "A group where students play musical instruments together.", calendar = {}, dayOfTheWeek = "5", strSchedule = {} },
-  { name = "Swimming", description = "A water sport focused on various strokes and endurance.", calendar = {}, dayOfTheWeek = "1", strSchedule = {} },
-  { name = "Martial Arts", description = "A combat sport that includes techniques from different disciplines.", calendar = {}, dayOfTheWeek = "2", strSchedule = {} },
-  { name = "Running Club", description = "A group dedicated to jogging and marathon training.", calendar = {}, dayOfTheWeek = "3", strSchedule = {} },
-  { name = "Yoga", description = "A practice focused on flexibility, breathing, and relaxation.", calendar = {}, dayOfTheWeek = "4", strSchedule = {} },
-  { name = "Coding Club", description = "A place for students to practice and learn programming.", calendar = {}, dayOfTheWeek = "5", strSchedule = {} },
-  { name = "Literary Society", description = "A club for book lovers and writers.", calendar = {}, dayOfTheWeek = "1", strSchedule = {} },
-  { name = "Environmental Club", description = "A group focused on sustainability and green initiatives.", calendar = {}, dayOfTheWeek = "2", strSchedule = {} },
-  { name = "Astronomy Club", description = "A club dedicated to stargazing and learning about the universe.", calendar = {}, dayOfTheWeek = "3", strSchedule = {} },
-  { name = "Dance Crew", description = "A group for students passionate about dancing.", calendar = {}, dayOfTheWeek = "4", strSchedule = {} },
-  { name = "Robotics Club", description = "A club for students interested in building and programming robots.", calendar = {}, dayOfTheWeek = "5", strSchedule = {} },
-  { name = "Science Club", description = "A group dedicated to scientific experiments and discussions.", calendar = {}, dayOfTheWeek = "1", strSchedule = {} },
-  { name = "Drama Workshop", description = "A place to learn acting and stage performance skills.", calendar = {}, dayOfTheWeek = "2", strSchedule = {} },
-  { name = "Music Choir", description = "A choir group for students who love singing.", calendar = {}, dayOfTheWeek = "3", strSchedule = {} },
-  { name = "Film Making Club", description = "A club for students interested in directing and producing films.", calendar = {}, dayOfTheWeek = "4", strSchedule = {} },
-  { name = "First Aid Training", description = "A program teaching emergency medical response.", calendar = {}, dayOfTheWeek = "5", strSchedule = {} },
-  { name = "Parkour Training", description = "A sport focused on overcoming obstacles efficiently.", calendar = {}, dayOfTheWeek = "1", strSchedule = {} },
-  { name = "E-Sports Team", description = "A group competing in video game tournaments.", calendar = {}, dayOfTheWeek = "2", strSchedule = {} },
-  { name = "Public Speaking Club", description = "A club for students to improve their oratory skills.", calendar = {}, dayOfTheWeek = "3", strSchedule = {} },
-  { name = "Board Games Club", description = "A club where students play and discuss board games.", calendar = {}, dayOfTheWeek = "4", strSchedule = {} },
-  { name = "Archery", description = "A sport focused on accuracy using bows and arrows.", calendar = {}, dayOfTheWeek = "5", strSchedule = {} },
-  { name = "Rock Climbing", description = "An adventure sport that involves climbing steep surfaces.", calendar = {}, dayOfTheWeek = "1", strSchedule = {} },
-  { name = "Survival Skills Club", description = "A group focused on wilderness survival techniques.", calendar = {}, dayOfTheWeek = "2", strSchedule = {} },
-  { name = "Creative Writing", description = "A club for students to develop their storytelling skills.", calendar = {}, dayOfTheWeek = "3", strSchedule = {} },
-  { name = "Social Work Club", description = "A group focused on volunteering and helping the community.", calendar = {}, dayOfTheWeek = "4", strSchedule = {} },
-  { name = "Economics Society", description = "A club discussing financial and economic topics.", calendar = {}, dayOfTheWeek = "5", strSchedule = {} },
-  { name = "Coding Hackathons", description = "A club that organizes coding challenges and competitions.", calendar = {}, dayOfTheWeek = "1", strSchedule = {} },
-  { name = "Meditation Club", description = "A group dedicated to mindfulness and mental relaxation.", calendar = {}, dayOfTheWeek = "2", strSchedule = {} },
-  { name = "Linguistics Club", description = "A club for students interested in learning and discussing languages.", calendar = {}, dayOfTheWeek = "3", strSchedule = {} }
-} ]]
 
 local browserTabYB   = {}
 local browserTabCS   = {}
@@ -58,6 +18,10 @@ local reDrawAreas   = false
 local arrowsHoverImgs = {
   PREV_BUTTON  = constants.IMAGES_CS_ARROWS_LEFT,
   NEXT_BUTTON = constants.IMAGES_CS_ARROWS_RIGHT
+}
+-- Hover del bottone back
+local backButtonHoverImgs = {
+  BACK_BUTTON  = constants.IMAGES_UI_BACK_HOVER
 }
 
 -- Handlers degli elementi activities/courses
@@ -153,7 +117,7 @@ function courses.drawPage()
   }
   backArrow = {
     name        = 'BACK_BUTTON',
-    xPerc       = 0.81,
+    xPerc       = 0.88,
     yPerc       = 0.87,
     widthPerc   = 0.12,
     heightPerc  = 0.1,
@@ -164,7 +128,7 @@ function courses.drawPage()
   }
   screenManager:setClickableArea(constants.SCENES_COURSES, prevArrow, prevArrow.name, PREV_PAGE)
   screenManager:setClickableArea(constants.SCENES_COURSES, nextArrow, nextArrow.name, NEXT_PAGE)
-  screenManager:setClickableArea(constants.SCENES_YEARBOOK, backArrow, backArrow.name, BACK_TO_DESKTOP)
+  screenManager:setClickableArea(constants.SCENES_COURSES, backArrow, backArrow.name, BACK_TO_DESKTOP)
   screenManager:setClickableArea(constants.SCENES_COURSES, browserTabYB, browserTabYB.name, function()
     HANDLE_BROWSER_TAB_CLICK(browserTabYB)
   end, {
@@ -186,9 +150,10 @@ function courses.drawPage()
   local j = 1
 
   for i = startIdx, endIdx do
-    currentCourses[j] = allCourses[i]
+    currentCourses[j] = orderedActivities[i]
     j = j + 1
   end
+
   -- disegna le etichette
   for i = 1, maxViewCourses, 1 do
     if currentCourses[i] ~= nil then
@@ -221,6 +186,7 @@ function courses.draw()
   love.graphics.setFont(constants.FONTS_NICE_CHALK)
   screenManager:drawSceneBackground(constants.IMAGES_CS_BG)
   screenManager:drawSceneBackground(constants.IMAGES_CS_ARROWS_NONE,arrowsHoverImgs)
+  screenManager:drawSceneBackground(constants.IMAGES_UI_BACK,backButtonHoverImgs)
   if reDrawAreas then
     courses.drawPage()
     reDrawAreas = false
@@ -233,8 +199,7 @@ function courses.draw()
     else
       love.graphics.setColor(0.409, 0.225, 0.214, 1)
     end
-    --love.graphics.rectangle("line", coursesLabel.x, coursesLabel.y, coursesLabel.width, coursesLabel.height)
-    --print("Course Label:", coursesLabel.course and coursesLabel.course.name or "MISSING NAME")
+    --love.graphics.rectangle("line", backArrow.x, backArrow.y, backArrow.width, backArrow.height)
     --print("X:", coursesLabel.x, "Y:", coursesLabel.y, "Width:", coursesLabel.width)
     love.graphics.printf(coursesLabel.course.name, coursesLabel.x , coursesLabel.y + coursesLabel.offsetY, coursesLabel.width, "center",-0.002)
   end
@@ -246,8 +211,6 @@ function courses.keypressed(key)
     scenesManager:setScene(constants.SCENES_DESKTOP)
   elseif (key == constants.KEYS_PAUSE_MENU) then
     scenesManager:setScene(constants.SCENES_TITLE)
-  --[[elseif (key == "y") then
-    --courses.drawPage() ]]
   end
 end
 

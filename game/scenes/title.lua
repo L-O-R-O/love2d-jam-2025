@@ -46,6 +46,11 @@ end
 function title.buildMenuElements()
   -- Creazione di un menu principale
   local mainMenu = Menu:new(constants.FONTS_MAIN_MENU)
+
+  if GameManager:getOutcomeState() == constants.OUTCOMESTATE[3] or  GameManager:getOutcomeState() == constants.OUTCOMESTATE[4] then
+    GameManager:reset()
+    scenesManager.fromScene = ""
+  end
   if scenesManager.fromScene == "" then
     mainMenu:addItem("Start Game", function()
       scenesManager:setScene(constants.SCENES_DESKTOP)
@@ -94,7 +99,8 @@ function title.buildMenuElements()
   end, nil, false, 50)
   controlsMenu:addItem("J - Journal", function() end)
   controlsMenu:addItem("C - Calendar", function() end)
-  controlsMenu:addItem("F - YearBook/Courses", function() end)
+  controlsMenu:addItem("F - YearBook", function() end)
+  controlsMenu:addItem("G - Activity Calendar", function() end)
   controlsMenu:addItem("P - Menu", function() end)
 
   -- Creazione del subMenu Credits
