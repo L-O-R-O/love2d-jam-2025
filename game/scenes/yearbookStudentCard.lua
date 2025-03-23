@@ -109,12 +109,14 @@ function yearbookStudentCard.draw()
   if (currentStudent.image ~= nil and currentStudent.image ~= "") then
     love.graphics.setColor(1, 1, 1)
     local image = currentStudent.image
-    image:setFilter("linear", "linear")
+    love.graphics.draw(image, imageArea.x, imageArea.y, 0,0.18,0.18)
+  elseif currentStudent.name == "Alberto Bananovich" then
+    love.graphics.setColor(1, 1, 1)
+    local image = constants.IMAGES_YB_BANANOVICH
     love.graphics.draw(image, imageArea.x, imageArea.y, 0,0.18,0.18)
   else
     love.graphics.setColor(1, 1, 1)
     local image = constants.IMAGES_YB_NUMB
-    image:setFilter("linear", "linear")
     love.graphics.draw(image, imageArea.x, imageArea.y, 0,0.18,0.18)
   end
   --love.graphics.rectangle("line", imageArea.x, imageArea.y, imageArea.width, imageArea.height)
