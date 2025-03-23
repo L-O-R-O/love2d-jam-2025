@@ -29,7 +29,7 @@ function outcome.load()
 
   gameButtonArea = screenManager:calcAreaSizes({
     xPerc = 0.55,
-    yPerc = 0.35,
+    yPerc = 0.25,
     widthPerc = 0.15,
     heightPerc = 0.15
   })
