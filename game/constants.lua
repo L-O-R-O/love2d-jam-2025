@@ -107,6 +107,21 @@ constants.DEFAULT_CURSOR = "default"
 constants.HAND_CURSOR = "hand"
 constants.HAND_CLICKED_CURSOR = "hand_clicked"
 constants.DAYS_IN_MONTH = { --numero di giorni per ogni mese
+  [1] = 28, -- January
+  [2] = 28, -- February
+  [3] = 28, -- March
+  [4] = 28, -- April
+  [5] = 28, -- May
+  [6] = 28, -- June
+  [7] = 28, -- July
+  [8] = 28, -- August
+  [9] = 28, -- September
+  [10] = 28, -- October
+  [11] = 28, -- November
+  [12] = 28, -- December
+}
+
+constants.DAYS_IN_MONTH_ORIGINAL = { --numero di giorni per ogni mese
   [1] = 31, -- January
   [2] = 28, -- February
   [3] = 31, -- March
