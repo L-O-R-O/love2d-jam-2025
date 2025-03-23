@@ -222,9 +222,6 @@ function GameManagerDefiner:tryDate(proposedDate)
       self:addInGuild(absoluteIndex)
     end
   end
-
-
-  CalendarManager:alignCalendar()
   GameManager:debugCalendar()
 end
 
