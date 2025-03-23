@@ -270,14 +270,6 @@ end
 function yearbook.keypressed(key)
   if (key == constants.KEYS_ESCAPE_MENU) then
     scenesManager:setScene(constants.SCENES_DESKTOP)
-  elseif (key =='c') then
-    scenesManager:setScene(constants.SCENES_CALENDAR)
-  elseif (key =='f') then
-    scenesManager:setScene(constants.SCENES_COURSES)
-  elseif (key =='j') then
-    scenesManager:setScene(constants.SCENES_AGENDA)
-  --[[elseif (key =='l') then
-    yearbook.drawRedBoxes() --!!!DEBUG!!! ]]
   elseif (key == constants.KEYS_PAUSE_MENU) then
     scenesManager:setScene(constants.SCENES_TITLE)
   end
@@ -296,8 +288,9 @@ function yearbook.draw()
   screenManager:drawSceneBackground(constants.IMAGES_YB_ARROWS_NONE,arrowsHoverImgs)
   screenManager:drawSceneBackground(constants.IMAGES_UI_BACK,backButtonHoverImgs)
   yearbook.drawRedBoxes()
-  love.graphics.setFont(constants.FONTS_NICE_CHALK)
-  love.graphics.setColor(0.196, 0.31, 0.71, 1)
+  love.graphics.setFont(constants.FONTS_NICE_CHALK_YEARBOOK)
+  --love.graphics.setColor(0.196, 0.31, 0.71, 1)
+  love.graphics.setColor(0, 0, 0, 1)
   local arrowWidth    = screenManager.screenWidth * 0.06
   local arrowHeight   = screenManager.screenHeight * 0.06
   local centerX       = screenManager.screenWidth / 2
@@ -326,7 +319,8 @@ function yearbook.draw()
       if hoveredArea == 'Box '..(1 +(i - startIdx) % (namesPerPage)) then
       love.graphics.setColor(0.737, 0.792, 1, 1)
       else
-        love.graphics.setColor(0.196, 0.31, 0.71, 1)
+        --love.graphics.setColor(0.196, 0.31, 0.71, 1)
+        love.graphics.setColor(0, 0, 0, 1)
       end
     end
     love.graphics.print(name, x, y, -0.01)

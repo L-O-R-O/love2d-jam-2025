@@ -83,6 +83,7 @@ function agenda.update(dt)
 end
 
 function agenda.draw()
+  love.graphics.setFont(constants.FONTS_NICE_CHALK_AGENDA)
   local hearts = getHearts()
   if (hearts == 3) then
     screenManager:drawSceneBackground(constants.IMAGES_AGENDA_BG_FULL)

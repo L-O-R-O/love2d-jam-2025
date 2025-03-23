@@ -83,18 +83,8 @@ end
 function yearbookStudentCard.keypressed(key)
   if key == constants.KEYS_ESCAPE_MENU then
     scenesManager:setScene(constants.SCENES_YEARBOOK, false)
-  elseif key == "c" then
-    scenesManager:setScene(constants.SCENES_CALENDAR)
-  elseif key == "f" then
-    scenesManager:setScene(constants.SCENES_COURSES)
-  elseif key == "j" then
-    scenesManager:setScene(constants.SCENES_AGENDA)
-  elseif key == "d" then
-    scenesManager:setScene(constants.SCENES_DESKTOP)
   elseif key == "p" then
     scenesManager:setScene(constants.SCENES_TITLE)
-  elseif key == "l" then
-    yearbookStudentCard.setAreas()
   end
 end
 

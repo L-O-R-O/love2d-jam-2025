@@ -59,27 +59,12 @@ function desktop.update(dt)
 end
 
 function desktop.draw()
-    -- Get image dimensions
-    screenManager:drawSceneBackground(constants.IMAGES_DESKTOP_BG,desktopHoveredImages)
-
-    -- ✅ DEBUG - Set color for the rectangle (red)
-    --love.graphics.setColor(1, 0, 0, 1)
-    -- love.graphics.rectangle("line", agendaArea.x, agendaArea.y, agendaArea.width, agendaArea.height)
-    -- love.graphics.rectangle("line", computerArea.x, computerArea.y, computerArea.width, computerArea.height)
-    -- love.graphics.rectangle("line", calendarArea.x, calendarArea.y, calendarArea.width, calendarArea.height)
-    -- ✅ Reset color back to white (prevents affecting other drawings)
-    --love.graphics.setColor(1, 1, 1, 1)
+  screenManager:drawSceneBackground(constants.IMAGES_DESKTOP_BG,desktopHoveredImages)
 end
 
 function desktop.keypressed(key)
   if (key == constants.KEYS_ESCAPE_MENU) then
     scenesManager:setScene(constants.SCENES_TITLE)
-  elseif (key =='c') then
-    scenesManager:setScene(constants.SCENES_CALENDAR)
-  elseif (key =='f') then
-    scenesManager:setScene(constants.SCENES_COURSES)
-  elseif (key =='j') then
-    scenesManager:setScene(constants.SCENES_AGENDA)
   end
 end
 

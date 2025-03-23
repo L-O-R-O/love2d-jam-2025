@@ -99,7 +99,8 @@ function title.buildMenuElements()
   end, nil, false, 50)
   controlsMenu:addItem("J - Journal", function() end)
   controlsMenu:addItem("C - Calendar", function() end)
-  controlsMenu:addItem("F - YearBook/Courses", function() end)
+  controlsMenu:addItem("F - YearBook", function() end)
+  controlsMenu:addItem("G - Activity Calendar", function() end)
   controlsMenu:addItem("P - Menu", function() end)
 
   -- Creazione del subMenu Credits
