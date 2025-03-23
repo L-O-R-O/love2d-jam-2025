@@ -10,6 +10,7 @@ GameManager = require("lib.GameManagerDefiner")
 local ScenesManager = require("lib.scenesManager")
 local ScreenManager = require("lib.screenManager")
 local SoundsManager = require("lib.soundsManager")
+local MusicManager = require("lib.soundsManager")
 local Mouse = require("lib.mouse")
 local Timer = require("lib.time")
 
@@ -20,6 +21,7 @@ timer = Timer
 scenesManager = ScenesManager:new()
 screenManager = ScreenManager:new()
 soundsManager = SoundsManager:new()
+musicManager  = SoundsManager:new()
 
 local title = require("scenes.title")
 local desktop = require("scenes.desktop")
@@ -72,7 +74,7 @@ function love.load()
   -- Play main theme
   constants.SOUNDS_BACKGROUND_AMBIENT:setVolume(0.5)
   soundsManager:playMe(constants.SOUNDS_BACKGROUND_AMBIENT)
-  soundsManager:startMusic()
+  musicManager:startMusic()
 end
 
 function love.update(dt)

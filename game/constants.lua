@@ -57,6 +57,7 @@ constants.IMAGES_YB_QS = love.graphics.newImage("assets/images/yearbook/yearbook
 constants.IMAGES_YB_TV = love.graphics.newImage("assets/images/yearbook/yearbook_tv.png")
 constants.IMAGES_YB_WZ = love.graphics.newImage("assets/images/yearbook/yearbook_wz.png")
 constants.IMAGES_YB_NUMB = love.graphics.newImage("assets/images/yearbook/playernumber_icon.png")
+constants.IMAGES_YB_BANANOVICH = love.graphics.newImage("assets/images/yearbook/banana.png")
 constants.IMAGES_YB_ARROWS_NONE = love.graphics.newImage("assets/images/yearbook/yearbook_arrow_none.png")
 constants.IMAGES_YB_ARROWS_LEFT = love.graphics.newImage("assets/images/yearbook/yearbook_arrow_left.png")
 constants.IMAGES_YB_ARROWS_RIGHT = love.graphics.newImage("assets/images/yearbook/yearbook_arrow_right.png")
@@ -623,7 +624,7 @@ constants.STUDENTS = {
   },
   {
     name = "Alberto Bananovich",
-    bestMemory = "That summer I spent at a dance camp in Madrid. Learned most of my moves there!",
+    bestMemory = "That unforgettable moment when he finally embraced his true self.",
     image = nil,
     quote = "Bom, sha-sha ka-kà!",
     futurePlans = "Being a coreographer for many performers.",
