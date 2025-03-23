@@ -39,21 +39,23 @@ end
 
 function GameManagerDefiner:initialize()
   math.randomseed(os.time())                    -- Imposta il seed per rendere i numeri casuali più imprevedibili
-  local index = math.random(1, constants.GAME_MANAGER_MAX_PLAYABLE)  -- Numero tra 1 e 7
+  absoluteIndex = math.random(1, constants.GAME_MANAGER_MAX_PLAYABLE)  -- Numero tra 1 e 7
   CalendarManager:reset()
   -- Setup variabili globali --
   GameManager:fillGlobalTables()
-  GameManager:generateFittableActivities(index)
+  GameManager:generateFittableActivities(absoluteIndex)
   GameManager:generateOrderedStudents()
   GameManager:generateOrderedActivities()
 
   -- Preparazione gioco --
   CalendarManager:reset()
-  GameManager:addInGuild(index)
-  if index >= constants.GAME_MANAGER_MAX_PLAYABLE then
-    GameManager:addInGuild(1)
+  GameManager:addInGuild(absoluteIndex)
+  if absoluteIndex >= constants.GAME_MANAGER_MAX_PLAYABLE then
+    absoluteIndex = 1
+    GameManager:addInGuild(absoluteIndex)
   else
-    GameManager:addInGuild(index+1)
+    absoluteIndex = absoluteIndex+1
+    GameManager:addInGuild(absoluteIndex)
   end
 end
 
@@ -177,11 +179,15 @@ function GameManagerDefiner:tryDate(proposedDate)
   if CalendarManager:isFreeDay(self.month, proposedDate) then
     if self.actualCycle >= 10 then
       self.outcomeState = constants.OUTCOMESTATE[3]   --Game Win
+      print("QUA")
+      for i,iPlayer in ipairs(self.guild)do
+        print(i,iPlayer:getName())
+      end
     else
       self.outcomeState = constants.OUTCOMESTATE[1]   --Session Win
     end
   else
-    self.hearts = self.hearts -1
+    self.hearts = self.hearts - 1
     if self.hearts <= 0 then
       self.outcomeState = constants.OUTCOMESTATE[4]   --Game KO
     else
@@ -198,17 +204,19 @@ function GameManagerDefiner:tryDate(proposedDate)
     end
   end
 
-  if self.actualCycle % 2 == 0 and self.actualCycle ~= 2 then
-    local i = math.floor(self.actualCycle)
-    self:addInGuild(i)
+  if self.actualCycle % 2 ~= 0 and self.actualCycle ~= 1 then
+    for i=0, math.floor(self.actualCycle/7) do
+      absoluteIndex = absoluteIndex+1
+      self:addInGuild(absoluteIndex)
+    end
   end
 end
 
 function GameManagerDefiner:addInGuild(i)
-  table.insert(self.guild, #self.guild+1, playablePlayer[i])
-  if(i>7)then
-
+  if(i>constants.GAME_MANAGER_MAX_PLAYABLE)then
+    i=i-10
   end
+  table.insert(self.guild, #self.guild+1, playablePlayer[i])
   if(playablePlayer[i]:getInGuild()==0)then
     playablePlayer[i]:setInGuild()
     CalendarManager:addActivity(playablePlayer[i]:getActivity())
