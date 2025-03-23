@@ -1,9 +1,9 @@
 local constants = require("constants")
 
 outcome = {}
-local okButtonArea = {}
-
--- Il click su OK ci porterá su una scena diversa, in base all'esito della giocata
+local hovered = false
+local sessionButtonArea = {}
+local gameButtonArea = {}
 
 local function okButtonHandler()
   local outcome = GameManager:getOutcomeState()
@@ -16,48 +16,57 @@ end
 
 function outcome.load()
   mouse.registerHandler(outcome, constants.SCENES_OUTCOME)
-  okButtonArea = screenManager:calcAreaSizes({
-    xPerc = 0.45,
-    yPerc = 0.7,
-    widthPerc = 0.1,
+  sessionButtonArea = screenManager:calcAreaSizes({
+    xPerc = 0.37,
+    yPerc = 0.83,
+    widthPerc = 0.25,
     heightPerc = 0.1
   })
 
-  screenManager:setClickableArea(constants.SCENES_OUTCOME, okButtonArea, constants.SCENES_OUTCOME, function()
+  screenManager:setClickableArea(constants.SCENES_OUTCOME, sessionButtonArea, constants.SCENES_OUTCOME, function()
     okButtonHandler()
-  end)
+  end, {isSessionButton = true})
+
+  gameButtonArea = screenManager:calcAreaSizes({
+    xPerc = 0.55,
+    yPerc = 0.35,
+    widthPerc = 0.15,
+    heightPerc = 0.15
+  })
+
+  screenManager:setClickableArea(constants.SCENES_OUTCOME, gameButtonArea, constants.SCENES_OUTCOME, function()
+    okButtonHandler()
+  end, {isSessionButton = false})
 end
 
 function outcome.update(dt)
 end
 
-function outcome.draw()
-  -- love.graphics.rectangle("line",okButtonArea.x,okButtonArea.y,okButtonArea.width,okButtonArea.height)
+function drawBackground(scene, sceneHovered)
+  if (hovered) then
+    screenManager:drawSceneBackground(sceneHovered)
+  else
+    screenManager:drawSceneBackground(scene)
+  end
+end
 
+function outcome.draw()
   -- Disegnare sfondo in base ad esito giocata
   local outcome = GameManager:getOutcomeState()
 
   if outcome == constants.OUTCOMESTATE[1] then
-    -- -- Session WIN
-    screenManager:drawSceneBackground(constants.IMAGES_SESSION_OK)
+    -- Session WIN
+    drawBackground(constants.IMAGES_SESSION_OK, constants.IMAGES_SESSION_HOVER_OK)
   elseif outcome == constants.OUTCOMESTATE[2] then
     -- Session KO
-    screenManager:drawSceneBackground(constants.IMAGES_SESSION_KO)
+    drawBackground(constants.IMAGES_SESSION_KO, constants.IMAGES_SESSION_HOVER_KO)
   elseif outcome == constants.OUTCOMESTATE[3] then
     -- Game WIN
-    screenManager:drawSceneBackground(constants.IMAGES_GAME_OK)
+    drawBackground(constants.IMAGES_GAME_OK, constants.IMAGES_GAME_HOVER_OK)
   elseif outcome == constants.OUTCOMESTATE[4] then
     -- Game KO
-    screenManager:drawSceneBackground(constants.IMAGES_GAME_KO)
+    drawBackground(constants.IMAGES_GAME_KO, constants.IMAGES_GAME_HOVER_KO)
   end
-
-  love.graphics.printf(
-    "OK",
-    okButtonArea.x,
-    okButtonArea.y + (okButtonArea.height / 4),
-    okButtonArea.width,
-    "center"
-  )
 end
 
 function outcome.keypressed(key)
@@ -73,6 +82,21 @@ function outcome.mousePressed(x, y, button)
 end
 
 function outcome.mouseHovered(x, y)
+  local clickableArea = screenManager:checkIfIsClickable(x, y, "hover")
+  if (clickableArea and clickableArea.data) then
+    local outcome = GameManager:getOutcomeState()
+    print('Outcome: ', outcome)
+    print('clickableArea.data.isSessionButton: ', clickableArea.data.isSessionButton)
+    if ((outcome == constants.OUTCOMESTATE[1] or outcome == constants.OUTCOMESTATE[2]) and clickableArea.data.isSessionButton == true) then
+      -- Session OK/KO hovered
+      hovered = true
+    elseif (outcome == constants.OUTCOMESTATE[3] or outcome == constants.OUTCOMESTATE[4] and clickableArea.data.isSessionButton == false) then
+      -- Game OK/KO hovered
+      hovered = true
+    end
+  else
+    hovered = false
+  end
 end
 
 return outcome
