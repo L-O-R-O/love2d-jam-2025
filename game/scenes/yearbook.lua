@@ -23,6 +23,10 @@ local arrowsHoverImgs = {
   PREV_BUTTON  = constants.IMAGES_YB_ARROWS_LEFT,
   NEXT_BUTTON = constants.IMAGES_YB_ARROWS_RIGHT
 }
+-- Hover del bottone back
+local backButtonHoverImgs = {
+  BACK_BUTTON  = constants.IMAGES_UI_BACK_HOVER
+}
 
 local colorText   = {r = 0, g = 0, b = 0, a = 1}  -- Nero
 
@@ -123,7 +127,7 @@ function yearbook.drawPage()
   }
   backArrow = {
     name        = 'BACK_BUTTON',
-    xPerc       = 0.81,
+    xPerc       = 0.88,
     yPerc       = 0.87,
     widthPerc   = 0.12,
     heightPerc  = 0.1,
@@ -280,25 +284,17 @@ function yearbook.keypressed(key)
 end
 
 function yearbook.drawRedBoxes()
-  love.graphics.setColor(1, 0, 0) -- Red color
-  --[[ for _, box in ipairs(yearbookLabels) do
-      love.graphics.rectangle("line", box.x, box.y, box.width, box.height)
-      local studentName = box.student ~= nil and box.student.name or "404 Student Not Found"
-      love.graphics.printf(studentName, box.x, box.y, 350)
-  end ]]
-  --[[ love.graphics.rectangle("line", browserTabYB.x, browserTabYB.y, browserTabYB.width, browserTabYB.height)
-  love.graphics.rectangle("line", browserTabCS.x, browserTabCS.y, browserTabCS.width, browserTabCS.height) ]]
-
-  love.graphics.rectangle("line", backArrow.x, backArrow.y, backArrow.width, backArrow.height)
-  love.graphics.draw(constants.IMAGES_UI_BACK, backArrow.x,backArrow.y,0,0.1,0.1)
-  love.graphics.setColor(0, 0, 0) -- Reset color to black
-
+  --love.graphics.setColor(1, 0, 0) -- Red color
+  --love.graphics.printf(studentName, box.x, box.y, 350)
+  --love.graphics.rectangle("line", backArrow.x, backArrow.y, backArrow.width, backArrow.height)
+  --love.graphics.setColor(0, 0, 0) -- Reset color to black
 end
 
 function yearbook.draw()
   local alwaysShowArrows = true
   screenManager:drawSceneBackground(background)
   screenManager:drawSceneBackground(constants.IMAGES_YB_ARROWS_NONE,arrowsHoverImgs)
+  screenManager:drawSceneBackground(constants.IMAGES_UI_BACK,backButtonHoverImgs)
   yearbook.drawRedBoxes()
   love.graphics.setFont(constants.FONTS_NICE_CHALK)
   love.graphics.setColor(0.196, 0.31, 0.71, 1)

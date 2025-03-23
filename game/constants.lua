@@ -375,7 +375,7 @@ constants.STUDENTS = {
     bestMemory = "That summer I spent at a dance camp in Madrid. Learned most of my moves there!",
     image = nil,
     quote = "Bom, sha-sha ka-kà!",
-    futurePlans = "Being a coreographer for many italian singers.",
+    futurePlans = "Being a coreographer for many performers.",
     favoriteDnDClass = "Rogue - he's all for acrobatics",
     inGuild = false
   },
