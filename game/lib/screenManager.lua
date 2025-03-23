@@ -41,6 +41,18 @@ function ScreenManager:setClickableArea(from, area, to, handler, data)
   return area
 end
 
+function ScreenManager:checkIfAreaExists(scene, area)
+  if self.areas[scene] == nil then
+    return false
+  end
+  for _, areaOwner in ipairs(self.areas[scene]) do
+    if areaOwner.area ~= nil and areaOwner.data.nameAreaId == area then
+      return true
+    end
+  end
+  return false
+end
+
 function ScreenManager:drawHUD(hearts,nPlayers)
   local imageWidth, imageHeight = 60, 60 -- Dimensions of each image
   local padding = 20 -- Padding between images and from the left side

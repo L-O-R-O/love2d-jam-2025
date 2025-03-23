@@ -133,14 +133,16 @@ function calendar.draw()
         love.graphics.draw(image, x, y, 0, sx, sy)
       end
 
-      --print(day .. " " .. dayOfWeek .. " " .. currentMonth)
-      -- Assegno un'area cliccabile al giorno
-      screenManager:setClickableArea(constants.SCENES_CALENDAR, nameArea, constants.SCENES_CALENDAR,
-                          function()
-                            dateClicked(day)
-                          end, {
-                            day = day
-                          })
+      local doesAreaExists = screenManager:checkIfAreaExists(constants.SCENES_CALENDAR, day)
+      if (doesAreaExists == false) then
+        screenManager:setClickableArea(constants.SCENES_CALENDAR, nameArea, constants.SCENES_CALENDAR,
+                            function()
+                              dateClicked(day)
+                            end, {
+                              nameAreaId = day,
+                              day = day
+                            })
+      end
     end
 
     colIndex = (colIndex % 5) + 1
