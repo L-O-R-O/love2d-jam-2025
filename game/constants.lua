@@ -99,6 +99,7 @@ constants.KEYS_PAUSE_MENU = "p"
 constants.KEYS_ESCAPE_MENU = "escape"
 
 -- various
+constants.START_GAME_TRANSITION_SPEED = 0.5 -- Speedo (increase = faster; decrease = slower)
 constants.GAME_MANAGER_MAX_PLAYABLE = 10
 constants.MAX_HEARTS = 3
 constants.MOUSE_SIZE = 64

@@ -11,6 +11,8 @@ function Menu:new(font)
         parentMenu = nil,
         isOpen = false,
         transitionAlpha = 0, -- Valore iniziale della transizione
+        fadingAlpha = 1,     -- Valore iniziale del fade
+        isFading = false,
         font = font or love.graphics.getFont() -- Usa il font fornito o quello di default
     }
     setmetatable(instance, Menu)
@@ -51,80 +53,92 @@ function Menu:draw()
     local screenWidth = love.graphics.getWidth()
     local screenHeight = love.graphics.getHeight()
     for i, item in ipairs(self.items) do
-        local y = (screenHeight / 2 - (#self.items * self.font:getHeight() / 2) + (i - 1) * self.font:getHeight())
-        local x = screenWidth / 2 - self.font:getWidth(item.name) / 2 - 70
-        local itemWidth = self.font:getWidth(item.name)
-        local itemHeight = self.font:getHeight()
+      local y = (screenHeight / 2 - (#self.items * self.font:getHeight() / 2) + (i - 1) * self.font:getHeight())
+      local x = screenWidth / 2 - self.font:getWidth(item.name) / 2 - 70
+      local itemWidth = self.font:getWidth(item.name)
+      local itemHeight = self.font:getHeight()
 
-        -- Store item bounds for hit detection
-        item.bounds = {
-            x = x,
-            y = y,
-            width = itemWidth,
-            height = itemHeight
-        }
+      -- Store item bounds for hit detection
+      item.bounds = {
+          x = x,
+          y = y,
+          width = itemWidth,
+          height = itemHeight
+      }
 
-        -- Effetto glow verde attorno alla voce selezionata
-        if i == self.selectedIndex then
-            love.graphics.setColor(1, 1, 0, 0.1) -- Verde luminoso più trasparente
+      -- Effetto glow verde attorno alla voce selezionata
+      if i == self.selectedIndex then
+          love.graphics.setColor(1, 1, 0, 0.1) -- Verde luminoso più trasparente
 
-            -- Disegna il testo più volte con un piccolo offset per creare l'effetto bagliore
-            local offsets = {-2, -1, 1, 2}
-            for _, dx in ipairs(offsets) do
-                for _, dy in ipairs(offsets) do
-                    love.graphics.print(item.name, x + dx, y + dy)
-                end
-            end
-        end
+          -- Disegna il testo più volte con un piccolo offset per creare l'effetto bagliore
+          local offsets = {-2, -1, 1, 2}
+          for _, dx in ipairs(offsets) do
+              for _, dy in ipairs(offsets) do
+                  love.graphics.print(item.name, x + dx, y + dy)
+              end
+          end
+      end
 
-        -- Disegna il testo principale
-        love.graphics.setColor(0, 0, 0, 1) -- Nero
-        love.graphics.print(item.name, x, y)
-        love.graphics.setColor(1, 1, 1, 1) -- Bianco
+      -- Disegna il testo principale
+      love.graphics.setColor(0, 0, 0, 1) -- Nero
+      love.graphics.print(item.name, x, y)
+      love.graphics.setColor(1, 1, 1, 1) -- Bianco
 
-        -- Se è uno slider, disegna anche una barra
-        if item.isSlider then
-            local barWidth = 200
-            local barHeight = self.font:getHeight() - 10
-            local barOffset = 20
-            local barX, barY = x + itemWidth + barOffset, y + 5
-            local fillWidth = menuManager:getVolume() * barWidth
+      -- Se è uno slider, disegna anche una barra
+      if item.isSlider then
+          local barWidth = 200
+          local barHeight = self.font:getHeight() - 10
+          local barOffset = 20
+          local barX, barY = x + itemWidth + barOffset, y + 5
+          local fillWidth = menuManager:getVolume() * barWidth
 
-            -- Store slider bar bounds
-            item.sliderBounds = {
-                x = barX,
-                y = barY,
-                width = barWidth,
-                height = barHeight
-            }
+          -- Store slider bar bounds
+          item.sliderBounds = {
+              x = barX,
+              y = barY,
+              width = barWidth,
+              height = barHeight
+          }
 
-            -- Disegna il contorno della barra
-            love.graphics.setColor(0.1, 0.1, 0.1)
-            love.graphics.rectangle("line", barX, barY, barWidth, barHeight)
+          -- Disegna il contorno della barra
+          love.graphics.setColor(0.1, 0.1, 0.1)
+          love.graphics.rectangle("line", barX, barY, barWidth, barHeight)
 
-            -- Disegna la parte riempita
-            love.graphics.setColor(0.1, 0.1, 0.1)
-            love.graphics.rectangle("fill", barX, barY, fillWidth, barHeight)
-        end
+          -- Disegna la parte riempita
+          love.graphics.setColor(0.1, 0.1, 0.1)
+          love.graphics.rectangle("fill", barX, barY, fillWidth, barHeight)
+      end
 
-        -- 🔥 **AGGIORNAMENTO DI Y IN BASE ALLA SPAZIATURA**
-        y = y + (item.spacing or 30)
-    end
+      -- 🔥 **AGGIORNAMENTO DI Y IN BASE ALLA SPAZIATURA**
+      y = y + (item.spacing or 30)
+  end
 
-    -- Overlay per la transizione
-    if self.transitionAlpha > 0 then
-        love.graphics.setColor(0, 0, 0, self.transitionAlpha)
-        love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
-        love.graphics.setColor(1, 1, 1, 1)  -- Reset del colore
-    end
+  -- Overlay per la transizione
+  if self.transitionAlpha > 0 then
+      love.graphics.setColor(0, 0, 0, self.transitionAlpha)
+      love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+      love.graphics.setColor(1, 1, 1, 1)  -- Reset del colore
+  end
 end
 
 function Menu:update(dt)
-    -- Gestione del fade-out
-    if self.transitionAlpha > 0 then
-        self.transitionAlpha = math.max(0, self.transitionAlpha - dt * 2)  -- Dissolvenza veloce
-        return  -- Blocca gli input durante la transizione
+  -- Gestione della transition
+  if self.transitionAlpha > 0 then
+      self.transitionAlpha = math.max(0, self.transitionAlpha - dt * 2)  -- Dissolvenza veloce
+      return  -- Blocca gli input durante la transizione
+  end
+  -- Gestione del fading
+  if self.isFading then
+    if self.fadingAlpha > 0 then
+      self.fadingAlpha = self.fadingAlpha - constants.START_GAME_TRANSITION_SPEED * dt
+      if self.fadingAlpha < 0 then
+        self.fadingAlpha = 0
+        self.isFading = false
+        scenesManager:setScene(constants.SCENES_DESKTOP,false)
+      end
+      return  -- Blocca gli input durante la transizione
     end
+  end
 end
 
 function Menu:keyPressed(key)
@@ -186,6 +200,10 @@ end
 
 function Menu:startTransition()
     self.transitionAlpha = 1  -- Opacità piena (nero)
+end
+function Menu:startFadingTransition()
+  -- self.fadingAlpha
+  self.isFading = true
 end
 
 function Menu:mousePressed(x, y)
