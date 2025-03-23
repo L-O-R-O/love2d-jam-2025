@@ -78,6 +78,11 @@ constants.IMAGES_UI_BACK_HOVER = love.graphics.newImage("assets/images/ui/BACK_H
 constants.SOUNDS_MOUSE_CLICK        = love.audio.newSource("assets/sounds/click.mp3", "static")
 constants.SOUNDS_PAGE_TURN          = love.audio.newSource("assets/sounds/pages.mp3", "static")
 constants.SOUNDS_BACKGROUND_MUSIC   = love.audio.newSource("assets/sounds/theme.mp3", "stream")
+constants.SOUNDS_WRONG_CHOISE       = love.audio.newSource("assets/sounds/wrong_choise.wav", "static")
+constants.SOUNDS_RIGHT_CHOISE       = love.audio.newSource("assets/sounds/right_choise.wav", "static")
+constants.SOUNDS_FAILED             = love.audio.newSource("assets/sounds/failed.wav", "static")
+constants.SOUNDS_SELECTION          = love.audio.newSource("assets/sounds/selection.wav", "static")
+constants.SOUNDS_STARTING_PC        = love.audio.newSource("assets/sounds/starting_game.mp3", "static")
 --constants.SOUNDS_BACKGROUND_AMBIENT = love.audio.newSource("assets/sounds/ambient.mp3", "stream")
 
 -- scenes
