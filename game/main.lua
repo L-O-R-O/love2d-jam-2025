@@ -175,6 +175,16 @@ function love.keypressed(key)
 
   if scenesManager:getScene() == constants.SCENES_TITLE then
     title.keypressed(key)
+  elseif (key =='c') then
+    scenesManager:setScene(constants.SCENES_CALENDAR)
+  elseif (key =='f') then
+    scenesManager:setScene(constants.SCENES_YEARBOOK)
+  elseif (key =='g') then
+    scenesManager:setScene(constants.SCENES_COURSES)
+  elseif (key =='j') then
+    scenesManager:setScene(constants.SCENES_AGENDA)
+  elseif (key =='d') then
+    scenesManager:setScene(constants.SCENES_DESKTOP)
   elseif scenesManager:getScene() == constants.SCENES_DESKTOP then
     desktop.keypressed(key)
   elseif scenesManager:getScene() == constants.SCENES_CALENDAR then
