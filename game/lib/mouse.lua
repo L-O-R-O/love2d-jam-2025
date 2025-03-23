@@ -6,6 +6,7 @@ Mouse.handlers = {}
 Mouse.debounceTime = 0.01 -- 200 milliseconds debounce time
 Mouse.lastMousePressed = 0
 Mouse.lastMouseHovered = 0
+
 -- Cursori
 Mouse.defaultCursorImage = nil
 Mouse.cursorHandImage = nil
@@ -74,6 +75,7 @@ function Mouse.loadCursor(cursor)
     return
   end
   currentMouse = cursor
+  love.mouse.setVisible(false)
   if (cursor == Mouse.defaultCursorKey) then
     Mouse.cursor = love.mouse.newCursor(Mouse.defaultCursorImage, 0, 0)
   elseif (cursor == Mouse.cursorHandKey) then
@@ -82,6 +84,7 @@ function Mouse.loadCursor(cursor)
     Mouse.cursor = love.mouse.newCursor(Mouse.cursorHandClickedImage, 0, 0)
   end
   love.mouse.setCursor(Mouse.cursor)
+  love.mouse.setVisible(true)
 end
 
 return Mouse
