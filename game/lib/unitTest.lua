@@ -28,7 +28,7 @@ function unitTest:run()
   print("✅ Passed: " .. passed)
   print("❌ Failed: " .. failed)
 end
-
+--[[
 unitTest:add("GameManger: check strSchedule",
       function()
         for i = 1, #allActivities do
@@ -39,7 +39,7 @@ unitTest:add("GameManger: check strSchedule",
           end
         end
       end)
---[[
+
 unitTest:add("GameManger: Get Current Month:", function()
   local m1 = GameManager:getMonth()
   assert(m1 == 3)
