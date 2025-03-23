@@ -273,7 +273,7 @@ constants.STUDENTS = {
   {
     nickname = "Living Dead Girl",
     name = "Zoe Barry",
-    image = "",
+    image = love.graphics.newImage("assets/images/students/CHARACTER_ZOE.png"),
     quote = "Always forgive your enemies; nothing annoys them so much.",
     futurePlans = "Open her own tattoo parlor — a cool one, where the playlist is nothing but industrial metal and sad boy punk.",
     bestMemory = "Winning first prize at the regional art contest. Her painting of a flaming raven was truly one of a kind.",
