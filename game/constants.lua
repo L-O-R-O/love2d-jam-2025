@@ -19,6 +19,7 @@ constants.FONTS_CALENDAR_MONTH      = love.graphics.newFont("assets/font/NiceCha
 constants.IMAGES_HOVER_DESKTOP_COMPUTER    = love.graphics.newImage("assets/images/hover_desktop_pc.png")
 constants.IMAGES_HOVER_DESKTOP_CALENDAR    = love.graphics.newImage("assets/images/hover_desktop_calendario.png")
 constants.IMAGES_HOVER_DESKTOP_AGENDA      = love.graphics.newImage("assets/images/hover_desktop_agenda.png")
+constants.IMAGES_HOVER_DESKTOP_POSTITS     = love.graphics.newImage("assets/images/postit_scritte.png")
 constants.IMAGES_DESKTOP_BG                = love.graphics.newImage("assets/images/desktop.png")
 constants.IMAGES_CALENDAR_BG               = love.graphics.newImage("assets/images/zoom/zoom_calendar.png")
 constants.IMAGES_CURSOR                    = love.graphics.newImage("assets/images/cursor.png")

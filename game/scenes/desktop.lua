@@ -60,6 +60,7 @@ end
 
 function desktop.draw()
   screenManager:drawSceneBackground(constants.IMAGES_DESKTOP_BG,desktopHoveredImages)
+  screenManager:drawSceneBackground(constants.IMAGES_HOVER_DESKTOP_POSTITS)
 end
 
 function desktop.keypressed(key)
