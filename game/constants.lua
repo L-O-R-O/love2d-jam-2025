@@ -992,11 +992,11 @@ constants.STUDENTS = {
   },
   {
     name = "Haaaxee Limoncello",
-    bestMemory = "Made everyone laugh with his perfect duck impression during a family dinner",
+    bestMemory = "Putting the 'F' key for 'Yearbook'",
     image = love.graphics.newImage("assets/images/devs/DEVS_HAAX.png"),
-    quote = "Quack! See? Perfect.",
-    futurePlans = "To perfect his duck impression and perform at local comedy clubs",
-    favoriteDnDClass = "Bard",
+    quote = "The real reason why the 'F' key is for 'Yearbook' is because I said so.",
+    futurePlans = "Make the player choose the hotkeys",
+    favoriteDnDClass = "Wizard",
     inGuild = false,
   },
   {

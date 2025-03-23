@@ -44,6 +44,18 @@ function desktop.load()
     width       = 0,
     height      = 0,
   }
+  soundArea = {
+    name        = "SOUND_BUTTON",
+    xPerc       = 0.006,
+    yPerc       = 0.935,
+    widthPerc   = 0.03,
+    heightPerc  = 0.05,
+    x           = 0,
+    y           = 0,
+    width       = 0,
+    height      = 0,
+  }
+  soundArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, soundArea, soundArea.name)
   computerArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, computerArea, constants.SCENES_YEARBOOK)
   calendarArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, calendarArea, constants.SCENES_CALENDAR)
   agendaArea   = screenManager:setClickableArea(constants.SCENES_DESKTOP, agendaArea, constants.SCENES_AGENDA)
@@ -62,19 +74,7 @@ function desktop.draw()
   screenManager:drawSceneBackground(constants.IMAGES_DESKTOP_BG,desktopHoveredImages)
   screenManager:drawSceneBackground(constants.IMAGES_HOVER_DESKTOP_POSTITS)
 
-  soundArea = {
-    name        = "SOUND_BUTTON",
-    xPerc       = 0.006,
-    yPerc       = 0.935,
-    widthPerc   = 0.03,
-    heightPerc  = 0.05,
-    x           = 0,
-    y           = 0,
-    width       = 0,
-    height      = 0,
-  }
-  soundArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, soundArea, soundArea.name)
-  if (musicManager.isPlayingBgMusic) then
+  if (soundsManager.isPlayingBgMusic) then
     love.graphics.draw(constants.IMAGES_SOUND_ON,soundArea.x,soundArea.y,0,1,1)
   else
     love.graphics.draw(constants.IMAGES_SOUND_OFF,soundArea.x,soundArea.y,0,1,1)
