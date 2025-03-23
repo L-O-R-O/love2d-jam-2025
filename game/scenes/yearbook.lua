@@ -289,8 +289,8 @@ function yearbook.draw()
   screenManager:drawSceneBackground(constants.IMAGES_UI_BACK,backButtonHoverImgs)
   yearbook.drawRedBoxes()
   love.graphics.setFont(constants.FONTS_NICE_CHALK_YEARBOOK)
-  --love.graphics.setColor(0.196, 0.31, 0.71, 1)
-  love.graphics.setColor(0, 0, 0, 1)
+  love.graphics.setColor(0.196, 0.31, 0.71, 1)
+  --love.graphics.setColor(0, 0, 0, 1)
   local arrowWidth    = screenManager.screenWidth * 0.06
   local arrowHeight   = screenManager.screenHeight * 0.06
   local centerX       = screenManager.screenWidth / 2
@@ -319,8 +319,8 @@ function yearbook.draw()
       if hoveredArea == 'Box '..(1 +(i - startIdx) % (namesPerPage)) then
       love.graphics.setColor(0.737, 0.792, 1, 1)
       else
-        --love.graphics.setColor(0.196, 0.31, 0.71, 1)
-        love.graphics.setColor(0, 0, 0, 1)
+        love.graphics.setColor(0.196, 0.31, 0.71, 1)
+        --love.graphics.setColor(0, 0, 0, 1)
       end
     end
     love.graphics.print(name, x, y, -0.01)
