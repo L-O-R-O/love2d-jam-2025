@@ -42,6 +42,7 @@ local gameOver = require("scenes.gameOver")
 function love.load()
   -- DEBUG - unitTest
   --unitTest:run()
+  --questa è una modifica di prova
 
   -- Carico tutte le scene (setup iniziale)
   desktop.load()
