@@ -3,6 +3,7 @@
 -- lick = require "lib.lick"
 -- lick.reset = true -- ricarica love.load di main.lua ogni volta che si salva un file del progetto
 -- lick.updateAllFiles = true -- include tutti i file del progetto
+--test pr
 
 local constants = require("constants")
 GameManager = require("lib.GameManagerDefiner")
