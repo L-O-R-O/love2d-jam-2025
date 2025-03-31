@@ -27,20 +27,21 @@ function GameManagerDefiner:new()
     prob            = 0, --OPT
     suddenOn        = 0, --variabile per capire se mostrare o meno la pagina degli orari
     gameOver        = 0,
-    month           = getMonthFromOS(),
+    month           = 1,
     consecutiveWins = 0,
     outcomeState    = 0,
   }
-  CalendarManager = CalendarManager:new(getMonthFromOS())
+  CalendarManager = CalendarManager:new(1)
 
   setmetatable(obj, GameManagerDefiner)
   return obj
 end
 
 function GameManagerDefiner:initialize()
-  math.randomseed(os.time())                    -- Imposta il seed per rendere i numeri casuali più imprevedibili
+  math.randomseed(os.time())            -- Imposta il seed per rendere i numeri casuali più imprevedibili
   absoluteIndex = math.random(1, constants.GAME_MANAGER_MAX_PLAYABLE)  -- Numero tra 1 e 7
   CalendarManager:reset()
+
   -- Setup variabili globali --
   GameManager:fillGlobalTables()
   GameManager:generateFittableActivities(absoluteIndex)
@@ -49,6 +50,8 @@ function GameManagerDefiner:initialize()
 
   -- Preparazione gioco --
   CalendarManager:reset()
+  CalendarManager:resetYearlyCalendar()
+
   GameManager:addInGuild(absoluteIndex)
   if absoluteIndex >= constants.GAME_MANAGER_MAX_PLAYABLE then
     absoluteIndex = 1
@@ -58,6 +61,7 @@ function GameManagerDefiner:initialize()
     GameManager:addInGuild(absoluteIndex)
   end
 
+  --CalendarManager:printYearlyCalendar()
   --GameManager:debugCalendar()
 end
 
@@ -118,19 +122,16 @@ function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna all
   local randActivity = playableActivities[endIndex]
   local trueIndex = endIndex
   local firstDay= math.random(1,7)
-  local secondDay, thirdDay
-  repeat
-    secondDay = math.random(1,7)
-  until  secondDay ~= firstDay
-  repeat
-    thirdDay = math.random(1,7)
-  until  secondDay ~= firstDay and thirdDay ~= secondDay
 
-  local tmpActivity = Activity:new(randActivity:getName(),randActivity:getDescription(),{},{firstDay,secondDay, thirdDay})
+  local tmpActivity = Activity:new(randActivity:getName(),randActivity:getDescription(),{},{firstDay})
   playableActivities[endIndex] = tmpActivity
   CalendarManager:addActivity(playableActivities[endIndex])
+  CalendarManager:addActivityYearly(playableActivities[endIndex])
   playablePlayer[trueIndex]:setActivity(playableActivities[endIndex])
   allActivities[trueIndex] = tmpActivity
+
+  --print(playableActivities[endIndex]:getStrSchedule())
+  --CalendarManager:printYearlyCalendar()
 
   for i = 1,(constants.GAME_MANAGER_MAX_PLAYABLE-1) do
     trueIndex = i+endIndex
@@ -144,7 +145,7 @@ function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna all
     if(chance<0.60)then
       repeat
         local tmpCalendar={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-        for j=0,i+5 do
+        for j=0,i+1 do
           local r = math.random(1,31)
           tmpCalendar[r] = 0
         end
@@ -152,28 +153,30 @@ function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna all
         newActivity = Activity:new(playableActivities[trueIndex]:getName(),playableActivities[trueIndex]:getDescription(),tmpCalendar,{})
         playableActivities[trueIndex] = newActivity
         allActivities[trueIndex] = newActivity
-      until CalendarManager:addActivity(newActivity,constants.GAME_MANAGER_MAX_PLAYABLE-i)
+      until CalendarManager:addActivityYearly(newActivity,constants.GAME_MANAGER_MAX_PLAYABLE-i) --CalendarManager:addActivity(newActivity,constants.GAME_MANAGER_MAX_PLAYABLE-i)
     elseif(chance>=0.60 and chance < 0.9)then
         repeat
           local r = math.random(1,7)
           newActivity = Activity:new(playableActivities[trueIndex]:getName(),playableActivities[trueIndex]:getDescription(),{},{r})
           playableActivities[trueIndex] = newActivity
           allActivities[trueIndex] = newActivity
-        until CalendarManager:addActivity(newActivity,constants.GAME_MANAGER_MAX_PLAYABLE-i)
+        until CalendarManager:addActivityYearly(newActivity,constants.GAME_MANAGER_MAX_PLAYABLE-i) --CalendarManager:addActivity(newActivity,constants.GAME_MANAGER_MAX_PLAYABLE-i)
     else
       repeat
         local tmpCalendar={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-        for j=0,i+2 do
+        for j=0,i+1 do
           local r1 = math.random(1,31)
           tmpCalendar[r1] = 0
         end
         local r2 = math.random(1,7)
         newActivity = Activity:new(playableActivities[trueIndex]:getName(),playableActivities[trueIndex]:getDescription(),tmpCalendar,{r2})
-      until CalendarManager:addActivity(newActivity,constants.GAME_MANAGER_MAX_PLAYABLE-i)
+      until CalendarManager:addActivityYearly(newActivity,constants.GAME_MANAGER_MAX_PLAYABLE-i) --CalendarManager:addActivity(newActivity,constants.GAME_MANAGER_MAX_PLAYABLE-i)
       playableActivities[trueIndex] = newActivity
       allActivities[trueIndex] = newActivity
     end
     playablePlayer[trueIndex]:setActivity(playableActivities[trueIndex])
+    --print(playableActivities[trueIndex]:getStrSchedule())
+    --CalendarManager:printYearlyCalendar()
   end
   --[[
   for i,iPlayer in ipairs(playablePlayer)do
@@ -197,8 +200,9 @@ end
 
 function GameManagerDefiner:tryDate(proposedDate)
   if CalendarManager:isFreeDay(self.month, proposedDate) then
-    if self.actualCycle >= 10 then
+    if self.actualCycle >= 12 then
       self.outcomeState = constants.OUTCOMESTATE[3]   --Game Win
+      return
     else
       self.outcomeState = constants.OUTCOMESTATE[1]   --Session Win
     end
@@ -206,6 +210,7 @@ function GameManagerDefiner:tryDate(proposedDate)
     self.hearts = self.hearts - 1
     if self.hearts <= 0 then
       self.outcomeState = constants.OUTCOMESTATE[4]   --Game KO
+      return
     else
       self.outcomeState = constants.OUTCOMESTATE[2]   --Session KO
     end
@@ -236,6 +241,7 @@ function GameManagerDefiner:addInGuild(i)
   table.insert(self.guild, #self.guild+1, playablePlayer[i])
   if(playablePlayer[i]:getInGuild()==0)then
     playablePlayer[i]:setInGuild()
+    CalendarManager:addActivityYearly(playablePlayer[i]:getActivity())
     CalendarManager:addActivity(playablePlayer[i]:getActivity())
     return true
   end

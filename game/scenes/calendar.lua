@@ -69,7 +69,7 @@ function calendar.draw()
   love.graphics.setColor(1, 1, 1)
 
   local dayOfWeek
-  local daysInMonth = constants.DAYS_IN_MONTH[currentMonth]
+  local daysInMonth = constants.DAYS_IN_MONTH_ORIGINAL[currentMonth]
   local daysInMonthOriginal = constants.DAYS_IN_MONTH_ORIGINAL[currentMonth]
   local colIndex = 1
   local xOffset, yOffset = 0.309, 0.22
