@@ -14,7 +14,6 @@ local MusicManager = require("lib.soundsManager")
 local Mouse = require("lib.mouse")
 local Timer = require("lib.time")
 
--- test push dev!
 
 require("lib.Activity")
 
