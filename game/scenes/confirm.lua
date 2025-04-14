@@ -101,7 +101,7 @@ function confirm.draw()
     selectedMonthLabel,
     0,
     love.graphics.getHeight() * 0.425,
-    love.graphics.getWidth() + 140,
+    love.graphics.getWidth() + 160,
     "center"
   )
   love.graphics.setColor(1, 1, 1, 1)
@@ -118,11 +118,11 @@ function confirm.keypressed(key)
 end
 
 function confirm.mousePressed(x, y, button)
-  screenManager:checkIfIsClickable(x, y)
+  screenManager:click(x, y)
 end
 
 function confirm.mouseHovered(x, y)
-  local clickableArea = screenManager:checkIfIsClickable(x, y, "hover")
+  local clickableArea = screenManager:getClickableArea(x, y)
   bg = constants.IMAGES_CONFIRM_BG
   if (clickableArea) then
     local toConfirm = clickableArea.data.toConfirm

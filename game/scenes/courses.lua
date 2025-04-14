@@ -216,10 +216,10 @@ end
 
 function courses.mousePressed(x, y, button)
   -- Controlla se è stata cliccata una linguetta o una freccia di navigazione
-  local clickableAreaName = screenManager:checkIfIsClickable(x, y)
+  local clickableAreaName = screenManager:getClickableArea(x, y)
   if (clickableAreaName) then
     soundsManager:playClickOnComputerScreen()
-
+    screenManager:click(x, y)
   end
 end
 
@@ -228,7 +228,7 @@ function courses.mouseHovered(x, y)
     return
   end
   love.graphics.clear()
-  local clickableAreaName = screenManager:checkIfIsClickable(x, y, "hover")
+  local clickableAreaName = screenManager:getClickableArea(x, y)
   if (clickableAreaName) then
     isHovered = true
     hoveredArea = clickableAreaName.to

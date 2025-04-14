@@ -66,12 +66,42 @@ function desktop.load()
     width       = 0,
     height      = 0,
   }
-  helpButtonArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, helpButtonArea, helpButtonArea.name)
-  soundArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, soundArea, soundArea.name)
-  computerArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, computerArea, constants.SCENES_YEARBOOK)
-  calendarArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, calendarArea, constants.SCENES_CALENDAR)
-  agendaArea   = screenManager:setClickableArea(constants.SCENES_DESKTOP, agendaArea, constants.SCENES_AGENDA)
+  helpButtonArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, helpButtonArea, helpButtonArea.name, function()
+    desktop.transitionTo(constants.SCENES_TUTORIAL)
+  end)
+  soundArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, soundArea, soundArea.name, function()
+    desktop.toggleMusic()
+  end)
+  computerArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, computerArea, constants.SCENES_YEARBOOK, function()
+    desktop.transitionTo(constants.SCENES_YEARBOOK)
+  end)
+  calendarArea = screenManager:setClickableArea(constants.SCENES_DESKTOP, calendarArea, constants.SCENES_CALENDAR, function()
+    desktop.transitionTo(constants.SCENES_CALENDAR)
+  end)
+  agendaArea   = screenManager:setClickableArea(constants.SCENES_DESKTOP, agendaArea, constants.SCENES_AGENDA, function()
+    desktop.transitionTo(constants.SCENES_AGENDA)
+  end)
 end
+
+function desktop.transitionTo(scene)
+  soundsManager:playSceneTransitionSound(constants.SCENES_DESKTOP,scene)
+  mouse.loadCursor(constants.HAND_CLICKED_CURSOR)
+  isClicked = true
+  timer.setTimeout(function()
+    isClicked = false
+    mouse.loadCursor(constants.DEFAULT_CURSOR)
+    scenesManager:setScene(scene)
+  end, 0.5)
+end
+
+function desktop.toggleMusic()
+  if (musicManager.isPlayingBgMusic) then
+    musicManager:stopMusic()
+  else
+    musicManager:startMusic()
+  end
+end
+
 
 function desktop.update(dt)
     if (screenManager.resizeAllAreas) then
@@ -85,8 +115,6 @@ end
 function desktop.draw()
   screenManager:drawSceneBackground(constants.IMAGES_DESKTOP_BG,desktopHoveredImages)
   screenManager:drawSceneBackground(constants.IMAGES_HOVER_DESKTOP_POSTITS)
-
-  --love.graphics.rectangle("line",helpButtonArea.x,helpButtonArea.y,helpButtonArea.width,helpButtonArea.height)
   love.graphics.draw(constants.IMAGES_HELP,helpButtonArea.x,helpButtonArea.y,0,0.25,0.25)
   if (musicManager.isPlayingBgMusic) then
     love.graphics.draw(constants.IMAGES_SOUND_ON,soundArea.x,soundArea.y,0,0.25,0.25)
@@ -102,29 +130,10 @@ function desktop.keypressed(key)
 end
 
 function desktop.mousePressed(x, y, button)
-  print('DESKTOP clicked x:'.. x .. ' and y:'..y)
-  local clickableArea = screenManager:checkIfIsClickable(x, y)
+  local clickableArea = screenManager:getClickableArea(x, y)
   -- trasferisciti
-  if (clickableArea and clickableArea.to ~= "SOUND_BUTTON" and clickableArea.to ~= "HELP_BUTTON") then
-    soundsManager:playSceneTransitionSound(constants.SCENES_DESKTOP,clickableArea.to)
-    mouse.loadCursor(constants.HAND_CLICKED_CURSOR)
-    isClicked = true
-    timer.setTimeout(function()
-      isClicked = false
-      mouse.loadCursor(constants.DEFAULT_CURSOR)
-      scenesManager:setScene(clickableArea.to)
-    end, 0.5)
-  end
-  -- gestione suono bg
-  if clickableArea ~= nil and clickableArea.to == "SOUND_BUTTON" then
-    if (musicManager.isPlayingBgMusic) then
-      musicManager:stopMusic()
-    else
-      musicManager:startMusic()
-    end
-  end
-  if clickableArea ~= nil and clickableArea.to == "HELP_BUTTON" then
-    scenesManager:setScene(constants.SCENES_TUTORIAL)
+  if (clickableArea) then
+    screenManager:click(x, y)
   end
 end
 
@@ -133,7 +142,7 @@ function desktop.mouseHovered(x, y)
     return
   end
   love.graphics.clear()
-  local clickableArea = screenManager:checkIfIsClickable(x, y)
+  local clickableArea = screenManager:getClickableArea(x, y)
   if (clickableArea) then
     isHovered = true
     hoveredArea = clickableArea.to

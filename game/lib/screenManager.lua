@@ -92,7 +92,7 @@ end
 
 -- Controlla se un'area di una certa scena é cliccabile o meno
 -- Inoltre restituisce la landing zone (nome scena) del click (se presente)
-function ScreenManager:checkIfIsClickable(x, y, mode)
+function ScreenManager:getClickableArea(x, y)
   local scene = scenesManager:getScene()
   if self.areas == nil then
     return nil
@@ -100,15 +100,26 @@ function ScreenManager:checkIfIsClickable(x, y, mode)
   for _, areaOwner in ipairs(self.areas[scene]) do
     local area = areaOwner.area
     if x >= area.x and x <= area.x + area.width and y >= area.y and y <= area.y + area.height then
-      if areaOwner.handler ~= nil and mode ~= "hover" then
-        -- Se fornito in precedenza, viene eseguito un handler (in caso di bottone selezionato)
-        areaOwner.handler()
-      end
       return areaOwner
     end
   end
-  -- end
   return nil
+end
+
+function ScreenManager:click(x, y)
+  local scene = scenesManager:getScene()
+  if self.areas == nil then
+    return nil
+  end
+  for _, areaOwner in ipairs(self.areas[scene]) do
+    local area = areaOwner.area
+    if x >= area.x and x <= area.x + area.width and y >= area.y and y <= area.y + area.height then
+      if areaOwner.handler ~= nil then
+        -- Se fornito in precedenza, viene eseguito un handler (in caso di bottone selezionato)
+        areaOwner.handler()
+      end
+    end
+  end
 end
 
 function ScreenManager:checkIfClickingOutside(x,y,insideArea)

@@ -55,7 +55,6 @@ end
 function calendar.draw()
   screenManager:drawSceneBackground(constants.IMAGES_CALENDAR_BG)
   love.graphics.setColor(0, 0, 1)
-  --love.graphics.rectangle("line",calendarArea.x,calendarArea.y,calendarArea.width,calendarArea.height)
   love.graphics.setColor(1, 1, 1)
   love.graphics.setFont(monthFont)
   local monthArea = screenManager:calcAreaSizes({
@@ -160,14 +159,14 @@ function calendar.keypressed(key)
 end
 
 function calendar.mousePressed(x, y, button)
-  local clickableArea = screenManager:checkIfIsClickable(x, y)
   if screenManager:checkIfClickingOutside(x,y,calendarArea) then
     scenesManager:setScene(constants.SCENES_DESKTOP)
   end
+  screenManager:click(x, y)
 end
 
 function calendar.mouseHovered(x, y)
-  local clickableArea = screenManager:checkIfIsClickable(x, y, "hover")
+  local clickableArea = screenManager:getClickableArea(x, y)
   -- Se GIORNO é in hover, disegno il cerchio rosso
   -- e cambio il cursore
   if (clickableArea) then
