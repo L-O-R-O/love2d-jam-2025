@@ -19,7 +19,8 @@ playablePlayer      = {}
 playableActivities  = {}
 
 
-function GameManagerDefiner:new()
+function GameManagerDefiner:new(gameCycles)
+  local gc = gameCycles or 10
   local obj = {
     hearts          = constants.MAX_HEARTS,
     guild           = {},
@@ -30,6 +31,7 @@ function GameManagerDefiner:new()
     month           = 1,
     consecutiveWins = 0,
     outcomeState    = 0,
+    gameCycles      = gc,
   }
   CalendarManager = CalendarManager:new(1)
 
@@ -60,9 +62,6 @@ function GameManagerDefiner:initialize()
     absoluteIndex = absoluteIndex+1
     GameManager:addInGuild(absoluteIndex)
   end
-
-  --CalendarManager:printYearlyCalendar()
-  --GameManager:debugCalendar()
 end
 
 function GameManagerDefiner:reset()
@@ -95,12 +94,6 @@ function GameManagerDefiner:generateOrderedActivities()
   table.sort(orderedActivities, function(a, b)
     return a.name < b.name
   end)
-  --[[
-  for i,iActivity in ipairs(orderedActivities)do
-    print(i, iActivity.name)
-  end
-  print("\n")
-  ]]
 end
 
 function GameManagerDefiner:fillGlobalTables()  -- Riempi la tabella playable Player con i dati dei primi N dove N è il numero di elementi della suddeta tabella con primi dati delle costanti student
@@ -130,8 +123,6 @@ function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna all
   playablePlayer[trueIndex]:setActivity(playableActivities[endIndex])
   allActivities[trueIndex] = tmpActivity
 
-  --print(playableActivities[endIndex]:getStrSchedule())
-  --CalendarManager:printYearlyCalendar()
 
   for i = 1,(constants.GAME_MANAGER_MAX_PLAYABLE-1) do
     trueIndex = i+endIndex
@@ -175,32 +166,12 @@ function GameManagerDefiner:generateFittableActivities(endIndex)  -- Assegna all
       allActivities[trueIndex] = newActivity
     end
     playablePlayer[trueIndex]:setActivity(playableActivities[trueIndex])
-    --print(playableActivities[trueIndex]:getStrSchedule())
-    --CalendarManager:printYearlyCalendar()
   end
-  --[[
-  for i,iPlayer in ipairs(playablePlayer)do
-    print(iPlayer:getName())
-  end
-  ]]
-end
-
-function GameManagerDefiner:debugCalendar()
-  print(self.month)
-  for i= 1, #self.guild do
-    print(self.guild[i]:getName())
-    print(self.guild[i]:getActivity():getStrSchedule())
-    self.guild[i]:getActivity():printActivity()
-  end
-  print("Calendar:")
-  CalendarManager:printCalendar()
-
-  print("")
 end
 
 function GameManagerDefiner:tryDate(proposedDate)
   if CalendarManager:isFreeDay(self.month, proposedDate) then
-    if self.actualCycle >= 12 then
+    if self.actualCycle >= self.gameCycles then
       self.outcomeState = constants.OUTCOMESTATE[3]   --Game Win
       return
     else
@@ -231,7 +202,7 @@ function GameManagerDefiner:tryDate(proposedDate)
       self:addInGuild(absoluteIndex)
     end
   end
-  --GameManager:debugCalendar()
+
 end
 
 function GameManagerDefiner:addInGuild(i)
@@ -335,6 +306,24 @@ function GameManagerDefiner:getActivity(name)
     end
   end
   return false
+end
+
+function GameManagerDefiner:getGameCycles()
+  return self.gameCycles
+end
+
+---- PRINT METHOD ----
+function GameManagerDefiner:printCalendar()
+  print(self.month)
+  for i= 1, #self.guild do
+    print(self.guild[i]:getName())
+    print(self.guild[i]:getActivity():getStrSchedule())
+    self.guild[i]:getActivity():printActivity()
+  end
+  print("Calendar:")
+  CalendarManager:printCalendar()
+
+  print("")
 end
 
 GameManager = GameManagerDefiner:new()
