@@ -21,32 +21,9 @@ function Player:new(name, description, activityName, activity, playable, inGuild
     return obj
 end
 
-function Player:getName()
-    return self.name
-end
-
-function Player:getDescription()
-  return self.description
-end
-
-function Player:getActivity()
-  return self.activity
-end
-
+---- SET METHODS ----
 function Player:setActivity(par_activity)
   self.activity = par_activity
-end
-
-function Player:getActivityName()
-  return self.activityName
-end
-
-function Player:getPlayable()
-  return self.playable
-end
-
-function Player:getInGuild()
-  return self.inGuild
 end
 
 function Player:setInGuild()
@@ -59,9 +36,34 @@ function Player:setOutGuild()
   self.inGuild = 0
 end
 
+
+---- GET METHODS ----
+function Player:getActivityName()
+  return self.activityName
+end
+
+function Player:getPlayable()
+  return self.playable
+end
+
+function Player:getInGuild()
+  return self.inGuild
+end
+
 function Player:getFavouriteClass()
   return self.favouriteClass
 end
 
+function Player:getName()
+  return self.name
+end
+
+function Player:getDescription()
+  return self.description
+end
+
+function Player:getActivity()
+  return self.activity
+end
 
 return Player

@@ -166,8 +166,6 @@ local function cleanCalendar(obj) -- Imposta il calendario a 0
   obj.calendar = tmpCalendar
 end
 
-
-
 function Activity:new(name, description, calendar, dayOfTheWeek)
   local obj = {
     name = name,
@@ -195,62 +193,6 @@ function Activity:new(name, description, calendar, dayOfTheWeek)
   return obj
 end
 
-function Activity:addDaysCalendar(calendar) --aggiungo i giorni occupati al calendario esistente
-  if (not calendar or #calendar == 0 or #calendar < 31) then
-    return  -- Se non ci sono giorni specificati, esce dalla funzione
-  end
-
-  local tmpcalendar = {}
-
-  for i=1, 31 do
-    tmpcalendar[i] = self.calendar[i] * calendar[i]
-  end
-
-  self.calendar = tmpcalendar  -- Aggiorna il calendario
-end
-
-function Activity:setMonth(month) --ricalcola il calendario per il mese passato, in modo da  mantenere la candenza settimanale richiesta nel  costruttore
-
-  if not self.dayOfTheWeek or #self.dayOfTheWeek == 0 then
-    return  -- Se non ci sono giorni specificati, esce dalla funzione
-  end
-
-  local totalDays = 0
-
-  for i = 1, month - 1 do
-      totalDays = totalDays + constants.DAYS_IN_MONTH[i]
-  end
-
-  local  weekDay = ((totalDays - 1) % 7) + 1
-
-  local tmpCalendar = {}
-
-  for day = 1, 31 do
-      -- Calcola il giorno della settimana corrente per questo giorno
-      local currentWeekDay = ((weekDay + day - 1) % 7) + 1
-
-      -- Verifica se currentWeekDay è presente in self.dayoftheweek
-      local isOccupied = false
-      for _, dow in ipairs(self.dayOfTheWeek) do
-          if currentWeekDay == dow then
-              isOccupied = true
-              break
-          end
-      end
-
-      -- Se il giorno corrisponde ad uno dei giorni settimanali occupati, metti 0 (occupato), altrimenti 1 (libero)
-      if isOccupied then
-        tmpCalendar[day] = 0
-      else
-        tmpCalendar[day] = 1
-      end
-  end
-
-  self.calendar = tmpCalendar
-
-  self.strSchedule = checkAllDaysOccupied(self, month)
-end
-
 ---- GET METHODS ----
 function Activity:getName()
   return self.name
@@ -272,6 +214,7 @@ function Activity:getStrSchedule()
   return self.strSchedule
 end
 
+---- PRINT METHOD ----
 function Activity:printActivity() -- Stampa i giorni che un attività occupa --
   io.write("Attivity:  ")
   for day = 1, #self.calendar do

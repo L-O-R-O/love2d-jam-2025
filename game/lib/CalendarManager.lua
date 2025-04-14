@@ -47,12 +47,6 @@ function CalendarManager:resetYearlyCalendar(cal)
   return cal
 end
 
-function CalendarManager:printYearlyCalendar()
-  for month, days in ipairs(calendarYear) do
-    print("Month:", month, "Days:", table.concat(days, ", "))
-  end
-end
-
 function CalendarManager:alignCalendar()                -- aggiorna il calendario con tutte le attività caricate fino ad oggi --
   if not addedActivities then
     return
@@ -94,40 +88,6 @@ function CalendarManager:isFreeDay(month, day)          -- Ritorna True se il gi
   else
     return true
   end
-end
-
-function CalendarManager:printCalendar()                -- Stampa l'attuale calendario --
-  io.write("Calendario:  ")
-  for giorno = 1, #calendar do
-      io.write(calendar[giorno] .. " ")
-  end
-  print('')
-end
-
-function CalendarManager:addNewActivity(activity, activityIndex, nFreeDays)   -- cerca e aggiunge una nuova attività al calendario conservando almeno: nFreeDays --
-  local tmpCalendar = {}
-  local added = false
-  local selectedActivity = {}
-  local index = math.random(1, #activityIndex)  -- Numero tra 10 e 50
-
-  repeat
-      selectedActivity = activity[activityIndex[index]]
-      for i = 1, #calendar do
-          tmpCalendar[i] = calendar[i] * selectedActivity[i]
-      end
-
-      if minFreeDays(tmpCalendar, nFreeDays) then
-          calendar = tmpCalendar
-          added = true
-          --print('aggiunto: ' .. activityIndex[index])
-          table.insert(addedActivities, activityIndex[index])
-      else
-          if index==#activityIndex then
-              index = 0
-          end
-          index = index + 1
-      end
-  until added
 end
 
 function CalendarManager:addActivityYearly(activity, nFreeDays)
@@ -194,6 +154,7 @@ function CalendarManager:reset()
   addedActivities = {}
 end
 
+---- GET METHODS ----
 function CalendarManager:getFirstDayOfMonth(month)        -- ritorna il primo giorno della settimana del mese indicato
   if  month == 1 then
     return 1
@@ -210,6 +171,21 @@ function CalendarManager:getFirstDayOfMonth(month)        -- ritorna il primo gi
   local firstDay = ((totalDays) % 7) + 1
 
   return firstDay
+end
+
+---- PRINT METHOD ----
+function CalendarManager:printYearlyCalendar()
+  for month, days in ipairs(calendarYear) do
+    print("Month:", month, "Days:", table.concat(days, ", "))
+  end
+end
+
+function CalendarManager:printCalendar()                -- Stampa l'attuale calendario --
+  io.write("Calendario:  ")
+  for giorno = 1, #calendar do
+      io.write(calendar[giorno] .. " ")
+  end
+  print('')
 end
 
 return CalendarManager
