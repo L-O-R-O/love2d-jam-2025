@@ -348,8 +348,9 @@ function yearbook.mousePressed(x, y, button)
   if button == 2 then
     scenesManager:setScene(constants.SCENES_DESKTOP) --right click
   end
-  local clickableAreaName = screenManager:checkIfIsClickable(x, y)
+  local clickableAreaName = screenManager:getClickableArea(x, y)
   if (clickableAreaName) then
+    screenManager:click(x, y)
     soundsManager:playClickOnComputerScreen()
     for _, tab in ipairs(tabs) do
       if x >= tab.x and x <= tab.x + tab.width and y >= tab.y and y <= tab.y + tab.height then
@@ -374,7 +375,7 @@ function yearbook.mouseHovered(x, y)
     return
   end
   love.graphics.clear()
-  local clickableAreaName = screenManager:checkIfIsClickable(x, y, "hover")
+  local clickableAreaName = screenManager:getClickableArea(x, y)
   if (clickableAreaName) then
     isHovered = true
     hoveredArea = clickableAreaName.to

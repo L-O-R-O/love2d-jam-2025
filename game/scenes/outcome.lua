@@ -78,15 +78,13 @@ function outcome.keypressed(key)
 end
 
 function outcome.mousePressed(x, y, button)
-  screenManager:checkIfIsClickable(x, y)
+  screenManager:click(x, y)
 end
 
 function outcome.mouseHovered(x, y)
-  local clickableArea = screenManager:checkIfIsClickable(x, y, "hover")
+  local clickableArea = screenManager:getClickableArea(x, y)
   if (clickableArea and clickableArea.data) then
     local outcome = GameManager:getOutcomeState()
-    -- print('Outcome: ', outcome)
-    -- print('clickableArea.data.isSessionButton: ', clickableArea.data.isSessionButton)
     if ((outcome == constants.OUTCOMESTATE[1] or outcome == constants.OUTCOMESTATE[2]) and clickableArea.data.isSessionButton == true) then
       -- Session OK/KO hovered
       hovered = true
