@@ -289,6 +289,10 @@ function GameManagerDefiner:getOutcomeState()
   return self.outcomeState
 end
 
+function GameManagerDefiner:getActualCycle()
+  return self.actualCycle
+end
+
 function GameManagerDefiner:getStudent(name)
   for i =1, #allStudents do
     if name == allStudents[i]:getName() then
