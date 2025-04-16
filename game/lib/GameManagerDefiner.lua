@@ -11,6 +11,7 @@ local function getMonthFromOS()
   return monthNumber
 end
 
+gameCycles          = 10
 orderedActivities   = {}
 orderedStudents     = {}
 allStudents         = {}
@@ -19,19 +20,17 @@ playablePlayer      = {}
 playableActivities  = {}
 
 
-function GameManagerDefiner:new(gameCycles)
-  local gc = gameCycles or 10
+function GameManagerDefiner:new()
   local obj = {
     hearts          = constants.MAX_HEARTS,
     guild           = {},
-    actualCycle     = 1, --0 se non in partita, poi da 1 a 10
+    actualCycle     = 1, --0 se non in partita, poi da 1 a gameCycles
     prob            = 0, --OPT
     suddenOn        = 0, --variabile per capire se mostrare o meno la pagina degli orari
     gameOver        = 0,
     month           = 1,
     consecutiveWins = 0,
-    outcomeState    = 0,
-    gameCycles      = gc,
+    outcomeState    = 0
   }
   CalendarManager = CalendarManager:new(1)
 
@@ -171,7 +170,7 @@ end
 
 function GameManagerDefiner:tryDate(proposedDate)
   if CalendarManager:isFreeDay(self.month, proposedDate) then
-    if self.actualCycle >= self.gameCycles then
+    if self.actualCycle >= gameCycles then
       self.outcomeState = constants.OUTCOMESTATE[3]   --Game Win
       return
     else
@@ -306,10 +305,6 @@ function GameManagerDefiner:getActivity(name)
     end
   end
   return false
-end
-
-function GameManagerDefiner:getGameCycles()
-  return self.gameCycles
 end
 
 ---- PRINT METHOD ----
