@@ -102,14 +102,15 @@ function title.buildMenuElements()
 
   -- Creazione del subMenu CONTROLLI
   local gameplayMenu = Menu:new(constants.FONTS_SUB_MENU)
-  settingsMenu:addItem("Numbers of Sessions ".. gameCycles, function()
-    settingsMenu:openSubMenu("numberOfSessions")
-  end, nil, false)
-  gameplayMenu:addItem("5", function() gameCycles = 5 updateMenu = true gameplayMenu:close() end)
-  gameplayMenu:addItem("7", function() gameCycles = 7 updateMenu = true gameplayMenu:close() end)
-  gameplayMenu:addItem("10", function()gameCycles = 10 updateMenu = true gameplayMenu:close() end)
-  gameplayMenu:addItem("12", function()gameCycles = 12 updateMenu = true gameplayMenu:close() end)
-
+  if scenesManager.fromScene == "" then
+    settingsMenu:addItem("Numbers of Sessions ".. gameCycles, function()
+      settingsMenu:openSubMenu("numberOfSessions")
+    end, nil, false)
+    gameplayMenu:addItem("5", function() gameCycles = 5 updateMenu = true gameplayMenu:close() end)
+    gameplayMenu:addItem("7", function() gameCycles = 7 updateMenu = true gameplayMenu:close() end)
+    gameplayMenu:addItem("10", function()gameCycles = 10 updateMenu = true gameplayMenu:close() end)
+    gameplayMenu:addItem("12", function()gameCycles = 12 updateMenu = true gameplayMenu:close() end)
+  end
   -- Creazione del subMenu CONTROLLI
   local controlsMenu = Menu:new(constants.FONTS_SUB_MENU)
   settingsMenu:addItem("Controls", function()
@@ -147,7 +148,9 @@ function title.buildMenuElements()
 
   -- Collegare i subMenu
   settingsMenu:addSubMenu("controls", controlsMenu)
-  settingsMenu:addSubMenu("numberOfSessions", gameplayMenu)
+  if scenesManager.fromScene == "" then
+    settingsMenu:addSubMenu("numberOfSessions", gameplayMenu)
+  end
   mainMenu:addSubMenu("settings", settingsMenu)
   mainMenu:addSubMenu("credits", creditsMenu)
   return mainMenu
