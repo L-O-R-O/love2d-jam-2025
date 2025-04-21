@@ -1,69 +1,115 @@
 local constants = require("constants")
 coursesActivityCard = {}
-local currentCourseGame = {
-  course = false,
-  courseSchedule = ""
-}
-local cardArea = {}
-local nameArea = {}
-local descriptionArea = {}
-local scheduleArea = {}
 
---local player = yearbook.getCurrentStudent()
+-- Cache delle immagini
+local images = {
+  background = constants.IMAGES_CS_ACTIVITY_CARD_BG
+}
+
+-- Cache dei font
+local fonts = {
+  title = constants.FONTS_NICE_CHALK_TITLE,
+  body = constants.FONTS_NICE_CHALK_BODY
+}
+
+-- Cache dei colori
+local colors = {
+  black = {0, 0, 0, 1},
+  white = {1, 1, 1, 1},
+  red = {1, 0, 0, 1}
+}
+
+-- Stato della scena
+local state = {
+  currentCourse = {
+    course = false,
+    courseSchedule = ""
+  }
+}
+
+-- Aree cliccabili
+local areas = {
+  card = {
+    xPerc = 0.31,
+    yPerc = 0.375,
+    widthPerc = 0.38,
+    heightPerc = 0.34
+  },
+  name = {
+    xPerc = 0.445,
+    yPerc = 0.44,
+    widthPerc = 0.18,
+    heightPerc = 0.05
+  },
+  description = {
+    xPerc = 0.395,
+    yPerc = 0.57,
+    widthPerc = 0.28,
+    heightPerc = 0.05
+  },
+  schedule = {
+    xPerc = 0.395,
+    yPerc = 0.63,
+    widthPerc = 0.28,
+    heightPerc = 0.05
+  }
+}
+
+-- Funzioni di utilità
+local function setupAreas()
+  for name, area in pairs(areas) do
+    areas[name] = screenManager:calcAreaSizes(area)
+  end
+end
 
 function coursesActivityCard.load()
   mouse.registerHandler(coursesActivityCard, constants.SCENES_COURSES_ACTIVITY_CARD)
-  cardArea = screenManager:calcAreaSizes({ xPerc = 0.31, yPerc = 0.375, widthPerc = 0.38, heightPerc = 0.34 })
-  nameArea = screenManager:calcAreaSizes({ xPerc = 0.445, yPerc = 0.44, widthPerc = 0.18, heightPerc = 0.05 })
-  descriptionArea = screenManager:calcAreaSizes({ xPerc = 0.395, yPerc = 0.57, widthPerc = 0.28, heightPerc = 0.05 })
-  scheduleArea = screenManager:calcAreaSizes({ xPerc = 0.395, yPerc = 0.63, widthPerc = 0.28, heightPerc = 0.05 })
+  setupAreas()
 end
 
 function coursesActivityCard.update(dt)
-  currentCourseGame.course = GameManager:getActivity(currentCourse.name)
-  if currentCourseGame.course ~= false then
-    currentCourseGame.courseSchedule = currentCourseGame.course:getStrSchedule()
+  state.currentCourse.course = GameManager:getActivity(currentCourse.name)
+  if state.currentCourse.course ~= false then
+    state.currentCourse.courseSchedule = state.currentCourse.course:getStrSchedule()
   end
 end
 
 function coursesActivityCard.keypressed(key)
-  if (key == constants.KEYS_ESCAPE_MENU) then
+  if key == constants.KEYS_ESCAPE_MENU then
     scenesManager:setScene(constants.SCENES_COURSES, false)
-  elseif (key == constants.KEYS_PAUSE_MENU) then
+  elseif key == constants.KEYS_PAUSE_MENU then
     scenesManager:setScene(constants.SCENES_TITLE)
   end
 end
 
 function coursesActivityCard.mousePressed(x, y, button)
-  if screenManager:checkIfClickingOutside(x,y,cardArea) then
+  if screenManager:checkIfClickingOutside(x, y, areas.card) then
     scenesManager:setScene(constants.SCENES_COURSES, false)
   end
 end
 
 function coursesActivityCard.draw()
+  -- Imposta il font per il titolo
+  love.graphics.setFont(fonts.title)
 
-  love.graphics.setFont(constants.FONTS_NICE_CHALK_TITLE)
-  screenManager:drawSceneBackground(constants.IMAGES_CS_ACTIVITY_CARD_BG)
+  -- Disegna lo sfondo
+  screenManager:drawSceneBackground(images.background)
 
-  love.graphics.setColor(1, 0, 0)
-  --love.graphics.rectangle("line",cardArea.x,cardArea.y,cardArea.width,cardArea.height)
-  love.graphics.setColor(1, 1, 1)
+  -- Disegna il nome del corso
+  love.graphics.setColor(colors.black)
+  love.graphics.printf(currentCourse.name, areas.name.x, areas.name.y, areas.name.width, "center")
 
-  love.graphics.setColor(0, 0, 0)
-  --love.graphics.rectangle("line", nameArea.x, nameArea.y, nameArea.width, nameArea.height)
-  love.graphics.printf(currentCourse.name, nameArea.x, nameArea.y, nameArea.width, "center")
-  love.graphics.setColor(1, 1, 1)
-  love.graphics.setFont(constants.FONTS_NICE_CHALK_BODY)
+  -- Disegna la descrizione del corso
+  love.graphics.setFont(fonts.body)
+  love.graphics.setColor(colors.black)
+  love.graphics.printf(currentCourse.description, areas.description.x, areas.description.y, areas.description.width, "left")
 
-  love.graphics.setColor(0, 0, 0)
-  --love.graphics.rectangle("line", descriptionArea.x, descriptionArea.y, descriptionArea.width, descriptionArea.height)
-  love.graphics.printf(currentCourse.description, descriptionArea.x, descriptionArea.y, descriptionArea.width,"left")
-  love.graphics.setColor(1, 1, 1)
+  -- Disegna l'orario del corso
+  love.graphics.setColor(colors.black)
+  love.graphics.printf(state.currentCourse.courseSchedule, areas.schedule.x, areas.schedule.y, areas.schedule.width, "left")
 
-  love.graphics.setColor(0, 0, 0)
-  --love.graphics.rectangle("line", scheduleArea.x, scheduleArea.y, scheduleArea.width, scheduleArea.height)
-  love.graphics.printf(currentCourseGame.courseSchedule, scheduleArea.x, scheduleArea.y, scheduleArea.width,"left")
-  love.graphics.setColor(1, 1, 1)
+  -- Reset del colore
+  love.graphics.setColor(colors.white)
 end
 
 return coursesActivityCard
