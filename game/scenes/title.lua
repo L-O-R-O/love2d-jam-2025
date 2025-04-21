@@ -4,6 +4,7 @@ local Menu = require("lib.menu")
 local MenuManager = require("lib.MenuManager")
 local desktop = require("scenes.desktop")
 local constants = require("constants")
+local updateMenu = true
 
 menuManager = MenuManager:new()
 
@@ -20,7 +21,8 @@ end
 
 function title.update(dt)
   currentMenu:update(dt)
-  if scenesManager.rebuildMenu then
+  if scenesManager.rebuildMenu or updateMenu then
+    updateMenu = false
     currentMenu = title.buildMenuElements()
     scenesManager.rebuildMenu = false
     currentMenu:open()
@@ -99,6 +101,17 @@ function title.buildMenuElements()
   end, true)
 
   -- Creazione del subMenu CONTROLLI
+  local gameplayMenu = Menu:new(constants.FONTS_SUB_MENU)
+  if scenesManager.fromScene == "" then
+    settingsMenu:addItem("Numbers of Sessions ".. gameCycles, function()
+      settingsMenu:openSubMenu("numberOfSessions")
+    end, nil, false)
+    gameplayMenu:addItem("5", function() gameCycles = 5 updateMenu = true gameplayMenu:close() end)
+    gameplayMenu:addItem("7", function() gameCycles = 7 updateMenu = true gameplayMenu:close() end)
+    gameplayMenu:addItem("10", function()gameCycles = 10 updateMenu = true gameplayMenu:close() end)
+    gameplayMenu:addItem("12", function()gameCycles = 12 updateMenu = true gameplayMenu:close() end)
+  end
+  -- Creazione del subMenu CONTROLLI
   local controlsMenu = Menu:new(constants.FONTS_SUB_MENU)
   settingsMenu:addItem("Controls", function()
     settingsMenu:openSubMenu("controls")
@@ -123,6 +136,9 @@ function title.buildMenuElements()
   settingsMenu:addItem("Back", function()
     settingsMenu:close()
   end, nil, false, 50)
+  gameplayMenu:addItem("Back", function()
+    gameplayMenu:close()
+  end, nil, false, 50)
   controlsMenu:addItem("Back", function()
     controlsMenu:close()
   end, nil, false, 50)
@@ -132,6 +148,9 @@ function title.buildMenuElements()
 
   -- Collegare i subMenu
   settingsMenu:addSubMenu("controls", controlsMenu)
+  if scenesManager.fromScene == "" then
+    settingsMenu:addSubMenu("numberOfSessions", gameplayMenu)
+  end
   mainMenu:addSubMenu("settings", settingsMenu)
   mainMenu:addSubMenu("credits", creditsMenu)
   return mainMenu

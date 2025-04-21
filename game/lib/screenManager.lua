@@ -56,6 +56,8 @@ end
 function ScreenManager:drawHUD(hearts,nPlayers)
   local imageWidth, imageHeight = 60, 60 -- Dimensions of each image
   local padding = 20 -- Padding between images and from the left side
+
+  -- Numero di cuori
   for i = 1, 3 do
     local x = padding + (i - 1) * (imageWidth + padding)
     local y = padding
@@ -67,10 +69,16 @@ function ScreenManager:drawHUD(hearts,nPlayers)
       love.graphics.draw(constants.IMAGES_HEART_STRIKE, x, y, 0, imageWidth / constants.IMAGES_HEART_STRIKE:getWidth(), imageHeight / constants.IMAGES_HEART_STRIKE:getHeight())
     end
   end
+
+  -- Numero di partecipanti
   imageWidth, imageHeight = 60, 60 -- Dimensions of each image
   love.graphics.draw(constants.IMAGES_PLAYER_COUNT_HUD, 1.2*padding, 4.2*padding, 0, imageWidth / constants.IMAGES_PLAYER_COUNT_HUD:getWidth(), imageHeight / constants.IMAGES_PLAYER_COUNT_HUD:getHeight())
   love.graphics.setFont(constants.FONTS_NICE_CHALK_HUD)
   love.graphics.printf(nPlayers, 5*padding, 4.7*padding, 250, "left")
+
+  -- Numero di sessioni correnti su numero di sessioni totali
+  local cyclesString = GameManager:getActualCycle() .. '/' .. gameCycles
+  love.graphics.printf(cyclesString, 1.4*padding, 8.2*padding, 250, "left")
 end
 
 function ScreenManager:calcAreaSizes(area)
