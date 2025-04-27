@@ -21,17 +21,18 @@ jobs:
           cd luarocks-3.9.2
           LUA_PATH=$(which lua)
           LUA_DIR=$(dirname $(dirname $LUA_PATH))
-          ./configure --with-lua=$LUA_DIR --with-lua-include=$LUA_DIR/include
+          ./configure --with-lua=$LUA_DIR --with-lua-include=$LUA_DIR/include --prefix=$HOME/.local
           make
-          sudo make install
+          make install
           cd ..
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - name: Install dependencies
         run: |
-          luarocks install busted
-          luarocks install luacov
-          luarocks install luacov-console
-          luarocks install luacov-html
+          luarocks install --local busted
+          luarocks install --local luacov
+          luarocks install --local luacov-console
+          luarocks install --local luacov-html
 
       - name: Run tests
         run: |
