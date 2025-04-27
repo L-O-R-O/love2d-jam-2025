@@ -36,6 +36,17 @@ jobs:
           luarocks install --tree=$HOME/.luarocks luacov-html
           echo "$HOME/.luarocks/bin" >> $GITHUB_PATH
 
+      - name: Install Love2D
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y love
+
+      - name: Build project
+        run: |
+          cd game
+          zip -r ../${{ env.PRODUCT_FILE }}.love *
+          cd ..
+
       - name: Run tests
         run: |
           $HOME/.luarocks/bin/busted -v --coverage
