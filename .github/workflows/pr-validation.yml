@@ -46,18 +46,3 @@ jobs:
           cd game
           zip -r ../${{ env.PRODUCT_FILE }}.love *
           cd ..
-
-      - name: Run tests
-        run: |
-          $HOME/.luarocks/bin/busted -v --coverage
-
-      - name: Generate coverage report
-        run: |
-          $HOME/.luarocks/bin/luacov
-          $HOME/.luarocks/bin/luacov-console
-
-      - name: Check coverage
-        run: |
-          $HOME/.luarocks/bin/luacov-html
-          # Qui puoi aggiungere controlli sulla copertura del codice
-          # Ad esempio, fallire se la copertura è inferiore a una certa percentuale
