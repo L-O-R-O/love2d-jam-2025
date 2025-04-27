@@ -1,0 +1,37 @@
+name: PR Validation 🩷💙
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Lua
+        uses: leafo/gh-actions-lua@v8
+        with:
+          luaVersion: '5.4'
+
+      - name: Install dependencies
+        run: |
+          luarocks install busted
+          luarocks install luacov
+          luarocks install luacov-console
+          luarocks install luacov-html
+
+      - name: Run tests
+        run: |
+          busted -v --coverage
+
+      - name: Generate coverage report
+        run: |
+          luacov
+          luacov-console
+
+      - name: Check coverage
+        run: |
+          luacov-html
+          # Qui puoi aggiungere controlli sulla copertura del codice
+          # Ad esempio, fallire se la copertura è inferiore a una certa percentuale
