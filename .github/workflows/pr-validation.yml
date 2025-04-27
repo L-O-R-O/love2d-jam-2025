@@ -36,15 +36,15 @@ jobs:
 
       - name: Run tests
         run: |
-          busted -v --coverage
+          $HOME/.local/bin/busted -v --coverage
 
       - name: Generate coverage report
         run: |
-          luacov
-          luacov-console
+          $HOME/.local/bin/luacov
+          $HOME/.local/bin/luacov-console
 
       - name: Check coverage
         run: |
-          luacov-html
+          $HOME/.local/bin/luacov-html
           # Qui puoi aggiungere controlli sulla copertura del codice
           # Ad esempio, fallire se la copertura è inferiore a una certa percentuale
