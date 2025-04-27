@@ -29,22 +29,24 @@ jobs:
 
       - name: Install dependencies
         run: |
-          luarocks install --local busted
-          luarocks install --local luacov
-          luarocks install --local luacov-console
-          luarocks install --local luacov-html
+          mkdir -p $HOME/.luarocks
+          luarocks install --tree=$HOME/.luarocks busted
+          luarocks install --tree=$HOME/.luarocks luacov
+          luarocks install --tree=$HOME/.luarocks luacov-console
+          luarocks install --tree=$HOME/.luarocks luacov-html
+          echo "$HOME/.luarocks/bin" >> $GITHUB_PATH
 
       - name: Run tests
         run: |
-          $HOME/.local/bin/busted -v --coverage
+          $HOME/.luarocks/bin/busted -v --coverage
 
       - name: Generate coverage report
         run: |
-          $HOME/.local/bin/luacov
-          $HOME/.local/bin/luacov-console
+          $HOME/.luarocks/bin/luacov
+          $HOME/.luarocks/bin/luacov-console
 
       - name: Check coverage
         run: |
-          $HOME/.local/bin/luacov-html
+          $HOME/.luarocks/bin/luacov-html
           # Qui puoi aggiungere controlli sulla copertura del codice
           # Ad esempio, fallire se la copertura è inferiore a una certa percentuale
