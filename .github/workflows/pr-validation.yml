@@ -1,0 +1,48 @@
+name: PR Validation 🩷💙
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Lua
+        uses: leafo/gh-actions-lua@v8
+        with:
+          luaVersion: '5.4'
+
+      - name: Install LuaRocks
+        run: |
+          wget https://luarocks.org/releases/luarocks-3.9.2.tar.gz
+          tar zxpf luarocks-3.9.2.tar.gz
+          cd luarocks-3.9.2
+          LUA_PATH=$(which lua)
+          LUA_DIR=$(dirname $(dirname $LUA_PATH))
+          ./configure --with-lua=$LUA_DIR --with-lua-include=$LUA_DIR/include --prefix=$HOME/.local
+          make
+          make install
+          cd ..
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: |
+          mkdir -p $HOME/.luarocks
+          luarocks install --tree=$HOME/.luarocks busted
+          luarocks install --tree=$HOME/.luarocks luacov
+          luarocks install --tree=$HOME/.luarocks luacov-console
+          luarocks install --tree=$HOME/.luarocks luacov-html
+          echo "$HOME/.luarocks/bin" >> $GITHUB_PATH
+
+      - name: Install Love2D
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y love
+
+      - name: Build project
+        run: |
+          cd game
+          zip -r ../${{ env.PRODUCT_FILE }}.love *
+          cd ..

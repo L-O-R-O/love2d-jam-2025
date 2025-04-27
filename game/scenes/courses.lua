@@ -1,60 +1,105 @@
 local constants = require("constants")
 courses = {}
 
-local allCourses = constants.ACTIVITIES
-
-local browserTabYB   = {}
-local browserTabCS   = {}
-local prevArrow      = {}
-local nextArrow      = {}
-local backArrow      = {}
-local coursesLabels  = {}
-local currentPage    = 1
-local maxViewCourses = 13
-local maxPages       = #allCourses / maxViewCourses
-local reDrawAreas   = false
-
--- Hover dei bottoni prevArrow e nextArrow
-local arrowsHoverImgs = {
-  PREV_BUTTON  = constants.IMAGES_CS_ARROWS_LEFT,
-  NEXT_BUTTON = constants.IMAGES_CS_ARROWS_RIGHT
-}
--- Hover del bottone back
-local backButtonHoverImgs = {
-  BACK_BUTTON  = constants.IMAGES_UI_BACK_HOVER
+-- Cache delle immagini e dimensioni
+local images = {
+  background = constants.IMAGES_CS_BG,
+  arrows = constants.IMAGES_CS_ARROWS_NONE,
+  back = constants.IMAGES_UI_BACK
 }
 
--- Handlers degli elementi activities/courses
-local function HANDLE_BROWSER_TAB_CLICK(browserTabArea)
+local hoverImages = {
+  arrows = {
+    PREV_BUTTON = constants.IMAGES_CS_ARROWS_LEFT,
+    NEXT_BUTTON = constants.IMAGES_CS_ARROWS_RIGHT
+  },
+  back = {
+    BACK_BUTTON = constants.IMAGES_UI_BACK_HOVER
+  }
+}
+
+-- Stato della scena
+local state = {
+  currentPage = 1,
+  maxViewCourses = 13,
+  allCourses = constants.ACTIVITIES,
+  maxPages = math.ceil(#constants.ACTIVITIES / 13),
+  reDrawAreas = false,
+  isHovered = false,
+  hoveredArea = nil,
+  isClicked = false
+}
+
+-- Aree cliccabili
+local areas = {
+  browserTabYB = {
+    name = 'TAB_YB',
+    xPerc = 0.12,
+    yPerc = 0.1,
+    widthPerc = 0.20,
+    heightPerc = 0.1
+  },
+  browserTabCS = {
+    name = 'TAB_CS',
+    xPerc = 0.32,
+    yPerc = 0.1,
+    widthPerc = 0.20,
+    heightPerc = 0.1
+  },
+  prevArrow = {
+    name = 'PREV_BUTTON',
+    xPerc = 0.455,
+    yPerc = 0.765,
+    widthPerc = 0.05,
+    heightPerc = 0.08
+  },
+  nextArrow = {
+    name = 'NEXT_BUTTON',
+    xPerc = 0.60,
+    yPerc = 0.77,
+    widthPerc = 0.05,
+    heightPerc = 0.08
+  },
+  backArrow = {
+    name = 'BACK_BUTTON',
+    xPerc = 0.88,
+    yPerc = 0.87,
+    widthPerc = 0.12,
+    heightPerc = 0.1
+  }
+}
+
+local coursesLabels = {}
+
+-- Handlers
+local function handleBrowserTabClick(browserTabArea)
   if browserTabArea.name == "TAB_YB" then
-    scenesManager:setScene(constants.SCENES_YEARBOOK,false)
-  elseif browserTabArea.name == "TAB_CS" then
-    -- does nothing se non il click sound!!
+    scenesManager:setScene(constants.SCENES_YEARBOOK, false)
   end
 end
 
-local function PREV_PAGE()
-  if currentPage > 1 then
-    currentPage = currentPage - 1
-    reDrawAreas = true
+local function prevPage()
+  if state.currentPage > 1 then
+    state.currentPage = state.currentPage - 1
+    state.reDrawAreas = true
   end
 end
 
-local function NEXT_PAGE()
-  if currentPage < maxPages then
-    currentPage = currentPage + 1
-    reDrawAreas = true
+local function nextPage()
+  if state.currentPage < state.maxPages then
+    state.currentPage = state.currentPage + 1
+    state.reDrawAreas = true
   end
 end
 
-local function BACK_TO_DESKTOP()
+local function backToDesktop()
   screenManager:setScene(constants.SCENES_DESKTOP)
 end
 
-local function HANDLE_LABEL_CLICK(labelArea)
-  if (labelArea.course ~= nil) then
+local function handleLabelClick(labelArea)
+  if labelArea.course then
     currentCourse = labelArea.course
-    scenesManager:setScene(constants.SCENES_COURSES_ACTIVITY_CARD,false)
+    scenesManager:setScene(constants.SCENES_COURSES_ACTIVITY_CARD, false)
   end
 end
 
@@ -65,177 +110,111 @@ function courses.load()
 end
 
 function courses.update(dt)
-
+  if state.reDrawAreas then
+    courses.drawPage()
+    state.reDrawAreas = false
+  end
 end
 
 function courses.drawPage()
   screenManager.areas[constants.SCENES_COURSES] = {}
-  -- Definizione aree cliccabili fisse
-  browserTabYB = {
-    name        = 'TAB_YB',
-    xPerc       = 0.12,
-    yPerc       = 0.1,
-    widthPerc   = 0.20,
-    heightPerc  = 0.1,
-    x           = 0,
-    y           = 0,
-    width       = 0,
-    height      = 0,
-  }
-  browserTabCS = {
-    name        = 'TAB_CS',
-    xPerc       = 0.32,
-    yPerc       = 0.1,
-    widthPerc   = 0.20,
-    heightPerc  = 0.1,
-    x           = 0,
-    y           = 0,
-    width       = 0,
-    height      = 0,
-  }
-  prevArrow = {
-    name        = 'PREV_BUTTON',
-    xPerc       = 0.455,
-    yPerc       = 0.765,
-    widthPerc   = 0.05,
-    heightPerc  = 0.08,
-    x           = 0,
-    y           = 0,
-    width       = 0,
-    height      = 0,
-  }
-  nextArrow = {
-    name        = 'NEXT_BUTTON',
-    xPerc       = 0.60,
-    yPerc       = 0.77,
-    widthPerc   = 0.05,
-    heightPerc  = 0.08,
-    x           = 0,
-    y           = 0,
-    width       = 0,
-    height      = 0,
-  }
-  backArrow = {
-    name        = 'BACK_BUTTON',
-    xPerc       = 0.88,
-    yPerc       = 0.87,
-    widthPerc   = 0.12,
-    heightPerc  = 0.1,
-    x           = 0,
-    y           = 0,
-    width       = 0,
-    height      = 0,
-  }
-  screenManager:setClickableArea(constants.SCENES_COURSES, prevArrow, prevArrow.name, PREV_PAGE)
-  screenManager:setClickableArea(constants.SCENES_COURSES, nextArrow, nextArrow.name, NEXT_PAGE)
-  screenManager:setClickableArea(constants.SCENES_COURSES, backArrow, backArrow.name, BACK_TO_DESKTOP)
-  screenManager:setClickableArea(constants.SCENES_COURSES, browserTabYB, browserTabYB.name, function()
-    HANDLE_BROWSER_TAB_CLICK(browserTabYB)
-  end, {
-    browserTab = browserTabYB
-  })
-  screenManager:setClickableArea(constants.SCENES_COURSES, browserTabCS, browserTabCS.name, function()
-    HANDLE_BROWSER_TAB_CLICK(browserTabCS)
-  end, {
-    browserTab = browserTabCS
-  })
 
-  -- Aree cliccabili con oggetti (Labels/Etichette attività)
-  coursesLabels        = {} -- Svuota
-  local labelOffsetX   = 0  --screenManager.screenWidth  * 0.036
-  local labelOffsetY   = screenManager.screenHeight * 0.0115
-  local startIdx       = (currentPage - 1) * maxViewCourses + 1
-  local endIdx         = math.min(startIdx + maxViewCourses - 1, #allCourses)
-  local currentCourses = {}
-  local j = 1
-
-  for i = startIdx, endIdx do
-    currentCourses[j] = orderedActivities[i]
-    j = j + 1
-  end
-
-  -- disegna le etichette
-  for i = 1, maxViewCourses, 1 do
-    if currentCourses[i] ~= nil then
-      local coursesLabel = {
-        name        = 'Course Label '..i,
-        course      = currentCourses[i],
-        xPerc       = i <= 6 and 0.193 or 0.435,
-        yPerc       = i <= 6 and ((i * 0.062) + 0.40) or (((i-6) * 0.052) + 0.3),
-        widthPerc   = i<=6 and 0.165 or 0.165,
-        heightPerc  = i<=6 and 0.05 or 0.04,
-        x           = 0,
-        y           = 0,
-        width       = 0,
-        height      = 0,
-        offsetX     = labelOffsetX,
-        offsetY     = labelOffsetY
-      }
-      screenManager:setClickableArea(constants.SCENES_COURSES, coursesLabel, coursesLabel.name, function()
-        HANDLE_LABEL_CLICK(coursesLabel)
-      end, {
-        coursesLabel = coursesLabel
-      })
-      table.insert(coursesLabels, coursesLabel)
+  -- Setup aree cliccabili
+  for name, area in pairs(areas) do
+    local callback = nil
+    if name == "prevArrow" then callback = prevPage
+    elseif name == "nextArrow" then callback = nextPage
+    elseif name == "backArrow" then callback = backToDesktop
+    elseif name == "browserTabYB" then callback = function() handleBrowserTabClick(area) end
+    elseif name == "browserTabCS" then callback = function() handleBrowserTabClick(area) end
     end
+
+    screenManager:setClickableArea(constants.SCENES_COURSES, area, area.name, callback)
   end
-  reDrawAreas = true
+
+  -- Setup etichette corsi
+  coursesLabels = {}
+  local labelOffsetY = screenManager.screenHeight * 0.0115
+  local startIdx = (state.currentPage - 1) * state.maxViewCourses + 1
+  local endIdx = math.min(startIdx + state.maxViewCourses - 1, #state.allCourses)
+
+  -- Calcola le posizioni delle etichette in base alla pagina corrente
+  for i = startIdx, endIdx do
+    -- Calcola la posizione relativa all'interno della pagina corrente
+    local relativeIndex = i - startIdx + 1
+
+    -- Determina la colonna (1 o 2) e la riga all'interno della colonna
+    local col = relativeIndex <= 6 and 1 or 2
+    local row = col == 1 and relativeIndex or relativeIndex - 6
+
+    local coursesLabel = {
+      name = 'Course Label ' .. i,
+      course = state.allCourses[i],
+      xPerc = col == 1 and 0.193 or 0.435,
+      yPerc = col == 1 and ((row * 0.062) + 0.40) or (((row) * 0.052) + 0.3),
+      widthPerc = 0.165,
+      heightPerc = col == 1 and 0.05 or 0.04,
+      offsetY = labelOffsetY
+    }
+
+    screenManager:setClickableArea(constants.SCENES_COURSES, coursesLabel, coursesLabel.name, function()
+      handleLabelClick(coursesLabel)
+    end)
+
+    table.insert(coursesLabels, coursesLabel)
+  end
 end
 
 function courses.draw()
   love.graphics.setFont(constants.FONTS_NICE_CHALK)
-  screenManager:drawSceneBackground(constants.IMAGES_CS_BG)
-  screenManager:drawSceneBackground(constants.IMAGES_CS_ARROWS_NONE,arrowsHoverImgs)
-  screenManager:drawSceneBackground(constants.IMAGES_UI_BACK,backButtonHoverImgs)
-  if reDrawAreas then
-    courses.drawPage()
-    reDrawAreas = false
-  end
-  love.graphics.setColor(0, 0, 0, 1)
-  love.graphics.setColor(1, 1, 1, 1)
-  for i, coursesLabel in ipairs(coursesLabels) do
-    if isHovered and hoveredArea == coursesLabel.name then
+
+  -- Disegna sfondo e hover images
+  screenManager:drawSceneBackground(images.background)
+  screenManager:drawSceneBackground(images.arrows, hoverImages.arrows)
+  screenManager:drawSceneBackground(images.back, hoverImages.back)
+
+  -- Disegna etichette corsi
+  for _, label in ipairs(coursesLabels) do
+    if state.isHovered and state.hoveredArea == label.name then
       love.graphics.setColor(0.687, 0.477, 0.461, 1)
     else
       love.graphics.setColor(0.409, 0.225, 0.214, 1)
     end
-    --love.graphics.rectangle("line", backArrow.x, backArrow.y, backArrow.width, backArrow.height)
-    --print("X:", coursesLabel.x, "Y:", coursesLabel.y, "Width:", coursesLabel.width)
-    love.graphics.printf(coursesLabel.course.name, coursesLabel.x , coursesLabel.y + coursesLabel.offsetY, coursesLabel.width, "center",-0.002)
+    love.graphics.printf(label.course.name, label.x, label.y + label.offsetY, label.width, "center", -0.002)
   end
+
   love.graphics.setColor(1, 1, 1, 1)
 end
 
 function courses.keypressed(key)
-  if (key == constants.KEYS_ESCAPE_MENU) then
+  if key == constants.KEYS_ESCAPE_MENU then
     scenesManager:setScene(constants.SCENES_DESKTOP)
-  elseif (key == constants.KEYS_PAUSE_MENU) then
+  elseif key == constants.KEYS_PAUSE_MENU then
     scenesManager:setScene(constants.SCENES_TITLE)
   end
 end
 
 function courses.mousePressed(x, y, button)
-  -- Controlla se è stata cliccata una linguetta o una freccia di navigazione
-  local clickableAreaName = screenManager:getClickableArea(x, y)
-  if (clickableAreaName) then
+  local clickableArea = screenManager:getClickableArea(x, y)
+  if clickableArea then
     soundsManager:playClickOnComputerScreen()
     screenManager:click(x, y)
   end
 end
 
 function courses.mouseHovered(x, y)
-  if (isClicked) then
-    return
-  end
+  if state.isClicked then return end
+
   love.graphics.clear()
-  local clickableAreaName = screenManager:getClickableArea(x, y)
-  if (clickableAreaName) then
-    isHovered = true
-    hoveredArea = clickableAreaName.to
+  local clickableArea = screenManager:getClickableArea(x, y)
+
+  if clickableArea then
+    state.isHovered = true
+    state.hoveredArea = clickableArea.to
     mouse.loadCursor(constants.HAND_CURSOR)
   else
-    isHovered = false
-    hoveredArea = nil
+    state.isHovered = false
+    state.hoveredArea = nil
     mouse.loadCursor(constants.DEFAULT_CURSOR)
   end
 end
